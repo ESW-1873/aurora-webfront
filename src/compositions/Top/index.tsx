@@ -1,3 +1,8 @@
 import React, { VFC } from 'react'
+import styled from 'styled-components'
 
-export const Top: VFC = () => <div>Hello, hologram!</div>
+export const Top: VFC = () => <Layout>Hello, hologram!</Layout>
+
+const Layout = styled.div`
+  color: red;
+`
