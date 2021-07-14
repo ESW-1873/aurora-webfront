@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
-    "test:once": "jest"
+    "test:once": "jest",
+    "storybook": "start-storybook  -s ./public,./src -p 6006"
   },
   "dependencies": {
     "dayjs": "^1.10.6",
@@ -17,6 +18,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@storybook/addon-viewport": "^6.3.4",
+    "@storybook/react": "^6.3.4",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.3.1",
     "@types/react": "^17.0.14",
