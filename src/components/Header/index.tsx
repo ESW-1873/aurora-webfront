@@ -11,7 +11,6 @@ export const Header: VFC = () => (
       <Logo />
       <BlurBackedButton label="Enter App" />
     </HeaderLayout>
-    Hello, hologram!
   </>
 )
 
