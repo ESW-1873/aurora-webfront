@@ -9,12 +9,13 @@ export const Top: VFC = () => (
     <Layout>
       <Header />
       Hello, hologram!
+      <Footer />
     </Layout>
-    <Footer />
   </>
 )
 
 const Layout = styled.div`
   margin: 0 auto;
   ${pageGuide};
+  min-height: 100vh;
 `

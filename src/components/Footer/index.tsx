@@ -176,4 +176,8 @@ const FooterWrapper = styled.div`
 
 const FooterLayout = styled.footer`
   background-color: ${footer};
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 `
