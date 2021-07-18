@@ -94,11 +94,13 @@ const LinkHeading = styled.h4`
 `
 
 const LinkList = styled.div`
-  min-width: 154px;
   max-height: 158px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  @media screen and (max-width: 959px) {
+    max-height: unset;
+  }
 `
 
 const LinkListCategory = styled.div`
