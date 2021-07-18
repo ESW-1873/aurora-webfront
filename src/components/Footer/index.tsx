@@ -26,8 +26,9 @@ export const Footer = () => {
           <CompanyInfoArea>
             <Logo />
             <ConpanyDescription>
-              Hologram is Decentralized Credit Protocol, which is organized by
-              HologramDAO. Join us!
+              {
+                'Hologram is Decentralized Credit Protocol, which is organized by HologramDAO.\nJoin us!'
+              }
             </ConpanyDescription>
             <SnsIconList>
               <a
@@ -147,6 +148,7 @@ const SnsIconList = styled.div`
 const ConpanyDescription = styled.p`
   font-weight: ${fontWeightRegular};
   margin-top: 18px;
+  white-space: pre-wrap;
 `
 
 const CompanyInfoArea = styled.div`
@@ -176,8 +178,4 @@ const FooterWrapper = styled.div`
 
 const FooterLayout = styled.footer`
   background-color: ${footer};
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
 `
