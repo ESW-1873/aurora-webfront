@@ -5,6 +5,8 @@ export const pink = '#F9529F'
 export const lightblue = '#1DB3EB'
 export const deeblue = '#6457A6'
 
+export const footer = '#101820'
+
 export type Colors =
   | typeof black
   | typeof white
@@ -12,3 +14,4 @@ export type Colors =
   | typeof pink
   | typeof lightblue
   | typeof deeblue
+  | typeof footer
