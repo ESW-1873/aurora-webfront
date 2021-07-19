@@ -1,9 +1,9 @@
 import React, { VFC } from 'react'
 import { Title } from 'src/assets/svgs'
 import { Image } from 'src/components/Image'
-import { black, lightblue, purple } from 'src/styles/colors'
+import { black, lightblue, purple, white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
-import { lessThanTablet } from 'src/styles/mixins'
+import { absoluteFill, lessThanTablet } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 const CRE_PRICE = '$0.57'
@@ -21,22 +21,28 @@ export const HeroHeader: VFC = () => (
         <StyledTitle />
         <SubTitle>DECENTRALIZED CREDIT PROTOCOL</SubTitle>
         <ScoreDiv>
-          <ScoreBox>
-            <Score>{CRE_PRICE}</Score>
-            <ScoreName>CRE Price</ScoreName>
-          </ScoreBox>
-          <ScoreBox>
-            <Score>{TOTAL_LIQUIDITY}</Score>
-            <ScoreName>Total Liquidity</ScoreName>
-          </ScoreBox>
-          <ScoreBox>
-            <Score>{ACTIVE_USERS}</Score>
-            <ScoreName>Active Users</ScoreName>
-          </ScoreBox>
+          <ScoreBox score={CRE_PRICE} scoreLabel="CRE Price" />
+          <ScoreBox score={TOTAL_LIQUIDITY} scoreLabel="Total Liquidity" />
+          <ScoreBox score={ACTIVE_USERS} scoreLabel="Active Users" />
         </ScoreDiv>
       </Contents>
     </HeroHeaderSection>
   </>
+)
+
+type ScoreBoxProps = {
+  score: string
+  scoreLabel: string
+}
+
+const ScoreBox: VFC<ScoreBoxProps> = ({ score, scoreLabel }) => (
+  <ScoreBoxContainer>
+    <ScoreBoxBack />
+    <ScoreBoxLabelDiv>
+      <Score>{score}</Score>
+      <ScoreLabel>{scoreLabel}</ScoreLabel>
+    </ScoreBoxLabelDiv>
+  </ScoreBoxContainer>
 )
 
 const Contents = styled.div`
@@ -64,24 +70,16 @@ const ImageDiv = styled.div`
   }
 `
 
-const ScoreBox = styled.div`
-  border-radius: 16px;
+const ScoreBoxContainer = styled.div`
   width: 240px;
   height: 124px;
-  font-weight: ${fontWeightMedium};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+  position: relative;
+  > div {
+    border-radius: 16px;
+  }
   :not(:last-child) {
     margin-right: 48px;
   }
-
-  // TODO: 要調整
-  background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
-  backdrop-filter: blur(30px) brightness(115%);
-
   @media ${lessThanTablet} {
     width: 100%;
     max-width: 320px;
@@ -93,6 +91,25 @@ const ScoreBox = styled.div`
   }
 `
 
+const ScoreBoxBack = styled.div`
+  ${absoluteFill};
+  background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
+  opacity: 0.95;
+  filter: sepia(0.2);
+`
+
+const ScoreBoxLabelDiv = styled.div`
+  background: ${white}10;
+  font-weight: ${fontWeightMedium};
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const Score = styled.h3`
   font-size: 36px;
   line-height: 1.28;
@@ -102,7 +119,7 @@ const Score = styled.h3`
   }
 `
 
-const ScoreName = styled.p`
+const ScoreLabel = styled.p`
   font-size: 12px;
   line-height: 1.25;
   letter-spacing: 0.012em;
@@ -135,6 +152,18 @@ const SubTitle = styled.h2`
   }
 `
 
+const StyledTitle = styled(Title)`
+  width: 82.4%;
+  height: 100%;
+  margin-bottom: 56px;
+
+  @media ${lessThanTablet} {
+    width: 94%;
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
+`
+
 const HeroHeaderSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -147,17 +176,5 @@ const HeroHeaderSection = styled.section`
   @media ${lessThanTablet} {
     padding-top: 60px;
     padding-bottom: 80px;
-  }
-`
-
-const StyledTitle = styled(Title)`
-  width: 82.4%;
-  height: 100%;
-  margin-bottom: 56px;
-
-  @media ${lessThanTablet} {
-    width: 94%;
-    max-width: 540px;
-    margin-bottom: 32px;
   }
 `
