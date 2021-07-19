@@ -1,6 +1,7 @@
 import React, { VFC } from 'react'
 import { TopMaterial1, TopMaterial2 } from 'src/assets/svgs'
 import { fontWeightMedium, fontWeightRegular } from 'src/styles/font'
+import { lessThanTablet } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const MainSection: VFC = () => (
@@ -36,7 +37,7 @@ export const MainSection: VFC = () => (
 
 const Section = styled.section`
   padding-bottom: 240px;
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     padding-bottom: 160px;
   }
 `
@@ -54,14 +55,14 @@ const DescriptionDiv1 = styled.div`
     margin-bottom: 96px;
   }
 
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     grid-template-columns: 1fr;
     grid-row-gap: 38px;
   }
 `
 
 const DescriptionDiv2 = styled(DescriptionDiv1)`
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     > svg {
       grid-row-start: 1;
     }
@@ -74,7 +75,7 @@ const TextDiv = styled.div`
   flex-direction: column;
   max-width: 500px;
 
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     text-align: center;
     width: 100%;
     max-width: unset;
@@ -88,7 +89,7 @@ const Heading = styled.h2`
   line-height: 1.3;
   margin-bottom: 24px;
 
-  @media screen and (max-width: 519px) {
+  @media ${lessThanTablet} {
     font-size: 24px;
   }
 `
@@ -99,7 +100,7 @@ const Description = styled.p`
   letter-spacing: 0.024em;
   line-height: 1.7;
 
-  @media screen and (max-width: 519px) {
+  @media ${lessThanTablet} {
     font-size: 14px;
   }
 `

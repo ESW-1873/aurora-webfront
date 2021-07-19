@@ -39,3 +39,6 @@ export const flexCenter = css`
   justify-content: center;
   align-items: center;
 `
+
+export const lessThanTablet = 'screen and (max-width:959px)'
+export const lessThanSp = 'screen and (max-width:519px)'

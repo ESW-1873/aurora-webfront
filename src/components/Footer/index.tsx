@@ -8,7 +8,7 @@ import {
   fontWeightLight,
   fontWeightRegular,
 } from 'src/styles/font'
-import { pageGuide } from 'src/styles/mixins'
+import { lessThanTablet, pageGuide } from 'src/styles/mixins'
 import {
   DISCLAIMER,
   TEAM_DESIGNERS,
@@ -99,7 +99,7 @@ const LinkList = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     max-height: unset;
   }
 `

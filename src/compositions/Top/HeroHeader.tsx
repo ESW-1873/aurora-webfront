@@ -3,6 +3,7 @@ import { Title } from 'src/assets/svgs'
 import { Image } from 'src/components/Image'
 import { black, lightblue, purple } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
+import { lessThanTablet } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 const CRE_PRICE = '$0.57'
@@ -58,7 +59,7 @@ const ImageDiv = styled.div`
   width: 100%;
   height: 0;
   padding-top: 1129px;
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     padding-top: 100%;
   }
 `
@@ -81,7 +82,7 @@ const ScoreBox = styled.div`
   background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
   backdrop-filter: blur(30px) brightness(115%);
 
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     width: 100%;
     max-width: 320px;
     height: 88px;
@@ -96,7 +97,7 @@ const Score = styled.h3`
   font-size: 36px;
   line-height: 1.28;
   letter-spacing: 0.016em;
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     font-size: 32px;
   }
 `
@@ -111,7 +112,7 @@ const ScoreName = styled.p`
 const ScoreDiv = styled.div`
   display: flex;
   justify-content: center;
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     flex-direction: column;
     align-items: center;
   }
@@ -125,7 +126,7 @@ const SubTitle = styled.h2`
   line-height: 1.5;
   padding-bottom: 96px;
 
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     font-size: 18px;
     line-height: 1.2;
     letter-spacing: 0.16em;
@@ -143,7 +144,7 @@ const HeroHeaderSection = styled.section`
   padding-top: 190px;
   padding-bottom: 340px;
 
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     padding-top: 60px;
     padding-bottom: 80px;
   }
@@ -154,7 +155,7 @@ const StyledTitle = styled(Title)`
   height: 100%;
   margin-bottom: 56px;
 
-  @media screen and (max-width: 959px) {
+  @media ${lessThanTablet} {
     width: 94%;
     max-width: 540px;
     margin-bottom: 32px;
