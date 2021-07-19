@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
+import { useHologramRelation } from 'src/external/contract'
 import { useMetamask } from 'src/external/wallet/metamask'
 import { lightblue, white } from 'src/styles/colors'
 import styled from 'styled-components'
@@ -20,11 +21,12 @@ const SandBox: NextPage = () => {
   const {
     connectMetamask,
     provider,
-    balance,
+    balance: balanceWallet,
     transactionCount,
     getBalance,
     getTransactionCount,
   } = useMetamask()
+  const { balance: balanceContract, balanceOf } = useHologramRelation()
 
   return (
     <FlexBox>
@@ -47,7 +49,9 @@ const SandBox: NextPage = () => {
           getBalance
         </Button>
         <Spacer width={8} />
-        <h3>{balance !== undefined ? balance.toString() : 'undefined'}</h3>
+        <h3>
+          {balanceWallet !== undefined ? balanceWallet.toString() : 'undefined'}
+        </h3>
       </FlexRow>
       <Spacer height={8} />
       <FlexRow>
@@ -57,6 +61,20 @@ const SandBox: NextPage = () => {
         <Spacer width={8} />
         <h3>
           {transactionCount !== undefined ? transactionCount : 'undefined'}
+        </h3>
+      </FlexRow>
+      <Spacer height={16} />
+      <h1>Smart Contract (Hologram-core)</h1>
+      <Spacer height={8} />
+      <FlexRow>
+        <Button onClick={() => balanceOf({ address: address })}>
+          balanceOf
+        </Button>
+        <Spacer width={8} />
+        <h3>
+          {balanceContract !== undefined
+            ? balanceContract.toString()
+            : 'undefined'}
         </h3>
       </FlexRow>
     </FlexBox>
