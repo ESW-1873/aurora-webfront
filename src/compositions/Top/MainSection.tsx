@@ -6,7 +6,7 @@ import styled from 'styled-components'
 export const MainSection: VFC = () => (
   <>
     <Section>
-      <DescriptionDiv>
+      <DescriptionDiv1>
         <TopMaterial1 />
         <TextDiv>
           <Heading>The Third Age of Credit</Heading>
@@ -17,8 +17,8 @@ export const MainSection: VFC = () => (
             credit will be democratized.
           </Description>
         </TextDiv>
-      </DescriptionDiv>
-      <DescriptionDiv>
+      </DescriptionDiv1>
+      <DescriptionDiv2>
         <TextDiv>
           <Heading>Stake your credit to anyone</Heading>
           <Description>
@@ -29,16 +29,19 @@ export const MainSection: VFC = () => (
           </Description>
         </TextDiv>
         <TopMaterial2 />
-      </DescriptionDiv>
+      </DescriptionDiv2>
     </Section>
   </>
 )
 
 const Section = styled.section`
   padding-bottom: 240px;
+  @media screen and (max-width: 959px) {
+    padding-bottom: 160px;
+  }
 `
 
-const DescriptionDiv = styled.div`
+const DescriptionDiv1 = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
@@ -50,6 +53,19 @@ const DescriptionDiv = styled.div`
   :first-child {
     margin-bottom: 96px;
   }
+
+  @media screen and (max-width: 959px) {
+    grid-template-columns: 1fr;
+    grid-row-gap: 38px;
+  }
+`
+
+const DescriptionDiv2 = styled(DescriptionDiv1)`
+  @media screen and (max-width: 959px) {
+    > svg {
+      grid-row-start: 1;
+    }
+  }
 `
 
 const TextDiv = styled.div`
@@ -57,6 +73,12 @@ const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 500px;
+
+  @media screen and (max-width: 959px) {
+    text-align: center;
+    width: 100%;
+    max-width: unset;
+  }
 `
 
 const Heading = styled.h2`
@@ -65,6 +87,10 @@ const Heading = styled.h2`
   letter-spacing: 0.016em;
   line-height: 1.3;
   margin-bottom: 24px;
+
+  @media screen and (max-width: 519px) {
+    font-size: 24px;
+  }
 `
 
 const Description = styled.p`
@@ -72,4 +98,8 @@ const Description = styled.p`
   font-weight: ${fontWeightRegular};
   letter-spacing: 0.024em;
   line-height: 1.7;
+
+  @media screen and (max-width: 519px) {
+    font-size: 14px;
+  }
 `

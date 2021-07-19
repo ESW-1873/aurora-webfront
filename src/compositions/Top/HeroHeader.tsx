@@ -58,6 +58,9 @@ const ImageDiv = styled.div`
   width: 100%;
   height: 0;
   padding-top: 1129px;
+  @media screen and (max-width: 959px) {
+    padding-top: 100%;
+  }
 `
 
 const ScoreBox = styled.div`
@@ -77,12 +80,25 @@ const ScoreBox = styled.div`
   // TODO: 要調整
   background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
   backdrop-filter: blur(30px) brightness(115%);
+
+  @media screen and (max-width: 959px) {
+    width: 100%;
+    max-width: 320px;
+    height: 88px;
+    :not(:last-child) {
+      margin-right: unset;
+      margin-bottom: 32px;
+    }
+  }
 `
 
 const Score = styled.h3`
   font-size: 36px;
   line-height: 1.28;
   letter-spacing: 0.016em;
+  @media screen and (max-width: 959px) {
+    font-size: 32px;
+  }
 `
 
 const ScoreName = styled.p`
@@ -95,6 +111,10 @@ const ScoreName = styled.p`
 const ScoreDiv = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 959px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const SubTitle = styled.h2`
@@ -104,6 +124,14 @@ const SubTitle = styled.h2`
   text-indent: 0.72em;
   line-height: 1.5;
   padding-bottom: 96px;
+
+  @media screen and (max-width: 959px) {
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-indent: 0.16em;
+    padding-bottom: 64px;
+  }
 `
 
 const HeroHeaderSection = styled.section`
@@ -114,10 +142,21 @@ const HeroHeaderSection = styled.section`
   text-align: center;
   padding-top: 190px;
   padding-bottom: 340px;
+
+  @media screen and (max-width: 959px) {
+    padding-top: 60px;
+    padding-bottom: 80px;
+  }
 `
 
 const StyledTitle = styled(Title)`
   width: 82.4%;
   height: 100%;
   margin-bottom: 56px;
+
+  @media screen and (max-width: 959px) {
+    width: 94%;
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
 `
