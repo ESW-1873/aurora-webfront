@@ -54,3 +54,17 @@ const LabelSpan = styled.span`
     filter: blur(8px);
   }
 `
+
+export const CtaButton: VFC<ButtonProps> = ({ label, ...props }) => (
+  <CtaButtonElement {...props}>
+    <LabelSpan>{label}</LabelSpan>
+  </CtaButtonElement>
+)
+
+const CtaButtonElement = styled.button`
+  width: 96px;
+  height: 32px;
+  border-radius: 16px;
+  border: 1px solid ${white};
+  text-align: center;
+`

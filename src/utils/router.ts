@@ -1,3 +1,4 @@
+export const TOP = '/'
 export const DISCLAIMER = '/disclaimer'
 export const TEAM_DEVELOPERS = '/team/developers'
 export const TEAM_DESIGNERS = '/team/designers'

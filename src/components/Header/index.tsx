@@ -1,15 +1,21 @@
+import Link from 'next/link'
 import { VFC } from 'react'
 import { BlurBackedButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { black } from 'src/styles/colors'
+import { TOP } from 'src/utils/router'
 import styled from 'styled-components'
 
 export const Header: VFC = () => (
   <>
     <HeaderOverlay />
     <HeaderLayout>
-      <Logo />
-      <BlurBackedButton label="Enter App" />
+      <Link href={TOP}>
+        <a>
+          <Logo />
+        </a>
+      </Link>
+      <BlurBackedButton onClick={() => alert('TODO')} label="Enter App" />
     </HeaderLayout>
   </>
 )
