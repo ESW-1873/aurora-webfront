@@ -10,10 +10,8 @@ export const Top: VFC = () => (
   <>
     <Layout>
       <Header />
-      <div>
-        <HeroHeader />
-        <MainSection />
-      </div>
+      <HeroHeader />
+      <MainSection />
     </Layout>
     <Footer />
   </>
