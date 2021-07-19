@@ -1,5 +1,7 @@
 import React, { VFC } from 'react'
 import { Title } from 'src/assets/svgs'
+import { Image } from 'src/components/Image'
+import { black, lightblue, purple } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import styled from 'styled-components'
 
@@ -10,9 +12,10 @@ const ACTIVE_USERS = '1,000'
 export const HeroHeader: VFC = () => (
   <>
     <HeroHeaderSection>
-      {/* <ImageDiv>
-        <Image src="/assets/images/top_background.png" alt="" />
-      </ImageDiv> */}
+      <ImageDiv>
+        <Image src="/assets/images/top_background.png" alt="key visual" />
+        <Filter />
+      </ImageDiv>
       <Contents>
         <StyledTitle />
         <SubTitle>DECENTRALIZED CREDIT PROTOCOL</SubTitle>
@@ -36,17 +39,25 @@ export const HeroHeader: VFC = () => (
 )
 
 const Contents = styled.div`
-  /* position: absolute; */
-  /* inset: 0; */
-  /* margin: auto; */
+  width: 100%;
+`
+
+const Filter = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 16.6%;
+  background: linear-gradient(${black}00, ${black});
 `
 
 const ImageDiv = styled.div`
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
+  height: 0;
+  padding-top: 1129px;
 `
 
 const ScoreBox = styled.div`
@@ -64,7 +75,8 @@ const ScoreBox = styled.div`
   }
 
   // TODO: 要調整
-  background: linear-gradient(135deg, #6457a6, #0f5a76);
+  background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
+  backdrop-filter: blur(30px) brightness(115%);
 `
 
 const Score = styled.h3`
@@ -100,7 +112,7 @@ const HeroHeaderSection = styled.section`
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-top: 240px;
+  padding-top: 190px;
   padding-bottom: 340px;
 `
 
