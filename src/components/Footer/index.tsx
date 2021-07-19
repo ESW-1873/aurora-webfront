@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { VFC } from 'react'
 import { IconGithub, IconMedium, IconNote, IconTwitter } from 'src/assets/svgs'
 import { Logo } from 'src/components/Logo'
 import { footer, gray } from 'src/styles/colors'
@@ -18,7 +18,7 @@ import {
 } from 'src/utils/router'
 import styled from 'styled-components'
 
-export const Footer = () => {
+export const Footer: VFC = () => {
   return (
     <>
       <FooterLayout>
