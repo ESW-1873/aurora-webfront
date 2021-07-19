@@ -11,7 +11,8 @@
     "test:once": "jest",
     "storybook": "start-storybook  -s ./public,./src -p 6006",
     "vrt": "yarn run-storycap && reg-suit run",
-    "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844"
+    "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844",
+    "generate-types:contract": "typechain --target ethers-v5 --out-dir src/external/contract/types 'src/external/contract/resources/abi/*.json'"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
