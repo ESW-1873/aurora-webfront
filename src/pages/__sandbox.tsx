@@ -1,7 +1,9 @@
 import { NextPage } from 'next'
+import type { VFC } from 'react'
 import { useState } from 'react'
 import { useHologramRelation } from 'src/external/contract'
 import { useMetamask } from 'src/external/wallet/metamask'
+import { useWalletConnect } from 'src/external/wallet/wallet_connect'
 import { lightblue, white } from 'src/styles/colors'
 import styled from 'styled-components'
 
@@ -16,17 +18,15 @@ const useAddress = () => {
   }
 }
 
-const SandBox: NextPage = () => {
-  const { address, handleChange } = useAddress()
+const MetamaskComponent: VFC<{ address: string }> = ({ address }) => {
   const {
     connectMetamask,
     provider,
-    balance: balanceWallet,
+    balance,
     transactionCount,
     getBalance,
     getTransactionCount,
   } = useMetamask()
-  const { balance: balanceContract, balanceOf } = useHologramRelation()
 
   return (
     <FlexBox>
@@ -39,19 +39,11 @@ const SandBox: NextPage = () => {
       </FlexRow>
       <Spacer height={8} />
       <FlexRow>
-        <h3>address</h3>
-        <Spacer width={8} />
-        <InputText type="text" value={address} onChange={handleChange} />
-      </FlexRow>
-      <Spacer height={8} />
-      <FlexRow>
         <Button onClick={() => getBalance({ address: address })}>
           getBalance
         </Button>
         <Spacer width={8} />
-        <h3>
-          {balanceWallet !== undefined ? balanceWallet.toString() : 'undefined'}
-        </h3>
+        <h3>{balance !== undefined ? balance.toString() : 'undefined'}</h3>
       </FlexRow>
       <Spacer height={8} />
       <FlexRow>
@@ -63,7 +55,67 @@ const SandBox: NextPage = () => {
           {transactionCount !== undefined ? transactionCount : 'undefined'}
         </h3>
       </FlexRow>
+    </FlexBox>
+  )
+}
+
+const WalletConnectComponent: VFC<{ address: string }> = ({ address }) => {
+  const {
+    connectWalletConnect,
+    provider,
+    balance,
+    transactionCount,
+    getBalance,
+    getTransactionCount,
+  } = useWalletConnect()
+
+  return (
+    <FlexBox>
+      <h1>WalletConnect</h1>
+      <Spacer height={8} />
+      <FlexRow>
+        <Button onClick={connectWalletConnect}>CONNECT</Button>
+        <Spacer width={8} />
+        <h3>{provider !== null ? 'Connecting' : 'No Connection'}</h3>
+      </FlexRow>
+      <Spacer height={8} />
+      <FlexRow>
+        <Button onClick={() => getBalance({ address: address })}>
+          getBalance
+        </Button>
+        <Spacer width={8} />
+        <h3>{balance !== undefined ? balance.toString() : 'undefined'}</h3>
+      </FlexRow>
+      <Spacer height={8} />
+      <FlexRow>
+        <Button onClick={() => getTransactionCount({ address: address })}>
+          getTransactionCount
+        </Button>
+        <Spacer width={8} />
+        <h3>
+          {transactionCount !== undefined ? transactionCount : 'undefined'}
+        </h3>
+      </FlexRow>
+    </FlexBox>
+  )
+}
+
+const SandBox: NextPage = () => {
+  const { address, handleChange } = useAddress()
+  const { balance: balanceContract, balanceOf } = useHologramRelation()
+
+  return (
+    <FlexBox>
+      <Spacer height={8} />
+      <FlexRow>
+        <h3>address</h3>
+        <Spacer width={8} />
+        <InputText type="text" value={address} onChange={handleChange} />
+      </FlexRow>
+      <Spacer height={8} />
+      <MetamaskComponent address={address} />
       <Spacer height={16} />
+      <WalletConnectComponent address={address} />
       <h1>Smart Contract (Hologram-core)</h1>
       <Spacer height={8} />
       <FlexRow>
