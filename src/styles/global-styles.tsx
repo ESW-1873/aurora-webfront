@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import { black, white } from './colors'
-import { fontFamilyEn } from './font'
+import { fontFamilyEn, fontWeightRegular } from './font'
 import {
   noScrollbar,
   pageMarginCssVar,
@@ -23,6 +23,7 @@ const Styles = createGlobalStyle`
     ${pageMarginCssVar}: max(5.12vw, 20px);
     ${pageMarginNegativeCssVar}: calc(0px - max(5.12vw, 20px));
     font-family: ${fontFamilyEn};
+    font-weight: ${fontWeightRegular};
     background-color: ${black};
     color: ${white};
     div {
