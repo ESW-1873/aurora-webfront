@@ -1,7 +1,7 @@
 import React, { VFC } from 'react'
 import { TopMaterial1, TopMaterial2 } from 'src/assets/svgs'
 import { fontWeightMedium, fontWeightRegular } from 'src/styles/font'
-import { lessThanTablet } from 'src/styles/mixins'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const MainSection: VFC = () => (
@@ -37,8 +37,8 @@ export const MainSection: VFC = () => (
 
 const Section = styled.section`
   padding-bottom: 240px;
-  @media ${lessThanTablet} {
-    padding-bottom: 160px;
+  @media ${breakpoint.m} {
+    padding-bottom: 140px;
   }
 `
 
@@ -55,14 +55,19 @@ const DescriptionDiv1 = styled.div`
     margin-bottom: 96px;
   }
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     grid-template-columns: 1fr;
     grid-row-gap: 38px;
+    > svg {
+      width: 80%;
+      height: 100%;
+      margin: 0 auto;
+    }
   }
 `
 
 const DescriptionDiv2 = styled(DescriptionDiv1)`
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     > svg {
       grid-row-start: 1;
     }
@@ -75,7 +80,7 @@ const TextDiv = styled.div`
   flex-direction: column;
   max-width: 500px;
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     text-align: center;
     width: 100%;
     max-width: unset;
@@ -89,7 +94,7 @@ const Heading = styled.h2`
   line-height: 1.3;
   margin-bottom: 24px;
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     font-size: 24px;
   }
 `
@@ -100,7 +105,7 @@ const Description = styled.p`
   letter-spacing: 0.024em;
   line-height: 1.7;
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     font-size: 14px;
   }
 `

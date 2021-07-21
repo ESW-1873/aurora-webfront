@@ -40,5 +40,16 @@ export const flexCenter = css`
   align-items: center;
 `
 
-export const lessThanTablet = 'screen and (max-width:959px)'
-export const lessThanSp = 'screen and (max-width:519px)'
+export const lessThanTablet = 'screen and (max-width:960px)'
+
+const size = {
+  s: '480px',
+  m: '640px',
+  l: '960px',
+}
+
+export const breakpoint = {
+  s: `screen and (max-width:${size.s})`,
+  m: `screen and (max-width:${size.m})`,
+  l: `screen and (max-width:${size.l})`,
+}

@@ -3,6 +3,7 @@ import { VFC } from 'react'
 import { BlurBackedButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { black } from 'src/styles/colors'
+import { breakpoint } from 'src/styles/mixins'
 import { TOP } from 'src/utils/router'
 import styled from 'styled-components'
 
@@ -27,6 +28,9 @@ const HeaderOverlay = styled.div`
   right: 0;
   height: 120px;
   background: linear-gradient(${black}, ${black}00);
+  @media ${breakpoint.s} {
+    height: 96px;
+  }
 `
 const HeaderLayout = styled.header`
   position: relative;
@@ -36,4 +40,7 @@ const HeaderLayout = styled.header`
 
   box-sizing: border-box;
   height: 120px;
+  @media ${breakpoint.s} {
+    height: 96px;
+  }
 `

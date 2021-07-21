@@ -1,5 +1,6 @@
 import { VFC } from 'react'
 import { Logo as LogoSVG, Title } from 'src/assets/svgs'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const Logo: VFC = () => (
@@ -14,5 +15,8 @@ const LogoDiv = styled.div`
   align-items: center;
   svg {
     margin-right: 16px;
+  }
+  @media ${breakpoint.s} {
+    width: 85%;
   }
 `

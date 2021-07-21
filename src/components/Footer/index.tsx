@@ -8,7 +8,7 @@ import {
   fontWeightLight,
   fontWeightRegular,
 } from 'src/styles/font'
-import { lessThanTablet, pageGuide } from 'src/styles/mixins'
+import { breakpoint, pageGuide } from 'src/styles/mixins'
 import {
   DISCLAIMER,
   TEAM_DESIGNERS,
@@ -99,7 +99,7 @@ const LinkList = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  @media ${lessThanTablet} {
+  @media ${breakpoint.l} {
     max-height: unset;
   }
 `
@@ -120,7 +120,7 @@ const LinkListLayout = styled.div`
   > * {
     margin-right: 24px;
   }
-  @media screen and (max-width: 480px) {
+  @media ${breakpoint.s} {
     margin-right: -20px;
     > * {
       margin-right: 20px;
@@ -138,7 +138,7 @@ const SnsIconList = styled.div`
   > * {
     margin-right: 24px;
   }
-  @media screen and (max-width: 480px) {
+  @media ${breakpoint.s} {
     margin-right: -20px;
     > * {
       margin-right: 20px;

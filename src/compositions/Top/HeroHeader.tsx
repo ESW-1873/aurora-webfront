@@ -3,7 +3,7 @@ import { Title } from 'src/assets/svgs'
 import { Image } from 'src/components/Image'
 import { black, lightblue, purple, white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
-import { absoluteFill, lessThanTablet } from 'src/styles/mixins'
+import { absoluteFill, breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 const CRE_PRICE = '$0.57'
@@ -14,7 +14,12 @@ export const HeroHeader: VFC = () => (
   <>
     <HeroHeaderSection>
       <ImageDiv>
-        <Image src="/assets/images/top_background.png" alt="key visual" />
+        <Image
+          src="/assets/images/top_background.png"
+          alt="key visual"
+          priority={true}
+          loading="eager"
+        />
         <Filter />
       </ImageDiv>
       <Contents>
@@ -65,7 +70,7 @@ const ImageDiv = styled.div`
   width: 100%;
   height: 0;
   padding-top: 1129px;
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     padding-top: 100%;
   }
 `
@@ -80,13 +85,16 @@ const ScoreBoxContainer = styled.div`
   :not(:last-child) {
     margin-right: 48px;
   }
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     width: 100%;
     max-width: 320px;
-    height: 88px;
+    height: 68px;
+    > div {
+      border-radius: 12px;
+    }
     :not(:last-child) {
       margin-right: unset;
-      margin-bottom: 32px;
+      margin-bottom: 14px;
     }
   }
 `
@@ -108,14 +116,21 @@ const ScoreBoxLabelDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media ${breakpoint.m} {
+    flex-direction: row;
+    justify-content: start;
+  }
 `
 
 const Score = styled.h3`
   font-size: 36px;
   line-height: 1.28;
   letter-spacing: 0.016em;
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     font-size: 32px;
+    margin-right: 12px;
+    width: 100%;
+    text-align: right;
   }
 `
 
@@ -124,12 +139,18 @@ const ScoreLabel = styled.p`
   line-height: 1.25;
   letter-spacing: 0.012em;
   opacity: 0.5;
+  @media ${breakpoint.m} {
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    line-height: 1.28;
+  }
 `
 
 const ScoreDiv = styled.div`
   display: flex;
   justify-content: center;
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     flex-direction: column;
     align-items: center;
   }
@@ -143,7 +164,7 @@ const SubTitle = styled.h2`
   line-height: 1.5;
   padding-bottom: 96px;
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     font-size: 18px;
     line-height: 1.2;
     letter-spacing: 0.16em;
@@ -157,7 +178,7 @@ const StyledTitle = styled(Title)`
   height: 100%;
   margin-bottom: 56px;
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     width: 94%;
     max-width: 540px;
     margin-bottom: 32px;
@@ -173,8 +194,12 @@ const HeroHeaderSection = styled.section`
   padding-top: 190px;
   padding-bottom: 340px;
 
-  @media ${lessThanTablet} {
+  @media ${breakpoint.m} {
     padding-top: 60px;
-    padding-bottom: 80px;
+    padding-bottom: 140px;
+  }
+  @media ${breakpoint.s} {
+    padding-top: 40px;
+    padding-bottom: 120px;
   }
 `
