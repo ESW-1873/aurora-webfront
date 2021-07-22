@@ -1,4 +1,4 @@
-import { fontWeightRegular } from 'src/styles/fonts'
+import { fontWeightRegular } from 'src/styles/font'
 import { css } from 'styled-components'
 
 export const documentBaseStyles = css`

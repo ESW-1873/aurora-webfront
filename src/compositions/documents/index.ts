@@ -1,1 +1,1 @@
-export * from './Disclamer'
+export * from './Disclaimer'

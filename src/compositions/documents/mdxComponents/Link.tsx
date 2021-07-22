@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { neonPurple } from 'src/styles/colors'
+import { purple } from 'src/styles/colors'
 import styled from 'styled-components'
 
 type LinkProps = {
@@ -14,6 +14,6 @@ export const Link: FC<LinkProps> = ({ href, title, children }) => (
 )
 
 const AnchorLink = styled.a`
-  color: ${neonPurple};
+  color: ${purple};
   text-decoration: underline;
 `
