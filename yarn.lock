@@ -1689,10 +1689,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@squardinc/react-seo@^1.2.3":
-  version "1.2.3"
-  resolved "https://npm.pkg.github.com/download/@squardinc/react-seo/1.2.3/06acb848700cad5935164f9ccabc2258f0b698cf93d702cb29b09ecee0cba97e#43ed33c7253a11dd7989e97da2c62a53cdd52956"
-  integrity sha512-fRNzdkLY5XBEhXgzX1NlxoxsxJfD4yPAxAg3FJmloUynGey+pXrU/44igkYvcYgBOtR2a8o+ixe1Vd46YxoTMw==
+"@squardinc/next-seo@^1.0.0":
+  version "1.0.0"
+  resolved "https://npm.pkg.github.com/download/@squardinc/next-seo/1.0.0/ee850e78bd41e7a6119c129194852d814dae8f1c72d767ee38d564e8007efd8e#ac2e9aeffdf3fd58a1473a167a2e7f30aae89b16"
+  integrity sha512-3/fUAJVzZwl2UkAdLTzzD/jrC6IhSm9qOEDdltAEawL0Ec13Rqm6FQ9eAReoAgzzkaxQ9UXXRPE5dCIVh//lpw==
 
 "@storybook/addon-viewport@^6.3.4":
   version "6.3.4"
