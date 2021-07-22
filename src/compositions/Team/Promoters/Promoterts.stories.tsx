@@ -1,14 +1,14 @@
 import React from 'react'
 import { GlobalStyles } from 'src/styles/global-styles'
-import { Top } from '.'
+import { Promoters } from '.'
 
 export default {
-  title: 'Top',
+  title: 'Team/Promoters',
 }
 
-export const TopPage = () => (
+export const PromotersPage = () => (
   <>
     <GlobalStyles />
-    <Top />
+    <Promoters />
   </>
 )
