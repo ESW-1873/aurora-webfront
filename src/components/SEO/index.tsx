@@ -5,6 +5,7 @@ import {
 import Head from 'next/head'
 import { VFC } from 'react'
 import { SITE_SEO_DATA } from 'src/data/common'
+import { ROOT_URL } from 'src/utils/env'
 
 export type SEOProps = ReactSEOProps
 
@@ -17,7 +18,7 @@ export const SEO: VFC<ReactSEOProps> = ({
 }) => (
   <Head>
     <ReactSEO
-      siteUrl={siteUrl || SITE_SEO_DATA.siteUrl}
+      siteUrl={siteUrl || ROOT_URL}
       siteTitle={siteTitle || SITE_SEO_DATA.siteTitle}
       author={author || SITE_SEO_DATA.author}
       image={image || SITE_SEO_DATA.image}

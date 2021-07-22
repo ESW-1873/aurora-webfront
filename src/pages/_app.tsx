@@ -5,11 +5,10 @@ import 'src/styles/fonts.css'
 import { GlobalStyles } from 'src/styles/global-styles'
 import 'src/styles/globals.css'
 import 'src/styles/reset.css'
-
-const ROOT_URL = 'https://hologramdao.com'
+import { ROOT_URL } from 'src/utils/env'
 
 const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
-  const pageUrl = `${ROOT_URL}/${asPath}`
+  const pageUrl = `${ROOT_URL}${asPath}`
   return (
     <>
       <Head>

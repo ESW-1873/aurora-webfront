@@ -1,7 +1,13 @@
+const branchName = process.env.VERCEL_GIT_COMMIT_REF
+const isProd = branchName === 'main'
+
 const withMDX = require('@next/mdx')()
 
 module.exports = withMDX({
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_IS_PROD: isProd,
+  },
   webpack(config, options) {
     config.module.rules.push({
       test: /\.svg$/,
