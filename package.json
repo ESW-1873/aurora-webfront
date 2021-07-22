@@ -11,7 +11,8 @@
     "test:once": "jest",
     "storybook": "start-storybook  -s ./public,./src -p 6006",
     "vrt": "yarn run-storycap && reg-suit run",
-    "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844"
+    "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844",
+    "analyze:bundle": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.22",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@mdx-js/loader": "^1.6.22",
+    "@next/bundle-analyzer": "^11.0.1",
     "@storybook/addon-viewport": "^6.3.4",
     "@storybook/react": "^6.3.4",
     "@svgr/webpack": "^5.5.0",
@@ -39,6 +41,7 @@
     "eslint": "7.30.0",
     "eslint-config-next": "11.0.1",
     "jest": "^27.0.6",
+    "next-compose-plugins": "^2.2.1",
     "prettier": "^2.3.2",
     "reg-keygen-git-hash-plugin": "^0.10.16",
     "reg-notify-github-plugin": "^0.10.16",
