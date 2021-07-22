@@ -17,6 +17,12 @@ export const SEO: VFC<ReactSEOProps> = ({
   ...props
 }) => (
   <Head>
+    {/* FIXME */}
+    <title>
+      {props.pageTitle
+        ? `${props.pageTitle} | ${SITE_SEO_DATA.siteTitle}`
+        : SITE_SEO_DATA.siteTitle}
+    </title>
     <ReactSEO
       siteUrl={siteUrl || ROOT_URL}
       siteTitle={siteTitle || SITE_SEO_DATA.siteTitle}
