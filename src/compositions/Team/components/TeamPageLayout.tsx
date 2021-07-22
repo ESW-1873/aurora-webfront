@@ -39,7 +39,6 @@ export const TeamPageLayout: VFC<TeamPageLayoutProps> = ({
 
 const MainSection = styled.section`
   padding-top: 45px;
-  padding-bottom: 240px;
 `
 
 const Title = styled.h2`

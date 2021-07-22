@@ -13,7 +13,7 @@ export const PageWrapper: VFC<{ children: ReactNode } & SEOProps> = ({
     <SEO {...seoProps} />
     <Layout>
       <Header />
-      {children}
+      <main>{children}</main>
     </Layout>
     <Footer />
   </>
