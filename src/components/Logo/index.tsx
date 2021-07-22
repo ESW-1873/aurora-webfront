@@ -3,10 +3,10 @@ import { Logo as LogoSVG, Title } from 'src/assets/svgs'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const Logo: VFC = () => (
+export const Logo: VFC<{ iconOnly?: boolean }> = ({ iconOnly }) => (
   <LogoDiv>
     <LogoSVG />
-    <Title />
+    {!iconOnly && <Title />}
   </LogoDiv>
 )
 
