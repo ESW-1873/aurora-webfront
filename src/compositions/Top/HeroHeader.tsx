@@ -1,6 +1,7 @@
 import React, { VFC } from 'react'
 import { Title } from 'src/assets/svgs'
 import { Image } from 'src/components/Image'
+import { TopParticles } from 'src/components/Particles'
 import { black, lightblue, purple, white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
@@ -20,6 +21,7 @@ export const HeroHeader: VFC = () => (
           priority={true}
           loading="eager"
         />
+        <TopParticles />
         <Filter />
       </ImageDiv>
       <Contents>
@@ -68,9 +70,9 @@ const ImageDiv = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 0;
-  padding-top: 1129px;
+  height: 100%;
   @media ${breakpoint.m} {
+    height: 0;
     padding-top: 100%;
   }
 `
