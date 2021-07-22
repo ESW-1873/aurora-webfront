@@ -1,4 +1,6 @@
-module.exports = {
+const withMDX = require('@next/mdx')()
+
+module.exports = withMDX({
   reactStrictMode: true,
   webpack(config, options) {
     config.module.rules.push({
@@ -18,6 +20,10 @@ module.exports = {
         },
       ],
     })
+    config.module.rules.push({
+      test: /\.mdx?$/,
+      use: ['babel-loader', '@mdx-js/loader'],
+    })
     return config
   },
-}
+})
