@@ -102,7 +102,7 @@ const WalletConnectComponent: VFC<{ address: string }> = ({ address }) => {
 
 const SandBox: NextPage = () => {
   const { address, handleChange } = useAddress()
-  const { balance: balanceContract, balanceOf } = useHologramRelation()
+  const { issue, balance: balanceContract, balanceOf } = useHologramRelation()
 
   return (
     <FlexBox>
@@ -117,6 +117,8 @@ const SandBox: NextPage = () => {
       <Spacer height={16} />
       <WalletConnectComponent address={address} />
       <h1>Smart Contract (Hologram-core)</h1>
+      <Spacer height={8} />
+      <Button onClick={() => issue({ address: address })}>issue</Button>
       <Spacer height={8} />
       <FlexRow>
         <Button onClick={() => balanceOf({ address: address })}>

@@ -34,6 +34,17 @@ export function useHologramRelation() {
     [],
   )
 
+  const issue = useCallback(
+    async ({ address }: { address: string }) => {
+      const contract = await connect({ address: address })
+      if (contract !== null) {
+        await contract.initialize({ gasLimit: 1000 })
+        console.log(await contract.issue())
+      }
+    },
+    [connect],
+  )
+
   const balanceOf = useCallback(
     async ({ address }: { address: string }) => {
       const contract = await connect({ address: address })
@@ -46,6 +57,7 @@ export function useHologramRelation() {
   )
 
   return {
+    issue,
     balance,
     balanceOf,
   }
