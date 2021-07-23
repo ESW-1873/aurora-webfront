@@ -12,6 +12,7 @@ export const BaseParticles: VFC<Props> = ({
   <Particles
     options={{
       resize: true,
+      retina_detect: true,
       interactivity: {
         detect_on: 'window',
         events: {
@@ -156,7 +157,7 @@ export const BaseParticles: VFC<Props> = ({
           direction: 'none',
           random: true,
           straight: false,
-          out_mode: 'bounce',
+          out_mode: 'out',
           attract: {
             enable: false,
             rotateX: 600,
