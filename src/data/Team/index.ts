@@ -8,16 +8,16 @@ export const MOCK_DEVELOPERS: Member[] = [
     twitterId: '@shunpei42ba_',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
     title: 'Core Developer',
-    twitterId: '@shunpei42ba_',
+    twitterId: '@Knob_nbr41to',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
     title: 'Core Developer',
-    twitterId: '@shunpei42ba_',
+    twitterId: '@Knob_nbr41to',
   },
 ]
 

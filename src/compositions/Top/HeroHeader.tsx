@@ -75,6 +75,10 @@ const ImageDiv = styled.div`
     height: 0;
     padding-top: 100%;
   }
+  @media screen and (min-width: 2000px) {
+    height: 0;
+    padding-top: 42.67%;
+  }
 `
 
 const ScoreBoxContainer = styled.div`

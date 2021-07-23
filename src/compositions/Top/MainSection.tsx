@@ -1,5 +1,5 @@
 import React, { VFC } from 'react'
-import { TopMaterial1, TopMaterial2 } from 'src/assets/svgs'
+import { Image } from 'src/components/Image'
 import { fontWeightMedium, fontWeightRegular } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -8,7 +8,15 @@ export const MainSection: VFC = () => (
   <>
     <Section>
       <DescriptionDiv1>
-        <TopMaterial1 />
+        <ImageDiv>
+          <Image
+            src="/assets/images/top_material_1.png"
+            alt=""
+            width={500}
+            height={372}
+            layout="responsive"
+          />
+        </ImageDiv>
         <TextDiv>
           <Heading>The Third Age of Credit</Heading>
           <Description>
@@ -29,27 +37,44 @@ export const MainSection: VFC = () => (
             to connect.
           </Description>
         </TextDiv>
-        <TopMaterial2 />
+        <ImageDiv>
+          <Image
+            src="/assets/images/top_material_2.png"
+            alt=""
+            width={540}
+            height={438}
+            layout="responsive"
+          />
+        </ImageDiv>
       </DescriptionDiv2>
     </Section>
   </>
 )
 
+const ImageDiv = styled.div`
+  @media ${breakpoint.m} {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+`
+
 const Section = styled.section`
   padding-bottom: 240px;
   @media ${breakpoint.m} {
-    padding-bottom: 140px;
+    padding-bottom: 120px;
+  }
+  @media screen and (min-width: 2000px) {
+    margin-top: 120px;
   }
 `
 
 const DescriptionDiv1 = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   grid-column-gap: 7.4%;
-  > svg {
-    width: 100%;
-  }
 
   :first-child {
     margin-bottom: 96px;
@@ -58,17 +83,12 @@ const DescriptionDiv1 = styled.div`
   @media ${breakpoint.m} {
     grid-template-columns: 1fr;
     grid-row-gap: 38px;
-    > svg {
-      width: 80%;
-      height: 100%;
-      margin: 0 auto;
-    }
   }
 `
 
 const DescriptionDiv2 = styled(DescriptionDiv1)`
   @media ${breakpoint.m} {
-    > svg {
+    ${ImageDiv} {
       grid-row-start: 1;
     }
   }
