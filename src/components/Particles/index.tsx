@@ -17,7 +17,7 @@ export const BaseParticles: VFC<Props> = ({
         detect_on: 'window',
         events: {
           onhover: {
-            enable: true,
+            enable: false,
             mode: 'trail',
             parallax: {
               enable: false,
@@ -26,7 +26,7 @@ export const BaseParticles: VFC<Props> = ({
             },
           },
           onclick: {
-            enable: true,
+            enable: false,
             mode: 'push',
           },
           resize: true,

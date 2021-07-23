@@ -8,7 +8,8 @@ import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-const CRE_PRICE = '$0.57'
+// TODO: ブロックチェーンからとってくる
+const TOTAL_STAKED = '140m'
 const TOTAL_LIQUIDITY = '$5.8m'
 const ACTIVE_USERS = '1,000'
 
@@ -34,7 +35,7 @@ export const HeroHeader: VFC = () => {
           <StyledTitle />
           <SubTitle>DECENTRALIZED CREDIT PROTOCOL</SubTitle>
           <ScoreDiv>
-            <ScoreBox score={CRE_PRICE} scoreLabel="CRE Price" />
+            <ScoreBox score={TOTAL_STAKED} scoreLabel="Total Staked" />
             <ScoreBox score={TOTAL_LIQUIDITY} scoreLabel="Total Liquidity" />
             <ScoreBox score={ACTIVE_USERS} scoreLabel="Active Users" />
           </ScoreDiv>
