@@ -7,7 +7,7 @@ import {
   useMetamask,
   useWalletConnect,
 } from 'src/external'
-import { useWalletStore } from 'src/stores'
+import { useContractStore, useWalletStore } from 'src/stores'
 import { lightblue, white } from 'src/styles/colors'
 import styled from 'styled-components'
 
@@ -43,6 +43,13 @@ type SignerInfo = {
   balance: BigNumber
   chainId: number
   transactionCount: number
+}
+/*
+ * for DEBUG
+ * Contractから取得できる情報
+ */
+type ContractInfo = {
+  address: string
 }
 
 /*
@@ -87,6 +94,24 @@ const SandBox: NextPage = () => {
     fetchSignerInfo()
   }, [currentSigner])
 
+  // for DEBUG
+  // Contractの状態を表示するため
+  const { contract } = useContractStore()
+  const [contractInfo, setContractInfo] = useState<ContractInfo | null>(null)
+  useEffect(() => {
+    async function fetchContractInfo() {
+      if (contract !== null) {
+        setContractInfo({
+          address: contract.address,
+        })
+      } else {
+        setContractInfo(null)
+      }
+    }
+
+    fetchContractInfo()
+  }, [contract])
+
   return (
     <FlexBox>
       <h1>Wallet</h1>
@@ -121,6 +146,13 @@ const SandBox: NextPage = () => {
       <h3>-------------------------------------</h3>
       <Spacer height={8} />
       <h1>Contract</h1>
+      <Spacer height={8} />
+      <h3>contractInfo</h3>
+      {contractInfo === null ? (
+        <h3>null</h3>
+      ) : (
+        <h3>{`address ... ${contractInfo.address}`}</h3>
+      )}
       <Spacer height={8} />
       <h2>useContract</h2>
       <Button onClick={issue}>issue</Button>
