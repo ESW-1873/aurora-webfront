@@ -1,8 +1,12 @@
 import { BigNumber } from 'ethers'
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import { useContract } from 'src/external/contract'
-import { useMetamask, useWallet, useWalletConnect } from 'src/external/wallet'
+import {
+  useContract,
+  useExternal,
+  useMetamask,
+  useWalletConnect,
+} from 'src/external'
 import { useWalletStore } from 'src/stores'
 import { lightblue, white } from 'src/styles/colors'
 import styled from 'styled-components'
@@ -56,7 +60,7 @@ const SandBox: NextPage = () => {
   } = useAddress()
 
   /* Wallet connection */
-  const { disconnect } = useWallet()
+  const { disconnect } = useExternal()
   const connectMetamask = useMetamask()
   const connectWalletConnect = useWalletConnect()
   /* Contract connection */
