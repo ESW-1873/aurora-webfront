@@ -1,22 +1,26 @@
 import { ethers } from 'ethers'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
+import {
+  atom,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil'
 
 /// read-only abstraction to access the blockchain data
 /// support only Web3Provider
-/*
 const providerAtom = atom<ethers.providers.Web3Provider | null>({
   key: 'provider',
   default: null,
+  dangerouslyAllowMutability: true, // for skipping deep freeze
 })
-*/
 
-/*
 /// a simple Signer provided by Web3Provider
 const signerAtom = atom<ethers.providers.JsonRpcSigner | null>({
   key: 'signer',
   default: null,
+  dangerouslyAllowMutability: true, // for skipping deep freeze
 })
-*/
 
 export function useWallet(): {
   currentSigner: ethers.providers.JsonRpcSigner | null
@@ -29,12 +33,11 @@ export function useWallet(): {
   }) => ethers.providers.JsonRpcSigner
   disconnect: () => void
 } {
-  // 現状 ethers.providers.Web3Provider, JsonRpcSigner は freezeできないObject であり、useSetRecoilState()を利用するとerrorが出る
-  // https://github.com/facebookexperimental/Recoil/blob/c4b26720769c7475f6f6878a3b40c6f1be51eef6/src/util/Recoil_deepFreezeValue.js
-  const [_, setProvider] = useState<ethers.providers.Web3Provider | null>(null) // TODO: use Recoil
-  const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner | null>(
-    null,
-  ) // TODO: use Recoil
+  const setProvider = useSetRecoilState(providerAtom)
+  const resetProvider = useResetRecoilState(providerAtom)
+
+  const setSigner = useSetRecoilState(signerAtom)
+  const resetSigner = useResetRecoilState(signerAtom)
 
   const connect = useCallback(
     ({ web3Provider, address }): ethers.providers.JsonRpcSigner => {
@@ -50,12 +53,12 @@ export function useWallet(): {
   )
 
   const disconnect = useCallback(() => {
-    setProvider(null) // resetProvider()
-    setSigner(null) // resetSigner()
-  }, [setProvider, setSigner])
+    resetProvider()
+    resetSigner()
+  }, [resetProvider, resetSigner])
 
   return {
-    currentSigner: signer, // useRecoilValue(signerAtom)
+    currentSigner: useRecoilValue(signerAtom),
     connect,
     disconnect,
   }
