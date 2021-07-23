@@ -114,9 +114,8 @@ const ScoreBoxContainer = styled.div`
 
 const ScoreBoxBack = styled.div`
   ${absoluteFill};
-  background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
-  opacity: 0.95;
-  filter: sepia(0.2);
+  background: linear-gradient(135deg, ${purple}a8, 30%, ${lightblue}a8);
+  backdrop-filter: blur(30px) opacity(0.75) brightness(115%);
 `
 
 const ScoreBoxLabelDiv = styled.div`
