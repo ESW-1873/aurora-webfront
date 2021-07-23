@@ -15,8 +15,8 @@ export function useWalletConnect() {
         mobileLinks: ['metamask'],
       },
     })
-    await provider.enable()
     try {
+      await provider.enable()
       const signer = connectWallet({
         web3Provider: new ethers.providers.Web3Provider(provider),
       })
