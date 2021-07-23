@@ -22,7 +22,7 @@ const signerAtom = atom<ethers.providers.JsonRpcSigner | null>({
   dangerouslyAllowMutability: true, // for skipping deep freeze
 })
 
-export function useWallet(): {
+export function useWalletStore(): {
   currentSigner: ethers.providers.JsonRpcSigner | null
   connect: ({
     web3Provider,
@@ -44,7 +44,7 @@ export function useWallet(): {
       setProvider(web3Provider)
       const signer =
         typeof address !== 'string' || address === ''
-          ? web3Provider.getSigner()
+          ? web3Provider.getSigner() // select first account
           : web3Provider.getSigner(address)
       setSigner(signer)
       return signer

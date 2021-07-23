@@ -1,2 +1,3 @@
-export * as metamask from './metamask'
-export * as walletConnect from './wallet_connect'
+export { useWallet } from './common'
+export { useMetamask } from './metamask'
+export { useWalletConnect } from './wallet_connect'
