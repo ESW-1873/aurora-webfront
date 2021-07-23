@@ -1,7 +1,8 @@
 import React, { VFC } from 'react'
+import { useMediaPredicate } from 'react-media-hook'
 import { Title } from 'src/assets/svgs'
 import { Image } from 'src/components/Image'
-import { TopParticles } from 'src/components/Particles'
+import { BaseParticles } from 'src/components/Particles'
 import { black, lightblue, purple, white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
@@ -11,31 +12,37 @@ const CRE_PRICE = '$0.57'
 const TOTAL_LIQUIDITY = '$5.8m'
 const ACTIVE_USERS = '1,000'
 
-export const HeroHeader: VFC = () => (
-  <>
-    <HeroHeaderSection>
-      <ImageDiv>
-        <Image
-          src="/assets/images/top_background.png"
-          alt="key visual"
-          priority={true}
-          loading="eager"
-        />
-        <TopParticles />
-        <Filter />
-      </ImageDiv>
-      <Contents>
-        <StyledTitle />
-        <SubTitle>DECENTRALIZED CREDIT PROTOCOL</SubTitle>
-        <ScoreDiv>
-          <ScoreBox score={CRE_PRICE} scoreLabel="CRE Price" />
-          <ScoreBox score={TOTAL_LIQUIDITY} scoreLabel="Total Liquidity" />
-          <ScoreBox score={ACTIVE_USERS} scoreLabel="Active Users" />
-        </ScoreDiv>
-      </Contents>
-    </HeroHeaderSection>
-  </>
-)
+export const HeroHeader: VFC = () => {
+  const isSP = useMediaPredicate('(max-width: 480px)')
+  return (
+    <>
+      <HeroHeaderSection>
+        <ImageDiv>
+          <Image
+            src="/assets/images/top_background.png"
+            alt="key visual"
+            priority={true}
+            loading="eager"
+          />
+          <BaseParticles
+            particles_number={isSP ? 120 : 40}
+            line_linked_distance={isSP ? 80 : 120}
+          />
+          <Filter />
+        </ImageDiv>
+        <Contents>
+          <StyledTitle />
+          <SubTitle>DECENTRALIZED CREDIT PROTOCOL</SubTitle>
+          <ScoreDiv>
+            <ScoreBox score={CRE_PRICE} scoreLabel="CRE Price" />
+            <ScoreBox score={TOTAL_LIQUIDITY} scoreLabel="Total Liquidity" />
+            <ScoreBox score={ACTIVE_USERS} scoreLabel="Active Users" />
+          </ScoreDiv>
+        </Contents>
+      </HeroHeaderSection>
+    </>
+  )
+}
 
 type ScoreBoxProps = {
   score: string

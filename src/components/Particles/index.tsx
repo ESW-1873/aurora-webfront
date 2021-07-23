@@ -1,9 +1,17 @@
 import { VFC } from 'react'
 import Particles from 'react-tsparticles'
 
-export const TopParticles: VFC = () => (
+type Props = {
+  particles_number: number
+  line_linked_distance: number
+}
+export const BaseParticles: VFC<Props> = ({
+  particles_number,
+  line_linked_distance,
+}) => (
   <Particles
     options={{
+      resize: true,
       interactivity: {
         detect_on: 'window',
         events: {
@@ -86,7 +94,7 @@ export const TopParticles: VFC = () => (
       },
       particles: {
         number: {
-          value: 50,
+          value: particles_number,
           density: {
             enable: true,
             value_area: 800,
@@ -132,7 +140,7 @@ export const TopParticles: VFC = () => (
         },
         line_linked: {
           enable: true,
-          distance: 120,
+          distance: line_linked_distance,
           color: '#ffffff',
           opacity: 0.4,
           width: 1,
