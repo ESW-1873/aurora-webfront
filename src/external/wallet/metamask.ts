@@ -2,21 +2,38 @@ import { ethers } from 'ethers'
 import { useCallback } from 'react'
 import { useWalletStore } from 'src/stores'
 
-// https://stackoverflow.com/questions/65504958/web3-js-extending-the-window-interface-type-definitions
+/**
+ * metamask向けの型拡張
+ *
+ * https://stackoverflow.com/questions/65504958/web3-js-extending-the-window-interface-type-definitions
+ */
 declare global {
   interface Window {
     ethereum: any
   }
 }
 
+/**
+ * 利用しているbrowserでMetamaskが利用可能か
+ * @returns {boolean}
+ */
 const isMetaMaskInstalled = (): boolean => {
   const { ethereum } = window
   return Boolean(ethereum && ethereum.isMetaMask)
 }
 
+/**
+ * Metamaskを利用するためのhooks
+ */
 export function useMetamask() {
   const { connect: connectWallet } = useWalletStore()
 
+  /**
+   * Metamaskを利用したWallet接続
+   *
+   * @param {string} address
+   * @return {(Signer|null)} Signer when successful connection, null when existing error etc
+   */
   const connect = useCallback(
     async ({ address }: { address?: string }) => {
       if (isMetaMaskInstalled()) {
