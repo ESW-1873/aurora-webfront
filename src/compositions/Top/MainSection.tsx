@@ -35,12 +35,7 @@ export const MainSection: VFC = () => (
   </>
 )
 
-const Section = styled.section`
-  padding-bottom: 240px;
-  @media ${lessThanTablet} {
-    padding-bottom: 160px;
-  }
-`
+const Section = styled.section``
 
 const DescriptionDiv1 = styled.div`
   display: grid;

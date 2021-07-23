@@ -19,6 +19,9 @@ const Styles = createGlobalStyle`
   img {
     vertical-align: bottom;
   }
+  html {
+    height: 100%;
+  }
   body {
     ${pageMarginCssVar}: max(5.12vw, 20px);
     ${pageMarginNegativeCssVar}: calc(0px - max(5.12vw, 20px));
@@ -26,6 +29,15 @@ const Styles = createGlobalStyle`
     font-weight: ${fontWeightRegular};
     background-color: ${black};
     color: ${white};
+    height: 100%;
+    > div {
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      main {
+        flex: 1;
+      }
+    }
     div {
       ${noScrollbar};
     }

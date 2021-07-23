@@ -178,4 +178,8 @@ const FooterWrapper = styled.div`
 
 const FooterLayout = styled.footer`
   background-color: ${footer};
+  margin-top: 240px;
+  @media ${lessThanTablet} {
+    margin-top: 160px;
+  }
 `
