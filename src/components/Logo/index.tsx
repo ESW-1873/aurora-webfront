@@ -17,6 +17,6 @@ const LogoDiv = styled.div`
     margin-right: 16px;
   }
   @media ${breakpoint.s} {
-    width: 85%;
+    width: 80%;
   }
 `

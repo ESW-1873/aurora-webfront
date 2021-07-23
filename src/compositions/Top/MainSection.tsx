@@ -28,7 +28,7 @@ export const MainSection: VFC = () => (
         </TextDiv>
       </DescriptionDiv1>
       <DescriptionDiv2>
-        <TextDiv>
+        <TextDiv2>
           <Heading>Stake your credit to anyone</Heading>
           <Description>
             Hologram is a trust network, in which everyone has credit and can
@@ -36,7 +36,7 @@ export const MainSection: VFC = () => (
             Hologram tells you the optimized relations, which to select and whom
             to connect.
           </Description>
-        </TextDiv>
+        </TextDiv2>
         <ImageDiv>
           <Image
             src="/assets/images/top_material_2.png"
@@ -100,6 +100,15 @@ const TextDiv = styled.div`
   flex-direction: column;
   max-width: 500px;
 
+  @media ${breakpoint.m} {
+    text-align: center;
+    width: 100%;
+    max-width: unset;
+  }
+`
+
+const TextDiv2 = styled(TextDiv)`
+  text-align: right;
   @media ${breakpoint.m} {
     text-align: center;
     width: 100%;

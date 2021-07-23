@@ -101,7 +101,7 @@ const ScoreBoxContainer = styled.div`
   @media ${breakpoint.m} {
     width: 100%;
     max-width: 320px;
-    height: 68px;
+    height: 72px;
     > div {
       border-radius: 12px;
     }
@@ -140,7 +140,7 @@ const Score = styled.h3`
   line-height: 1.28;
   letter-spacing: 0.016em;
   @media ${breakpoint.m} {
-    font-size: 32px;
+    font-size: 28px;
     margin-right: 12px;
     width: 100%;
     text-align: right;
@@ -153,7 +153,7 @@ const ScoreLabel = styled.p`
   letter-spacing: 0.012em;
   opacity: 0.5;
   @media ${breakpoint.m} {
-    font-size: 14px;
+    font-size: 12px;
     width: 100%;
     text-align: left;
     line-height: 1.28;
