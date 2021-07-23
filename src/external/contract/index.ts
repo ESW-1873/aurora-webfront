@@ -1,2 +1,2 @@
-export { useHologramRelation } from './logics'
+export { useContract } from './hooks'
 export type { HologramRelation } from './types'
