@@ -1,9 +1,8 @@
+import { BigNumber } from 'ethers'
 import { NextPage } from 'next'
-import type { VFC } from 'react'
-import { useState } from 'react'
-import { useHologramRelation } from 'src/external/contract'
-import { useMetamask } from 'src/external/wallet/metamask'
-import { useWalletConnect } from 'src/external/wallet/wallet_connect'
+import { useEffect, useState } from 'react'
+import { useMetamask, useWallet, useWalletConnect } from 'src/external/wallet'
+import { useWalletStore } from 'src/stores'
 import { lightblue, white } from 'src/styles/colors'
 import styled from 'styled-components'
 
@@ -18,91 +17,38 @@ const useAddress = () => {
   }
 }
 
-const MetamaskComponent: VFC<{ address: string }> = ({ address }) => {
-  const {
-    connectMetamask,
-    provider,
-    balance,
-    transactionCount,
-    getBalance,
-    getTransactionCount,
-  } = useMetamask()
-
-  return (
-    <FlexBox>
-      <h1>Metamask</h1>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={connectMetamask}>CONNECT</Button>
-        <Spacer width={8} />
-        <h3>{provider !== null ? 'Connecting' : 'No Connection'}</h3>
-      </FlexRow>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={() => getBalance({ address: address })}>
-          getBalance
-        </Button>
-        <Spacer width={8} />
-        <h3>{balance !== undefined ? balance.toString() : 'undefined'}</h3>
-      </FlexRow>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={() => getTransactionCount({ address: address })}>
-          getTransactionCount
-        </Button>
-        <Spacer width={8} />
-        <h3>
-          {transactionCount !== undefined ? transactionCount : 'undefined'}
-        </h3>
-      </FlexRow>
-    </FlexBox>
-  )
-}
-
-const WalletConnectComponent: VFC<{ address: string }> = ({ address }) => {
-  const {
-    connectWalletConnect,
-    provider,
-    balance,
-    transactionCount,
-    getBalance,
-    getTransactionCount,
-  } = useWalletConnect()
-
-  return (
-    <FlexBox>
-      <h1>WalletConnect</h1>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={connectWalletConnect}>CONNECT</Button>
-        <Spacer width={8} />
-        <h3>{provider !== null ? 'Connecting' : 'No Connection'}</h3>
-      </FlexRow>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={() => getBalance({ address: address })}>
-          getBalance
-        </Button>
-        <Spacer width={8} />
-        <h3>{balance !== undefined ? balance.toString() : 'undefined'}</h3>
-      </FlexRow>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={() => getTransactionCount({ address: address })}>
-          getTransactionCount
-        </Button>
-        <Spacer width={8} />
-        <h3>
-          {transactionCount !== undefined ? transactionCount : 'undefined'}
-        </h3>
-      </FlexRow>
-    </FlexBox>
-  )
+type SignerInfo = {
+  address: string
+  balance: BigNumber
+  chainId: number
+  transactionCount: number
 }
 
 const SandBox: NextPage = () => {
   const { address, handleChange } = useAddress()
-  const { issue, balance: balanceContract, balanceOf } = useHologramRelation()
+  const { currentSigner } = useWalletStore()
+  const { disconnect } = useWallet()
+  const connectMetamask = useMetamask()
+  const connectWalletConnect = useWalletConnect()
+
+  const [signerInfo, setSignerInfo] = useState<SignerInfo | null>(null)
+
+  useEffect(() => {
+    async function fetchSignerInfo() {
+      if (currentSigner !== null) {
+        setSignerInfo({
+          address: await currentSigner.getAddress(),
+          balance: await currentSigner.getBalance(),
+          chainId: await currentSigner.getChainId(),
+          transactionCount: await currentSigner.getTransactionCount(),
+        })
+      } else {
+        setSignerInfo(null)
+      }
+    }
+
+    fetchSignerInfo()
+  }, [currentSigner])
 
   return (
     <FlexBox>
@@ -112,25 +58,22 @@ const SandBox: NextPage = () => {
         <Spacer width={8} />
         <InputText type="text" value={address} onChange={handleChange} />
       </FlexRow>
-      <Spacer height={8} />
-      <MetamaskComponent address={address} />
-      <Spacer height={16} />
-      <WalletConnectComponent address={address} />
-      <h1>Smart Contract (Hologram-core)</h1>
-      <Spacer height={8} />
-      <Button onClick={() => issue({ address: address })}>issue</Button>
-      <Spacer height={8} />
-      <FlexRow>
-        <Button onClick={() => balanceOf({ address: address })}>
-          balanceOf
-        </Button>
-        <Spacer width={8} />
-        <h3>
-          {balanceContract !== undefined
-            ? balanceContract.toString()
-            : 'undefined'}
-        </h3>
-      </FlexRow>
+      <h1>useWallet</h1>
+      <Button onClick={() => connectMetamask({ address: address })}>
+        connectMetamask
+      </Button>
+      <Button onClick={connectWalletConnect}>connectWalletConnect</Button>
+      <Button onClick={() => disconnect()}>disconnect</Button>
+      {signerInfo === null ? (
+        <h3>null</h3>
+      ) : (
+        <>
+          <h3>{`getAddress ... ${signerInfo.address}`}</h3>
+          <h3>{`getBalance ... ${signerInfo.balance}`}</h3>
+          <h3>{`getChainId ... ${signerInfo.chainId}`}</h3>
+          <h3>{`getTransactionCount ... ${signerInfo.transactionCount}`}</h3>
+        </>
+      )}
     </FlexBox>
   )
 }
