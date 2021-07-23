@@ -6,6 +6,10 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from 'recoil'
+import { HologramRelation } from 'src/external/contract'
+import { HologramRelation__factory } from 'src/external/contract/types'
+
+// for Wallet
 
 /// read-only abstraction to access the blockchain data
 /// support only Web3Provider
@@ -60,6 +64,50 @@ export function useWalletStore(): {
   return {
     currentSigner: useRecoilValue(signerAtom),
     connect,
+    disconnect,
+  }
+}
+
+// for Contract
+
+const CONTRACT_ADDRESS = '0xeB7807D5E5dCE78208Fa2B1eF46Fe220B53E29Ee' // TODO: need contract address
+
+/// an abstraction of code that has been deployed to the blockchain
+const contractAtom = atom<HologramRelation | null>({
+  key: 'contract',
+  default: null,
+  dangerouslyAllowMutability: true, // for skipping deep freeze
+})
+
+export function useContractStore() {
+  const contractState = useRecoilValue(contractAtom)
+  const setContractState = useSetRecoilState(contractAtom)
+  const resetContractState = useResetRecoilState(contractAtom)
+  const signer = useRecoilValue(signerAtom)
+
+  function getContract(): HologramRelation | null {
+    if (contractState !== null) {
+      return contractState
+    } else {
+      if (signer !== null) {
+        const newContract = HologramRelation__factory.connect(
+          CONTRACT_ADDRESS,
+          signer,
+        )
+        setContractState(newContract)
+        return newContract
+      } else {
+        return null
+      }
+    }
+  }
+
+  const disconnect = useCallback(() => {
+    resetContractState()
+  }, [resetContractState])
+
+  return {
+    contract: getContract(),
     disconnect,
   }
 }
