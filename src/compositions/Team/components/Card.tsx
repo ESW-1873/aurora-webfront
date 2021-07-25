@@ -5,7 +5,7 @@ import { gray, pink, purple, white } from 'src/styles/colors'
 import {
   fontWeightMedium,
   fontWeightRegular,
-  fontWeightSemiBold,
+  fontWeightSemiBold
 } from 'src/styles/font'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
@@ -39,10 +39,10 @@ const HeadingCardContainer = styled.div`
   background-color: ${gray}55;
   text-align: center;
   line-height: 1.5;
-  @media ${breakpoint.m} {
+  @media ${breakpoint.l} {
     > button {
-      width: 50%;
-      height: 42px;
+      width: 124px;
+      height: 40px;
     }
   }
 `
