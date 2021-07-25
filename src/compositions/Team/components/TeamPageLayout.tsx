@@ -1,6 +1,7 @@
 import React, { VFC } from 'react'
 import { Member } from 'src/models/Team'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { HeadinCardProps, HeadingCard, MemberCard } from './Card'
 
@@ -57,6 +58,13 @@ const Description = styled.p`
 
 const CardLayoutDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 56px 60px;
+  grid-template-columns: repeat(3, 29.6%);
+  grid-gap: 56px 5.5%;
+  justify-content: center;
+  @media ${breakpoint.l} {
+    grid-template-columns: repeat(2, min(47.25%, 320px));
+  }
+  @media ${breakpoint.m} {
+    grid-template-columns: repeat(1, min(100%, 320px));
+  }
 `

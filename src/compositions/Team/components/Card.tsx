@@ -7,7 +7,7 @@ import {
   fontWeightRegular,
   fontWeightSemiBold,
 } from 'src/styles/font'
-import { absoluteFill, flexCenter } from 'src/styles/mixins'
+import { absoluteFill, breakpoint } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
 
 export type HeadinCardProps = {
@@ -25,9 +25,12 @@ export const HeadingCard: VFC<HeadinCardProps> = ({ teamType, message }) => (
 
 const cardBaseStyle = css`
   border-radius: 24px;
-  width: 320px;
+  width: 100%;
   height: 358px;
-  ${flexCenter};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 `
 
@@ -70,23 +73,32 @@ export const MemberCard: VFC<MemberCardProps> = ({
   twitterId,
 }) => (
   <MemberCardContainer>
-    <MemberIconDiv>
-      <MemberIconBack />
-      <ImageDiv>
-        <Image src={iconPath} alt="" />
-      </ImageDiv>
-    </MemberIconDiv>
-    <MemberName>{name}</MemberName>
-    <MemberTitle>{title}</MemberTitle>
-    <MemberTwitterId
-      as="a"
-      href={`https://twitter.com/${twitterId}`}
-      target="_blank"
-    >
-      {twitterId}
-    </MemberTwitterId>
+    <MemberCardDiv>
+      <MemberIconDiv>
+        <MemberIconBack />
+        <ImageDiv>
+          <Image src={iconPath} alt="" />
+        </ImageDiv>
+      </MemberIconDiv>
+      <MemberName>{name}</MemberName>
+      <MemberTitle>{title}</MemberTitle>
+      <MemberTwitterId
+        as="a"
+        href={`https://twitter.com/${twitterId}`}
+        target="_blank"
+      >
+        {twitterId}
+      </MemberTwitterId>
+    </MemberCardDiv>
   </MemberCardContainer>
 )
+
+const MemberCardDiv = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 const MemberIconDiv = styled.div`
   position: relative;
@@ -129,6 +141,12 @@ const MemberCardContainer = styled.div`
     background: ${pink}55;
     ${MemberIconBack} {
       background: linear-gradient(135deg, ${purple}55, ${pink}55);
+    }
+  }
+  @media ${breakpoint.l} {
+    background: linear-gradient(90deg, ${purple}55, ${pink}55) !important;
+    ${MemberIconBack} {
+      background: linear-gradient(90deg, ${purple}55, ${pink}55) !important;
     }
   }
 `
