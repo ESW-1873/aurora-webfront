@@ -60,10 +60,6 @@ const ImageDiv = styled.div`
 `
 
 const Section = styled.section`
-  padding-bottom: 240px;
-  @media ${breakpoint.m} {
-    padding-bottom: 120px;
-  }
   @media screen and (min-width: 2000px) {
     margin-top: 120px;
   }

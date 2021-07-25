@@ -1,5 +1,17 @@
-module.exports = {
+const branchName = process.env.VERCEL_GIT_COMMIT_REF
+const isProd = branchName === 'main'
+
+const withMDX = require('@next/mdx')()
+const withPlugins = require('next-compose-plugins')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withPlugins([[withBundleAnalyzer], [withMDX]], {
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_IS_PROD: isProd,
+  },
   webpack(config, options) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -18,6 +30,10 @@ module.exports = {
         },
       ],
     })
+    config.module.rules.push({
+      test: /\.mdx?$/,
+      use: ['babel-loader', '@mdx-js/loader'],
+    })
     return config
   },
-}
+})

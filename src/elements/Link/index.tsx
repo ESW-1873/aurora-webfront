@@ -9,19 +9,24 @@ type LinkBaseProps = {
 }
 
 type InternalLink = { href?: `/${string}` }
+
 type InternalLinkProps = {
   newTab?: boolean
 } & NextLinkProps
+
 type ExternalLinkProps = {
   newTab?: never
   children: ReactNode
 } & AnchorHTMLAttributes<HTMLAnchorElement>
+
 type LinkProps<T extends LinkBaseProps> = T & T extends InternalLink
   ? InternalLinkProps
   : ExternalLinkProps
+
 type LinkFC = <T extends LinkBaseProps = LinkBaseProps>(
   props: LinkProps<T>,
 ) => JSX.Element
+
 export const Link: LinkFC = ({
   href,
   newTab,
@@ -50,13 +55,16 @@ export const Link: LinkFC = ({
     </StyledAnchorLink>
   )
 }
+
 type AnchorLinkStyleProps = {
   disabled?: boolean
 }
+
 const disabledStyle = css`
   opacity: 0.5;
   cursor: not-allowed;
 `
+
 const StyledAnchorLink = styled.a<AnchorLinkStyleProps>`
   cursor: pointer;
   ${({ disabled }) => disabled && disabledStyle};

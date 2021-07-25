@@ -62,6 +62,7 @@ const HeaderLayout = styled.header<HeaderLayoutStyleProps>`
 
   box-sizing: border-box;
   height: 120px;
+
   @media ${breakpoint.s} {
     height: 96px;
   }
