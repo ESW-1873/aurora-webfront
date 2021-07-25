@@ -1,7 +1,12 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
 import { black, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
-import { absoluteFill, defaultShadow, flexCenter } from 'src/styles/mixins'
+import {
+  absoluteFill,
+  breakpoint,
+  defaultShadow,
+  flexCenter,
+} from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type ButtonProps = {
@@ -25,6 +30,14 @@ const ButtonElement = styled.button`
     border-radius: 16px;
   }
   position: relative;
+  @media ${breakpoint.s} {
+    width: 99.2px;
+    height: 32px;
+    &,
+    > * {
+      border-radius: 12px;
+    }
+  }
 `
 
 const BlurredBack = styled.div`
@@ -52,6 +65,9 @@ const LabelSpan = styled.span`
     content: attr(data-text);
     ${absoluteFill};
     filter: blur(8px);
+  }
+  @media ${breakpoint.s} {
+    font-size: 14px;
   }
 `
 

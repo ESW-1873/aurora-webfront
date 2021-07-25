@@ -1,15 +1,11 @@
 import React, { VFC } from 'react'
-import { Footer } from 'src/components/Footer'
-import { Header } from 'src/components/Header'
+import { PageWrapper } from 'src/compositions/common/PageWrapper'
 import { MOCK_DESIGNERS } from 'src/data/Team'
-import { pageGuide } from 'src/styles/mixins'
-import styled from 'styled-components'
 import { TeamPageLayout } from '../components/TeamPageLayout'
 
 export const Designers: VFC = () => (
   <>
-    <Layout>
-      <Header />
+    <PageWrapper>
       <TeamPageLayout
         pageTitle="Designers"
         pageDescription="Since people trust that the value of a dollar will remain the same,
@@ -20,12 +16,6 @@ export const Designers: VFC = () => (
         message="We are looking for talented people to join our team!"
         members={MOCK_DESIGNERS}
       />
-    </Layout>
-    <Footer />
+    </PageWrapper>
   </>
 )
-
-const Layout = styled.div`
-  margin: 0 auto;
-  ${pageGuide};
-`
