@@ -19,7 +19,7 @@ const Styles = createGlobalStyle`
   img {
     vertical-align: bottom;
   }
-  html {
+  html{
     height: 100%;
   }
   body {
@@ -40,6 +40,14 @@ const Styles = createGlobalStyle`
     }
     div {
       ${noScrollbar};
+    }
+    > div {
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      main {
+        flex: 1;
+      }
     }
   }
 `
