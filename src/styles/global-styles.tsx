@@ -19,9 +19,6 @@ const Styles = createGlobalStyle`
   img {
     vertical-align: bottom;
   }
-  html{
-    height: 100%;
-  }
   body {
     ${pageMarginCssVar}: max(5.12vw, 20px);
     ${pageMarginNegativeCssVar}: calc(0px - max(5.12vw, 20px));
@@ -29,7 +26,7 @@ const Styles = createGlobalStyle`
     font-weight: ${fontWeightRegular};
     background-color: ${black};
     color: ${white};
-    height: 100%;
+    min-height: 100vh;
     > div {
       height: 100%;
       display: flex;
@@ -40,14 +37,6 @@ const Styles = createGlobalStyle`
     }
     div {
       ${noScrollbar};
-    }
-    > div {
-      height: 100%;
-      display: flex;
-      flex-flow: column;
-      main {
-        flex: 1;
-      }
     }
   }
 `

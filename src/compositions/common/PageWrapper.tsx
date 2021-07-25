@@ -33,7 +33,8 @@ export const AppPageWrapper: VFC<{ children: ReactNode } & SEOProps> = ({
 )
 
 const Layout = styled.div`
-  margin: 0 auto;
   ${pageGuide};
+  margin: 0 auto;
   height: 100%;
+  width: 100%;
 `
