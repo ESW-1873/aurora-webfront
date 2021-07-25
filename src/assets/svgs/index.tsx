@@ -5,9 +5,6 @@ import IconSettings from './icon_settings.svg'
 import IconTwitter from './icon_twitter.svg'
 import Logo from './logo.svg'
 import Title from './title.svg'
-import TopBackground from './top_background.svg'
-import TopMaterial1 from './top_material_1.svg'
-import TopMaterial2 from './top_material_2.svg'
 
 export {
   Logo,
@@ -16,8 +13,5 @@ export {
   IconNote,
   IconTwitter,
   IconMedium,
-  TopMaterial1,
-  TopMaterial2,
-  TopBackground,
   IconSettings,
 }

@@ -1,9 +1,10 @@
 import { useRouter } from 'next/dist/client/router'
-import { ReactNode, VFC } from 'react'
+import React, { ReactNode, VFC } from 'react'
 import { BlurBackedButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
 import { black } from 'src/styles/colors'
+import { breakpoint } from 'src/styles/mixins'
 import { APP, TOP } from 'src/utils/router'
 import { ellipsizeMid } from 'src/utils/string'
 import styled, { css } from 'styled-components'
@@ -48,6 +49,9 @@ const HeaderOverlay = styled.div`
   right: 0;
   height: 120px;
   background: linear-gradient(${black}, ${black}00);
+  @media ${breakpoint.s} {
+    height: 96px;
+  }
 `
 type HeaderLayoutStyleProps = { withBorder?: boolean }
 const HeaderLayout = styled.header<HeaderLayoutStyleProps>`
@@ -58,6 +62,10 @@ const HeaderLayout = styled.header<HeaderLayoutStyleProps>`
 
   box-sizing: border-box;
   height: 120px;
+
+  @media ${breakpoint.s} {
+    height: 96px;
+  }
 
   ${({ withBorder }) =>
     withBorder &&
