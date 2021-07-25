@@ -7,3 +7,5 @@ export const TEAM_PROMOTERS = '/team/promoters'
 
 export const APP = '/app'
 export const APP_STAKE = '/app/stake'
+
+export const DISCORD_INVITATION_URL = 'https://discord.gg/Mf9zsXRnaX'

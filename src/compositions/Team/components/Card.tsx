@@ -1,13 +1,15 @@
 import React, { VFC } from 'react'
 import { CtaButton } from 'src/components/Buttons'
 import { Image } from 'src/components/Image'
+import { Link } from 'src/elements/Link'
 import { gray, pink, purple, white } from 'src/styles/colors'
 import {
   fontWeightMedium,
   fontWeightRegular,
-  fontWeightSemiBold
+  fontWeightSemiBold,
 } from 'src/styles/font'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
+import { DISCORD_INVITATION_URL } from 'src/utils/router'
 import styled, { css } from 'styled-components'
 
 export type HeadinCardProps = {
@@ -19,7 +21,9 @@ export const HeadingCard: VFC<HeadinCardProps> = ({ teamType, message }) => (
   <HeadingCardContainer>
     <Heading>{`${teamType}\nTeam`}</Heading>
     <SubHeading>{message}</SubHeading>
-    <CtaButton onClick={() => alert('TODO')} label="Contact" />
+    <Link href={DISCORD_INVITATION_URL}>
+      <CtaButton label="Contact" />
+    </Link>
   </HeadingCardContainer>
 )
 
@@ -40,7 +44,7 @@ const HeadingCardContainer = styled.div`
   text-align: center;
   line-height: 1.5;
   @media ${breakpoint.l} {
-    > button {
+    button {
       width: 124px;
       height: 40px;
     }
