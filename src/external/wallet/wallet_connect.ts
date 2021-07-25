@@ -9,7 +9,7 @@ const INFURA_ID = '5b086d843739469d8df05dae6fcde6d0' // TODO: need infuraId or r
 /**
  * WalletConnectを利用するためのhooks
  */
-export function useWalletConnect() {
+export const useWalletConnect = () => {
   const { connect: connectWallet } = useWalletStore()
 
   /**

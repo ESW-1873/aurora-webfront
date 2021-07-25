@@ -4,7 +4,7 @@ import { useContractStore, useWalletStore } from 'src/stores'
 /**
  * Wallet/Contract横断処理を利用するためのhooks
  */
-export function useExternal() {
+export const useExternal = () => {
   const { disconnect: disconnectWallet } = useWalletStore()
   const { disconnect: disconnectContract } = useContractStore()
 

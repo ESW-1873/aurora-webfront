@@ -25,7 +25,7 @@ const isMetaMaskInstalled = (): boolean => {
 /**
  * Metamaskを利用するためのhooks
  */
-export function useMetamask() {
+export const useMetamask = () => {
   const { connect: connectWallet } = useWalletStore()
 
   /**

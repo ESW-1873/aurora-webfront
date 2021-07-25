@@ -31,7 +31,7 @@ const DEFAULT_GAS_LIMIT = 4500000
 /**
  * Contractを利用するためのhooks
  */
-export function useContract() {
+export const useContract = () => {
   const { contract } = useContractStore()
 
   /** issue */

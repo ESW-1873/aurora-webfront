@@ -36,7 +36,7 @@ const signerAtom = atom<ethers.providers.JsonRpcSigner | null>({
 /**
  * Walletに関連するデータのstate管理を行う
  */
-export function useWalletStore(): {
+export const useWalletStore = (): {
   currentSigner: ethers.providers.JsonRpcSigner | null
   connect: ({
     web3Provider,
@@ -46,7 +46,7 @@ export function useWalletStore(): {
     address?: string
   }) => ethers.providers.JsonRpcSigner
   disconnect: () => void
-} {
+} => {
   const setProvider = useSetRecoilState(providerAtom)
   const resetProvider = useResetRecoilState(providerAtom)
 
@@ -107,7 +107,7 @@ const contractAtom = atom<HologramRelation | null>({
 /*
  * Contractに関連するデータのstate管理を行う
  */
-export function useContractStore() {
+export const useContractStore = () => {
   const contractState = useRecoilValue(contractAtom)
   const setContractState = useSetRecoilState(contractAtom)
   const resetContractState = useResetRecoilState(contractAtom)
