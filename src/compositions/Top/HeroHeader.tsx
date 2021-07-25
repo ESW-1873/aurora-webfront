@@ -115,12 +115,13 @@ const ScoreBoxContainer = styled.div`
 
 const ScoreBoxBack = styled.div`
   ${absoluteFill};
-  background: linear-gradient(135deg, ${purple}a8, 30%, ${lightblue}a8);
-  backdrop-filter: blur(30px) opacity(0.75) brightness(115%);
+  background: linear-gradient(135deg, ${purple}, 30%, ${lightblue});
+  opacity: 0.28;
 `
 
 const ScoreBoxLabelDiv = styled.div`
-  background: ${white}10;
+  backdrop-filter: blur(30px) brightness(115%);
+  background: ${white}15;
   font-weight: ${fontWeightMedium};
   position: relative;
   width: 100%;
