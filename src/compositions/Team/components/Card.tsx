@@ -39,6 +39,12 @@ const HeadingCardContainer = styled.div`
   background-color: ${gray}55;
   text-align: center;
   line-height: 1.5;
+  @media ${breakpoint.m} {
+    > button {
+      width: 50%;
+      height: 42px;
+    }
+  }
 `
 
 const Heading = styled.h3`
