@@ -5,13 +5,12 @@ import { SEO, SEOProps } from 'src/components/SEO'
 import { pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const PageWrapper: VFC<{ children: ReactNode } & SEOProps> = ({
-  children,
-  ...seoProps
-}) => (
+export const PageWrapper: VFC<
+  { children: ReactNode; className?: string } & SEOProps
+> = ({ children, className, ...seoProps }) => (
   <>
     <SEO {...seoProps} />
-    <Layout>
+    <Layout className={className}>
       <Header />
       <main>{children}</main>
     </Layout>
@@ -19,12 +18,12 @@ export const PageWrapper: VFC<{ children: ReactNode } & SEOProps> = ({
   </>
 )
 
-export const AppPageWrapper: VFC<{ children: ReactNode } & SEOProps> = ({
-  children,
-}) => (
+export const AppPageWrapper: VFC<
+  { children: ReactNode; className?: string } & SEOProps
+> = ({ children, className, ...seoProps }) => (
   <>
-    <SEO />
-    <Layout>
+    <SEO {...seoProps} />
+    <Layout className={className}>
       <AppHeader />
       {children}
     </Layout>
@@ -37,4 +36,5 @@ const Layout = styled.div`
   margin: 0 auto;
   height: 100%;
   width: 100%;
+  min-height: 100vh;
 `

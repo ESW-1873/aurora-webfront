@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest --watch",
     "test:once": "jest",
-    "storybook": "start-storybook  -s ./public,./src -p 6006",
+    "storybook": "start-storybook  -s ./public,./src,.storybook -p 6006",
     "vrt": "yarn run-storycap && reg-suit run",
     "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844",
     "analyze:bundle": "cross-env ANALYZE=true next build"

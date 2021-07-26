@@ -32,7 +32,7 @@ export const absoluteFill = css`
   margin: auto;
 `
 
-export const defaultShadow = `0 3px 6px ${black}24`
+export const defaultShadow = `0 3px 6px ${black}29`
 
 export const flexCenter = css`
   display: flex;
