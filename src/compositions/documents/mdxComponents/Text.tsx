@@ -18,9 +18,9 @@ export const Strong = styled.strong`
 export const Heading1 = styled.h1`
   margin-top: 32px;
   margin-bottom: 16px;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: ${fontWeightBold};
-  line-height: 1.25;
+  line-height: 1.275;
 `
 
 export const Heading2: VFC<Heading> = ({ children, ...props }) => (
