@@ -43,8 +43,8 @@ const ButtonElement = styled.button`
 const BlurredBack = styled.div`
   ${absoluteFill};
   background-color: ${white};
-  filter: blur(5px);
-  box-shadow: ${defaultShadow} inset;
+  filter: blur(7px);
+  box-shadow: inset ${defaultShadow};
 `
 
 const LabelDiv = styled.div`
@@ -53,6 +53,7 @@ const LabelDiv = styled.div`
   height: 100%;
   background-color: ${black};
   ${flexCenter};
+  box-shadow: inset ${defaultShadow};
 `
 
 const LabelSpan = styled.span`

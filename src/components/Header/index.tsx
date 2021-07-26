@@ -24,7 +24,9 @@ export const Header: VFC = () => (
     <Link href={TOP}>
       <Logo />
     </Link>
-    <BlurBackedButton onClick={() => alert('TODO')} label="Enter App" />
+    <Link href={APP}>
+      <BlurBackedButton label="Enter App" />
+    </Link>
   </HeaderWrapper>
 )
 
