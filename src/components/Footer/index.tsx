@@ -32,7 +32,7 @@ export const Footer: VFC = () => {
             </ConpanyDescription>
             <SnsIconList>
               <a
-                href="https://twitter.com/_bridges_inc"
+                href="https://twitter.com/HologramBridges"
                 target="_blank"
                 rel="noreferrer"
               >

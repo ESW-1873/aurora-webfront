@@ -3,83 +3,95 @@ import { Member } from 'src/models/Team'
 export const MOCK_DEVELOPERS: Member[] = [
   {
     iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
+    name: 'Shumpei',
     title: 'Core Developer',
     twitterId: '@shunpei42ba_',
   },
   {
-    iconPath: '/assets/images/nobu.jpg',
-    name: 'Nobu',
+    iconPath: '/assets/images/shoya.png',
+    name: 'Shoya',
     title: 'Core Developer',
-    twitterId: '@Knob_nbr41to',
+    twitterId: '@xxx',
+  },
+  {
+    iconPath: '/assets/images/yushi.png',
+    name: 'Yushi',
+    title: 'Core Developer',
+    twitterId: '@xxx',
+  },
+  {
+    iconPath: '/assets/images/shuto.jpg',
+    name: 'Shuto',
+    title: 'Core Developer',
+    twitterId: '@xxx',
   },
   {
     iconPath: '/assets/images/nobu.jpg',
     name: 'Nobu',
-    title: 'Core Developer',
+    title: 'Nobu',
     twitterId: '@Knob_nbr41to',
   },
 ]
 
 export const MOCK_DESIGNERS: Member[] = [
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
+    iconPath: '/assets/images/matsui.png',
+    name: 'Hiroki',
     title: 'Core Designer',
-    twitterId: '@shunpei42ba_',
+    twitterId: '@xxx',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
+    iconPath: '/assets/images/yuma.png',
+    name: 'Yuma',
     title: 'Core Designer',
-    twitterId: '@shunpei42ba_',
+    twitterId: '@xxx',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
-    title: 'Core Designer',
-    twitterId: '@shunpei42ba_',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
+    title: 'Nobu',
+    twitterId: '@Knob_nbr41to',
   },
 ]
 
 export const MOCK_INVESTORS: Member[] = [
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
+    iconPath: '/assets/images/kimura.png',
+    name: 'Akihiro',
     title: 'VC',
-    twitterId: '@shunpei42ba_',
+    twitterId: '@xxx',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
-    title: 'VC',
-    twitterId: '@shunpei42ba_',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
+    title: 'Nobu',
+    twitterId: '@Knob_nbr41to',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
-    title: 'VC',
-    twitterId: '@shunpei42ba_',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
+    title: 'Nobu',
+    twitterId: '@Knob_nbr41to',
   },
 ]
 
 export const MOCK_PROMOTERS: Member[] = [
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
-    title: 'PR',
-    twitterId: '@shunpei42ba_',
+    iconPath: '/assets/images/kanako.png',
+    name: 'Kanako',
+    title: 'Core Marketer',
+    twitterId: '@xxx',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
-    title: 'PR',
-    twitterId: '@shunpei42ba_',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
+    title: 'Nobu',
+    twitterId: '@Knob_nbr41to',
   },
   {
-    iconPath: '/assets/images/shumpei_koike.jpg',
-    name: 'Shumpei Koike',
-    title: 'PR',
-    twitterId: '@shunpei42ba_',
+    iconPath: '/assets/images/nobu.jpg',
+    name: 'Nobu',
+    title: 'Nobu',
+    twitterId: '@Knob_nbr41to',
   },
 ]
