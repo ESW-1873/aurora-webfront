@@ -38,3 +38,5 @@ yarn-error.log*
 __snapshots__
 __screenshots__
 .reg
+aurora-core/
+
