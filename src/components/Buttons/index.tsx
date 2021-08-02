@@ -1,87 +1,79 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
-import { black, white } from 'src/styles/colors'
-import { fontWeightMedium } from 'src/styles/font'
-import {
-  absoluteFill,
-  breakpoint,
-  defaultShadow,
-  flexCenter,
-} from 'src/styles/mixins'
+import { fontWeightLight } from 'src/styles/font'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type ButtonProps = {
   label: string
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const BlurBackedButton: VFC<ButtonProps> = ({ label, ...props }) => (
-  <ButtonElement {...props}>
-    <BlurredBack />
+export const HeaderButton: VFC<ButtonProps> = ({ label, ...props }) => (
+  <HeaderButtonElement {...props}>
+    <HeaderLabelDiv>
+      <LabelSpan data-text={label}>{label}</LabelSpan>
+    </HeaderLabelDiv>
+  </HeaderButtonElement>
+)
+
+export const Button: VFC<ButtonProps> = ({ label, ...props }) => (
+  <DefaultButtonElement {...props}>
     <LabelDiv>
       <LabelSpan data-text={label}>{label}</LabelSpan>
     </LabelDiv>
-  </ButtonElement>
+  </DefaultButtonElement>
 )
 
-const ButtonElement = styled.button`
-  width: 124px;
-  height: 40px;
+const HeaderButtonElement = styled.button`
+  width: 152px;
+  height: 34px;
   &,
   > * {
-    border-radius: 16px;
+    border-radius: 17px;
   }
   position: relative;
   @media ${breakpoint.s} {
-    width: 99.2px;
-    height: 32px;
+    width: 121.6px;
+    height: 27.2px;
     &,
     > * {
-      border-radius: 12px;
+      border-radius: 13.6px;
     }
   }
 `
 
-const BlurredBack = styled.div`
-  ${absoluteFill};
-  background-color: ${white};
-  filter: blur(7px);
-  box-shadow: inset ${defaultShadow};
+const DefaultButtonElement = styled.button`
+  width: 342px;
+  height: 64px;
+  &,
+  > * {
+    border-radius: 32px;
+  }
+  background: #3c249c;
+  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);
+`
+
+const HeaderLabelDiv = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  ${flexCenter};
+  border: 1px solid;
 `
 
 const LabelDiv = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: ${black};
   ${flexCenter};
-  box-shadow: inset ${defaultShadow};
 `
 
 const LabelSpan = styled.span`
   position: relative;
-  font-size: 16px;
-  font-weight: ${fontWeightMedium};
-  letter-spacing: 0.016em;
+  font-size: 14px;
+  font-weight: ${fontWeightLight};
+  letter-spacing: 0em;
 
-  ::before {
-    content: attr(data-text);
-    ${absoluteFill};
-    filter: blur(8px);
-  }
   @media ${breakpoint.s} {
     font-size: 14px;
   }
-`
-
-export const CtaButton: VFC<ButtonProps> = ({ label, ...props }) => (
-  <CtaButtonElement {...props}>
-    <LabelSpan>{label}</LabelSpan>
-  </CtaButtonElement>
-)
-
-const CtaButtonElement = styled.button`
-  width: 96px;
-  height: 32px;
-  border-radius: 16px;
-  border: 1px solid ${white};
-  text-align: center;
 `

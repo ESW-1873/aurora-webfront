@@ -1,63 +1,45 @@
 import React, { VFC } from 'react'
-import { Image } from 'src/components/Image'
-import { fontWeightMedium, fontWeightRegular } from 'src/styles/font'
+import { Button } from 'src/components/Buttons'
+import { white } from 'src/styles/colors'
+import {
+  fontWeightBold,
+  fontWeightLight,
+  fontWeightMedium,
+  fontWeightRegular,
+  fontWeightSemiBold,
+} from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const MainSection: VFC = () => (
   <>
     <Section>
-      <DescriptionDiv1>
-        <ImageDiv>
-          <Image
-            src="/assets/images/top_material_1.png"
-            alt=""
-            width={500}
-            height={372}
-            layout="responsive"
-          />
-        </ImageDiv>
+      <DescriptionDiv>
         <TextDiv>
-          <Heading>The Third Age of Credit</Heading>
+          <Title>The Bringing Doge into Outer Space</Title>
+          <TotalDonation>Total Donation: 194.73 ETH</TotalDonation>
           <Description>
-            Since people trust that the value of a dollar will remain the same,
-            money is deemed as credit. After that, credit was controlled by an
-            institution in an algorithmic way. Finally, the time will come when
-            credit will be democratized.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            congue porta felis, eget efficitur lectus bibendum a. Sed fermentum
+            eleifend felis, at laoreet dui mattis eget. In ex risus, elementum
+            eget dui at, gravida feugiat dolor. Nulla facilisi. Nulla vel
+            tincidunt tortor, ac vulputate quam. In in libero ultricies, commodo
+            velit vel, fringilla diam. Nam odio ligula, laoreet ut hendrerit id,
+            tempor sed erat. Suspendisse at quam ac augue finibus ultrices et at
+            magna. Proin pulvinar eu nunc eu varius. Nulla mattis lobortis est,
+            facilisis bibendum nulla euismod id. Quisque consequat erat eu nisi
+            imperdiet scelerisque. Pellentesque eget accumsan quam. Donec
+            fringilla commodo posuere. Morbi condimentum pharetra lacus. Mauris
+            consectetur orci quis nunc dictum molestie. Maecenas pulvinar eget.
           </Description>
         </TextDiv>
-      </DescriptionDiv1>
-      <DescriptionDiv2>
-        <TextDiv2>
-          <Heading>Stake your credit to anyone</Heading>
-          <Description>
-            Hologram is a trust network, in which everyone has credit and can
-            stake it. Credit will be grown if you could operate it well.
-            Hologram tells you the optimized relations, which to select and whom
-            to connect.
-          </Description>
-        </TextDiv2>
-        <ImageDiv>
-          <Image
-            src="/assets/images/top_material_2.png"
-            alt=""
-            width={540}
-            height={438}
-            layout="responsive"
-          />
-        </ImageDiv>
-      </DescriptionDiv2>
+        <DonateButton label="Donate" />
+        <ShareButton label="Share on Twitter" />
+      </DescriptionDiv>
+      <DoneeAddress />
     </Section>
   </>
 )
-
-const ImageDiv = styled.div`
-  @media ${breakpoint.m} {
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-`
 
 const Section = styled.section`
   @media screen and (min-width: 2000px) {
@@ -65,28 +47,42 @@ const Section = styled.section`
   }
 `
 
-const DescriptionDiv1 = styled.div`
+const DonateButton = styled(Button)`
+  margin-top: 40px;
+  color: ${white};
+  font-weight: ${fontWeightSemiBold};
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  color: ${white};
+  position: relative;
+`
+
+const ShareButton = styled(Button)`
+  position: relative;
+  color: ${white};
+  width: 342px;
+  height: 64px;
+  border-radius: 32px;
+  background: #1da1f2;
+  margin-top: 16px;
+`
+
+const DescriptionDiv = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   grid-column-gap: 7.4%;
+  margin-top: 24px;
 
   :first-child {
-    margin-bottom: 96px;
+    margin-bottom: 24px;
   }
 
   @media ${breakpoint.m} {
     grid-template-columns: 1fr;
     grid-row-gap: 38px;
-  }
-`
-
-const DescriptionDiv2 = styled(DescriptionDiv1)`
-  @media ${breakpoint.m} {
-    ${ImageDiv} {
-      grid-row-start: 1;
-    }
   }
 `
 
@@ -102,22 +98,19 @@ const TextDiv = styled.div`
     max-width: unset;
   }
 `
-
-const TextDiv2 = styled(TextDiv)`
-  text-align: right;
-  @media ${breakpoint.m} {
-    text-align: center;
-    width: 100%;
-    max-width: unset;
-  }
+const TotalDonation = styled.h3`
+  font-size: 20px;
+  margin-bottom: 24px;
+  text-align: left;
+  letter-spacing: 0em;
 `
-
-const Heading = styled.h2`
+const Title = styled.h2`
   font-size: 32px;
   font-weight: ${fontWeightMedium};
   letter-spacing: 0.016em;
   line-height: 1.3;
   margin-bottom: 24px;
+  text-align: left;
 
   @media ${breakpoint.m} {
     font-size: 24px;
@@ -125,12 +118,37 @@ const Heading = styled.h2`
 `
 
 const Description = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: ${fontWeightRegular};
   letter-spacing: 0.024em;
-  line-height: 1.7;
+  line-height: 1.8;
+  text-align: left;
 
   @media ${breakpoint.m} {
     font-size: 14px;
   }
+`
+const DoneeAddress: VFC = () => {
+  return (
+    <>
+      <Donations>Donee Address</Donations>
+      <Address>0x6f3g…7cg3</Address>
+    </>
+  )
+}
+const Donations = styled.p`
+  font-size: 20px;
+  font-weight: ${fontWeightBold};
+  line-height: 40px;
+  text-align: left;
+  margin-top: 64px;
+`
+
+const Address = styled.a`
+  font-weight: ${fontWeightLight};
+  text-decoration: underline;
+  font-size: 16px;
+  letter-spacing: -0.04em;
+  line-height: 40px;
+  text-align: right;
 `

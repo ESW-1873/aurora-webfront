@@ -1,7 +1,5 @@
 import React, { VFC } from 'react'
-import { CtaButton } from 'src/components/Buttons'
 import { Image } from 'src/components/Image'
-import { Link } from 'src/elements/Link'
 import { gray, pink, purple, white } from 'src/styles/colors'
 import {
   fontWeightMedium,
@@ -9,7 +7,6 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
-import { DISCORD_INVITATION_URL } from 'src/utils/router'
 import styled, { css } from 'styled-components'
 
 export type HeadinCardProps = {
@@ -21,9 +18,6 @@ export const HeadingCard: VFC<HeadinCardProps> = ({ teamType, message }) => (
   <HeadingCardContainer>
     <Heading>{`${teamType}\nTeam`}</Heading>
     <SubHeading>{message}</SubHeading>
-    <Link href={DISCORD_INVITATION_URL}>
-      <CtaButton label="Contact" />
-    </Link>
   </HeadingCardContainer>
 )
 

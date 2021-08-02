@@ -24,8 +24,8 @@ const Styles = createGlobalStyle`
     ${pageMarginNegativeCssVar}: calc(0px - max(5.12vw, 20px));
     font-family: ${fontFamilyEn};
     font-weight: ${fontWeightRegular};
-    background-color: ${black};
-    color: ${white};
+    background-color: ${white};
+    color: ${black};
     min-height: 100vh;
     > div {
       height: 100%;
