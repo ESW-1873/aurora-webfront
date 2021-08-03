@@ -10,13 +10,12 @@ export const PageWrapper: VFC<
   { children: ReactNode; className?: string } & SEOProps
 > = ({ children, className, ...seoProps }) => (
   <>
-    <SEO {...seoProps} />
-    <Header />
-    <HeroHeader />
     <Layout className={className}>
+      <Header />
+      <HeroHeader />
       <main>{children}</main>
+      <Footer />
     </Layout>
-    <Footer />
   </>
 )
 
@@ -36,6 +35,6 @@ export const AppPageWrapper: VFC<
 const Layout = styled.div`
   ${pageGuide};
   margin: 0 auto;
-  height: 100%;
-  width: 100%;
+  height: 396px;
+  max-width: 896px;
 `

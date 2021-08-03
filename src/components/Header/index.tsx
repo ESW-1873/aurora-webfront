@@ -3,7 +3,7 @@ import React, { ReactNode, VFC } from 'react'
 import { HeaderButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
-import { pageGuide } from 'src/styles/mixins'
+import { black } from 'src/styles/colors'
 import { APP, TOP } from 'src/utils/router'
 import { ellipsizeMid } from 'src/utils/string'
 import styled from 'styled-components'
@@ -52,12 +52,12 @@ const HeaderOverlay = styled.div`
 `
 type HeaderLayoutStyleProps = { withBorder?: boolean }
 const HeaderLayout = styled.header<HeaderLayoutStyleProps>`
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${pageGuide};
-
   box-sizing: border-box;
   height: 64px;
+  svg {
+    fill: ${black};
+  }
 `

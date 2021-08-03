@@ -31,14 +31,6 @@ const HeaderButtonElement = styled.button`
     border-radius: 17px;
   }
   position: relative;
-  @media ${breakpoint.s} {
-    width: 121.6px;
-    height: 27.2px;
-    &,
-    > * {
-      border-radius: 13.6px;
-    }
-  }
 `
 
 const DefaultButtonElement = styled.button`
@@ -48,8 +40,6 @@ const DefaultButtonElement = styled.button`
   > * {
     border-radius: 32px;
   }
-  background: #3c249c;
-  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);
 `
 
 const HeaderLabelDiv = styled.div`
