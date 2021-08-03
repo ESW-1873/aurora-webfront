@@ -1,5 +1,5 @@
-import { Dashboard } from 'src/compositions/Dashboard'
+import { Top } from 'src/compositions/Top'
 
-const AppPage = () => <Dashboard />
+const AppPage = () => <Top />
 
 export default AppPage
