@@ -1,5 +1,6 @@
 import React, { ReactNode, VFC } from 'react'
 import { Button } from 'src/components/Buttons'
+import { Image } from 'src/components/Image'
 import {
   black,
   buttonShadow,
@@ -21,6 +22,7 @@ import styled from 'styled-components'
 export const MainSection: VFC = () => (
   <>
     <Section>
+      <ProjectImage />
       <ContentDiv>
         <ProjectSection />
         <ButtonSection />
@@ -30,94 +32,34 @@ export const MainSection: VFC = () => (
   </>
 )
 
-const ButtonDiv = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-block-start: 40px;
-  @media ${breakpoint.m} {
-    justify-content: center;
-  }
-`
-
-const Section = styled.section`
-  @media screen and (min-width: 2000px) {
-    margin-top: 120px;
-  }
-`
-
-const DonateButton = styled(Button)`
-  color: ${white};
-  font-weight: ${fontWeightSemiBold};
-  margin-top: 16px;
-  text-align: center;
-  background: ${donate};
-  box-shadow: 0px 3px 2px ${buttonShadow};
-`
-
-const ShareButton = styled(Button)`
-  color: ${white};
-  background: ${share};
-  margin-top: 16px;
-  box-shadow: 0px 3px 2px ${buttonShadow};
-`
-
-const ContentDiv = styled.div`
-  position: relative;
-  display: grid;
-  align-items: center;
-  grid-column-gap: 7.4%;
-  margin-top: 24px;
-
-  :first-child {
-    margin-bottom: 24px;
-  }
-`
-
-const TextDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-const TotalDonation = styled.h3`
-  font-size: 20px;
-  margin-bottom: 24px;
-  letter-spacing: 0em;
-`
-const Title = styled.h2`
-  font-size: 32px;
-  font-weight: ${fontWeightMedium};
-  letter-spacing: 0.016em;
-  line-height: 1.3;
-  margin-bottom: 24px;
-
-  @media ${breakpoint.m} {
-    font-size: 24px;
-  }
-`
-const Description = styled.p`
-  font-size: 16px;
-  font-weight: ${fontWeightRegular};
-  letter-spacing: 0.024em;
-  line-height: 1.8;
-
-  @media ${breakpoint.m} {
-    font-size: 14px;
-  }
-`
-const DoneeAddress: VFC = () => {
-  return DonationsWrapper({
-    children: <Address>0x6f3g…7cg3</Address>,
-    name: 'Donee Address',
-  })
+export const ProjectImage: VFC = () => {
+  return (
+    <>
+      <ImageDiv>
+        <Image src="/assets/images/top.png" alt="key visual" />
+      </ImageDiv>
+    </>
+  )
 }
+
+const ImageDiv = styled.div`
+  position: relative;
+  width: 100%;
+  padding-top: 55%;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`
 
 const DonationSection: VFC = () => (
   <>
     <MarginDonation />
     <DoneeAddress />
-    <CreditScore />
+    <CreditScore credit={123.213} />
     <Line />
     <CancelledDonationsWrapper />
   </>
@@ -185,12 +127,107 @@ const CancelledDonations: VFC = () => (
   </ul>
 )
 
-const CreditScore: VFC = () => {
+const CreditScore: VFC<{ credit: number }> = (credit) => {
   return DonationsWrapper({
     children: <Score>3201 CREDIT</Score>,
     name: 'Credit Sroce',
   })
 }
+const DoneeAddress: VFC = () => {
+  return DonationsWrapper({
+    children: <Address>0x6f3g…7cg3</Address>,
+    name: 'Donee Address',
+  })
+}
+
+const ButtonDiv = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-start: 40px;
+  @media ${breakpoint.m} {
+    justify-content: center;
+  }
+`
+
+const Section = styled.section`
+  @media screen and (min-width: 2000px) {
+    margin-top: 120px;
+  }
+`
+
+const DonateButton = styled(Button)`
+  color: ${white};
+  font-weight: ${fontWeightSemiBold};
+  margin-top: 16px;
+  text-align: center;
+  background: ${donate};
+  box-shadow: 0px 3px 2px ${buttonShadow};
+`
+
+const CancelButton = styled(Button)`
+  color: ${black};
+  font-weight: ${fontWeightSemiBold};
+  margin-top: 16px;
+  text-align: center;
+  background: ${white};
+  box-shadow: 0px 3px 2px ${buttonShadow};
+`
+
+const ShareButton = styled(Button)`
+  color: ${white};
+  background: ${share};
+  margin-top: 16px;
+  box-shadow: 0px 3px 2px ${buttonShadow};
+`
+
+const ContentDiv = styled.div`
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-column-gap: 7.4%;
+  margin-top: 24px;
+
+  :first-child {
+    margin-bottom: 24px;
+  }
+`
+
+const TextDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const TotalDonation = styled.h3`
+  font-size: 20px;
+  margin-bottom: 24px;
+  letter-spacing: 0em;
+`
+
+const Title = styled.h2`
+  font-size: 32px;
+  font-weight: ${fontWeightMedium};
+  letter-spacing: 0.016em;
+  line-height: 1.3;
+  margin-bottom: 24px;
+
+  @media ${breakpoint.m} {
+    font-size: 24px;
+  }
+`
+
+const Description = styled.p`
+  font-size: 16px;
+  font-weight: ${fontWeightRegular};
+  letter-spacing: 0.024em;
+  line-height: 1.8;
+
+  @media ${breakpoint.m} {
+    font-size: 14px;
+  }
+`
 
 const Score = styled.p`
   font-weight: ${fontWeightMedium};
@@ -200,6 +237,7 @@ const Score = styled.p`
   text-align: right;
   color: ${credit};
 `
+
 const DonationDiv = styled.div`
   justify-content: space-between;
   display: flex;
