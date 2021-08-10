@@ -42,19 +42,6 @@ export const ProjectImage: VFC = () => {
   )
 }
 
-const ImageDiv = styled.div`
-  position: relative;
-  width: 100%;
-  padding-top: 55%;
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-`
-
 const DonationSection: VFC = () => (
   <>
     <MarginDonation />
@@ -267,4 +254,17 @@ const Address = styled.a`
   letter-spacing: -0.04em;
   line-height: 40px;
   text-align: right;
+`
+
+const ImageDiv = styled.div`
+  position: relative;
+  width: 100%;
+  padding-top: 55%;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 `

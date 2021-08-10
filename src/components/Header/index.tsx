@@ -3,6 +3,7 @@ import React, { ReactNode, VFC } from 'react'
 import { HeaderButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
+import { headerHeight } from 'src/styles/mixins'
 import { APP, TOP } from 'src/utils/router'
 import { ellipsizeMid } from 'src/utils/string'
 import styled from 'styled-components'
@@ -13,7 +14,6 @@ const HeaderWrapper: VFC<{ children: ReactNode } & HeaderLayoutStyleProps> = ({
   withBorder,
 }) => (
   <>
-    <HeaderOverlay />
     <HeaderLayout withBorder={withBorder}>{children}</HeaderLayout>
   </>
 )
@@ -42,18 +42,10 @@ export const AppHeader: VFC = () => {
   )
 }
 
-const HeaderOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-`
 type HeaderLayoutStyleProps = { withBorder?: boolean }
 const HeaderLayout = styled.header<HeaderLayoutStyleProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
-  height: 64px;
+  height: ${headerHeight};
 `

@@ -53,3 +53,5 @@ export const breakpoint = {
   m: `screen and (max-width:${size.m})`,
   l: `screen and (max-width:${size.l})`,
 }
+
+export const headerHeight = `64px`
