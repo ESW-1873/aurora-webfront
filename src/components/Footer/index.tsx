@@ -45,7 +45,7 @@ const FooterOverlay = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  padding: 72px;
+  padding: 72px 0;
   margin-top: 64px;
 `
 const LogoWrapper = styled.div`

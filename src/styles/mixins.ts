@@ -5,7 +5,6 @@ export const pageMarginCssVar = '--page-margin'
 export const pageMarginNegativeCssVar = '--page-margin-negative'
 
 export const pageGuide = css`
-  padding-right: var(${pageMarginCssVar});
   padding-left: var(${pageMarginCssVar});
   max-width: calc(1080px + var(${pageMarginCssVar}) * 2);
 `
@@ -55,3 +54,11 @@ export const breakpoint = {
 }
 
 export const headerHeight = `64px`
+export const inset0 = css`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+`

@@ -1,49 +1,58 @@
 import React, { ReactNode, VFC } from 'react'
 import { Footer } from 'src/components/Footer'
-import { AppHeader, Header } from 'src/components/Header'
+import { Header } from 'src/components/Header'
+import { Image } from 'src/components/Image'
 import { SEO, SEOProps } from 'src/components/SEO'
-import { pageGuide } from 'src/styles/mixins'
+import { inset0, pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const PageWrapper: VFC<
   { children: ReactNode; className?: string } & SEOProps
 > = ({ children, className, ...seoProps }) => (
   <>
-    <Layout>
-      <Header />
-    </Layout>
-    <BackgroundImage>
-      <Layout className={className}>
-        <main>{children}</main>
-        <Footer />
-      </Layout>
-    </BackgroundImage>
-  </>
-)
-
-const BackgroundImage = styled.div`
-  background-image: url('/assets/images/top.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-`
-
-export const AppPageWrapper: VFC<
-  { children: ReactNode; className?: string } & SEOProps
-> = ({ children, className, ...seoProps }) => (
-  <>
     <SEO {...seoProps} />
     <Layout className={className}>
-      <AppHeader />
-      {children}
+      <Header />
     </Layout>
-    <Footer />
+    <ContentWrapper className={className}>{children}</ContentWrapper>
   </>
 )
+
+const ContentWrapper: VFC<{ children: ReactNode; className?: string }> = ({
+  children,
+  className,
+}) => (
+  <>
+    <BluredBackgroundArea>
+      <Image src="/assets/images/top.png" alt="keyvisual" />
+      <BlurOverlay />
+    </BluredBackgroundArea>
+    <Layout className={className}>
+      <main>{children}</main>
+      <Footer />
+    </Layout>
+  </>
+)
+
+const BluredBackgroundArea = styled.div`
+  ${inset0};
+  overflow: hidden;
+  z-index: -1;
+  img {
+    opacity: 0.7;
+    size: auto;
+  }
+`
+const BlurOverlay = styled.div`
+  ${inset0};
+  backdrop-filter: blur(6px);
+`
 
 export const Layout = styled.div`
   ${pageGuide};
   margin: 0 auto;
   max-width: 896px;
-  margin-right: 0px;
-  margin-left: 0px;
+  width: 100%;
+  padding: 0 80px;
+  backdrop-filter: brightness(115%);
 `
