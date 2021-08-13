@@ -1,53 +1,72 @@
-import { useRouter } from 'next/dist/client/router'
-import React, { ReactNode, VFC } from 'react'
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import React, { VFC } from 'react'
 import { HeaderButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
+import { useWalletModalStore } from 'src/stores'
+import { darkpurple, errorColor, white } from 'src/styles/colors'
+import { fontWeightMedium } from 'src/styles/font'
 import { headerHeight } from 'src/styles/mixins'
-import { APP, TOP } from 'src/utils/router'
-import { ellipsizeMid } from 'src/utils/string'
-import styled from 'styled-components'
-import { Navigation } from './Navigation'
+import { shortenAddress } from 'src/utils/address'
+import { TOP } from 'src/utils/router'
+import styled, { css } from 'styled-components'
 
-const HeaderWrapper: VFC<{ children: ReactNode } & HeaderLayoutStyleProps> = ({
-  children,
-  withBorder,
-}) => (
-  <>
-    <HeaderLayout withBorder={withBorder}>{children}</HeaderLayout>
-  </>
-)
 export const Header: VFC = () => {
+  const { account, error } = useWeb3React()
+  const isUnsupportedChainIdError = error instanceof UnsupportedChainIdError
+  const { open: openWalletModal } = useWalletModalStore()
   return (
     <>
-      <HeaderWrapper>
+      <HeaderLayout>
         <Link href={TOP}>
           <Logo />
         </Link>
-        <HeaderButton label="Connect Wallet" onClick={() => {}} />
-      </HeaderWrapper>
+        {isUnsupportedChainIdError ? (
+          <ErrorButton onClick={openWalletModal}>{'Wrong Network'}</ErrorButton>
+        ) : account ? (
+          <AddressButton onClick={openWalletModal}>
+            {shortenAddress(account)}
+          </AddressButton>
+        ) : (
+          <HeaderButton label="Connect Wallet" onClick={openWalletModal} />
+        )}
+      </HeaderLayout>
     </>
   )
 }
 
-export const AppHeader: VFC = () => {
-  const { pathname } = useRouter()
-  // TODO fetch from context
-  const address = ellipsizeMid('0xfa3jxxxxxxxxxxxxxxoxa2', 6, 4)
-  return (
-    <HeaderWrapper withBorder>
-      <Link href={APP}>
-        <Logo iconOnly />
-      </Link>
-      <Navigation currentPath={pathname} address={address} />
-    </HeaderWrapper>
-  )
-}
-
-type HeaderLayoutStyleProps = { withBorder?: boolean }
-const HeaderLayout = styled.header<HeaderLayoutStyleProps>`
+const HeaderLayout = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: ${headerHeight};
+`
+
+const baseButtonStyle = css`
+  font-size: 14px;
+  font-weight: ${fontWeightMedium};
+  line-height: 1.3;
+  border-radius: 17px;
+  padding: 8px 29px;
+  text-align: center;
+`
+
+const AddressButton = styled.button`
+  ${baseButtonStyle}
+  background-color: ${darkpurple};
+  color: ${white};
+  :focus,
+  :hover {
+    background-color: ${darkpurple}b0;
+  }
+`
+
+const ErrorButton = styled.button`
+  ${baseButtonStyle}
+  color: ${white};
+  background-color: ${errorColor};
+  :focus,
+  :hover {
+    background-color: ${errorColor}a6;
+  }
 `

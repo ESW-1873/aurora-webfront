@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
-import { fontWeightLight } from 'src/styles/font'
-import { breakpoint, flexCenter } from 'src/styles/mixins'
+import { darkpurple } from 'src/styles/colors'
+import { fontWeightMedium } from 'src/styles/font'
+import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type ButtonProps = {
@@ -10,7 +11,7 @@ type ButtonProps = {
 export const HeaderButton: VFC<ButtonProps> = ({ label, ...props }) => (
   <HeaderButtonElement {...props}>
     <HeaderLabelDiv>
-      <LabelSpan data-text={label}>{label}</LabelSpan>
+      <LabelSpan>{label}</LabelSpan>
     </HeaderLabelDiv>
   </HeaderButtonElement>
 )
@@ -18,7 +19,7 @@ export const HeaderButton: VFC<ButtonProps> = ({ label, ...props }) => (
 export const Button: VFC<ButtonProps> = ({ label, ...props }) => (
   <DefaultButtonElement {...props}>
     <LabelDiv>
-      <LabelSpan data-text={label}>{label}</LabelSpan>
+      <LabelSpan>{label}</LabelSpan>
     </LabelDiv>
   </DefaultButtonElement>
 )
@@ -42,14 +43,6 @@ const DefaultButtonElement = styled.button`
   }
 `
 
-const HeaderLabelDiv = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  ${flexCenter};
-  border: 1px solid;
-`
-
 const LabelDiv = styled.div`
   position: relative;
   width: 100%;
@@ -57,13 +50,11 @@ const LabelDiv = styled.div`
   ${flexCenter};
 `
 
-const LabelSpan = styled.span`
-  position: relative;
-  font-size: 14px;
-  font-weight: ${fontWeightLight};
-  letter-spacing: 0em;
+const HeaderLabelDiv = styled(LabelDiv)`
+  border: 1px solid ${darkpurple};
+`
 
-  @media ${breakpoint.s} {
-    font-size: 14px;
-  }
+const LabelSpan = styled.span`
+  font-size: 14px;
+  font-weight: ${fontWeightMedium};
 `

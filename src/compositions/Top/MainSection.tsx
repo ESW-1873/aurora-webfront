@@ -2,10 +2,10 @@ import React, { ReactNode, VFC } from 'react'
 import { Button } from 'src/components/Buttons'
 import { Image } from 'src/components/Image'
 import {
-  black,
   buttonShadow,
   credit,
-  donate,
+  darkpurple,
+  purple,
   share,
   white,
 } from 'src/styles/colors'
@@ -153,11 +153,11 @@ const StyledButton = styled(Button)`
 
 const DonateButton = styled(StyledButton)`
   color: ${white};
-  background: ${donate};
+  background: ${purple};
 `
 
 const CancelButton = styled(StyledButton)`
-  color: ${black};
+  color: ${darkpurple};
   background: ${white};
 `
 
@@ -239,7 +239,7 @@ const Donations = styled.p`
 
 const Line = styled.hr`
   background: transparent;
-  border: 1px dashed ${black};
+  border: 1px dashed ${darkpurple};
   margin-top: 24px;
 `
 
