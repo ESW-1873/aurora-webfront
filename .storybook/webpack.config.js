@@ -1,13 +1,9 @@
-// const path = require('path')
-
 module.exports = ({ config }) => {
   // disable storybook loader
   const fileLoaderRule = config.module.rules.find((rule) =>
     rule.test.test('.svg'),
   )
   fileLoaderRule.exclude = /\.svg$/
-
-  // config.resolve.alias.fs = path.resolve(__dirname, 'fsMock.js')
 
   config.module.rules.push({
     test: /\.svg$/,
