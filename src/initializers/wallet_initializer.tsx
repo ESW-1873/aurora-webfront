@@ -9,9 +9,9 @@ import { useWalletStore } from 'src/stores'
  * recoil state, Wallet接続からのeventをwatchして必要なside effectを管理する
  */
 export const WalletInitializer: React.FC = ({ children }) => {
-  const { activate } = useWeb3React()
+  const { active, activate } = useWeb3React()
   const { disconnect } = useMetamask()
-  const { metamaskSigner } = useWalletStore()
+  const { activateWallet, metamaskSigner } = useWalletStore()
 
   /**
    * event handling methods
@@ -65,6 +65,26 @@ export const WalletInitializer: React.FC = ({ children }) => {
       }
     }
   }, [handleAccountsChanged, handleChainChanged, metamaskSigner])
+
+  /**
+   * eager connect
+   *
+   * use useEffect
+   * use Metamask when browser reloading if now connecting Metamask
+   */
+  useEffect(() => {
+    if (!active) {
+      injected.isAuthorized().then((isAuthorized) => {
+        if (isAuthorized) {
+          activate(injected, undefined, true)
+            .then(() => activateWallet('Metamask'))
+            .catch((error) =>
+              console.log('Error by trying to connect MetaMask'),
+            )
+        }
+      })
+    }
+  }, [activate, activateWallet, active])
 
   return <>{children}</>
 }
