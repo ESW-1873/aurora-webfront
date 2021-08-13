@@ -2,6 +2,7 @@ import React, { ReactNode, VFC } from 'react'
 import { Footer } from 'src/components/Footer'
 import { Header } from 'src/components/Header'
 import { Image } from 'src/components/Image'
+import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEO, SEOProps } from 'src/components/SEO'
 import { inset0, pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -11,6 +12,7 @@ export const PageWrapper: VFC<
 > = ({ children, className, ...seoProps }) => (
   <>
     <SEO {...seoProps} />
+    <WalletModal />
     <Layout className={className}>
       <Header />
     </Layout>
