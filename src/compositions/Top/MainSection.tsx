@@ -144,30 +144,26 @@ const Section = styled.section`
     margin-top: 120px;
   }
 `
+const StyledButton = styled(Button)`
+  font-weight: ${fontWeightSemiBold};
+  margin-top: 16px;
+  text-align: center;
+  box-shadow: 0px 3px 2px ${buttonShadow};
+`
 
-const DonateButton = styled(Button)`
+const DonateButton = styled(StyledButton)`
   color: ${white};
-  font-weight: ${fontWeightSemiBold};
-  margin-top: 16px;
-  text-align: center;
   background: ${donate};
-  box-shadow: 0px 3px 2px ${buttonShadow};
 `
 
-const CancelButton = styled(Button)`
+const CancelButton = styled(StyledButton)`
   color: ${black};
-  font-weight: ${fontWeightSemiBold};
-  margin-top: 16px;
-  text-align: center;
   background: ${white};
-  box-shadow: 0px 3px 2px ${buttonShadow};
 `
 
-const ShareButton = styled(Button)`
+const ShareButton = styled(StyledButton)`
   color: ${white};
   background: ${share};
-  margin-top: 16px;
-  box-shadow: 0px 3px 2px ${buttonShadow};
 `
 
 const ContentDiv = styled.div`

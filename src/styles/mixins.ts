@@ -43,7 +43,7 @@ export const lessThanTablet = 'screen and (max-width:960px)'
 
 const size = {
   s: '480px',
-  m: '780px',
+  m: '845px',
   l: '960px',
 }
 
