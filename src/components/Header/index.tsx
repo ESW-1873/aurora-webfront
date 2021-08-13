@@ -3,7 +3,6 @@ import React, { ReactNode, VFC } from 'react'
 import { HeaderButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
-import { useWalletModalStore } from 'src/stores'
 import { headerHeight } from 'src/styles/mixins'
 import { APP, TOP } from 'src/utils/router'
 import { ellipsizeMid } from 'src/utils/string'
@@ -19,15 +18,13 @@ const HeaderWrapper: VFC<{ children: ReactNode } & HeaderLayoutStyleProps> = ({
   </>
 )
 export const Header: VFC = () => {
-  const { open: openWalletModal } = useWalletModalStore()
-
   return (
     <>
       <HeaderWrapper>
         <Link href={TOP}>
           <Logo />
         </Link>
-        <HeaderButton label="Connect Wallet" onClick={openWalletModal} />
+        <HeaderButton label="Connect Wallet" onClick={() => {}} />
       </HeaderWrapper>
     </>
   )
