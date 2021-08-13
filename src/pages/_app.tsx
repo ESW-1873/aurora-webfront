@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import { getLibrary } from 'src/external'
+import { WalletInitializer } from 'src/initializers'
 import 'src/styles/fonts.css'
 import { GlobalStyles } from 'src/styles/global-styles'
 import 'src/styles/globals.css'
@@ -16,6 +17,7 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
     <>
       <Web3ReactProvider getLibrary={getLibrary}>
         <RecoilRoot>
+          <WalletInitializer>
             <Head>
               <meta
                 name="viewport"
@@ -29,6 +31,7 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
             </Head>
             <GlobalStyles />
             <Component {...pageProps} />
+          </WalletInitializer>
         </RecoilRoot>
       </Web3ReactProvider>
     </>
