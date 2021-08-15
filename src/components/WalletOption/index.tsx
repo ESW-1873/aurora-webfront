@@ -1,7 +1,8 @@
 import React, { VFC } from 'react'
 import { IconMetamask, IconWalletConnect } from 'src/assets/svgs'
-import { purple, white } from 'src/styles/colors'
+import { black, purple, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
+import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type Props = {
@@ -25,24 +26,21 @@ const WalletLabel = styled.span`
 `
 
 const WalletOptionButton = styled.button`
+  ${flexCenter}
   width: 100%;
   max-width: 262px;
   margin: 0 auto;
   padding: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 32px;
   background-color: ${purple};
   color: ${white};
+  box-shadow: 0 3px 2px ${black}29;
   > svg {
     height: 100%;
     width: 32px;
   }
-  :not(:last-child) {
-    margin-bottom: 24px;
-  }
-  :hover {
+  :hover,
+  :focus {
     background-color: ${purple}bf;
   }
 `
