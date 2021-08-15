@@ -1,4 +1,4 @@
-import { SITE_SEO_DATA } from 'src/data/common'
+import { SITE_SEO_DATA } from 'src/constants/seo'
 
 export const isProd = Boolean(process.env.NEXT_PUBLIC_IS_PROD)
 
