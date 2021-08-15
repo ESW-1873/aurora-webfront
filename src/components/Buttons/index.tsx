@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
-import { darkpurple } from 'src/styles/colors'
+import { primaryColor } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -51,7 +51,7 @@ const LabelDiv = styled.div`
 `
 
 const HeaderLabelDiv = styled(LabelDiv)`
-  border: 1px solid ${darkpurple};
+  border: 1px solid ${primaryColor};
 `
 
 const LabelSpan = styled.span`

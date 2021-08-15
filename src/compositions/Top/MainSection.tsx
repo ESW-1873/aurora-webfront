@@ -2,11 +2,10 @@ import React, { ReactNode, VFC } from 'react'
 import { Button } from 'src/components/Buttons'
 import { Image } from 'src/components/Image'
 import {
-  buttonShadow,
-  credit,
-  darkpurple,
+  primaryColor,
   purple,
-  share,
+  turquoise,
+  twitter,
   white,
 } from 'src/styles/colors'
 import {
@@ -16,7 +15,7 @@ import {
   fontWeightRegular,
   fontWeightSemiBold,
 } from 'src/styles/font'
-import { breakpoint } from 'src/styles/mixins'
+import { breakpoint, defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const MainSection: VFC = () => (
@@ -148,7 +147,7 @@ const StyledButton = styled(Button)`
   font-weight: ${fontWeightSemiBold};
   margin-top: 16px;
   text-align: center;
-  box-shadow: 0px 3px 2px ${buttonShadow};
+  box-shadow: ${defaultShadow};
 `
 
 const DonateButton = styled(StyledButton)`
@@ -157,13 +156,13 @@ const DonateButton = styled(StyledButton)`
 `
 
 const CancelButton = styled(StyledButton)`
-  color: ${darkpurple};
+  color: ${primaryColor};
   background: ${white};
 `
 
 const ShareButton = styled(StyledButton)`
   color: ${white};
-  background: ${share};
+  background: ${twitter};
 `
 
 const ContentDiv = styled.div`
@@ -218,7 +217,7 @@ const Score = styled.p`
   letter-spacing: -0.04em;
   line-height: 40px;
   text-align: right;
-  color: ${credit};
+  color: ${turquoise};
 `
 
 const DonationDiv = styled.div`
@@ -239,7 +238,7 @@ const Donations = styled.p`
 
 const Line = styled.hr`
   background: transparent;
-  border: 1px dashed ${darkpurple};
+  border: 1px dashed ${primaryColor};
   margin-top: 24px;
 `
 

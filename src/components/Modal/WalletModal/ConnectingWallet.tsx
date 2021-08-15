@@ -8,7 +8,13 @@ import {
 import { useMetamask } from 'src/external/wallet/metamask'
 import { useWalletConnect } from 'src/external/wallet/wallet_connect'
 import { useWalletModalStore, WalletType } from 'src/stores'
-import { darkpurple, errorColor, gray, purple, white } from 'src/styles/colors'
+import {
+  errorColor,
+  gray,
+  primaryColor,
+  purple,
+  white,
+} from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
@@ -131,7 +137,7 @@ const WalletDiv = styled.div`
 const LoadingDiv = styled.div`
   ${baseDivStyle}
   justify-content: start;
-  color: ${darkpurple};
+  color: ${primaryColor};
   background: ${white}0d;
   backdrop-filter: blur(30px) brightness(110%);
   > svg {

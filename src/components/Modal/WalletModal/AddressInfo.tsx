@@ -9,7 +9,7 @@ import {
 import { CHAIN_INFO, SupportedChainId } from 'src/constants/chains'
 import { useWalletConnect } from 'src/external'
 import { useWalletModalStore, useWalletStore } from 'src/stores'
-import { darkpurple, white } from 'src/styles/colors'
+import { primaryColor, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { defaultShadow, flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
@@ -97,7 +97,7 @@ const StyledCtaButton = styled.button`
   text-align: center;
   background: ${white};
   border-radius: 16px;
-  border: 1px solid ${darkpurple};
+  border: 1px solid ${primaryColor};
   box-shadow: ${defaultShadow};
 `
 
