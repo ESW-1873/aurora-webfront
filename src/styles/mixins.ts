@@ -39,8 +39,6 @@ export const flexCenter = css`
   align-items: center;
 `
 
-export const lessThanTablet = 'screen and (max-width:960px)'
-
 const size = {
   s: '480px',
   m: '845px',
@@ -53,7 +51,6 @@ export const breakpoint = {
   l: `screen and (max-width:${size.l})`,
 }
 
-export const headerHeight = `64px`
 export const inset0 = css`
   position: absolute;
   top: 0;

@@ -40,6 +40,7 @@ const HeaderLayout = styled.header`
   justify-content: space-between;
   align-items: center;
   height: ${headerHeight};
+  height: 64px;
 `
 
 const baseButtonStyle = css`
