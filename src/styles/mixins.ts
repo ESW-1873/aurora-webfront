@@ -1,5 +1,5 @@
 import { css } from 'styled-components'
-import { darkpurple } from './colors'
+import { black } from './colors'
 
 export const pageMarginCssVar = '--page-margin'
 export const pageMarginNegativeCssVar = '--page-margin-negative'
@@ -31,7 +31,7 @@ export const absoluteFill = css`
   margin: auto;
 `
 
-export const defaultShadow = `0 3px 6px ${darkpurple}29`
+export const defaultShadow = `0 3px 2px ${black}80`
 
 export const flexCenter = css`
   display: flex;
