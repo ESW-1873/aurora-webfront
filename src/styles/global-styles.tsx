@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { darkpurple, white } from './colors'
+import { primaryColor, white } from './colors'
 import { fontFamilyEn, fontWeightRegular } from './font'
 import {
   noScrollbar,
@@ -25,7 +25,7 @@ const Styles = createGlobalStyle`
     font-family: ${fontFamilyEn};
     font-weight: ${fontWeightRegular};
     background-color: ${white};
-    color: ${darkpurple};
+    color: ${primaryColor};
     min-height: 100vh;
     > div {
       height: 100%;

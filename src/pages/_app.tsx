@@ -25,9 +25,6 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
               />
               <meta property="og:url" content={pageUrl} />
               <link rel="canonical" href={pageUrl} />
-              {asPath.startsWith('app') && (
-                <meta name="robots" content="noindex" />
-              )}
             </Head>
             <GlobalStyles />
             <Component {...pageProps} />

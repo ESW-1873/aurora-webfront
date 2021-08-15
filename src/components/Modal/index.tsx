@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, VFC } from 'react'
 import { black, white } from 'src/styles/colors'
-import { breakpoint } from 'src/styles/mixins'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { disableScroll, enableScroll } from 'src/utils/handleScroll'
 import styled from 'styled-components'
 
@@ -32,20 +32,18 @@ export const Modal: VFC<Props> = ({ isOpen, closeModal, children }) => {
 }
 
 const Overlay = styled.div`
+  ${flexCenter}
   position: fixed;
-  overflow: hidden;
   inset: 0;
+  overflow: hidden;
   background-color: ${black}80;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 1000;
 `
 
 const Contents = styled.div`
   max-width: 400px;
   width: 50vw;
-  padding: 40px 66px 48px 66px;
+  padding: 40px 53px 48px 53px;
   position: relative;
   border-radius: 32px;
   background-color: ${white}80;

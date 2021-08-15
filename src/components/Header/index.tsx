@@ -4,9 +4,8 @@ import { HeaderButton } from 'src/components/Buttons'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
 import { useWalletModalStore } from 'src/stores'
-import { darkpurple, errorColor, white } from 'src/styles/colors'
+import { errorColor, primaryColor, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
-import { headerHeight } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
 import { TOP } from 'src/utils/router'
 import styled, { css } from 'styled-components'
@@ -39,7 +38,7 @@ const HeaderLayout = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: ${headerHeight};
+  height: 64px;
 `
 
 const baseButtonStyle = css`
@@ -53,11 +52,11 @@ const baseButtonStyle = css`
 
 const AddressButton = styled.button`
   ${baseButtonStyle}
-  background-color: ${darkpurple};
+  background-color: ${primaryColor};
   color: ${white};
   :focus,
   :hover {
-    background-color: ${darkpurple}b0;
+    background-color: ${primaryColor}b0;
   }
 `
 

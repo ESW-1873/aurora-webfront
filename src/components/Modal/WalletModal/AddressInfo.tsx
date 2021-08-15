@@ -1,3 +1,4 @@
+import { useWeb3React } from '@web3-react/core'
 import React, { useState, VFC } from 'react'
 import {
   IconCheck,
@@ -5,14 +6,15 @@ import {
   IconCopy,
   IconExternalLink,
 } from 'src/assets/svgs'
+import { CHAIN_INFO, SupportedChainId } from 'src/constants/chains'
 import { useWalletConnect } from 'src/external'
 import { useWalletModalStore, useWalletStore } from 'src/stores'
-import { black, darkpurple, white } from 'src/styles/colors'
-import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
+import { primaryColor, white } from 'src/styles/colors'
+import { fontWeightMedium } from 'src/styles/font'
+import { defaultShadow, flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
-import { ETHERSCAN_URL } from 'src/utils/router'
 import styled from 'styled-components'
+import { Heading, SubHeading } from '../common'
 import { SelectWallet } from './SelectWallet'
 
 export const AddressInfo: VFC<{
@@ -32,31 +34,34 @@ export const AddressInfo: VFC<{
   const { disconnect } = useWalletConnect()
   const { activeWalletType } = useWalletStore()
 
+  const { chainId } = useWeb3React()
+  const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
+
   return (
     <>
       {changingWallet ? (
         <SelectWallet onBack={backToAddressInfo} />
       ) : (
         <>
-          <Title>Your Account</Title>
-          <AddressInfoLayout>
-            <SubTitle>{`Connected with ${activeWalletType}`}</SubTitle>
-            <AddressInfoDiv>
+          <Layout>
+            <Heading>Your Account</Heading>
+            <SubHeading>{`Connected with ${activeWalletType}`}</SubHeading>
+            <AddressLabelDiv>
               <IconColorfulCircle />
-              <AddressLabel>{shortenAddress(address)}</AddressLabel>
-            </AddressInfoDiv>
+              <span>{shortenAddress(address)}</span>
+            </AddressLabelDiv>
             <ActionAreaDiv>
               <div onClick={onClickCopy}>
                 {isCopied ? <IconCheck /> : <IconCopy />}
-                <ActionLabel>{isCopied ? 'Copied!' : 'Copy'}</ActionLabel>
+                <span>{isCopied ? 'Copied!' : 'Copy'}</span>
               </div>
               <a
-                href={`${ETHERSCAN_URL}/address/${address}`}
+                href={`${explorer}address/${address}`}
                 target="_blank"
                 rel="noreferrer"
               >
                 <IconExternalLink />
-                <ActionLabel>Explorer</ActionLabel>
+                <span>Explorer</span>
               </a>
             </ActionAreaDiv>
             <ButtonAreaDiv>
@@ -74,7 +79,7 @@ export const AddressInfo: VFC<{
                 Change
               </StyledCtaButton>
             </ButtonAreaDiv>
-          </AddressInfoLayout>
+          </Layout>
         </>
       )}
     </>
@@ -83,22 +88,17 @@ export const AddressInfo: VFC<{
 
 const StyledCtaButton = styled.button`
   ${flexCenter};
+  padding: 0 24px;
   max-width: 96px;
   height: 32px;
-  border-radius: 16px;
-  background: ${white};
-  border: 1px solid ${darkpurple};
-  box-shadow: 0 3px 2px ${black}80;
-  padding: 0 24px;
-  text-align: center;
   font-size: 12px;
-  font-weight: ${fontWeightMedium};
   letter-spacing: 0.016em;
-`
-
-const ActionLabel = styled.span`
-  margin-left: 8px;
-  font-size: 14px;
+  font-weight: ${fontWeightMedium};
+  text-align: center;
+  background: ${white};
+  border-radius: 16px;
+  border: 1px solid ${primaryColor};
+  box-shadow: ${defaultShadow};
 `
 
 const ButtonAreaDiv = styled.div`
@@ -110,7 +110,6 @@ const ButtonAreaDiv = styled.div`
 
 const ActionAreaDiv = styled.div`
   ${flexCenter};
-  margin-bottom: 18px;
   > div,
   a {
     display: flex;
@@ -119,42 +118,36 @@ const ActionAreaDiv = styled.div`
   > div {
     cursor: pointer;
     margin-right: 16px;
-    min-width: 87px;
+    min-width: 88px;
+  }
+  span {
+    margin-left: 8px;
+    font-size: 14px;
   }
 `
 
-const AddressInfoLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
-
-const Title = styled.h3`
-  font-size: 32px;
-  font-weight: ${fontWeightBold};
-  line-height: calc(41 / 32);
-  text-align: center;
-  margin-bottom: 16px;
-`
-
-const SubTitle = styled.p`
-  width: 100%;
-  font-weight: ${fontWeightMedium};
-  line-height: calc(20 / 16);
-  text-align: center;
-  opacity: 0.5;
-  margin-bottom: 16px;
-`
-
-const AddressInfoDiv = styled.div`
+const AddressLabelDiv = styled.div`
   ${flexCenter};
-  margin-bottom: 16px;
-`
-
-const AddressLabel = styled.span`
   font-size: 20px;
   font-weight: ${fontWeightMedium};
   line-height: calc(20 / 25);
-  margin-left: 12px;
+  > span {
+    margin-left: 12px;
+  }
+`
+
+const Layout = styled.div`
+  ${Heading} {
+    margin-bottom: 24px;
+  }
+  ${SubHeading} {
+    opacity: 0.5;
+    margin-bottom: 16px;
+  }
+  ${AddressLabelDiv} {
+    margin-bottom: 12px;
+  }
+  ${ActionAreaDiv} {
+    margin-bottom: 16px;
+  }
 `

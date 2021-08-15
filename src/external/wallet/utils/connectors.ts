@@ -1,19 +1,10 @@
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import {
+  DEV_SUPPORTED_CHAIN_IDS,
+  SUPPORTED_CHAIN_IDS,
+} from 'src/constants/chains'
 import { isProd } from 'src/utils/env'
-
-/** サポートしているネットワーク */
-enum SupportedChainId {
-  MAINNET = 1,
-  RINKEBY = 4,
-}
-
-const SUPPORTED_CHAIN_IDS: SupportedChainId[] = [SupportedChainId.MAINNET]
-
-const DEV_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
-  SupportedChainId.MAINNET,
-  SupportedChainId.RINKEBY,
-]
 
 /** Metamask in case of web */
 export const injected = new InjectedConnector({

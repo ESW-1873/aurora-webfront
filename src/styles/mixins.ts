@@ -1,5 +1,5 @@
 import { css } from 'styled-components'
-import { darkpurple } from './colors'
+import { black } from './colors'
 
 export const pageMarginCssVar = '--page-margin'
 export const pageMarginNegativeCssVar = '--page-margin-negative'
@@ -31,15 +31,13 @@ export const absoluteFill = css`
   margin: auto;
 `
 
-export const defaultShadow = `0 3px 6px ${darkpurple}29`
+export const defaultShadow = `0 3px 2px ${black}80`
 
 export const flexCenter = css`
   display: flex;
   justify-content: center;
   align-items: center;
 `
-
-export const lessThanTablet = 'screen and (max-width:960px)'
 
 const size = {
   s: '480px',
@@ -53,7 +51,6 @@ export const breakpoint = {
   l: `screen and (max-width:${size.l})`,
 }
 
-export const headerHeight = `64px`
 export const inset0 = css`
   position: absolute;
   top: 0;
