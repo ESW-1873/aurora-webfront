@@ -4,6 +4,7 @@ import {
   errorColor,
   primaryColor,
   purple,
+  turquoise,
   twitter,
   white,
 } from 'src/styles/colors'
@@ -52,6 +53,10 @@ const BaseButtonElement = styled.button`
 
 const PrimaryButtonElement = styled(BaseButtonElement)`
   background: ${purple};
+  :hover,
+  :focus {
+    background: ${purple}bf;
+  }
 `
 
 const ShareButtonElement = styled(BaseButtonElement)`
@@ -63,16 +68,29 @@ const ShareButtonElement = styled(BaseButtonElement)`
     width: 24px;
     height: 100%;
   }
+  :hover,
+  :focus {
+    background: ${twitter}bf;
+  }
 `
 
 const CancelButtonElement = styled(BaseButtonElement)`
   background: ${white};
-  color: ${primaryColor};
+  color: ${primaryColor} !important;
   border: 1px solid ${primaryColor};
+  :hover,
+  :focus {
+    background: ${primaryColor};
+    color: ${white} !important;
+  }
 `
 
 const RefundButtonElement = styled(BaseButtonElement)`
   background: ${errorColor};
+  :hover,
+  :focus {
+    background: ${errorColor}bf;
+  }
 `
 
 const GetStartedButtonElement = styled(BaseButtonElement)`
@@ -81,4 +99,8 @@ const GetStartedButtonElement = styled(BaseButtonElement)`
   border: 1px solid ${white}40;
   background: ${white}40;
   backdrop-filter: blur(8px) brightness(125%);
+  :hover,
+  :focus {
+    background: ${turquoise}80;
+  }
 `
