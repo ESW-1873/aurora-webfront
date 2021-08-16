@@ -1,73 +1,45 @@
 import React, { VFC } from 'react'
 import { FooterLogo } from 'src/assets/svgs'
+import { GetStartedButton } from 'src/components/Buttons/CtaButton'
+import { Image } from 'src/components/Image'
 import { white } from 'src/styles/colors'
-import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
+import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import styled from 'styled-components'
-import { Button } from '../Buttons'
 
 export const Footer: VFC = () => {
   return (
-    <>
-      <FooterWrapper></FooterWrapper>
-    </>
+    <FooterLayout>
+      <Image src="/assets/images/footer.png" alt="FooterBackgroundImage" />
+      <FooterLogo />
+      <Heading>Decentralized Donations</Heading>
+      <Description>Ultimately Fast And Easy Online Fundraising.</Description>
+      <StyledGetStartedButton />
+    </FooterLayout>
   )
 }
 
-const FooterWrapper: VFC = () => (
-  <>
-    <FooterOverlay>
-      <FooterLayout>
-        <FooterTitle />
-        <Heading>Decentralized Donations</Heading>
-        <Description>Ultimately Fast And Easy Online Fundraising.</Description>
-        <GetStartedButton label="Get Started" />
-      </FooterLayout>
-    </FooterOverlay>
-  </>
-)
-
 const FooterLayout = styled.div`
+  width: 100%;
+  max-width: 896px;
+  margin: 0 auto;
+  position: relative;
   color: ${white};
   text-align: center;
 `
 
-const FooterTitle: VFC = () => (
-  <>
-    <LogoWrapper>
-      <FooterLogo />
-    </LogoWrapper>
-  </>
-)
-
-const FooterOverlay = styled.div`
-  position: relative;
-  background-image: url('/assets/images/footer.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  padding: 72px 0;
-  margin-top: 64px;
-`
-const LogoWrapper = styled.div`
-  position: relative;
-  text-align: center;
-`
 const Heading = styled.h3`
   font-weight: ${fontWeightMedium};
   font-size: 18px;
   letter-spacing: -0.03em;
-  line-height: 40px;
+  line-height: calc(40 / 18);
 `
 const Description = styled.h2`
   font-size: 24px;
-  line-height: 32px;
+  line-height: calc(32 / 24);
+  font-weight: ${fontWeightBold};
   margin-top: 64px;
 `
 
-const GetStartedButton = styled(Button)`
+const StyledGetStartedButton = styled(GetStartedButton)`
   margin-top: 72px;
-  background: ${white};
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background-color: rgba(255, 255, 255, 0.35);
-  font-weight: ${fontWeightSemiBold};
 `

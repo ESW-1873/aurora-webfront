@@ -1,21 +1,14 @@
 import React, { ReactNode, VFC } from 'react'
-import { Button } from 'src/components/Buttons'
+import { PrimaryButton, ShareButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
-import {
-  primaryColor,
-  purple,
-  turquoise,
-  twitter,
-  white,
-} from 'src/styles/colors'
+import { primaryColor, turquoise } from 'src/styles/colors'
 import {
   fontWeightBold,
   fontWeightLight,
   fontWeightMedium,
   fontWeightRegular,
-  fontWeightSemiBold,
 } from 'src/styles/font'
-import { breakpoint, defaultShadow } from 'src/styles/mixins'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const MainSection: VFC = () => (
@@ -53,8 +46,8 @@ const DonationSection: VFC = () => (
 
 const ButtonSection: VFC = () => (
   <ButtonDiv>
-    <DonateButton label="Donate" />
-    <ShareButton label="Share on Twitter" />
+    <PrimaryButton label="Donate" />
+    <ShareButton />
   </ButtonDiv>
 )
 
@@ -135,6 +128,9 @@ const ButtonDiv = styled.div`
   margin-block-start: 40px;
   @media ${breakpoint.m} {
     justify-content: center;
+    > button:last-child {
+      margin-top: 16px;
+    }
   }
 `
 
@@ -142,27 +138,6 @@ const Section = styled.section`
   @media screen and (min-width: 2000px) {
     margin-top: 120px;
   }
-`
-const StyledButton = styled(Button)`
-  font-weight: ${fontWeightSemiBold};
-  margin-top: 16px;
-  text-align: center;
-  box-shadow: ${defaultShadow};
-`
-
-const DonateButton = styled(StyledButton)`
-  color: ${white};
-  background: ${purple};
-`
-
-const CancelButton = styled(StyledButton)`
-  color: ${primaryColor};
-  background: ${white};
-`
-
-const ShareButton = styled(StyledButton)`
-  color: ${white};
-  background: ${twitter};
 `
 
 const ContentDiv = styled.div`

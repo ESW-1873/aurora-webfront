@@ -17,6 +17,7 @@ export const PageWrapper: VFC<
       <Header />
     </Layout>
     <ContentWrapper className={className}>{children}</ContentWrapper>
+    <Footer />
   </>
 )
 
@@ -31,7 +32,6 @@ const ContentWrapper: VFC<{ children: ReactNode; className?: string }> = ({
     </BluredBackgroundArea>
     <Layout className={className}>
       <main>{children}</main>
-      <Footer />
     </Layout>
   </>
 )
