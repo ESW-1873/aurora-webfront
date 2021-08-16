@@ -1,18 +1,27 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
-import { primaryColor } from 'src/styles/colors'
+import { errorColor, primaryColor, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 type ButtonProps = {
   label: string
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const HeaderButton: VFC<ButtonProps> = ({ label, ...props }) => (
-  <HeaderButtonElement {...props}>
-    <HeaderLabelDiv>
-      <LabelSpan>{label}</LabelSpan>
-    </HeaderLabelDiv>
+type HeaderButtonProps = {
+  label: string
+  hasAccount?: boolean
+  hasError?: boolean
+} & ButtonHTMLAttributes<HTMLButtonElement>
+
+export const HeaderButton: VFC<HeaderButtonProps> = ({
+  label,
+  hasAccount,
+  hasError,
+  ...props
+}) => (
+  <HeaderButtonElement hasAccount={hasAccount} hasError={hasError} {...props}>
+    {label}
   </HeaderButtonElement>
 )
 
@@ -24,14 +33,46 @@ export const Button: VFC<ButtonProps> = ({ label, ...props }) => (
   </DefaultButtonElement>
 )
 
-const HeaderButtonElement = styled.button`
+const HeaderButtonElement = styled.button<{
+  hasAccount?: boolean
+  hasError?: boolean
+}>`
   width: 152px;
   height: 34px;
-  &,
-  > * {
-    border-radius: 17px;
+  border-radius: 17px;
+  border: 1px solid ${primaryColor};
+  font-size: 14px;
+  font-weight: ${fontWeightMedium};
+  text-align: center;
+  :focus,
+  :hover {
+    background-color: ${primaryColor};
+    color: ${white};
   }
-  position: relative;
+  ${({ hasAccount }) =>
+    hasAccount
+      ? css`
+          background-color: ${primaryColor};
+          color: ${white};
+          border: unset;
+          :focus,
+          :hover {
+            background-color: ${primaryColor}b0;
+          }
+        `
+      : ''}
+  ${({ hasError }) =>
+    hasError
+      ? css`
+          background-color: ${errorColor};
+          color: ${white};
+          border: unset;
+          :focus,
+          :hover {
+            background-color: ${errorColor}a6;
+          }
+        `
+      : ''}
 `
 
 const DefaultButtonElement = styled.button`
@@ -48,10 +89,6 @@ const LabelDiv = styled.div`
   width: 100%;
   height: 100%;
   ${flexCenter};
-`
-
-const HeaderLabelDiv = styled(LabelDiv)`
-  border: 1px solid ${primaryColor};
 `
 
 const LabelSpan = styled.span`
