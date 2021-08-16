@@ -1,6 +1,6 @@
 export const SITE_SEO_DATA = {
-  siteTitle: 'Hologram',
-  author: 'HologramDAO',
-  siteDomain: 'hologramdao.com',
+  siteTitle: 'Aurora',
+  author: 'AuroraDao',
+  siteDomain: 'auroradao.org',
   image: '',
 }
