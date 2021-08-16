@@ -4,19 +4,46 @@ import { GetStartedButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
 import { white } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
+import { breakpoint, flexCenter, pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
+
+const HEADING_TEXT = 'Ultimately Fast And Easy Online Fundraising.'
+const SUBHEADING_TEXT = 'Decentralized Donations'
 
 export const Footer: VFC = () => {
   return (
     <FooterLayout>
       <Image src="/assets/images/footer.png" alt="FooterBackgroundImage" />
-      <FooterLogo />
-      <Heading>Decentralized Donations</Heading>
-      <Description>Ultimately Fast And Easy Online Fundraising.</Description>
-      <StyledGetStartedButton />
+      <FooterContainer>
+        <FooterLogo />
+        <SubHeadingBelowLogo>{SUBHEADING_TEXT}</SubHeadingBelowLogo>
+        <Heading>{HEADING_TEXT}</Heading>
+        <GetStartedButton />
+      </FooterContainer>
     </FooterLayout>
   )
 }
+const Heading = styled.h2`
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: ${fontWeightBold};
+`
+
+const SubHeadingBelowLogo = styled.h3`
+  font-weight: ${fontWeightMedium};
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+`
+
+const FooterContainer = styled.div`
+  ${flexCenter}
+  ${pageGuide}
+  flex-direction: column;
+  position: relative;
+  padding-top: 64px;
+  padding-bottom: 64px;
+`
 
 const FooterLayout = styled.div`
   width: 100%;
@@ -25,21 +52,21 @@ const FooterLayout = styled.div`
   position: relative;
   color: ${white};
   text-align: center;
-`
-
-const Heading = styled.h3`
-  font-weight: ${fontWeightMedium};
-  font-size: 18px;
-  letter-spacing: -0.03em;
-  line-height: calc(40 / 18);
-`
-const Description = styled.h2`
-  font-size: 24px;
-  line-height: calc(32 / 24);
-  font-weight: ${fontWeightBold};
-  margin-top: 64px;
-`
-
-const StyledGetStartedButton = styled(GetStartedButton)`
-  margin-top: 72px;
+  svg {
+    margin-bottom: 4px;
+  }
+  ${SubHeadingBelowLogo} {
+    margin-bottom: 40px;
+  }
+  ${Heading} {
+    margin-bottom: 62px;
+  }
+  @media ${breakpoint.s} {
+    ${SubHeadingBelowLogo} {
+      margin-bottom: 32px;
+    }
+    ${Heading} {
+      margin-bottom: 26px;
+    }
+  }
 `

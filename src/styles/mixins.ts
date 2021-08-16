@@ -5,6 +5,7 @@ export const pageMarginCssVar = '--page-margin'
 export const pageMarginNegativeCssVar = '--page-margin-negative'
 
 export const pageGuide = css`
+  padding-right: var(${pageMarginCssVar});
   padding-left: var(${pageMarginCssVar});
   max-width: calc(1080px + var(${pageMarginCssVar}) * 2);
 `
