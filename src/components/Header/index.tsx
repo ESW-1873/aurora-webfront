@@ -1,6 +1,6 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import React, { VFC } from 'react'
-import { HeaderButton } from 'src/components/Buttons'
+import { HeaderButton } from 'src/components/Buttons/HeaderButton'
 import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
 import { useWalletModalStore } from 'src/stores'

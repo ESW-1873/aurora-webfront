@@ -5,8 +5,8 @@ export const pageMarginCssVar = '--page-margin'
 export const pageMarginNegativeCssVar = '--page-margin-negative'
 
 export const pageGuide = css`
+  padding-right: var(${pageMarginCssVar});
   padding-left: var(${pageMarginCssVar});
-  max-width: calc(1080px + var(${pageMarginCssVar}) * 2);
 `
 
 export const noGuide = css`
@@ -41,7 +41,7 @@ export const flexCenter = css`
 
 const size = {
   s: '480px',
-  m: '845px',
+  m: '896px',
   l: '960px',
 }
 
@@ -50,12 +50,3 @@ export const breakpoint = {
   m: `screen and (max-width:${size.m})`,
   l: `screen and (max-width:${size.l})`,
 }
-
-export const inset0 = css`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-`

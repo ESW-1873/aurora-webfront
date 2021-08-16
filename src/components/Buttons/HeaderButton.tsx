@@ -1,12 +1,7 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
 import { errorColor, primaryColor, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
-
-type ButtonProps = {
-  label: string
-} & ButtonHTMLAttributes<HTMLButtonElement>
 
 type HeaderButtonProps = {
   label: string
@@ -24,15 +19,6 @@ export const HeaderButton: VFC<HeaderButtonProps> = ({
     {label}
   </HeaderButtonElement>
 )
-
-export const Button: VFC<ButtonProps> = ({ label, ...props }) => (
-  <DefaultButtonElement {...props}>
-    <LabelDiv>
-      <LabelSpan>{label}</LabelSpan>
-    </LabelDiv>
-  </DefaultButtonElement>
-)
-
 const HeaderButtonElement = styled.button<{
   hasAccount?: boolean
   hasError?: boolean
@@ -73,25 +59,4 @@ const HeaderButtonElement = styled.button<{
           }
         `
       : ''}
-`
-
-const DefaultButtonElement = styled.button`
-  width: 342px;
-  height: 64px;
-  &,
-  > * {
-    border-radius: 32px;
-  }
-`
-
-const LabelDiv = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  ${flexCenter};
-`
-
-const LabelSpan = styled.span`
-  font-size: 14px;
-  font-weight: ${fontWeightMedium};
 `

@@ -99,6 +99,11 @@ const StyledCtaButton = styled.button`
   border-radius: 16px;
   border: 1px solid ${primaryColor};
   box-shadow: ${defaultShadow};
+  :hover,
+  :focus {
+    background: ${primaryColor};
+    color: ${white};
+  }
 `
 
 const ButtonAreaDiv = styled.div`

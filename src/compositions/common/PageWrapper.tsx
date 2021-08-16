@@ -4,50 +4,44 @@ import { Header } from 'src/components/Header'
 import { Image } from 'src/components/Image'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEO, SEOProps } from 'src/components/SEO'
-import { inset0, pageGuide } from 'src/styles/mixins'
+import { MOCK_POST } from 'src/constants/tmp/post'
+import { white } from 'src/styles/colors'
+import { absoluteFill, breakpoint, pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const PageWrapper: VFC<
-  { children: ReactNode; className?: string } & SEOProps
-> = ({ children, className, ...seoProps }) => (
+export const PageWrapper: VFC<{ children: ReactNode } & SEOProps> = ({
+  children,
+  ...seoProps
+}) => (
   <>
     <SEO {...seoProps} />
     <WalletModal />
-    <Layout className={className}>
-      <Header />
-    </Layout>
-    <ContentWrapper className={className}>{children}</ContentWrapper>
-  </>
-)
-
-const ContentWrapper: VFC<{ children: ReactNode; className?: string }> = ({
-  children,
-  className,
-}) => (
-  <>
     <BluredBackgroundArea>
-      <Image src="/assets/images/top.png" alt="keyvisual" />
+      <Image src={MOCK_POST.image} alt="keyvisual" />
       <BlurOverlay />
     </BluredBackgroundArea>
-    <Layout className={className}>
-      <main>{children}</main>
-      <Footer />
+    <Layout>
+      <Header />
+      {children}
     </Layout>
+    <Footer />
   </>
 )
 
 const BluredBackgroundArea = styled.div`
-  ${inset0};
-  overflow: hidden;
-  z-index: -1;
-  img {
-    opacity: 0.7;
-    size: auto;
+  position: absolute;
+  width: 100%;
+  height: 0;
+  padding-top: 66.7%;
+  @media ${breakpoint.m} {
+    display: none;
   }
 `
+
 const BlurOverlay = styled.div`
-  ${inset0};
-  backdrop-filter: blur(6px);
+  ${absoluteFill}
+  background: ${white}0d;
+  backdrop-filter: blur(8px) brightness(105%);
 `
 
 export const Layout = styled.div`
@@ -55,6 +49,7 @@ export const Layout = styled.div`
   margin: 0 auto;
   max-width: 896px;
   width: 100%;
-  padding: 0 80px;
-  backdrop-filter: brightness(115%);
+  padding-bottom: 64px;
+  background: ${white}26;
+  backdrop-filter: blur(30px) brightness(115%);
 `
