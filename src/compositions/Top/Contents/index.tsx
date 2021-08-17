@@ -3,20 +3,24 @@ import { Image } from 'src/components/Image'
 import { MOCK_POST } from 'src/constants/tmp/post'
 import { breakpoint, noGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
-import { ContentsSection } from './ContentsSection'
+import { ActionSection } from './ActionSection'
 import { DonationSection } from './DonationSection'
-import { StatusSection } from './StatusSection'
+import { PostSection } from './PostSection'
 
-export const MainSection: VFC = () => (
+export const Contents: VFC = () => (
   <>
-    <SectionLayout>
+    <Layout>
       <ImageDiv>
         <Image src={MOCK_POST.image} alt="key visual" />
       </ImageDiv>
-      <ContentsSection />
-      <StatusSection />
+      <PostSection
+        title={MOCK_POST.title}
+        description={MOCK_POST.description}
+        totalDonation={MOCK_POST.totalDonation}
+      />
+      <ActionSection postTitle={MOCK_POST.title} postId={MOCK_POST.id} />
       <DonationSection />
-    </SectionLayout>
+    </Layout>
   </>
 )
 
@@ -31,7 +35,7 @@ const ImageDiv = styled.div`
   }
 `
 
-const SectionLayout = styled.section`
+const Layout = styled.main`
   padding-top: 64px;
   @media ${breakpoint.m} {
     padding-top: 0;
