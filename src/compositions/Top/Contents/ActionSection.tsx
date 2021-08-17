@@ -30,7 +30,7 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
   // TODO: UIチェックのために仮で入れてる。ステータスの定義や管理を検討（Recoilかな）
   const [status, setStatus] = useState<
     'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'CLOSED'
-  >('CANCELABLE')
+  >('DONATABLE')
 
   return (
     <>

@@ -6,7 +6,7 @@ import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEO, SEOProps } from 'src/components/SEO'
-import { MOCK_POST } from 'src/constants/tmp/post'
+import { MOCK_DONATION, MOCK_POST } from 'src/constants/tmp/post'
 import { white } from 'src/styles/colors'
 import { pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -24,8 +24,8 @@ export const Top: VFC<SEOProps> = ({ ...seoProps }) => (
     <Footer />
     <WalletModal />
     <DonationModal totalDonation={MOCK_POST.totalDonation} />
-    <CancelModal cancelableAmount={MOCK_POST.totalDonation} />
-    <RefundRequestModal />
+    <CancelModal cancelableAmount={MOCK_DONATION.amount} />
+    <RefundRequestModal refundableAmount={MOCK_DONATION.amount} />
   </>
 )
 

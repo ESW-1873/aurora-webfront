@@ -3,11 +3,12 @@ import { RefundButton } from 'src/components/Buttons/CtaButton'
 import { useRefundRequestModalStore } from 'src/stores'
 import styled from 'styled-components'
 import { Modal } from '.'
+import { DonationInputPanel } from '../Input/DonationInputPanel'
 import { Heading, SubHeading } from './common'
 
-const SAMPLE_REFUNDABLE_VALUE = 1.03
-
-export const RefundRequestModal: VFC = () => {
+export const RefundRequestModal: VFC<{ refundableAmount: number }> = ({
+  refundableAmount,
+}) => {
   const { isOpen, close } = useRefundRequestModalStore()
   return (
     <>
@@ -15,7 +16,7 @@ export const RefundRequestModal: VFC = () => {
         <Layout>
           <Heading>Refund request</Heading>
           <SubHeading>It might be returned</SubHeading>
-          <RefundButton />
+          <DonationInputPanel amount={refundableAmount} />
           <RefundButton />
         </Layout>
       </Modal>
@@ -27,10 +28,7 @@ const Layout = styled.div`
   ${Heading} {
     margin-bottom: 16px;
   }
-  ${SubHeading} {
-    margin-bottom: 40px;
-  }
-  button:not(:last-child) {
+  ${SubHeading}, > div, button:not(:last-child) {
     margin-bottom: 24px;
   }
 `
