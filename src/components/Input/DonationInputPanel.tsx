@@ -2,28 +2,33 @@ import React, { VFC } from 'react'
 import { EthUnit } from 'src/components/Unit'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const DonationInputPanel: VFC<{ disabled?: boolean }> = ({
-  disabled = false,
-}) => (
-  <LayoutDiv disabled={disabled}>
+export const DonationInputPanel: VFC<{
+  disabled?: boolean
+  amount?: number
+}> = ({ disabled, amount }) => (
+  <LayoutDiv isFixed={!!amount}>
     <EthUnit />
-    <Input
-      placeholder="0.00"
-      inputMode="decimal"
-      autoComplete="off"
-      autoCorrect="off"
-      type="text"
-      pattern="^[0-9]*[.,]?[0-9]*$"
-      minLength={1}
-      maxLength={79}
-      disabled={disabled}
-    />
+    {amount ? (
+      <Label>{amount}</Label>
+    ) : (
+      <Input
+        placeholder="0.00"
+        inputMode="decimal"
+        autoComplete="off"
+        autoCorrect="off"
+        type="text"
+        pattern="^[0-9]*[.,]?[0-9]*$"
+        minLength={1}
+        maxLength={79}
+        disabled={disabled}
+      />
+    )}
   </LayoutDiv>
 )
 
-const Input = styled.input`
+const baseStyle = css`
   font-size: 24px;
   font-weight: ${fontWeightMedium};
   line-height: 1.25;
@@ -32,10 +37,19 @@ const Input = styled.input`
   overflow: hidden;
 `
 
-const LayoutDiv = styled.div<{ disabled?: boolean }>`
+const Input = styled.input`
+  ${baseStyle}
+`
+
+const Label = styled.label`
+  ${baseStyle}
+  width: 100%;
+`
+
+const LayoutDiv = styled.div<{ isFixed?: boolean }>`
   ${flexCenter}
   height: 56px;
-  border: 1px solid;
+  border: ${({ isFixed }) => (isFixed ? '' : '1px solid')};
   border-radius: 34px;
   padding: 0 22px;
   > div {

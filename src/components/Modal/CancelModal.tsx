@@ -3,11 +3,12 @@ import { CancelButton } from 'src/components/Buttons/CtaButton'
 import { useCancelModalStore } from 'src/stores'
 import styled from 'styled-components'
 import { Modal } from '.'
+import { DonationInputPanel } from '../Input/DonationInputPanel'
 import { Heading, SubHeading } from './common'
 
-const SAMPLE_CANCELABLE_VALUE = 1.03
-
-export const CancelModal: VFC = () => {
+export const CancelModal: VFC<{ cancelableAmount: number }> = ({
+  cancelableAmount,
+}) => {
   const { isOpen, close } = useCancelModalStore()
   return (
     <>
@@ -15,7 +16,7 @@ export const CancelModal: VFC = () => {
         <Layout>
           <Heading>Cancel</Heading>
           <SubHeading>Amount to be returned</SubHeading>
-          <CancelButton />
+          <DonationInputPanel amount={cancelableAmount} />
           <CancelButton />
         </Layout>
       </Modal>
@@ -27,10 +28,7 @@ const Layout = styled.div`
   ${Heading} {
     margin-bottom: 16px;
   }
-  ${SubHeading} {
-    margin-bottom: 40px;
-  }
-  button:not(:last-child) {
+  ${SubHeading}, > div, button:not(:last-child) {
     margin-bottom: 24px;
   }
 `

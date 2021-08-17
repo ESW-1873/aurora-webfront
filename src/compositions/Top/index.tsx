@@ -24,7 +24,7 @@ export const Top: VFC<SEOProps> = ({ ...seoProps }) => (
     <Footer />
     <WalletModal />
     <DonationModal totalDonation={MOCK_POST.totalDonation} />
-    <CancelModal />
+    <CancelModal cancelableAmount={MOCK_POST.totalDonation} />
     <RefundRequestModal />
   </>
 )

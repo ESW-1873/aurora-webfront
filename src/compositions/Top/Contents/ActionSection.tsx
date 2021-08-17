@@ -5,7 +5,11 @@ import {
   RefundButton,
 } from 'src/components/Buttons/CtaButton'
 import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
-import { useDonateModalStore } from 'src/stores'
+import {
+  useCancelModalStore,
+  useDonateModalStore,
+  useRefundRequestModalStore,
+} from 'src/stores'
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
@@ -20,11 +24,13 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
   postId,
 }) => {
   const { open: openDonateModal } = useDonateModalStore()
+  const { open: openCancelModal } = useCancelModalStore()
+  const { open: openRefundRequestModal } = useRefundRequestModalStore()
 
   // TODO: UIチェックのために仮で入れてる。ステータスの定義や管理を検討（Recoilかな）
   const [status, setStatus] = useState<
     'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'CLOSED'
-  >('DONATABLE')
+  >('CANCELABLE')
 
   return (
     <>
@@ -37,13 +43,13 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
       {status === 'CANCELABLE' && (
         <SingleButtonLayout>
           <Label>You’ve already donated.</Label>
-          <CancelButton onClick={() => alert('TODO')} />
+          <CancelButton onClick={openCancelModal} />
         </SingleButtonLayout>
       )}
       {status === 'REFUNDABLE' && (
         <SingleButtonLayout>
           <Label color={errorColor}>Do you have a problem?</Label>
-          <RefundButton onClick={() => alert('TODO')} />
+          <RefundButton onClick={openRefundRequestModal} />
         </SingleButtonLayout>
       )}
       {status === 'CLOSED' && <Label>This Project has already closed.</Label>}
