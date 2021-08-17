@@ -3,19 +3,20 @@ import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useDonateModalStore } from 'src/stores'
 import styled from 'styled-components'
 import { Modal } from '.'
+import { DonationInputPanel } from '../Input/DonationInputPanel'
 import { Heading, SubHeading } from './common'
 
-const SAMPLE_TOTAL_DONATION = 194.73
-
-export const DonationModal: VFC = () => {
+export const DonationModal: VFC<{ totalDonation: number }> = ({
+  totalDonation,
+}) => {
   const { isOpen, close } = useDonateModalStore()
   return (
     <>
       <Modal isOpen={isOpen} closeModal={close}>
         <Layout>
           <Heading>Donation</Heading>
-          <SubHeading>{`Total Donation ${SAMPLE_TOTAL_DONATION} ETH`}</SubHeading>
-          <PrimaryButton label="Donate" />
+          <SubHeading>{`Total Donation ${totalDonation} ETH`}</SubHeading>
+          <DonationInputPanel />
           <PrimaryButton label="Donate" />
         </Layout>
       </Modal>
@@ -27,10 +28,7 @@ const Layout = styled.div`
   ${Heading} {
     margin-bottom: 16px;
   }
-  ${SubHeading} {
-    margin-bottom: 40px;
-  }
-  button:not(:last-child) {
+  ${SubHeading}, > div, button:not(:last-child) {
     margin-bottom: 24px;
   }
 `
