@@ -1,30 +1,20 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
-import { IconTwitter } from 'src/assets/svgs'
 import {
   errorColor,
+  gray,
   primaryColor,
   purple,
   turquoise,
-  twitter,
   white,
 } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
-import { defaultShadow, flexCenter } from 'src/styles/mixins'
+import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const PrimaryButton: VFC<
   { label: string } & ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ label, ...props }) => (
   <PrimaryButtonElement {...props}>{label}</PrimaryButtonElement>
-)
-
-export const ShareButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  ...props
-}) => (
-  <ShareButtonElement {...props}>
-    <IconTwitter />
-    <span>Share on Twitter</span>
-  </ShareButtonElement>
 )
 
 export const CancelButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
@@ -39,7 +29,7 @@ export const GetStartedButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props
 }) => <GetStartedButtonElement {...props}>Get Started</GetStartedButtonElement>
 
-const BaseButtonElement = styled.button`
+export const BaseButtonElement = styled.button`
   height: 64px;
   width: 100%;
   max-width: 342px;
@@ -57,20 +47,8 @@ const PrimaryButtonElement = styled(BaseButtonElement)`
   :focus {
     background: ${purple}bf;
   }
-`
-
-const ShareButtonElement = styled(BaseButtonElement)`
-  ${flexCenter}
-  background: ${twitter};
-  font-size: 16px;
-  > svg {
-    margin-right: 8px;
-    width: 24px;
-    height: 100%;
-  }
-  :hover,
-  :focus {
-    background: ${twitter}bf;
+  :disabled {
+    background: ${gray};
   }
 `
 

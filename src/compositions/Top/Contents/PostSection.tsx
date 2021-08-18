@@ -1,17 +1,25 @@
 import React, { VFC } from 'react'
-import { MOCK_POST } from 'src/constants/tmp/post'
-import { fontWeightBold, fontWeightSemiBold } from 'src/styles/font'
+import { TotalDonationLabel } from 'src/components/TotalDonationLabel'
+import { fontWeightBold } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-const SAMPLE_TOTAL_DONATION = 194.73
+type Props = {
+  title: string
+  totalDonation: number
+  description: string
+}
 
-export const ContentsSection: VFC = () => (
-  <ContentsDiv>
-    <Title>{MOCK_POST.title}</Title>
-    <TotalDonation>{`Total Donation: ${SAMPLE_TOTAL_DONATION} ETH`}</TotalDonation>
-    <Description>{MOCK_POST.description}</Description>
-  </ContentsDiv>
+export const PostSection: VFC<Props> = ({
+  title,
+  totalDonation,
+  description,
+}) => (
+  <Section>
+    <Title>{title}</Title>
+    <TotalDonationLabel amount={totalDonation} />
+    <Description>{description}</Description>
+  </Section>
 )
 
 const Title = styled.h2`
@@ -21,15 +29,6 @@ const Title = styled.h2`
   @media ${breakpoint.m} {
     font-size: 32px;
     line-height: 1.2;
-  }
-`
-
-const TotalDonation = styled.h3`
-  font-size: 40px;
-  font-weight: ${fontWeightSemiBold};
-  letter-spacing: -0.04em;
-  @media ${breakpoint.m} {
-    font-size: 20px;
   }
 `
 
@@ -45,17 +44,17 @@ const Description = styled.p`
   }
 `
 
-const ContentsDiv = styled.div`
+const Section = styled.section`
   text-align: left;
   padding-top: 32px;
   padding-bottom: 64px;
-  ${Title}, ${TotalDonation} {
+  ${Title}, >label {
     margin-bottom: 32px;
   }
   @media ${breakpoint.m} {
     padding-top: 24px;
     padding-bottom: 40px;
-    ${Title}, ${TotalDonation} {
+    ${Title}, >label {
       margin-bottom: 24px;
     }
   }

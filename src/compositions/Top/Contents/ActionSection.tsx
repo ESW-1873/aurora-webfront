@@ -3,8 +3,13 @@ import {
   CancelButton,
   PrimaryButton,
   RefundButton,
-  ShareButton,
 } from 'src/components/Buttons/CtaButton'
+import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
+import {
+  useCancelModalStore,
+  useDonateModalStore,
+  useRefundRequestModalStore,
+} from 'src/stores'
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
@@ -14,29 +19,37 @@ import styled from 'styled-components'
  * this depends on project status from the user's perspective (e.g. open/donated/closed)
  */
 // TODO: 現状は仮実装
-export const StatusSection: VFC = () => {
+export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
+  postTitle,
+  postId,
+}) => {
+  const { open: openDonateModal } = useDonateModalStore()
+  const { open: openCancelModal } = useCancelModalStore()
+  const { open: openRefundRequestModal } = useRefundRequestModalStore()
+
   // TODO: UIチェックのために仮で入れてる。ステータスの定義や管理を検討（Recoilかな）
   const [status, setStatus] = useState<
-    'DONATABLE' | 'CANCELABLE' | 'REFUND_REQUESTABLE' | 'CLOSED'
-  >('CANCELABLE')
+    'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'CLOSED'
+  >('DONATABLE')
+
   return (
     <>
       {status === 'DONATABLE' && (
         <DubbleButtonLayout>
-          <PrimaryButton onClick={() => alert('TODO')} label="Donate" />
-          <ShareButton onClick={() => alert('TODO')} />
+          <PrimaryButton onClick={openDonateModal} label="Donate" />
+          <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}
       {status === 'CANCELABLE' && (
         <SingleButtonLayout>
           <Label>You’ve already donated.</Label>
-          <CancelButton onClick={() => alert('TODO')} />
+          <CancelButton onClick={openCancelModal} />
         </SingleButtonLayout>
       )}
-      {status === 'REFUND_REQUESTABLE' && (
+      {status === 'REFUNDABLE' && (
         <SingleButtonLayout>
           <Label color={errorColor}>Do you have a problem?</Label>
-          <RefundButton onClick={() => alert('TODO')} />
+          <RefundButton onClick={openRefundRequestModal} />
         </SingleButtonLayout>
       )}
       {status === 'CLOSED' && <Label>This Project has already closed.</Label>}

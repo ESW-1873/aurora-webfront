@@ -3,6 +3,7 @@ import IconCheck from './icon_check.svg'
 import IconClose from './icon_close.svg'
 import IconColorfulCircle from './icon_colorful_circle.svg'
 import IconCopy from './icon_copy.svg'
+import IconEth from './icon_eth.svg'
 import IconExternalLink from './icon_external_link.svg'
 import IconLoading from './icon_loading.svg'
 import IconMetamask from './icon_metamask.svg'
@@ -28,4 +29,5 @@ export {
   IconCheck,
   IconLoading,
   LoadingCircle,
+  IconEth,
 }

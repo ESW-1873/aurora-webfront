@@ -5,16 +5,16 @@ import { fontWeightLight } from 'src/styles/font'
 import { shortenAddress } from 'src/utils/address'
 import styled from 'styled-components'
 
-export const AccountLabel: VFC<{ account: string }> = ({ account }) => {
+export const AddressLabel: VFC<{ address: string }> = ({ address }) => {
   const { chainId } = useWeb3React()
   const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
   return (
     <AccountLink
-      href={`${explorer}address/${account}`}
+      href={`${explorer}address/${address}`}
       target="_blank"
       rel="noreferrer"
     >
-      {shortenAddress(account)}
+      {shortenAddress(address)}
     </AccountLink>
   )
 }
