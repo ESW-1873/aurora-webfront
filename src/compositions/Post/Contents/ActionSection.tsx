@@ -1,3 +1,4 @@
+import { useWeb3React } from '@web3-react/core'
 import React, { useState, VFC } from 'react'
 import {
   CancelButton,
@@ -9,6 +10,7 @@ import {
   useCancelModalStore,
   useDonateModalStore,
   useRefundRequestModalStore,
+  useWalletModalStore,
 } from 'src/stores'
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
@@ -23,6 +25,8 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
   postTitle,
   postId,
 }) => {
+  const { active } = useWeb3React()
+  const { open: openWalletModal } = useWalletModalStore()
   const { open: openDonateModal } = useDonateModalStore()
   const { open: openCancelModal } = useCancelModalStore()
   const { open: openRefundRequestModal } = useRefundRequestModalStore()
@@ -30,13 +34,16 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
   // TODO: UIチェックのために仮で入れてる。ステータスの定義や管理を検討（Recoilかな）
   const [status, setStatus] = useState<
     'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'MINE' | 'CLOSED'
-  >('MINE')
+  >('DONATABLE')
 
   return (
     <>
       {status === 'DONATABLE' && (
         <DubbleButtonLayout>
-          <PrimaryButton onClick={openDonateModal} label="Donate" />
+          <PrimaryButton
+            onClick={active ? openDonateModal : openWalletModal}
+            label={active ? 'Donate' : 'Connect Wallet'}
+          />
           <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}
