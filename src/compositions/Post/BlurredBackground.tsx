@@ -1,13 +1,12 @@
 import React, { VFC } from 'react'
 import { Image } from 'src/components/Image'
-import { MOCK_POST } from 'src/constants/tmp/post'
 import { white } from 'src/styles/colors'
 import { absoluteFill, breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const BlurredBackground: VFC = () => (
+export const BlurredBackground: VFC<{ imageUrl: string }> = ({ imageUrl }) => (
   <BlurredBackgroundDiv>
-    <Image src={MOCK_POST.image} alt="keyvisual" />
+    <Image src={imageUrl} alt="keyvisual" />
     <BlurFilter />
   </BlurredBackgroundDiv>
 )
