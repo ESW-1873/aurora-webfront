@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import { BlurredBackground } from './BlurredBackground'
 import { Contents } from './Contents'
 
+//TODO: ページ生成時にデータ注入。（ページロード時に取得する系のデータも一旦全部MOCKになってます）
 export const Post: VFC<SEOProps> = ({ ...seoProps }) => (
   <>
     <SEO {...seoProps} />
