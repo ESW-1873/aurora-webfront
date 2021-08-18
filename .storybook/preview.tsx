@@ -15,7 +15,9 @@ export const decorators = [
     <>
       <RecoilRoot>
         <GlobalStyles />
-        <Story />
+        <div id="__next">
+          <Story />
+        </div>
       </RecoilRoot>
     </>
   ),

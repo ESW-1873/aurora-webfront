@@ -61,7 +61,7 @@ const Styles = createGlobalStyle`
     color: ${primaryColor};
     min-height: 100vh;
     height: 100%;
-    > div {
+    > div#__next {
       height: 100%;
       display: flex;
       flex-flow: column;
