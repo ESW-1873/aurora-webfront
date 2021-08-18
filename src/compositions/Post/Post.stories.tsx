@@ -1,17 +1,17 @@
 import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'src/styles/global-styles'
-import { Top } from '.'
+import { Post } from '.'
 
 export default {
-  title: 'Top',
+  title: 'Post',
 }
 
 export const TopPage = () => (
   <>
     <RecoilRoot>
       <GlobalStyles />
-      <Top />
+      <Post />
     </RecoilRoot>
   </>
 )
