@@ -1,5 +1,5 @@
-import { Top } from 'src/compositions/Top'
+import Custom404 from './404'
 
-const TopPage = () => <Top />
+const TopPage = () => <Custom404 />
 
 export default TopPage

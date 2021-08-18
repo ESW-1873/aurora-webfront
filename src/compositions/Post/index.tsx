@@ -13,7 +13,7 @@ import styled from 'styled-components'
 import { BlurredBackground } from './BlurredBackground'
 import { Contents } from './Contents'
 
-export const Top: VFC<SEOProps> = ({ ...seoProps }) => (
+export const Post: VFC<SEOProps> = ({ ...seoProps }) => (
   <>
     <SEO {...seoProps} />
     <BlurredBackground />
