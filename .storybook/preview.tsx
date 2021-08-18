@@ -1,4 +1,6 @@
 import * as NextImage from 'next/image'
+import { RecoilRoot } from 'recoil'
+import { GlobalStyles } from '../src/styles/global-styles'
 
 const OriginalNextImage = NextImage.default
 Object.defineProperty(NextImage, 'default', {
@@ -7,6 +9,17 @@ Object.defineProperty(NextImage, 'default', {
     <OriginalNextImage {...props} unoptimized loading="eager" />
   ),
 })
+
+export const decorators = [
+  (Story) => (
+    <>
+      <RecoilRoot>
+        <GlobalStyles />
+        <Story />
+      </RecoilRoot>
+    </>
+  ),
+]
 
 export const parameters = {
   layout: 'fullscreen',
