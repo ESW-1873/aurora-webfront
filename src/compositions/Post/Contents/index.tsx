@@ -11,12 +11,12 @@ export const Contents: VFC = () => (
   <>
     <Layout>
       <ImageDiv>
-        <Image src={MOCK_POST.image} alt="key visual" />
+        <Image src={MOCK_POST.imageUrl} alt="key visual" />
       </ImageDiv>
       <PostSection
         title={MOCK_POST.title}
         description={MOCK_POST.description}
-        totalDonation={MOCK_POST.totalDonation}
+        totalDonation={MOCK_POST.donatedSum}
       />
       <ActionSection postTitle={MOCK_POST.title} postId={MOCK_POST.id} />
       <DonationSection />

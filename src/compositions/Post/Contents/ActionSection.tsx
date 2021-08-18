@@ -29,8 +29,8 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
 
   // TODO: UIチェックのために仮で入れてる。ステータスの定義や管理を検討（Recoilかな）
   const [status, setStatus] = useState<
-    'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'CLOSED'
-  >('DONATABLE')
+    'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'MINE' | 'CLOSED'
+  >('MINE')
 
   return (
     <>
@@ -51,6 +51,12 @@ export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
           <Label color={errorColor}>Do you have a problem?</Label>
           <RefundButton onClick={openRefundRequestModal} />
         </SingleButtonLayout>
+      )}
+      {status === 'MINE' && (
+        <DubbleButtonLayout>
+          <PrimaryButton onClick={() => alert('TODO')} label="Share URL" />
+          <TwitterShareButton message={postTitle} path={postId} />
+        </DubbleButtonLayout>
       )}
       {status === 'CLOSED' && <Label>This Project has already closed.</Label>}
     </>

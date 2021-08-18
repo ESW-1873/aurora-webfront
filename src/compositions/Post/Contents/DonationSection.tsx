@@ -1,29 +1,26 @@
 import React, { ReactNode, VFC } from 'react'
 import { AddressLabel } from 'src/components/AddressLabel'
 import { HorizontalDashedLine } from 'src/components/HorizontalDashedLine'
-import { ZERO_ADDRESS } from 'src/constants/misc'
+import { MOCK_POST } from 'src/constants/tmp/post'
 import { errorColor, turquoise } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import styled from 'styled-components'
 
-const SAMPLE_CREDIT_VALUE = 3201
-const SAMPLE_DONEE_ADDRESS = ZERO_ADDRESS
-const SAMPLE_CANCELED_ACCOUNTS = [ZERO_ADDRESS, ZERO_ADDRESS, ZERO_ADDRESS]
 export const DonationSection: VFC<{ isClosed?: boolean }> = ({ isClosed }) => (
   <>
     <Section>
       <Wrapper title="Donee Address">
-        <AddressLabel address={SAMPLE_DONEE_ADDRESS} />
+        <AddressLabel address={MOCK_POST.donee} />
       </Wrapper>
       <Wrapper title="Credit Score">
-        <CreditLabel>{`${SAMPLE_CREDIT_VALUE} CREDIT`}</CreditLabel>
+        <CreditLabel>{`${MOCK_POST.credit} CREDIT`}</CreditLabel>
       </Wrapper>
       <HorizontalDashedLine />
       <Wrapper
         isClosed={isClosed}
         title={isClosed ? 'Refund Request' : 'Canceled Donations'}
       >
-        <CanceledDonations accounts={SAMPLE_CANCELED_ACCOUNTS} />
+        <CanceledDonations donations={MOCK_POST.canceled} />
       </Wrapper>
     </Section>
   </>
@@ -42,11 +39,13 @@ const Wrapper: VFC<{
   </>
 )
 
-const CanceledDonations: VFC<{ accounts: string[] }> = ({ accounts = [] }) => (
+const CanceledDonations: VFC<{ donations: any[] /*TODO:DONATIONの型*/ }> = ({
+  donations = [],
+}) => (
   <>
     <AccountListDiv>
-      {accounts.map((account, key) => {
-        return <AddressLabel key={key} address={account} />
+      {donations.map((donation, key) => {
+        return <AddressLabel key={key} address={donation.sender} />
       })}
     </AccountListDiv>
   </>
