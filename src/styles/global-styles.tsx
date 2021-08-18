@@ -43,9 +43,6 @@ const Styles = createGlobalStyle`
   img {
     vertical-align: bottom;
   }
-  html {
-    height: 100%;
-  }
   h2 {
     ${heading2Style};
   }
@@ -60,7 +57,6 @@ const Styles = createGlobalStyle`
     background-color: ${white};
     color: ${primaryColor};
     min-height: 100vh;
-    height: 100%;
     > div#__next {
       height: 100%;
       display: flex;
