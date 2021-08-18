@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
 import {
   errorColor,
+  gray,
   primaryColor,
   purple,
   turquoise,
@@ -45,6 +46,9 @@ const PrimaryButtonElement = styled(BaseButtonElement)`
   :hover,
   :focus {
     background: ${purple}bf;
+  }
+  :disabled {
+    background: ${gray};
   }
 `
 
