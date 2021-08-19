@@ -10,9 +10,10 @@ import { GlobalStyles } from 'src/styles/global-styles'
 import 'src/styles/globals.css'
 import 'src/styles/reset.css'
 import { ROOT_URL } from 'src/utils/env'
+import { extractPathname } from 'src/utils/router'
 
 const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
-  const pageUrl = `${ROOT_URL}${asPath}`
+  const pageUrl = `${ROOT_URL}${extractPathname(asPath)}`
   return (
     <>
       <Web3ReactProvider getLibrary={getLibrary}>
