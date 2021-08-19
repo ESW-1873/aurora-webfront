@@ -3,7 +3,7 @@ import { RefundButton } from 'src/components/Buttons/CtaButton'
 import { useRefundRequestModalStore } from 'src/stores'
 import styled from 'styled-components'
 import { Modal } from '.'
-import { DonationInputPanel } from '../Input/DonationInputPanel'
+import { EthValueLabel } from '../Label'
 import { Heading, SubHeading } from './common'
 
 export const RefundRequestModal: VFC<{ refundableAmount: string }> = ({
@@ -16,7 +16,7 @@ export const RefundRequestModal: VFC<{ refundableAmount: string }> = ({
         <Layout>
           <Heading>Refund request</Heading>
           <SubHeading>It might be returned</SubHeading>
-          <DonationInputPanel amount={refundableAmount} />
+          <EthValueLabel value={refundableAmount} />
           <RefundButton />
         </Layout>
       </Modal>
