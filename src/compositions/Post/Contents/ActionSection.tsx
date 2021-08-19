@@ -21,10 +21,11 @@ import styled from 'styled-components'
  * this depends on project status from the user's perspective (e.g. open/donated/closed)
  */
 // TODO: 現状は仮実装
-export const ActionSection: VFC<{ postTitle: string; postId: string }> = ({
-  postTitle,
-  postId,
-}) => {
+export const ActionSection: VFC<{
+  postTitle: string
+  postId: string
+  hasClosed: boolean
+}> = ({ postTitle, postId, hasClosed }) => {
   const { active } = useWeb3React()
   const { open: openWalletModal } = useWalletModalStore()
   const { open: openDonateModal } = useDonateModalStore()

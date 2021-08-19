@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { PostProps } from 'src/compositions/Post'
 
 export const MOCK_DONEE_ADDRESS = '0x1111111111111111111111111111111111111111'
@@ -16,4 +17,5 @@ export const MOCK_POST: PostProps['postProps'] = {
   refundRequests: [MOCK_DONATION, MOCK_DONATION, MOCK_DONATION],
   hasClosed: false,
   doneeCredit: '3201',
+  endTime: dayjs.unix(0),
 }

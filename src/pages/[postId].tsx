@@ -44,13 +44,17 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
       notFound: true,
     }
 
+  const { id, title, imageUrl, description, donee, endTime } =
+    data.postContent || {}
+
   const props: PostStaticProps = {
     postStaticProps: {
-      id: params.postId,
-      title: data.postContent.title,
-      keyVisual: data.postContent.imageUrl,
-      description: data.postContent.description,
-      donee: data.postContent.donee,
+      id,
+      title,
+      keyVisual: imageUrl,
+      description,
+      donee,
+      endTime,
     },
   }
 

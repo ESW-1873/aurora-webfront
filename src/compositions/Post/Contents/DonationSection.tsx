@@ -9,12 +9,14 @@ type DonationSectionProps = {
   donee: string
   credit?: string
   canceledDonations: { id: string }[]
+  refundRequests: { id: string }[]
   hasClosed?: boolean
 }
 export const DonationSection: VFC<DonationSectionProps> = ({
   donee,
   credit,
   canceledDonations,
+  refundRequests,
   hasClosed,
 }) => (
   <>
@@ -22,16 +24,16 @@ export const DonationSection: VFC<DonationSectionProps> = ({
       <Wrapper title="Donee Address">
         <AddressLabel address={donee} />
       </Wrapper>
-      <Wrapper title="Credit Score">
-        <CreditLabel>{`${credit} CREDIT`}</CreditLabel>
-      </Wrapper>
-      <HorizontalDashedLine />
-      <Wrapper
-        hasClosed={hasClosed}
-        title={hasClosed ? 'Refund Request' : 'Canceled Donations'}
-      >
-        <CanceledDonations donations={canceledDonations} />
-      </Wrapper>
+      {credit && (
+        <Wrapper title="Credit Score">
+          <CreditLabel>{`${credit} CREDIT`}</CreditLabel>
+        </Wrapper>
+      )}
+      {hasClosed ? (
+        <TxnsWrapper title="Refund Requests" txns={refundRequests} hasClosed />
+      ) : (
+        <TxnsWrapper title="Canceled Donations" txns={canceledDonations} />
+      )}
     </Section>
   </>
 )
@@ -49,17 +51,25 @@ const Wrapper: VFC<{
   </>
 )
 
-const CanceledDonations: VFC<{
-  donations: { id: string }[]
-}> = ({ donations = [] }) => (
-  <>
-    <AccountListDiv>
-      {donations.map(({ id }) => {
-        return <TxHashLabel key={id} txHash={id} />
-      })}
-    </AccountListDiv>
-  </>
-)
+const TxnsWrapper: VFC<{
+  title: string
+  txns: { id: string }[]
+  hasClosed?: boolean
+}> = ({ title, txns, hasClosed }) =>
+  txns.length > 0 ? (
+    <>
+      <HorizontalDashedLine />
+      <Wrapper title={title} hasClosed={hasClosed}>
+        <AccountListDiv>
+          {txns.map(({ id }) => {
+            return <TxHashLabel key={id} txHash={id} />
+          })}
+        </AccountListDiv>
+      </Wrapper>
+    </>
+  ) : (
+    <></>
+  )
 
 const AccountListDiv = styled.div`
   display: flex;
