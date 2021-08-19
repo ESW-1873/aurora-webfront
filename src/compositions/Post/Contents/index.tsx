@@ -26,7 +26,9 @@ export const Contents: VFC<ContentsProps> = ({
   donee,
   totalDonation,
   canceledDonations,
+  refundRequests,
   doneeCredit,
+  hasClosed,
 }) => (
   <>
     <Layout>
@@ -38,12 +40,13 @@ export const Contents: VFC<ContentsProps> = ({
         description={description}
         totalDonation={totalDonation}
       />
-      <ActionSection postTitle={title} postId={id} />
+      <ActionSection postTitle={title} postId={id} hasClosed={hasClosed} />
       <DonationSection
         donee={donee}
         canceledDonations={canceledDonations}
+        refundRequests={refundRequests}
         credit={doneeCredit}
-        hasClosed={false}
+        hasClosed={hasClosed}
       />
     </Layout>
   </>
