@@ -1,4 +1,5 @@
 import React, { VFC } from 'react'
+import { FOOTER_SRC } from 'src/assets/images'
 import { FooterLogo } from 'src/assets/svgs'
 import { GetStartedButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
@@ -13,7 +14,7 @@ const SUBHEADING_TEXT = 'Decentralized Donations'
 export const Footer: VFC = () => {
   return (
     <FooterLayout>
-      <Image src="/assets/images/footer.png" alt="FooterBackgroundImage" />
+      <Image src={FOOTER_SRC} alt="FooterBackgroundImage" />
       <FooterContainer>
         <FooterLogo />
         <SubHeadingBelowLogo>{SUBHEADING_TEXT}</SubHeadingBelowLogo>
