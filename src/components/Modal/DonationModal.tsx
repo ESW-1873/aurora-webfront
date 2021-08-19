@@ -1,13 +1,14 @@
 import React, { useEffect, useState, VFC } from 'react'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useDonateModalStore } from 'src/stores'
+import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { Modal } from '.'
 import { DisclaimerCheckbox } from '../Input/Checkbox'
 import { DonationInputPanel } from '../Input/DonationInputPanel'
 import { Heading, SubHeading } from './common'
 
-export const DonationModal: VFC<{ totalDonation: number }> = ({
+export const DonationModal: VFC<{ totalDonation: string }> = ({
   totalDonation,
 }) => {
   const { isOpen, close } = useDonateModalStore()
@@ -23,7 +24,9 @@ export const DonationModal: VFC<{ totalDonation: number }> = ({
       <Modal isOpen={isOpen} closeModal={close}>
         <Layout>
           <Heading>Donation</Heading>
-          <SubHeading>{`Total Donation ${totalDonation} ETH`}</SubHeading>
+          <SubHeading>{`Total Donation ${weiToEth(
+            totalDonation,
+          )} ETH`}</SubHeading>
           {/* TODO: refでinputのバリューを取得してdonateする? */}
           {/* TODO: Inputエラーのハンドリング。エラーメッセージをどこに出すか検討 */}
           <DonationInputPanel />

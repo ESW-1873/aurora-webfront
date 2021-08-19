@@ -16,7 +16,7 @@ export const PostSection: VFC<Props> = ({
 }) => (
   <Section>
     <h2>{title}</h2>
-    <TotalDonationLabel amount={totalDonation} />
+    <TotalDonationLabel amountWei={totalDonation} />
     <p>{description}</p>
   </Section>
 )

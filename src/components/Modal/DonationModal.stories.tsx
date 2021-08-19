@@ -7,7 +7,7 @@ export default {
   title: 'DonationModal',
 }
 
-const MOCK_TOTAL_DONATION = 12.32344
+const MOCK_TOTAL_DONATION = '12.32344'
 
 export const Content: VFC = () => (
   <RecoilRoot

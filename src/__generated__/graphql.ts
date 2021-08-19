@@ -501,7 +501,7 @@ export type GetPostContentQueryVariables = Exact<{
 }>;
 
 
-export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, imageUrl: string, title: string, description: string, donee: string, capacity: string, periodHours: string, startTime: string, endTime: string, donatedCount: string, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, cancelled?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
+export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, imageUrl: string, title: string, description: string, donee: string, capacity: string, periodHours: string, startTime: string, endTime: string, donatedCount: string, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string, amount: string }>>, cancelled?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
 
 
 export const GetPostContentDocument = gql`
@@ -523,6 +523,7 @@ export const GetPostContentDocument = gql`
     donations {
       id
       sender
+      amount
     }
     cancelled {
       id

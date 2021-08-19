@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 
 export const DonationInputPanel: VFC<{
   disabled?: boolean
-  amount?: number
+  amount?: string
 }> = ({ disabled, amount }) => (
   <LayoutDiv isFixed={!!amount}>
     <EthUnit />

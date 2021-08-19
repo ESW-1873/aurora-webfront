@@ -7,7 +7,7 @@ export default {
   title: 'CancelModal',
 }
 
-const MOCK_CANCELABLE_AMOUNT = 4.8234
+const MOCK_CANCELABLE_AMOUNT = '4.8234'
 
 export const Content: VFC = () => (
   <RecoilRoot
