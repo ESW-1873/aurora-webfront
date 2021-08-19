@@ -1,3 +1,4 @@
+export { useContractStore } from './contract'
 export { useCancelModalStore } from './Modal/cancelModal'
 export { useDonateModalStore } from './Modal/donateModal'
 export { useRefundRequestModalStore } from './Modal/refundRequestModal'
