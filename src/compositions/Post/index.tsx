@@ -18,7 +18,11 @@ export const Post: VFC<PostProps> = ({
   ...seoProps
 }) => (
   <>
-    <PageWrapper backgroundImage={keyVisual} {...seoProps}>
+    <PageWrapper
+      backgroundImage={keyVisual}
+      {...seoProps}
+      description={`${description.slice(0, 100)}...`}
+    >
       <Contents
         id={id}
         title={title}

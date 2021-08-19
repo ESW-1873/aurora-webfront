@@ -58,6 +58,8 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
   return JSON.parse(JSON.stringify(result))
 }
 
-const PostPage: NextPage<PostProps> = (props) => <Post {...props} />
+const PostPage: NextPage<PostProps> = (props) => (
+  <Post {...props} pageTitle={props.title} image={props.keyVisual} />
+)
 
 export default PostPage
