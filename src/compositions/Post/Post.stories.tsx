@@ -6,11 +6,4 @@ export default {
   title: 'Post',
 }
 
-export const TopPage = () => (
-  <Post
-    id={MOCK_POST.id}
-    title={MOCK_POST.title}
-    description={MOCK_POST.description}
-    keyVisual={MOCK_POST.imageUrl}
-  />
-)
+export const TopPage = () => <Post postStaticProps={MOCK_POST} />

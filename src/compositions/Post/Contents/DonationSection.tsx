@@ -1,26 +1,36 @@
 import React, { ReactNode, VFC } from 'react'
-import { AddressLabel } from 'src/components/AddressLabel'
+import { AddressLabel, TxHashLabel } from 'src/components/ExplorerLabel'
 import { HorizontalDashedLine } from 'src/components/HorizontalDashedLine'
-import { MOCK_POST } from 'src/constants/tmp/post'
 import { errorColor, turquoise } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import styled from 'styled-components'
 
-export const DonationSection: VFC<{ isClosed?: boolean }> = ({ isClosed }) => (
+type DonationSectionProps = {
+  donee: string
+  credit?: string
+  canceledDonations: { id: string }[]
+  hasClosed?: boolean
+}
+export const DonationSection: VFC<DonationSectionProps> = ({
+  donee,
+  credit,
+  canceledDonations,
+  hasClosed,
+}) => (
   <>
     <Section>
       <Wrapper title="Donee Address">
-        <AddressLabel address={MOCK_POST.donee} />
+        <AddressLabel address={donee} />
       </Wrapper>
       <Wrapper title="Credit Score">
-        <CreditLabel>{`${MOCK_POST.credit} CREDIT`}</CreditLabel>
+        <CreditLabel>{`${credit} CREDIT`}</CreditLabel>
       </Wrapper>
       <HorizontalDashedLine />
       <Wrapper
-        isClosed={isClosed}
-        title={isClosed ? 'Refund Request' : 'Canceled Donations'}
+        hasClosed={hasClosed}
+        title={hasClosed ? 'Refund Request' : 'Canceled Donations'}
       >
-        <CanceledDonations donations={MOCK_POST.canceled} />
+        <CanceledDonations donations={canceledDonations} />
       </Wrapper>
     </Section>
   </>
@@ -29,23 +39,23 @@ export const DonationSection: VFC<{ isClosed?: boolean }> = ({ isClosed }) => (
 const Wrapper: VFC<{
   title: string
   children: ReactNode
-  isClosed?: boolean
-}> = ({ title, children, isClosed }) => (
+  hasClosed?: boolean
+}> = ({ title, children, hasClosed }) => (
   <>
-    <WrapperLayout isClosed={isClosed}>
+    <WrapperLayout hasClosed={hasClosed}>
       <Title>{title}</Title>
       {children}
     </WrapperLayout>
   </>
 )
 
-const CanceledDonations: VFC<{ donations: any[] /*TODO:DONATIONの型*/ }> = ({
-  donations = [],
-}) => (
+const CanceledDonations: VFC<{
+  donations: { id: string }[]
+}> = ({ donations = [] }) => (
   <>
     <AccountListDiv>
-      {donations.map((donation, key) => {
-        return <AddressLabel key={key} address={donation.sender} />
+      {donations.map(({ id }) => {
+        return <TxHashLabel key={id} txHash={id} />
       })}
     </AccountListDiv>
   </>
@@ -76,10 +86,10 @@ const Title = styled.p`
   letter-spacing: 0;
 `
 
-const WrapperLayout = styled.div<{ isClosed?: boolean }>`
+const WrapperLayout = styled.div<{ hasClosed?: boolean }>`
   display: flex;
   justify-content: space-between;
-  color: ${({ isClosed }) => (isClosed ? errorColor : 'inherit')};
+  color: ${({ hasClosed }) => (hasClosed ? errorColor : 'inherit')};
   :not(:last-child) {
     align-items: center;
   }

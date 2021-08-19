@@ -45,10 +45,13 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
     }
 
   const props: PostProps = {
-    id: params.postId,
-    title: data?.postContent.title,
-    keyVisual: data?.postContent.imageUrl,
-    description: data?.postContent.description,
+    postStaticProps: {
+      id: params.postId,
+      title: data.postContent.title,
+      keyVisual: data.postContent.imageUrl,
+      description: data.postContent.description,
+      donee: data.postContent.donee,
+    },
   }
 
   const result = {
@@ -58,8 +61,14 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
   return JSON.parse(JSON.stringify(result))
 }
 
-const PostPage: NextPage<PostProps> = (props) => (
-  <Post {...props} pageTitle={props.title} image={props.keyVisual} />
+const PostPage: NextPage<PostProps> = ({ postStaticProps }) => (
+  <Post
+    postStaticProps={postStaticProps}
+    seoProps={{
+      pageTitle: postStaticProps.title,
+      image: postStaticProps.keyVisual,
+    }}
+  />
 )
 
 export default PostPage

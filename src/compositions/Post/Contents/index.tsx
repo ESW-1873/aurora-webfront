@@ -11,14 +11,21 @@ export type ContentsProps = {
   keyVisual: string
   title: string
   description: string
+  donee: string
+  hasClosed: boolean
   totalDonation: string
+  canceledDonations: { id: string }[]
+  doneeCredit?: string
 }
 export const Contents: VFC<ContentsProps> = ({
   id,
   keyVisual,
   title,
   description,
+  donee,
   totalDonation,
+  canceledDonations,
+  doneeCredit,
 }) => (
   <>
     <Layout>
@@ -31,7 +38,12 @@ export const Contents: VFC<ContentsProps> = ({
         totalDonation={totalDonation}
       />
       <ActionSection postTitle={title} postId={id} />
-      <DonationSection />
+      <DonationSection
+        donee={donee}
+        canceledDonations={canceledDonations}
+        credit={doneeCredit}
+        hasClosed={false}
+      />
     </Layout>
   </>
 )
