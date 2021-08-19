@@ -3,6 +3,7 @@ import { VFC } from 'react'
 import { CHAIN_INFO, SupportedChainId } from 'src/constants/chains'
 import { fontWeightLight } from 'src/styles/font'
 import { shortenAddress } from 'src/utils/address'
+import { ellipsizeMid } from 'src/utils/string'
 import styled from 'styled-components'
 
 export const AddressLabel: VFC<{ address: string }> = ({ address }) => {
@@ -15,6 +16,20 @@ export const AddressLabel: VFC<{ address: string }> = ({ address }) => {
       rel="noreferrer"
     >
       {shortenAddress(address)}
+    </AccountLink>
+  )
+}
+
+export const TxHashLabel: VFC<{ txHash: string }> = ({ txHash }) => {
+  const { chainId } = useWeb3React()
+  const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
+  return (
+    <AccountLink
+      href={`${explorer}tx/${txHash}`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {ellipsizeMid(txHash, 6, 4)}
     </AccountLink>
   )
 }
