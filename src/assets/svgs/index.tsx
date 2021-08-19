@@ -1,3 +1,5 @@
+import IconAlert from './icon_alert.svg'
+import IconArrowUp from './icon_arrow_up.svg'
 import IconBack from './icon_back.svg'
 import IconCheck from './icon_check.svg'
 import IconClose from './icon_close.svg'
@@ -30,4 +32,6 @@ export {
   IconLoading,
   LoadingCircle,
   IconEth,
+  IconAlert,
+  IconArrowUp,
 }
