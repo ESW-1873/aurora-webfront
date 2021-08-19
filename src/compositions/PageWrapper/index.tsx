@@ -27,11 +27,12 @@ export const PageWrapper: VFC<PageWrapperProps> = ({
   </>
 )
 
+export const CONTENT_MAX_WIDTH = '896px'
 export const Layout = styled.div`
   flex: 1;
   ${pageGuide};
   margin: 0 auto;
-  max-width: 896px;
+  max-width: ${CONTENT_MAX_WIDTH};
   width: 100%;
   padding-bottom: 64px;
   background: ${white}26;
