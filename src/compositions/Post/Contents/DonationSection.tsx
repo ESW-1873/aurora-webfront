@@ -73,6 +73,7 @@ const Title = styled.p`
   font-size: 20px;
   font-weight: ${fontWeightBold};
   line-height: 1.2;
+  letter-spacing: 0;
 `
 
 const WrapperLayout = styled.div<{ isClosed?: boolean }>`

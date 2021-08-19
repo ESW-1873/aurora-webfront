@@ -1,24 +1,23 @@
 import React, { VFC } from 'react'
-import { TotalDonationLabel } from 'src/components/TotalDonationLabel'
+import { DISCLAIMER_TEXT } from 'src/data/disclaimer'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
+import { PageWrapper } from '../PageWrapper'
 
-type Props = {
-  title: string
-  totalDonation: number
-  description: string
-}
-
-export const PostSection: VFC<Props> = ({
-  title,
-  totalDonation,
-  description,
-}) => (
-  <Section>
-    <h2>{title}</h2>
-    <TotalDonationLabel amount={totalDonation} />
-    <p>{description}</p>
-  </Section>
+export const Disclaimer: VFC = () => (
+  <>
+    <PageWrapper
+      pageTitle="Disclaimer"
+      backgroundImage="/assets/images/footer.png"
+    >
+      <main>
+        <Section>
+          <h2>Disclaimer</h2>
+          <p>{DISCLAIMER_TEXT}</p>
+        </Section>
+      </main>
+    </PageWrapper>
+  </>
 )
 
 const Section = styled.section`

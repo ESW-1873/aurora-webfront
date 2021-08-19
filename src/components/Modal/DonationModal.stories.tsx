@@ -1,7 +1,6 @@
 import React, { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import { isOpenedDonateModalAtom } from 'src/stores/Modal/donateModal'
-import { GlobalStyles } from 'src/styles/global-styles'
 import { DonationModal } from './DonationModal'
 
 export default {
@@ -14,7 +13,6 @@ export const Content: VFC = () => (
   <RecoilRoot
     initializeState={(snap) => snap.set(isOpenedDonateModalAtom, true)}
   >
-    <GlobalStyles />
     <DonationModal totalDonation={MOCK_TOTAL_DONATION} />
   </RecoilRoot>
 )
