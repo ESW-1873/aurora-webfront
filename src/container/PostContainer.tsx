@@ -40,6 +40,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
         hasClosed,
       }}
       donatedAmount={donatedAmount}
+      seoProps={seoProps}
     />
   )
 }
