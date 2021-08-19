@@ -1,38 +1,74 @@
-import { NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import React from 'react'
-import { Post } from 'src/compositions/Post'
+import { publicApiClient } from 'src/api/client'
+import { PostContainer, PostStaticProps } from 'src/container/PostContainer'
+import { isProd } from 'src/utils/env'
+import { isString } from 'src/utils/typeguard'
+import {
+  GetPostContentDocument,
+  GetPostContentQuery,
+  GetPostContentQueryVariables,
+} from 'src/__generated__/graphql'
 
-// TODO: fetch data
+type PostPageContext = {
+  postId: string
+}
 
-// type PostPageContext = {
-//   postId: string
-// }
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: [],
+  fallback: 'blocking',
+})
 
-// export const getStaticPaths: GetStaticPaths = async () => ({
-//   paths: [],
-//   fallback: 'blocking',
-// })
+export const getStaticProps: GetStaticProps<PostPageContext> = async ({
+  params = {},
+}) => {
+  if (!isString(params.postId))
+    return {
+      notFound: true,
+    }
+  const client = publicApiClient()
+  if (!client)
+    return {
+      notFound: true,
+    }
 
-// export const getStaticProps: GetStaticProps<PostPageContext> = async ({
-//   params,
-// }) => {
-//   if (!params?.postId)
-//     return {
-//       notFound: true,
-//     }
-//   const client = publicApiClient()
-//   if (!client)
-//     return {
-//       notFound: true,
-//     }
+  const { data, error } = await client
+    .query<GetPostContentQuery, GetPostContentQueryVariables>(
+      GetPostContentDocument,
+      { id: params.postId },
+    )
+    .toPromise()
 
-//   const result = {
-//     props,
-//     revalidate: isProd ? 86400 : 1,
-//   }
-//   return JSON.parse(JSON.stringify(result))
-// }
+  if (error || !data?.postContent)
+    return {
+      notFound: true,
+    }
 
-const PostPage: NextPage = () => <Post />
+  const props: PostStaticProps = {
+    postStaticProps: {
+      id: params.postId,
+      title: data.postContent.title,
+      keyVisual: data.postContent.imageUrl,
+      description: data.postContent.description,
+      donee: data.postContent.donee,
+    },
+  }
+
+  const result = {
+    props,
+    revalidate: isProd ? undefined : 1,
+  }
+  return JSON.parse(JSON.stringify(result))
+}
+
+const PostPage: NextPage<PostStaticProps> = ({ postStaticProps }) => (
+  <PostContainer
+    postStaticProps={postStaticProps}
+    seoProps={{
+      pageTitle: postStaticProps.title,
+      image: postStaticProps.keyVisual,
+    }}
+  />
+)
 
 export default PostPage

@@ -6,7 +6,7 @@ import { Modal } from '.'
 import { DonationInputPanel } from '../Input/DonationInputPanel'
 import { Heading, SubHeading } from './common'
 
-export const CancelModal: VFC<{ cancelableAmount: number }> = ({
+export const CancelModal: VFC<{ cancelableAmount: string }> = ({
   cancelableAmount,
 }) => {
   const { isOpen, close } = useCancelModalStore()

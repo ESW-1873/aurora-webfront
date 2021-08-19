@@ -6,7 +6,7 @@ import { Modal } from '.'
 import { DonationInputPanel } from '../Input/DonationInputPanel'
 import { Heading, SubHeading } from './common'
 
-export const RefundRequestModal: VFC<{ refundableAmount: number }> = ({
+export const RefundRequestModal: VFC<{ refundableAmount: string }> = ({
   refundableAmount,
 }) => {
   const { isOpen, close } = useRefundRequestModalStore()

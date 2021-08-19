@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 type Props = {
   title: string
-  totalDonation: number
+  totalDonation: string
   description: string
 }
 
@@ -16,7 +16,7 @@ export const PostSection: VFC<Props> = ({
 }) => (
   <Section>
     <h2>{title}</h2>
-    <TotalDonationLabel amount={totalDonation} />
+    <TotalDonationLabel amountWei={totalDonation} />
     <p>{description}</p>
   </Section>
 )

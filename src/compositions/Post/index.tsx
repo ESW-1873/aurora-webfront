@@ -4,20 +4,33 @@ import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
-import { MOCK_DONATION } from 'src/constants/tmp/donation'
-import { MOCK_POST } from 'src/constants/tmp/post'
 import { PageWrapper } from '../PageWrapper'
-import { Contents } from './Contents'
+import { Contents, ContentsProps } from './Contents'
 
-//TODO: ページ生成時にデータ注入。（ページロード時に取得する系のデータも一旦全部MOCKになってます）
-export const Post: VFC<SEOProps> = ({ ...seoProps }) => (
-  <>
-    <PageWrapper backgroundImage={MOCK_POST.imageUrl} {...seoProps}>
-      <Contents />
-    </PageWrapper>
-    <WalletModal />
-    <DonationModal totalDonation={MOCK_POST.donatedSum} />
-    <CancelModal cancelableAmount={MOCK_DONATION.amount} />
-    <RefundRequestModal refundableAmount={MOCK_DONATION.amount} />
-  </>
-)
+export type PostProps = {
+  seoProps?: SEOProps
+  postProps: ContentsProps
+  donatedAmount: string
+}
+export const Post: VFC<PostProps> = ({
+  donatedAmount,
+  postProps,
+  seoProps,
+}) => {
+  const { keyVisual, description, totalDonation } = postProps
+  return (
+    <>
+      <PageWrapper
+        backgroundImage={keyVisual}
+        description={`${description.slice(0, 100)}...`}
+        {...seoProps}
+      >
+        <Contents {...postProps} />
+      </PageWrapper>
+      <WalletModal />
+      <DonationModal totalDonation={totalDonation} />
+      <CancelModal cancelableAmount={donatedAmount} />
+      <RefundRequestModal refundableAmount={donatedAmount} />
+    </>
+  )
+}

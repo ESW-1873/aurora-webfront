@@ -9,3 +9,5 @@ export const ETHERSCAN_URL = 'https://etherscan.io/'
 
 export const postPage = (id: string, options?: Partial<{ fullUrl: boolean }>) =>
   options?.fullUrl ? `${SERVICE_URL}/${id}` : `/${id}`
+
+export const extractPathname = (path: string = '') => path.split(/[?#]/)[0]

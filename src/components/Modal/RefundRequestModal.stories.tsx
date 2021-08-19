@@ -7,7 +7,7 @@ export default {
   title: 'RefundRequestModal',
 }
 
-const MOCK_REFUNDABLE_AMOUNT = 3.42432
+const MOCK_REFUNDABLE_AMOUNT = '3.42432'
 
 export const Content: VFC = () => (
   <RecoilRoot

@@ -1,0 +1,21 @@
+overwrite: true
+schema: 'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.4'
+documents: 'src/**/*.graphql'
+generates:
+  src/__generated__/introspection.ts:
+    plugins:
+      - urql-introspection
+    config:
+      useTypeImports: true
+  src/__generated__/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-urql'
+  schema.graphql:
+    plugins:
+      - schema-ast
+config:
+  scalars:
+    BigInt: string
+    Bytes: string

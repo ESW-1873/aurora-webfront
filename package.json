@@ -13,12 +13,14 @@
     "vrt": "yarn run-storycap && reg-suit run",
     "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844",
     "analyze:bundle": "cross-env ANALYZE=true next build",
-    "generate-types:contract": "typechain --target ethers-v5 --out-dir src/external/contract/types 'aurora-core/abi/contracts/**/*.json'"
+    "generate-types:contract": "typechain --target ethers-v5 --out-dir src/external/contract/types 'aurora-core/abi/contracts/**/*.json'",
+    "generate:graphql": "graphql-codegen --config graphql-codegen.yml"
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^11.0.1",
     "@squardinc/next-seo": "^1.0.0",
+    "@urql/exchange-graphcache": "^4.3.0",
     "@walletconnect/web3-provider": "^1.4.1",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
@@ -26,7 +28,9 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.6",
     "ethers": "^5.4.1",
+    "graphql": "^15.5.1",
     "next": "11.0.1",
+    "next-urql": "^3.2.0",
     "react": "17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "17.0.2",
@@ -34,9 +38,16 @@
     "react-tsparticles": "^1.32.0",
     "recoil": "^0.3.1",
     "styled-components": "^5.3.0",
+    "urql": "^2.0.4",
     "web3": "^1.4.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.0.1",
+    "@graphql-codegen/schema-ast": "^2.0.0",
+    "@graphql-codegen/typescript": "^2.0.0",
+    "@graphql-codegen/typescript-operations": "^2.0.1",
+    "@graphql-codegen/typescript-urql": "^3.0.0",
+    "@graphql-codegen/urql-introspection": "^2.0.0",
     "@mdx-js/loader": "^1.6.22",
     "@next/bundle-analyzer": "^11.0.1",
     "@storybook/addon-viewport": "^6.3.4",

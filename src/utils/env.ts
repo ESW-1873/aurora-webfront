@@ -7,3 +7,7 @@ export const HOSTNAME = isProd
   : process.env.NEXT_PUBLIC_VERCEL_URL || 'dev.auroradao.org'
 
 export const ROOT_URL = `https://${HOSTNAME}`
+
+export const GRAPHQL_ENDPOINT =
+  process.env.GRAPHQL_ENDPOINT ||
+  'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.4'
