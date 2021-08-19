@@ -1,0 +1,16 @@
+overwrite: true
+schema: 'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.4'
+documents: 'src/**/*.graphql'
+generates:
+  src/__generated__/introspection.json:
+    plugins:
+      - urql-introspection
+  src/__generated__/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-urql'
+config:
+  scalars:
+    BigInt: string
+    Bytes: string
