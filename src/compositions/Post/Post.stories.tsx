@@ -6,4 +6,4 @@ export default {
   title: 'Post',
 }
 
-export const TopPage = () => <Post postStaticProps={MOCK_POST} />
+export const TopPage = () => <Post postProps={MOCK_POST} donatedAmount="1" />

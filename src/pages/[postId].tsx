@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import React from 'react'
 import { publicApiClient } from 'src/api/client'
-import { Post, PostProps } from 'src/compositions/Post'
+import { PostContainer, PostStaticProps } from 'src/container/PostContainer'
 import { isProd } from 'src/utils/env'
 import { isString } from 'src/utils/typeguard'
 import {
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
       notFound: true,
     }
 
-  const props: PostProps = {
+  const props: PostStaticProps = {
     postStaticProps: {
       id: params.postId,
       title: data.postContent.title,
@@ -61,8 +61,8 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
   return JSON.parse(JSON.stringify(result))
 }
 
-const PostPage: NextPage<PostProps> = ({ postStaticProps }) => (
-  <Post
+const PostPage: NextPage<PostStaticProps> = ({ postStaticProps }) => (
+  <PostContainer
     postStaticProps={postStaticProps}
     seoProps={{
       pageTitle: postStaticProps.title,

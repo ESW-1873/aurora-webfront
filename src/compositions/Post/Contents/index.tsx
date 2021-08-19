@@ -15,6 +15,7 @@ export type ContentsProps = {
   hasClosed: boolean
   totalDonation: string
   canceledDonations: { id: string }[]
+  refundRequests: { id: string }[]
   doneeCredit?: string
 }
 export const Contents: VFC<ContentsProps> = ({
