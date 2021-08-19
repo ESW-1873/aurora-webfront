@@ -3,7 +3,7 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const TotalDonationLabel: VFC<{ amount: number }> = ({ amount }) => (
+export const TotalDonationLabel: VFC<{ amount: string }> = ({ amount }) => (
   <Label>{`Total Donation: ${amount} ETH`}</Label>
 )
 

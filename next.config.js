@@ -12,6 +12,9 @@ module.exports = withPlugins([[withBundleAnalyzer], [withMDX]], {
   env: {
     NEXT_PUBLIC_IS_PROD: isProd,
   },
+  images: {
+    domains: ['arweave.net'],
+  },
   webpack(config, options) {
     config.module.rules.push({
       test: /\.svg$/,

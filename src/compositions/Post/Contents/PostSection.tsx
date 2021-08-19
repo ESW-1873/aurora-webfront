@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 type Props = {
   title: string
-  totalDonation: number
+  totalDonation: string
   description: string
 }
 

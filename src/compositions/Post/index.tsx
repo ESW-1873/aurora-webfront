@@ -7,13 +7,25 @@ import { SEOProps } from 'src/components/SEO'
 import { MOCK_DONATION } from 'src/constants/tmp/donation'
 import { MOCK_POST } from 'src/constants/tmp/post'
 import { PageWrapper } from '../PageWrapper'
-import { Contents } from './Contents'
+import { Contents, ContentsProps } from './Contents'
 
-//TODO: ページ生成時にデータ注入。（ページロード時に取得する系のデータも一旦全部MOCKになってます）
-export const Post: VFC<SEOProps> = ({ ...seoProps }) => (
+export type PostProps = SEOProps & Omit<ContentsProps, 'totalDonation'>
+export const Post: VFC<PostProps> = ({
+  id,
+  title,
+  keyVisual,
+  description,
+  ...seoProps
+}) => (
   <>
-    <PageWrapper backgroundImage={MOCK_POST.imageUrl} {...seoProps}>
-      <Contents />
+    <PageWrapper backgroundImage={keyVisual} {...seoProps}>
+      <Contents
+        id={id}
+        title={title}
+        description={description}
+        keyVisual={keyVisual}
+        totalDonation={'0'}
+      />
     </PageWrapper>
     <WalletModal />
     <DonationModal totalDonation={MOCK_POST.donatedSum} />

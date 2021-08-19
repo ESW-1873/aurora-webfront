@@ -1,24 +1,36 @@
 import React, { VFC } from 'react'
 import { Image } from 'src/components/Image'
-import { MOCK_POST } from 'src/constants/tmp/post'
 import { breakpoint, noGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { ActionSection } from './ActionSection'
 import { DonationSection } from './DonationSection'
 import { PostSection } from './PostSection'
 
-export const Contents: VFC = () => (
+export type ContentsProps = {
+  id: string
+  keyVisual: string
+  title: string
+  description: string
+  totalDonation: string
+}
+export const Contents: VFC<ContentsProps> = ({
+  id,
+  keyVisual,
+  title,
+  description,
+  totalDonation,
+}) => (
   <>
     <Layout>
       <ImageDiv>
-        <Image src={MOCK_POST.imageUrl} alt="key visual" />
+        <Image src={keyVisual} alt="key visual" />
       </ImageDiv>
       <PostSection
-        title={MOCK_POST.title}
-        description={MOCK_POST.description}
-        totalDonation={MOCK_POST.donatedSum}
+        title={title}
+        description={description}
+        totalDonation={totalDonation}
       />
-      <ActionSection postTitle={MOCK_POST.title} postId={MOCK_POST.id} />
+      <ActionSection postTitle={title} postId={id} />
       <DonationSection />
     </Layout>
   </>
