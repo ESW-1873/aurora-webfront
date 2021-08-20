@@ -50,9 +50,9 @@ export const Post: VFC<PostProps> = ({
       <DonationModal postId={id} totalDonation={totalDonation} />
       {ownDonation &&
         (hasClosed ? (
-          <CancelModal ownDonation={ownDonation} />
-        ) : (
           <RefundRequestModal ownDonation={ownDonation} />
+        ) : (
+          <CancelModal ownDonation={ownDonation} />
         ))}
     </>
   )

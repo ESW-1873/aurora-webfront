@@ -4,6 +4,7 @@ import { INITIAL_POST } from 'src/api/initial'
 import { SEOProps } from 'src/components/SEO'
 import { Post, PostProps } from 'src/compositions/Post'
 import { useWalletStore } from 'src/stores'
+import { equals } from 'src/utils/address'
 import { useGetPostContentQuery } from 'src/__generated__/graphql'
 
 export type PostStaticProps = {
@@ -29,7 +30,8 @@ export const PostContainer: VFC<PostStaticProps> = ({
   const data = res.data?.postContent || INITIAL_POST
   const totalDonation = data.donatedSum
   const ownDonation =
-    (account && data.donations?.find(({ sender }) => sender === account)) ||
+    (account &&
+      data.donations?.find(({ sender }) => equals(sender, account))) ||
     undefined
   const canceledDonations = data.cancelled || []
   const refundRequests = data.refundRequested || []

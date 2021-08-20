@@ -19,3 +19,8 @@ export const shortenAddress = (address: string, chars = 4): string => {
 export const isZero = (hexNumberString: string): boolean => {
   return /^0x0*$/.test(hexNumberString)
 }
+
+export const equals = (
+  a: string | null | undefined,
+  b: string | null | undefined,
+) => a && b && a.toLowerCase() === b.toLowerCase()
