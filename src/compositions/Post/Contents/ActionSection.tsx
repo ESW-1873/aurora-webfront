@@ -8,7 +8,7 @@ import {
 import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
 import {
   useCancelModalStore,
-  useDonateModalStore,
+  useDonationModalStore,
   useRefundRequestModalStore,
   useWalletModalStore,
 } from 'src/stores'
@@ -28,7 +28,7 @@ export const ActionSection: VFC<{
 }> = ({ postTitle, postId, hasClosed }) => {
   const { active } = useWeb3React()
   const { open: openWalletModal } = useWalletModalStore()
-  const { open: openDonateModal } = useDonateModalStore()
+  const { open: openDonationModal } = useDonationModalStore()
   const { open: openCancelModal } = useCancelModalStore()
   const { open: openRefundRequestModal } = useRefundRequestModalStore()
 
@@ -42,7 +42,7 @@ export const ActionSection: VFC<{
       {status === 'DONATABLE' && (
         <DubbleButtonLayout>
           <PrimaryButton
-            onClick={active ? openDonateModal : openWalletModal}
+            onClick={active ? openDonationModal : openWalletModal}
             label={active ? 'Donate' : 'Connect Wallet'}
           />
           <TwitterShareButton message={postTitle} path={postId} />

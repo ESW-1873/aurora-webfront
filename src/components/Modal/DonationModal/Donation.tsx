@@ -5,7 +5,7 @@ import { useContract } from 'src/external/contract/hooks'
 import { useWalletStore } from 'src/stores'
 import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
-import { DonateModalProps } from '.'
+import { DonationModalProps } from '.'
 import { DisclaimerCheckbox } from '../../Input/Checkbox'
 import { DonationInputPanel } from '../../Input/DonationInputPanel'
 import { Heading, SubHeading } from '../common'
@@ -14,7 +14,7 @@ export type DonationProps = {
   setLoading: (arg0: boolean) => void
   setsubmitted: (arg0: boolean) => void
   setError: (err: any) => void
-} & DonateModalProps
+} & DonationModalProps
 
 export const Donation: VFC<DonationProps> = ({
   postId,
@@ -75,7 +75,7 @@ export const Donation: VFC<DonationProps> = ({
             setLoading(true)
             try {
               // memo: txの承認状況を別な場所（ヘッダーとか？）に表示する？
-              const tx = await donate(postId, inputValue)
+              const tx = await donate(postId, inputValue) // TODO: add metadataURI
               console.log(tx)
             } catch (error: any) {
               setLoading(false)

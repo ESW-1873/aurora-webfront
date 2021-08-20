@@ -1,19 +1,19 @@
 import React, { useState, VFC } from 'react'
-import { useDonateModalStore } from 'src/stores'
+import { useDonationModalStore } from 'src/stores'
 import { Modal } from '..'
 import { Confirmation, Submitted, TxError } from '../TxModal'
 import { Donation } from './Donation'
 
-export type DonateModalProps = {
+export type DonationModalProps = {
   postId: string
   totalDonation: string
 }
 
-export const DonateModal: VFC<DonateModalProps> = ({
+export const DonationModal: VFC<DonationModalProps> = ({
   postId,
   totalDonation,
 }) => {
-  const { isOpen, close } = useDonateModalStore()
+  const { isOpen, close } = useDonationModalStore()
   const [loading, setLoading] = useState(false)
   const [submitted, setsubmitted] = useState(false)
   const [error, setError] = useState()

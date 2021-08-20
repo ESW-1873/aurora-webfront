@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
-export const isOpenedDonateModalAtom = atom<boolean>({
-  key: 'isOpenedDonateModal',
+export const isOpenedDonationModalAtom = atom<boolean>({
+  key: 'isOpenedDonationModal',
   default: false,
 })
 
-export const useDonateModalStore = () => {
-  const [isOpen, setIsOpen] = useRecoilState(isOpenedDonateModalAtom)
+export const useDonationModalStore = () => {
+  const [isOpen, setIsOpen] = useRecoilState(isOpenedDonationModalAtom)
   const open = useCallback(() => setIsOpen(true), [setIsOpen])
   const close = useCallback(() => setIsOpen(false), [setIsOpen])
 

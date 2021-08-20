@@ -1,6 +1,6 @@
 import React, { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
-import { isOpenedDonateModalAtom } from 'src/stores/Modal/donateModal'
+import { isOpenedDonationModalAtom } from 'src/stores/Modal/donationModal'
 import { Modal } from '..'
 import { Confirmation } from '../TxModal/Confirmation'
 import { Submitted } from '../TxModal/Submitted'
@@ -11,7 +11,7 @@ export default {
   decorators: [
     (Story: VFC) => (
       <RecoilRoot
-        initializeState={(snap) => snap.set(isOpenedDonateModalAtom, true)}
+        initializeState={(snap) => snap.set(isOpenedDonationModalAtom, true)}
       >
         <Modal isOpen={true} closeModal={() => {}}>
           <Story />

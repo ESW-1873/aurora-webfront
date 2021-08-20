@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs'
 import React, { VFC } from 'react'
 import { CancelModal } from 'src/components/Modal/CancelModal'
-import { DonateModal } from 'src/components/Modal/DonateModal'
+import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
@@ -44,7 +44,7 @@ export const Post: VFC<PostProps> = ({
         </p>
       </FixedFooter>
       <WalletModal />
-      <DonateModal postId={id} totalDonation={totalDonation} />
+      <DonationModal postId={id} totalDonation={totalDonation} />
       <CancelModal receiptId={receiptId} cancelableAmount={donatedAmount} />
       <RefundRequestModal refundableAmount={donatedAmount} />
     </>
