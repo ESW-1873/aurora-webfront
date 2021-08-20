@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import { publicApiClient } from 'src/api/client'
+import { Favicons } from 'src/components/Favicons'
 import { getLibrary } from 'src/external'
 import { WalletInitializer } from 'src/initializers'
 import 'src/styles/fonts.css'
@@ -30,6 +31,7 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
                 <meta property="og:url" content={pageUrl} />
                 <link rel="canonical" href={pageUrl} />
               </Head>
+              <Favicons />
               <GlobalStyles />
               <Component {...pageProps} />
             </UrqlProvider>
