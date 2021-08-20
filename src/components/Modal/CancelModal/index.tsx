@@ -1,9 +1,7 @@
 import React, { useState, VFC } from 'react'
 import { useCancelModalStore } from 'src/stores'
 import { Modal } from '..'
-import { Confirmation } from '../TxModal/Confirmation'
-import { Submitted } from '../TxModal/Submitted'
-import { TxError } from '../TxModal/TxError'
+import { Confirmation, Submitted, TxError } from '../TxModal'
 import { Cancel } from './Cancel'
 
 export type CancelModalProps = {
