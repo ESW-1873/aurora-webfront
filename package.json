@@ -13,7 +13,7 @@
     "vrt": "yarn run-storycap && reg-suit run",
     "run-storycap": "cross-env NODE_ENV=vrt storycap http://localhost:6006 --serverCmd \"yarn storybook\" --serverTimeout 60000 -V 1920x1080 -V 390x844",
     "analyze:bundle": "cross-env ANALYZE=true next build",
-    "generate-types:contract": "typechain --target ethers-v5 --out-dir src/external/contract/types 'src/abi/*.json'",
+    "generate-types:contract": "typechain --target ethers-v5 --out-dir src/external/contract/__generated__ 'src/abi/*.json'",
     "generate:graphql": "graphql-codegen --config graphql-codegen.yml",
     "postinstall": "yarn generate-types:contract"
   },
@@ -34,6 +34,7 @@
     "next": "11.0.1",
     "next-urql": "^3.2.0",
     "react": "17.0.2",
+    "react-countup": "^5.2.0",
     "react-device-detect": "^1.17.0",
     "react-dom": "17.0.2",
     "react-media-hook": "^0.4.9",

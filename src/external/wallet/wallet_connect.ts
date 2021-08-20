@@ -11,9 +11,8 @@ import { walletconnect } from './utils'
  * WalletConnectを利用するためのhooks
  */
 export const useWalletConnect = () => {
-  const { disconnectWalletConnect } = useWalletStore()
+  const { activateWallet, disconnectWalletConnect } = useWalletStore()
   const { activate } = useWeb3React()
-  const { activateWallet } = useWalletStore()
 
   /** 接続成功時処理 */
   const processConnected = useCallback(() => {

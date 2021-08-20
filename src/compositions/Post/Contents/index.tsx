@@ -18,7 +18,12 @@ export type ContentsProps = {
   refundRequests: { id: string }[]
   doneeCredit?: string
 }
-export const Contents: VFC<ContentsProps> = ({
+export const Contents: VFC<
+  ContentsProps & {
+    isDonee?: boolean
+    hasDonated?: boolean
+  }
+> = ({
   id,
   keyVisual,
   title,
@@ -29,9 +34,11 @@ export const Contents: VFC<ContentsProps> = ({
   refundRequests,
   doneeCredit,
   hasClosed,
+  hasDonated,
+  isDonee,
 }) => (
   <>
-    <Layout>
+    <>
       <ImageDiv>
         <Image src={keyVisual} alt="key visual" />
       </ImageDiv>
@@ -40,7 +47,13 @@ export const Contents: VFC<ContentsProps> = ({
         description={description}
         totalDonation={totalDonation}
       />
-      <ActionSection postTitle={title} postId={id} hasClosed={hasClosed} />
+      <ActionSection
+        postTitle={title}
+        postId={id}
+        isDonee={isDonee}
+        hasClosed={hasClosed}
+        hasDonated={hasDonated}
+      />
       <DonationSection
         donee={donee}
         canceledDonations={canceledDonations}
@@ -48,7 +61,7 @@ export const Contents: VFC<ContentsProps> = ({
         credit={doneeCredit}
         hasClosed={hasClosed}
       />
-    </Layout>
+    </>
   </>
 )
 
@@ -60,12 +73,5 @@ const ImageDiv = styled.div`
   @media ${breakpoint.m} {
     ${noGuide}
     width: 100vw;
-  }
-`
-
-const Layout = styled.main`
-  padding-top: 64px;
-  @media ${breakpoint.m} {
-    padding-top: 0;
   }
 `

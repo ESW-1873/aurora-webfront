@@ -1,10 +1,18 @@
 import dayjs from 'dayjs'
+import { Donation } from 'src/api/types'
 import { PostProps } from 'src/compositions/Post'
 
-export const MOCK_DONEE_ADDRESS = '0x1111111111111111111111111111111111111111'
-export const MOCK_DONATION = {
+export const MOCK_DONATION: Donation = {
   id: '0x2222222222222222222222222222222222222222',
+  receiptId: '',
+  sender: '',
+  amount: '40000000000000000',
 }
+
+export const MOCK_DONEE_ADDRESS = '0x1111111111111111111111111111111111111111'
+
+export const MOCK_ADDRESS = '0x3333333333333333333333333333333333333333'
+
 export const MOCK_POST: PostProps['postProps'] = {
   id: '0xe6a8b2b83a40',
   keyVisual: '/assets/tmp/top.png',

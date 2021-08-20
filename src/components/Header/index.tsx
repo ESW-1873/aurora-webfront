@@ -1,13 +1,13 @@
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import { UnsupportedChainIdError } from '@web3-react/core'
 import React, { VFC } from 'react'
 import { HeaderButton } from 'src/components/Buttons/HeaderButton'
 import { Logo } from 'src/components/Logo'
-import { useWalletModalStore } from 'src/stores'
+import { useWalletModalStore, useWalletStore } from 'src/stores'
 import { shortenAddress } from 'src/utils/address'
 import styled from 'styled-components'
 
 export const Header: VFC = () => {
-  const { account, error } = useWeb3React()
+  const { account, error } = useWalletStore()
   const isUnsupportedChainIdError = error instanceof UnsupportedChainIdError
   const { open: openWalletModal } = useWalletModalStore()
   return (

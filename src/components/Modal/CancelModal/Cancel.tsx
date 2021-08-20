@@ -9,8 +9,7 @@ import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
 
 export const Cancel: VFC<CancelModalProps> = ({
-  cancelableAmount,
-  receiptId,
+  ownDonation: { amount, receiptId },
 }) => {
   const { cancel } = useContract()
   const { setLoading, onSuccess, onFail } = useWithTxModalContext()
@@ -19,7 +18,7 @@ export const Cancel: VFC<CancelModalProps> = ({
       <Layout>
         <Heading>Cancel</Heading>
         <SubHeading>Amount to be returned</SubHeading>
-        <EthValueLabel value={weiToEth(cancelableAmount)} />
+        <EthValueLabel value={weiToEth(amount)} />
         <CancelButton
           onClick={async () => {
             setLoading(true)

@@ -1,4 +1,3 @@
-import { useWeb3React } from '@web3-react/core'
 import { useCallback } from 'react'
 import {
   atom,
@@ -8,7 +7,10 @@ import {
 } from 'recoil'
 import { CONTRACT_ADDRESS } from 'src/constants/address'
 import { SupportedChainId } from 'src/constants/chains'
-import { PostManager, PostManager__factory } from 'src/external/contract/types'
+import {
+  PostManager,
+  PostManager__factory,
+} from 'src/external/contract/__generated__'
 import { isProd } from 'src/utils/env'
 import { useWalletStore } from '.'
 
@@ -27,8 +29,7 @@ const contractAtom = atom<PostManager | null>({
  * Contractに関連するデータのstate管理を行う
  */
 export const useContractStore = () => {
-  const { chainId } = useWeb3React()
-  const { currentSigner } = useWalletStore()
+  const { chainId, currentSigner } = useWalletStore()
   const contractState = useRecoilValue(contractAtom)
   const setContractState = useSetRecoilState(contractAtom)
   const resetContractState = useResetRecoilState(contractAtom)

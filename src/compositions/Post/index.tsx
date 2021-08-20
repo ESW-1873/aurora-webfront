@@ -1,5 +1,6 @@
 import { Dayjs } from 'dayjs'
 import React, { VFC } from 'react'
+import { Donation } from 'src/api/types'
 import { CancelModal } from 'src/components/Modal/CancelModal'
 import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
@@ -17,16 +18,17 @@ export type PostProps = {
   postProps: ContentsProps & {
     endTime: Dayjs
   }
-  donatedAmount: string
-  receiptId: string
+  ownDonation?: Donation
+  isDonee?: boolean
 }
 export const Post: VFC<PostProps> = ({
-  donatedAmount,
-  receiptId,
+  isDonee,
+  ownDonation,
   postProps,
   seoProps,
 }) => {
-  const { id, keyVisual, description, totalDonation, endTime } = postProps
+  const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
+    postProps
   return (
     <>
       <PageWrapper
@@ -34,26 +36,32 @@ export const Post: VFC<PostProps> = ({
         description={`${description.slice(0, 100)}...`}
         {...seoProps}
       >
-        <Contents {...postProps} />
+        <Contents {...postProps} hasDonated={!!ownDonation} isDonee={isDonee} />
       </PageWrapper>
+      <FooterSpacer />
       <FixedFooter>
         <p>
-          {postProps.hasClosed
+          {hasClosed
             ? 'This donation has been closed.'
             : `This donation will end on ${endTime.format('MMMM D, YYYY')}`}
         </p>
       </FixedFooter>
       <WalletModal />
       <DonationModal postId={id} totalDonation={totalDonation} />
-      <CancelModal receiptId={receiptId} cancelableAmount={donatedAmount} />
-      <RefundRequestModal
-        receiptId={receiptId}
-        refundableAmount={donatedAmount}
-      />
+      {ownDonation &&
+        (hasClosed ? (
+          <RefundRequestModal ownDonation={ownDonation} />
+        ) : (
+          <CancelModal ownDonation={ownDonation} />
+        ))}
     </>
   )
 }
 
+const FOOTER_HEIGHT = '64px'
+const FooterSpacer = styled.div`
+  padding-top: ${FOOTER_HEIGHT};
+`
 const FixedFooter = styled.div`
   position: fixed;
   right: 0;
@@ -62,7 +70,7 @@ const FixedFooter = styled.div`
   margin: 0 auto;
   max-width: ${CONTENT_MAX_WIDTH};
   p {
-    height: 64px;
+    height: ${FOOTER_HEIGHT};
     backdrop-filter: blur(30px) brightness(1.15);
     background-color: ${white}26;
     ${flexCenter};
