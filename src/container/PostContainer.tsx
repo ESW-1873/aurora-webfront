@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import React, { VFC } from 'react'
 import { SEOProps } from 'src/components/SEO'
 import { Post, PostProps } from 'src/compositions/Post'
+import { useWalletStore } from 'src/stores'
 import { useGetPostContentQuery } from 'src/__generated__/graphql'
 
 export type PostStaticProps = {
@@ -17,9 +18,8 @@ export const PostContainer: VFC<PostStaticProps> = ({
   postStaticProps,
   seoProps,
 }) => {
-  // TODO fetch from wallet
-  const myAddress = '0xa8fffef192a21f9a45b68d49aa0d0753b9b6e79f'
   const { id } = postStaticProps
+  const { account } = useWalletStore()
   const [res] = useGetPostContentQuery({ variables: { id } })
   if (res.error) {
     // TODO
@@ -27,11 +27,11 @@ export const PostContainer: VFC<PostStaticProps> = ({
   }
   const data = res.data?.postContent
   const totalDonation = data?.donatedSum || '0'
-  const ownDonation = data?.donations?.find(
-    ({ sender }) => sender === myAddress,
-  )
   const receiptId = ownDonation?.receiptId || ''
   const donatedAmount = ownDonation?.amount || '0'
+  const ownDonation =
+    (account && data?.donations?.find(({ sender }) => sender === account)) ||
+    undefined
   const canceledDonations = data?.cancelled || []
   const refundRequests = data?.refundRequested || []
   const endTime = dayjs.unix(data?.endTime || postStaticProps.endTime)
