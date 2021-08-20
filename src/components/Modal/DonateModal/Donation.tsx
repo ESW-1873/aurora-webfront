@@ -77,13 +77,13 @@ export const Donation: VFC<DonationProps> = ({
               // memo: txの承認状況を別な場所（ヘッダーとか？）に表示する？
               const tx = await donate(postId, inputValue)
               console.log(tx)
-              setLoading(false)
             } catch (error: any) {
               setLoading(false)
               setError(error)
               console.error(error)
               return
             }
+            setLoading(false)
             setsubmitted(true)
           }}
         />
