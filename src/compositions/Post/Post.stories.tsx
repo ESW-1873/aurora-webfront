@@ -6,4 +6,6 @@ export default {
   title: 'Post',
 }
 
-export const TopPage = () => <Post postProps={MOCK_POST} donatedAmount="1" />
+export const TopPage = () => (
+  <Post receiptId={''} postProps={MOCK_POST} donatedAmount="1" />
+)

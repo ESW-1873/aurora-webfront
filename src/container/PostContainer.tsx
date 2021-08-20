@@ -27,8 +27,11 @@ export const PostContainer: VFC<PostStaticProps> = ({
   }
   const data = res.data?.postContent
   const totalDonation = data?.donatedSum || '0'
-  const donatedAmount =
-    data?.donations?.find(({ sender }) => sender === myAddress)?.amount || '0'
+  const ownDonation = data?.donations?.find(
+    ({ sender }) => sender === myAddress,
+  )
+  const receiptId = ownDonation?.receiptId || ''
+  const donatedAmount = ownDonation?.amount || '0'
   const canceledDonations = data?.cancelled || []
   const refundRequests = data?.refundRequested || []
   const endTime = dayjs.unix(data?.endTime || postStaticProps.endTime)
@@ -44,6 +47,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
         endTime,
       }}
       donatedAmount={donatedAmount}
+      receiptId={receiptId}
       seoProps={seoProps}
     />
   )

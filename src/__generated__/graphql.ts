@@ -453,7 +453,7 @@ export type GetPostContentQueryVariables = Exact<{
 }>;
 
 
-export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string, amount: string }>>, cancelled?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
+export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, cancelled?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
 
 
 export const GetPostContentDocument = gql`
@@ -471,6 +471,7 @@ export const GetPostContentDocument = gql`
     withdrawn
     donations {
       id
+      receiptId
       sender
       amount
     }
