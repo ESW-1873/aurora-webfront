@@ -84,7 +84,7 @@
       },
       {
         "internalType": "string",
-        "name": "metadata",
+        "name": "metadataURI",
         "type": "string"
       },
       {
@@ -140,6 +140,11 @@
         "internalType": "uint256",
         "name": "receiptId",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "metadataURI",
+        "type": "string"
       }
     ],
     "name": "burnUltraRare",
@@ -183,7 +188,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "metadata",
+        "name": "metadataURI",
         "type": "string"
       },
       {
@@ -262,6 +267,11 @@
         "internalType": "uint256",
         "name": "postId",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "metadataURI",
+        "type": "string"
       }
     ],
     "name": "donate",
@@ -318,7 +328,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "metadata",
+        "name": "metadataURI",
         "type": "string"
       },
       {
@@ -451,6 +461,11 @@
         "internalType": "uint256",
         "name": "receiptId",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "metadataURI",
+        "type": "string"
       }
     ],
     "name": "requestRefund",
@@ -472,10 +487,36 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTokenRewardAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "switchVoucherRequirement",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tokenRewardAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

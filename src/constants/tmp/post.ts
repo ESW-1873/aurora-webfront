@@ -6,7 +6,7 @@ export const MOCK_DONATION = {
   id: '0x2222222222222222222222222222222222222222',
 }
 export const MOCK_POST: PostProps['postProps'] = {
-  id: 'hogehogehogehoge',
+  id: '0xe6a8b2b83a40',
   keyVisual: '/assets/tmp/top.png',
   title: 'The Bringing Doge into Outer Space',
   description:

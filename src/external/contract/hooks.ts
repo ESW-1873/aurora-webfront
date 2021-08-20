@@ -26,7 +26,7 @@ function handleNoContract() {
  * TODO: resetting
  */
 const DEFAULT_GAS_LIMIT = 4500000
-
+const DEFAULT_METADATA_URI = 'unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0'
 /**
  * Contractを利用するためのhooks
  */
@@ -41,7 +41,7 @@ export const useContract = () => {
       if (contract === null) return handleNoContract()
       const parsedAmount = utils.parseEther(amount) // ether to wei
       return call(
-        contract.donate(postId, {
+        contract.donate(postId, DEFAULT_METADATA_URI, {
           value: parsedAmount,
           gasLimit: DEFAULT_GAS_LIMIT,
         }),

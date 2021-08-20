@@ -22,7 +22,7 @@ export default {
   ],
 }
 
-const MOCK_POST_ID = '0x1994f5a902ef80'
+const MOCK_POST_ID = '0xe6a8b2b83a40'
 const MOCK_TOTAL_DONATION = '12.32344'
 
 export const DonateModalPage = () => (
