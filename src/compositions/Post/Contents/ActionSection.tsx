@@ -77,7 +77,9 @@ export const ActionSection: VFC<
           <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}
-      {status === 'CLOSED' && <Label>This Project has already closed.</Label>}
+      {status === 'CLOSED' && (
+        <Label>This Project has already been closed.</Label>
+      )}
     </>
   )
 }
