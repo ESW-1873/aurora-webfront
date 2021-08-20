@@ -31,9 +31,7 @@ export const AddressInfo: VFC<{
   }
 
   const { disconnect } = useWalletConnect()
-  const { activeWalletType } = useWalletStore()
-
-  const { chainId } = useWalletStore()
+  const { activeWalletType, chainId } = useWalletStore()
   const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
 
   return (
