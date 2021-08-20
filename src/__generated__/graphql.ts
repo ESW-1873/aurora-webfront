@@ -32,10 +32,10 @@ export type Donation = {
   __typename?: 'Donation';
   id: Scalars['ID'];
   receiptId: Scalars['BigInt'];
-  serialNum: Scalars['BigInt'];
+  serialNo: Scalars['Int'];
   sender: Scalars['Bytes'];
   amount: Scalars['BigInt'];
-  donateTime: Scalars['BigInt'];
+  donateTime: Scalars['Int'];
   donated?: Maybe<PostContent>;
   cancelled?: Maybe<PostContent>;
   refundRequested?: Maybe<PostContent>;
@@ -59,14 +59,14 @@ export type Donation_Filter = {
   receiptId_lte?: Maybe<Scalars['BigInt']>;
   receiptId_in?: Maybe<Array<Scalars['BigInt']>>;
   receiptId_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  serialNum?: Maybe<Scalars['BigInt']>;
-  serialNum_not?: Maybe<Scalars['BigInt']>;
-  serialNum_gt?: Maybe<Scalars['BigInt']>;
-  serialNum_lt?: Maybe<Scalars['BigInt']>;
-  serialNum_gte?: Maybe<Scalars['BigInt']>;
-  serialNum_lte?: Maybe<Scalars['BigInt']>;
-  serialNum_in?: Maybe<Array<Scalars['BigInt']>>;
-  serialNum_not_in?: Maybe<Array<Scalars['BigInt']>>;
+  serialNo?: Maybe<Scalars['Int']>;
+  serialNo_not?: Maybe<Scalars['Int']>;
+  serialNo_gt?: Maybe<Scalars['Int']>;
+  serialNo_lt?: Maybe<Scalars['Int']>;
+  serialNo_gte?: Maybe<Scalars['Int']>;
+  serialNo_lte?: Maybe<Scalars['Int']>;
+  serialNo_in?: Maybe<Array<Scalars['Int']>>;
+  serialNo_not_in?: Maybe<Array<Scalars['Int']>>;
   sender?: Maybe<Scalars['Bytes']>;
   sender_not?: Maybe<Scalars['Bytes']>;
   sender_in?: Maybe<Array<Scalars['Bytes']>>;
@@ -81,14 +81,14 @@ export type Donation_Filter = {
   amount_lte?: Maybe<Scalars['BigInt']>;
   amount_in?: Maybe<Array<Scalars['BigInt']>>;
   amount_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  donateTime?: Maybe<Scalars['BigInt']>;
-  donateTime_not?: Maybe<Scalars['BigInt']>;
-  donateTime_gt?: Maybe<Scalars['BigInt']>;
-  donateTime_lt?: Maybe<Scalars['BigInt']>;
-  donateTime_gte?: Maybe<Scalars['BigInt']>;
-  donateTime_lte?: Maybe<Scalars['BigInt']>;
-  donateTime_in?: Maybe<Array<Scalars['BigInt']>>;
-  donateTime_not_in?: Maybe<Array<Scalars['BigInt']>>;
+  donateTime?: Maybe<Scalars['Int']>;
+  donateTime_not?: Maybe<Scalars['Int']>;
+  donateTime_gt?: Maybe<Scalars['Int']>;
+  donateTime_lt?: Maybe<Scalars['Int']>;
+  donateTime_gte?: Maybe<Scalars['Int']>;
+  donateTime_lte?: Maybe<Scalars['Int']>;
+  donateTime_in?: Maybe<Array<Scalars['Int']>>;
+  donateTime_not_in?: Maybe<Array<Scalars['Int']>>;
   donated?: Maybe<Scalars['String']>;
   donated_not?: Maybe<Scalars['String']>;
   donated_gt?: Maybe<Scalars['String']>;
@@ -150,7 +150,7 @@ export type Donation_Filter = {
 export enum Donation_OrderBy {
   Id = 'id',
   ReceiptId = 'receiptId',
-  SerialNum = 'serialNum',
+  SerialNo = 'serialNo',
   Sender = 'sender',
   Amount = 'amount',
   DonateTime = 'donateTime',
@@ -169,15 +169,12 @@ export type PostContent = {
   __typename?: 'PostContent';
   id: Scalars['ID'];
   metadata: Scalars['String'];
-  imageUrl: Scalars['String'];
-  title: Scalars['String'];
-  description: Scalars['String'];
   donee: Scalars['Bytes'];
-  capacity: Scalars['BigInt'];
-  periodHours: Scalars['BigInt'];
-  startTime: Scalars['BigInt'];
-  endTime: Scalars['BigInt'];
-  donatedCount: Scalars['BigInt'];
+  capacity: Scalars['Int'];
+  periodHours: Scalars['Int'];
+  startTime: Scalars['Int'];
+  endTime: Scalars['Int'];
+  donatedCount: Scalars['Int'];
   donatedSum: Scalars['BigInt'];
   withdrawn: Scalars['BigInt'];
   donations?: Maybe<Array<Donation>>;
@@ -245,94 +242,52 @@ export type PostContent_Filter = {
   metadata_not_starts_with?: Maybe<Scalars['String']>;
   metadata_ends_with?: Maybe<Scalars['String']>;
   metadata_not_ends_with?: Maybe<Scalars['String']>;
-  imageUrl?: Maybe<Scalars['String']>;
-  imageUrl_not?: Maybe<Scalars['String']>;
-  imageUrl_gt?: Maybe<Scalars['String']>;
-  imageUrl_lt?: Maybe<Scalars['String']>;
-  imageUrl_gte?: Maybe<Scalars['String']>;
-  imageUrl_lte?: Maybe<Scalars['String']>;
-  imageUrl_in?: Maybe<Array<Scalars['String']>>;
-  imageUrl_not_in?: Maybe<Array<Scalars['String']>>;
-  imageUrl_contains?: Maybe<Scalars['String']>;
-  imageUrl_not_contains?: Maybe<Scalars['String']>;
-  imageUrl_starts_with?: Maybe<Scalars['String']>;
-  imageUrl_not_starts_with?: Maybe<Scalars['String']>;
-  imageUrl_ends_with?: Maybe<Scalars['String']>;
-  imageUrl_not_ends_with?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  title_not?: Maybe<Scalars['String']>;
-  title_gt?: Maybe<Scalars['String']>;
-  title_lt?: Maybe<Scalars['String']>;
-  title_gte?: Maybe<Scalars['String']>;
-  title_lte?: Maybe<Scalars['String']>;
-  title_in?: Maybe<Array<Scalars['String']>>;
-  title_not_in?: Maybe<Array<Scalars['String']>>;
-  title_contains?: Maybe<Scalars['String']>;
-  title_not_contains?: Maybe<Scalars['String']>;
-  title_starts_with?: Maybe<Scalars['String']>;
-  title_not_starts_with?: Maybe<Scalars['String']>;
-  title_ends_with?: Maybe<Scalars['String']>;
-  title_not_ends_with?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  description_not?: Maybe<Scalars['String']>;
-  description_gt?: Maybe<Scalars['String']>;
-  description_lt?: Maybe<Scalars['String']>;
-  description_gte?: Maybe<Scalars['String']>;
-  description_lte?: Maybe<Scalars['String']>;
-  description_in?: Maybe<Array<Scalars['String']>>;
-  description_not_in?: Maybe<Array<Scalars['String']>>;
-  description_contains?: Maybe<Scalars['String']>;
-  description_not_contains?: Maybe<Scalars['String']>;
-  description_starts_with?: Maybe<Scalars['String']>;
-  description_not_starts_with?: Maybe<Scalars['String']>;
-  description_ends_with?: Maybe<Scalars['String']>;
-  description_not_ends_with?: Maybe<Scalars['String']>;
   donee?: Maybe<Scalars['Bytes']>;
   donee_not?: Maybe<Scalars['Bytes']>;
   donee_in?: Maybe<Array<Scalars['Bytes']>>;
   donee_not_in?: Maybe<Array<Scalars['Bytes']>>;
   donee_contains?: Maybe<Scalars['Bytes']>;
   donee_not_contains?: Maybe<Scalars['Bytes']>;
-  capacity?: Maybe<Scalars['BigInt']>;
-  capacity_not?: Maybe<Scalars['BigInt']>;
-  capacity_gt?: Maybe<Scalars['BigInt']>;
-  capacity_lt?: Maybe<Scalars['BigInt']>;
-  capacity_gte?: Maybe<Scalars['BigInt']>;
-  capacity_lte?: Maybe<Scalars['BigInt']>;
-  capacity_in?: Maybe<Array<Scalars['BigInt']>>;
-  capacity_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  periodHours?: Maybe<Scalars['BigInt']>;
-  periodHours_not?: Maybe<Scalars['BigInt']>;
-  periodHours_gt?: Maybe<Scalars['BigInt']>;
-  periodHours_lt?: Maybe<Scalars['BigInt']>;
-  periodHours_gte?: Maybe<Scalars['BigInt']>;
-  periodHours_lte?: Maybe<Scalars['BigInt']>;
-  periodHours_in?: Maybe<Array<Scalars['BigInt']>>;
-  periodHours_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  startTime?: Maybe<Scalars['BigInt']>;
-  startTime_not?: Maybe<Scalars['BigInt']>;
-  startTime_gt?: Maybe<Scalars['BigInt']>;
-  startTime_lt?: Maybe<Scalars['BigInt']>;
-  startTime_gte?: Maybe<Scalars['BigInt']>;
-  startTime_lte?: Maybe<Scalars['BigInt']>;
-  startTime_in?: Maybe<Array<Scalars['BigInt']>>;
-  startTime_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  endTime?: Maybe<Scalars['BigInt']>;
-  endTime_not?: Maybe<Scalars['BigInt']>;
-  endTime_gt?: Maybe<Scalars['BigInt']>;
-  endTime_lt?: Maybe<Scalars['BigInt']>;
-  endTime_gte?: Maybe<Scalars['BigInt']>;
-  endTime_lte?: Maybe<Scalars['BigInt']>;
-  endTime_in?: Maybe<Array<Scalars['BigInt']>>;
-  endTime_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  donatedCount?: Maybe<Scalars['BigInt']>;
-  donatedCount_not?: Maybe<Scalars['BigInt']>;
-  donatedCount_gt?: Maybe<Scalars['BigInt']>;
-  donatedCount_lt?: Maybe<Scalars['BigInt']>;
-  donatedCount_gte?: Maybe<Scalars['BigInt']>;
-  donatedCount_lte?: Maybe<Scalars['BigInt']>;
-  donatedCount_in?: Maybe<Array<Scalars['BigInt']>>;
-  donatedCount_not_in?: Maybe<Array<Scalars['BigInt']>>;
+  capacity?: Maybe<Scalars['Int']>;
+  capacity_not?: Maybe<Scalars['Int']>;
+  capacity_gt?: Maybe<Scalars['Int']>;
+  capacity_lt?: Maybe<Scalars['Int']>;
+  capacity_gte?: Maybe<Scalars['Int']>;
+  capacity_lte?: Maybe<Scalars['Int']>;
+  capacity_in?: Maybe<Array<Scalars['Int']>>;
+  capacity_not_in?: Maybe<Array<Scalars['Int']>>;
+  periodHours?: Maybe<Scalars['Int']>;
+  periodHours_not?: Maybe<Scalars['Int']>;
+  periodHours_gt?: Maybe<Scalars['Int']>;
+  periodHours_lt?: Maybe<Scalars['Int']>;
+  periodHours_gte?: Maybe<Scalars['Int']>;
+  periodHours_lte?: Maybe<Scalars['Int']>;
+  periodHours_in?: Maybe<Array<Scalars['Int']>>;
+  periodHours_not_in?: Maybe<Array<Scalars['Int']>>;
+  startTime?: Maybe<Scalars['Int']>;
+  startTime_not?: Maybe<Scalars['Int']>;
+  startTime_gt?: Maybe<Scalars['Int']>;
+  startTime_lt?: Maybe<Scalars['Int']>;
+  startTime_gte?: Maybe<Scalars['Int']>;
+  startTime_lte?: Maybe<Scalars['Int']>;
+  startTime_in?: Maybe<Array<Scalars['Int']>>;
+  startTime_not_in?: Maybe<Array<Scalars['Int']>>;
+  endTime?: Maybe<Scalars['Int']>;
+  endTime_not?: Maybe<Scalars['Int']>;
+  endTime_gt?: Maybe<Scalars['Int']>;
+  endTime_lt?: Maybe<Scalars['Int']>;
+  endTime_gte?: Maybe<Scalars['Int']>;
+  endTime_lte?: Maybe<Scalars['Int']>;
+  endTime_in?: Maybe<Array<Scalars['Int']>>;
+  endTime_not_in?: Maybe<Array<Scalars['Int']>>;
+  donatedCount?: Maybe<Scalars['Int']>;
+  donatedCount_not?: Maybe<Scalars['Int']>;
+  donatedCount_gt?: Maybe<Scalars['Int']>;
+  donatedCount_lt?: Maybe<Scalars['Int']>;
+  donatedCount_gte?: Maybe<Scalars['Int']>;
+  donatedCount_lte?: Maybe<Scalars['Int']>;
+  donatedCount_in?: Maybe<Array<Scalars['Int']>>;
+  donatedCount_not_in?: Maybe<Array<Scalars['Int']>>;
   donatedSum?: Maybe<Scalars['BigInt']>;
   donatedSum_not?: Maybe<Scalars['BigInt']>;
   donatedSum_gt?: Maybe<Scalars['BigInt']>;
@@ -354,9 +309,6 @@ export type PostContent_Filter = {
 export enum PostContent_OrderBy {
   Id = 'id',
   Metadata = 'metadata',
-  ImageUrl = 'imageUrl',
-  Title = 'title',
-  Description = 'description',
   Donee = 'donee',
   Capacity = 'capacity',
   PeriodHours = 'periodHours',
@@ -501,7 +453,7 @@ export type GetPostContentQueryVariables = Exact<{
 }>;
 
 
-export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, imageUrl: string, title: string, description: string, donee: string, capacity: string, periodHours: string, startTime: string, endTime: string, donatedCount: string, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string, amount: string }>>, cancelled?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
+export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string, amount: string }>>, cancelled?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
 
 
 export const GetPostContentDocument = gql`
@@ -509,9 +461,6 @@ export const GetPostContentDocument = gql`
   postContent(id: $id) {
     id
     metadata
-    imageUrl
-    title
-    description
     donee
     capacity
     periodHours
