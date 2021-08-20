@@ -50,7 +50,22 @@ export const useContract = () => {
     [contract],
   )
 
+  const cancel = useCallback(
+    async (
+      receiptId: string,
+    ): Promise<ContractReceipt | ContractTransaction | null> => {
+      if (contract === null) return handleNoContract()
+      return call(
+        contract.cancel(receiptId, {
+          gasLimit: DEFAULT_GAS_LIMIT,
+        }),
+      )
+    },
+    [contract],
+  )
+
   return {
     donate,
+    cancel,
   }
 }
