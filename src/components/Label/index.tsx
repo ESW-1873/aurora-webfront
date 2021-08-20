@@ -5,7 +5,7 @@ import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const EthValueLabel: VFC<{
-  value: number
+  value: string
 }> = ({ value }) => {
   return (
     <LayoutDiv>

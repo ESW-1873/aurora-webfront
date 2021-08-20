@@ -23,7 +23,7 @@ export default {
 }
 
 const MOCK_POST_ID = '0x1994f5a902ef80'
-const MOCK_TOTAL_DONATION = 12.32344
+const MOCK_TOTAL_DONATION = '12.32344'
 
 export const DonateModalPage = () => (
   <DonateModal postId={MOCK_POST_ID} totalDonation={MOCK_TOTAL_DONATION} />

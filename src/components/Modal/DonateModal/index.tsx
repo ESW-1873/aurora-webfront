@@ -8,7 +8,7 @@ import { Donation } from './Donation'
 
 export type DonateModalProps = {
   postId: string
-  totalDonation: number
+  totalDonation: string
 }
 
 export const DonateModal: VFC<DonateModalProps> = ({
