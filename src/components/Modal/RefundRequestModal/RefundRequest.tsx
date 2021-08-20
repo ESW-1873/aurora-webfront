@@ -6,21 +6,14 @@ import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { RefundRequestModalProps } from '.'
 import { Heading, SubHeading } from '../common'
+import { useWithTxModalContext } from '../WithTxModal'
 
-type RefundRequestProps = {
-  setLoading: (arg0: boolean) => void
-  setsubmitted: (arg0: boolean) => void
-  setError: (err: any) => void
-} & RefundRequestModalProps
-
-export const RefundRequest: VFC<RefundRequestProps> = ({
+export const RefundRequest: VFC<RefundRequestModalProps> = ({
   receiptId,
   refundableAmount,
-  setLoading,
-  setsubmitted,
-  setError,
 }) => {
   const { requestRefund } = useContract()
+  const { setLoading, onSuccess, onFail } = useWithTxModalContext()
   return (
     <>
       <Layout>
@@ -34,13 +27,11 @@ export const RefundRequest: VFC<RefundRequestProps> = ({
               const tx = await requestRefund(receiptId) // TODO: add metadataURI
               console.log(tx)
             } catch (error: any) {
-              setLoading(false)
-              setError(error)
+              onFail(error)
               console.error(error)
               return
             }
-            setLoading(false)
-            setsubmitted(true)
+            onSuccess()
           }}
         />
       </Layout>

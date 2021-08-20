@@ -1,7 +1,6 @@
-import React, { useState, VFC } from 'react'
+import React, { VFC } from 'react'
 import { useRefundRequestModalStore } from 'src/stores'
-import { Modal } from '..'
-import { Confirmation, Submitted, TxError } from '../TxModal'
+import { WithTxModal } from '../WithTxModal'
 import { RefundRequest } from './RefundRequest'
 
 export type RefundRequestModalProps = {
@@ -14,38 +13,12 @@ export const RefundRequestModal: VFC<RefundRequestModalProps> = ({
   refundableAmount,
 }) => {
   const { isOpen, close } = useRefundRequestModalStore()
-  const [loading, setLoading] = useState(false)
-  const [submitted, setsubmitted] = useState(false)
-  const [error, setError] = useState()
-  const onClose = () => {
-    close()
-    setError(undefined)
-    setsubmitted(false)
-  }
-
-  const getRefundRequestModalContent = () => {
-    if (error) {
-      return <TxError error={error} />
-    }
-    if (loading) {
-      return <Confirmation />
-    }
-    if (submitted) {
-      return <Submitted close={onClose} />
-    }
-    return (
+  return (
+    <WithTxModal isOpen={isOpen} close={close}>
       <RefundRequest
-        setLoading={setLoading}
-        setsubmitted={setsubmitted}
-        setError={setError}
         receiptId={receiptId}
         refundableAmount={refundableAmount}
       />
-    )
-  }
-  return (
-    <Modal isOpen={isOpen} closeModal={onClose}>
-      {getRefundRequestModalContent()}
-    </Modal>
+    </WithTxModal>
   )
 }

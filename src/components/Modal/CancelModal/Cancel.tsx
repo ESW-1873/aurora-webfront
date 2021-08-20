@@ -6,21 +6,14 @@ import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { CancelModalProps } from '.'
 import { Heading, SubHeading } from '../common'
+import { useWithTxModalContext } from '../WithTxModal'
 
-type CancelProps = {
-  setLoading: (arg0: boolean) => void
-  setsubmitted: (arg0: boolean) => void
-  setError: (err: any) => void
-} & CancelModalProps
-
-export const Cancel: VFC<CancelProps> = ({
+export const Cancel: VFC<CancelModalProps> = ({
   cancelableAmount,
   receiptId,
-  setLoading,
-  setsubmitted,
-  setError,
 }) => {
   const { cancel } = useContract()
+  const { setLoading, onSuccess, onFail } = useWithTxModalContext()
   return (
     <>
       <Layout>
@@ -34,13 +27,11 @@ export const Cancel: VFC<CancelProps> = ({
               const tx = await cancel(receiptId)
               console.log(tx)
             } catch (error: any) {
-              setLoading(false)
-              setError(error)
+              onFail(error)
               console.error(error)
               return
             }
-            setLoading(false)
-            setsubmitted(true)
+            onSuccess()
           }}
         />
       </Layout>
