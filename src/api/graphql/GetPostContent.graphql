@@ -12,6 +12,7 @@ query GetPostContent($id: ID!) {
     withdrawn
     donations {
       id
+      receiptId
       sender
       amount
     }
