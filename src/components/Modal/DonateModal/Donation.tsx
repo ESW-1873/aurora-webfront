@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState, VFC } from 'react'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useContract } from 'src/external/contract/hooks'
 import { useWalletStore } from 'src/stores'
+import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { DonateModalProps } from '.'
 import { DisclaimerCheckbox } from '../../Input/Checkbox'
@@ -62,7 +63,9 @@ export const Donation: VFC<DonationProps> = ({
     <>
       <Layout>
         <Heading>Donation</Heading>
-        <SubHeading>{`Total Donation ${totalDonation} ETH`}</SubHeading>
+        <SubHeading>
+          {`Total Donation ${weiToEth(totalDonation)} ETH`}
+        </SubHeading>
         <DonationInputPanel value={inputValue} onUserInput={onUserInput} />
         <DisclaimerCheckbox id="disclaimer-check" setIsChecked={setIsChecked} />
         <PrimaryButton
