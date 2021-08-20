@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import React, { VFC } from 'react'
+import { INITIAL_POST } from 'src/api/initial'
 import { SEOProps } from 'src/components/SEO'
 import { Post, PostProps } from 'src/compositions/Post'
 import { useWalletStore } from 'src/stores'
@@ -25,14 +26,14 @@ export const PostContainer: VFC<PostStaticProps> = ({
     // TODO
     console.log(res)
   }
-  const data = res.data?.postContent
-  const totalDonation = data?.donatedSum || '0'
+  const data = res.data?.postContent || INITIAL_POST
+  const totalDonation = data.donatedSum
   const ownDonation =
-    (account && data?.donations?.find(({ sender }) => sender === account)) ||
+    (account && data.donations?.find(({ sender }) => sender === account)) ||
     undefined
-  const canceledDonations = data?.cancelled || []
-  const refundRequests = data?.refundRequested || []
-  const endTime = dayjs.unix(data?.endTime || postStaticProps.endTime)
+  const canceledDonations = data.cancelled || []
+  const refundRequests = data.refundRequested || []
+  const endTime = dayjs.unix(data.endTime || postStaticProps.endTime)
   const hasClosed = dayjs().isAfter(endTime)
   const isDonee = data.donee === account
   return (
