@@ -27,8 +27,6 @@ export const PostContainer: VFC<PostStaticProps> = ({
   }
   const data = res.data?.postContent
   const totalDonation = data?.donatedSum || '0'
-  const receiptId = ownDonation?.receiptId || ''
-  const donatedAmount = ownDonation?.amount || '0'
   const ownDonation =
     (account && data?.donations?.find(({ sender }) => sender === account)) ||
     undefined
@@ -46,8 +44,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
         hasClosed,
         endTime,
       }}
-      donatedAmount={donatedAmount}
-      receiptId={receiptId}
+      ownDonation={ownDonation}
       seoProps={seoProps}
     />
   )

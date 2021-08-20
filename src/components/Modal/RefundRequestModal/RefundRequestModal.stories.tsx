@@ -1,5 +1,6 @@
 import React, { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
+import { MOCK_DONATION } from 'src/data/__mocks__'
 import { isOpenedRefundRequestModalAtom } from 'src/stores/Modal/refundRequestModal'
 import { RefundRequestModal } from '.'
 
@@ -13,9 +14,6 @@ export const RefundRequestModalPage: VFC = () => (
   <RecoilRoot
     initializeState={(snap) => snap.set(isOpenedRefundRequestModalAtom, true)}
   >
-    <RefundRequestModal
-      receiptId={''}
-      refundableAmount={MOCK_REFUNDABLE_AMOUNT}
-    />
+    <RefundRequestModal ownDonation={MOCK_DONATION} />
   </RecoilRoot>
 )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { MOCK_POST } from 'src/constants/tmp/post'
+import { MOCK_DONATION, MOCK_POST } from 'src/data/__mocks__'
 import { Post } from '.'
 
 export default {
@@ -7,5 +7,5 @@ export default {
 }
 
 export const TopPage = () => (
-  <Post receiptId={''} postProps={MOCK_POST} donatedAmount="1" />
+  <Post postProps={MOCK_POST} ownDonation={MOCK_DONATION} />
 )

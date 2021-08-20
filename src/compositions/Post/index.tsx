@@ -1,5 +1,6 @@
 import { Dayjs } from 'dayjs'
 import React, { VFC } from 'react'
+import { Donation } from 'src/api/types'
 import { CancelModal } from 'src/components/Modal/CancelModal'
 import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
@@ -17,16 +18,11 @@ export type PostProps = {
   postProps: ContentsProps & {
     endTime: Dayjs
   }
-  donatedAmount: string
-  receiptId: string
+  ownDonation?: Donation
 }
-export const Post: VFC<PostProps> = ({
-  donatedAmount,
-  receiptId,
-  postProps,
-  seoProps,
-}) => {
-  const { id, keyVisual, description, totalDonation, endTime } = postProps
+export const Post: VFC<PostProps> = ({ ownDonation, postProps, seoProps }) => {
+  const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
+    postProps
   return (
     <>
       <PageWrapper
@@ -39,18 +35,19 @@ export const Post: VFC<PostProps> = ({
       <FooterSpacer />
       <FixedFooter>
         <p>
-          {postProps.hasClosed
+          {hasClosed
             ? 'This donation has been closed.'
             : `This donation will end on ${endTime.format('MMMM D, YYYY')}`}
         </p>
       </FixedFooter>
       <WalletModal />
       <DonationModal postId={id} totalDonation={totalDonation} />
-      <CancelModal receiptId={receiptId} cancelableAmount={donatedAmount} />
-      <RefundRequestModal
-        receiptId={receiptId}
-        refundableAmount={donatedAmount}
-      />
+      {ownDonation &&
+        (hasClosed ? (
+          <CancelModal ownDonation={ownDonation} />
+        ) : (
+          <RefundRequestModal ownDonation={ownDonation} />
+        ))}
     </>
   )
 }

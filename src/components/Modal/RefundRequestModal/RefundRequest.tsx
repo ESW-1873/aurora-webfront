@@ -9,8 +9,7 @@ import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
 
 export const RefundRequest: VFC<RefundRequestModalProps> = ({
-  receiptId,
-  refundableAmount,
+  ownDonation: { amount, receiptId },
 }) => {
   const { requestRefund } = useContract()
   const { setLoading, onSuccess, onFail } = useWithTxModalContext()
@@ -19,7 +18,7 @@ export const RefundRequest: VFC<RefundRequestModalProps> = ({
       <Layout>
         <Heading>Refund request</Heading>
         <SubHeading>It might be returned</SubHeading>
-        <EthValueLabel value={weiToEth(refundableAmount)} />
+        <EthValueLabel value={weiToEth(amount)} />
         <RefundButton
           onClick={async () => {
             setLoading(true)
