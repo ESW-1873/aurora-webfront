@@ -1,6 +1,7 @@
 import React, { VFC } from 'react'
 import { RefundButton } from 'src/components/Buttons/CtaButton'
 import { useRefundRequestModalStore } from 'src/stores'
+import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { Modal } from '.'
 import { EthValueLabel } from '../Label'
@@ -16,7 +17,7 @@ export const RefundRequestModal: VFC<{ refundableAmount: string }> = ({
         <Layout>
           <Heading>Refund request</Heading>
           <SubHeading>It might be returned</SubHeading>
-          <EthValueLabel value={refundableAmount} />
+          <EthValueLabel value={weiToEth(refundableAmount)} />
           <RefundButton />
         </Layout>
       </Modal>

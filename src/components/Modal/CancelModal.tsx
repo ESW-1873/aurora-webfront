@@ -1,6 +1,7 @@
 import React, { VFC } from 'react'
 import { CancelButton } from 'src/components/Buttons/CtaButton'
 import { useCancelModalStore } from 'src/stores'
+import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { Modal } from '.'
 import { EthValueLabel } from '../Label'
@@ -16,7 +17,7 @@ export const CancelModal: VFC<{ cancelableAmount: string }> = ({
         <Layout>
           <Heading>Cancel</Heading>
           <SubHeading>Amount to be returned</SubHeading>
-          <EthValueLabel value={cancelableAmount} />
+          <EthValueLabel value={weiToEth(cancelableAmount)} />
           <CancelButton />
         </Layout>
       </Modal>
