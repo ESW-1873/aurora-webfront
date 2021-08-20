@@ -11,6 +11,8 @@ export const MOCK_DONATION: Donation = {
 
 export const MOCK_DONEE_ADDRESS = '0x1111111111111111111111111111111111111111'
 
+export const MOCK_ADDRESS = '0x3333333333333333333333333333333333333333'
+
 export const MOCK_POST: PostProps['postProps'] = {
   id: '0xe6a8b2b83a40',
   keyVisual: '/assets/tmp/top.png',

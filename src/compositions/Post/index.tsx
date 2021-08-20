@@ -19,7 +19,7 @@ export type PostProps = {
     endTime: Dayjs
   }
   ownDonation?: Donation
-  isDonee: boolean
+  isDonee?: boolean
 }
 export const Post: VFC<PostProps> = ({
   isDonee,

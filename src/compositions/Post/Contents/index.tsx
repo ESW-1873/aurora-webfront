@@ -20,8 +20,8 @@ export type ContentsProps = {
 }
 export const Contents: VFC<
   ContentsProps & {
-    isDonee: boolean
-    hasDonated: boolean
+    isDonee?: boolean
+    hasDonated?: boolean
   }
 > = ({
   id,

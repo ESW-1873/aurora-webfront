@@ -19,11 +19,11 @@ import styled from 'styled-components'
 
 type Status = 'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'MINE' | 'CLOSED'
 
-type ComputeStatusParam = {
+type ComputeStatusParam = Partial<{
   isDonee: boolean
   hasClosed: boolean
   hasDonated: boolean
-}
+}>
 const computeStatus = ({
   isDonee,
   hasClosed,
