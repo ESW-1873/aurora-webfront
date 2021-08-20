@@ -7,7 +7,10 @@ import {
 } from 'recoil'
 import { CONTRACT_ADDRESS } from 'src/constants/address'
 import { SupportedChainId } from 'src/constants/chains'
-import { PostManager, PostManager__factory } from 'src/external/contract/types'
+import {
+  PostManager,
+  PostManager__factory,
+} from 'src/external/contract/__generated__'
 import { isProd } from 'src/utils/env'
 import { useWalletStore } from '.'
 
