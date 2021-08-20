@@ -36,6 +36,7 @@ export const Post: VFC<PostProps> = ({
       >
         <Contents {...postProps} />
       </PageWrapper>
+      <FooterSpacer />
       <FixedFooter>
         <p>
           {postProps.hasClosed
@@ -54,6 +55,10 @@ export const Post: VFC<PostProps> = ({
   )
 }
 
+const FOOTER_HEIGHT = '64px'
+const FooterSpacer = styled.div`
+  padding-top: ${FOOTER_HEIGHT};
+`
 const FixedFooter = styled.div`
   position: fixed;
   right: 0;
@@ -62,7 +67,7 @@ const FixedFooter = styled.div`
   margin: 0 auto;
   max-width: ${CONTENT_MAX_WIDTH};
   p {
-    height: 64px;
+    height: ${FOOTER_HEIGHT};
     backdrop-filter: blur(30px) brightness(1.15);
     background-color: ${white}26;
     ${flexCenter};

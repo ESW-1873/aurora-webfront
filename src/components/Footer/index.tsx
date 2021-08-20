@@ -5,7 +5,7 @@ import { GetStartedButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
 import { white } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
-import { breakpoint, flexCenter, pageGuide } from 'src/styles/mixins'
+import { breakpoint, flexCenter, noGuide, pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 const HEADING_TEXT = 'Ultimately Fast And Easy Online Fundraising.'
@@ -29,7 +29,6 @@ const Heading = styled.h2`
   line-height: 1.2;
   font-weight: ${fontWeightBold};
 `
-
 const SubHeadingBelowLogo = styled.h3`
   font-weight: ${fontWeightMedium};
   font-size: 18px;
@@ -38,18 +37,17 @@ const SubHeadingBelowLogo = styled.h3`
 `
 
 const FooterContainer = styled.div`
-  ${flexCenter}
-  ${pageGuide}
+  ${flexCenter};
+  ${pageGuide};
   flex-direction: column;
   position: relative;
   padding-top: 64px;
   padding-bottom: 64px;
 `
 
-const FooterLayout = styled.div`
-  width: 100%;
+const FooterLayout = styled.footer`
   max-width: 896px;
-  margin: 0 auto;
+  ${noGuide};
   position: relative;
   color: ${white};
   text-align: center;

@@ -31,7 +31,7 @@ export const Contents: VFC<ContentsProps> = ({
   hasClosed,
 }) => (
   <>
-    <Layout>
+    <>
       <ImageDiv>
         <Image src={keyVisual} alt="key visual" />
       </ImageDiv>
@@ -48,7 +48,7 @@ export const Contents: VFC<ContentsProps> = ({
         credit={doneeCredit}
         hasClosed={hasClosed}
       />
-    </Layout>
+    </>
   </>
 )
 
@@ -60,12 +60,5 @@ const ImageDiv = styled.div`
   @media ${breakpoint.m} {
     ${noGuide}
     width: 100vw;
-  }
-`
-
-const Layout = styled.main`
-  padding-top: 64px;
-  @media ${breakpoint.m} {
-    padding-top: 0;
   }
 `
