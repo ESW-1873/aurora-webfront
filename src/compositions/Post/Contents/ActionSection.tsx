@@ -1,4 +1,3 @@
-import { useWeb3React } from '@web3-react/core'
 import React, { useState, VFC } from 'react'
 import {
   CancelButton,
@@ -11,6 +10,7 @@ import {
   useDonationModalStore,
   useRefundRequestModalStore,
   useWalletModalStore,
+  useWalletStore,
 } from 'src/stores'
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
@@ -27,6 +27,7 @@ export const ActionSection: VFC<{
   hasClosed: boolean
 }> = ({ postTitle, postId, hasClosed }) => {
   const { active } = useWeb3React()
+  const { active } = useWalletStore()
   const { open: openWalletModal } = useWalletModalStore()
   const { open: openDonationModal } = useDonationModalStore()
   const { open: openCancelModal } = useCancelModalStore()

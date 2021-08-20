@@ -52,6 +52,7 @@ const currentConnectedWalletTypeAtom = atom<WalletType | null>({
  */
 export const useWalletStore = (): {
   account?: string | null
+  active: boolean
   activeWalletType: WalletType | null
   metamaskSigner: ethers.providers.JsonRpcSigner | null
   walletConnectSigner: ethers.providers.JsonRpcSigner | null
@@ -61,7 +62,7 @@ export const useWalletStore = (): {
   disconnectMetamask: () => void
   disconnectWalletConnect: () => void
 } => {
-  const { library, account } = useWeb3React()
+  const { library, account, active } = useWeb3React()
 
   const activeWalletType = useRecoilValue(activeWalletTypeAtom)
   const setActiveWalletType = useSetRecoilState(activeWalletTypeAtom)
@@ -155,6 +156,7 @@ export const useWalletStore = (): {
 
   return {
     account,
+    active,
     activeWalletType,
     metamaskSigner,
     walletConnectSigner,
