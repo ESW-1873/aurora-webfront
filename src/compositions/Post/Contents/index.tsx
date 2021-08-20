@@ -18,7 +18,12 @@ export type ContentsProps = {
   refundRequests: { id: string }[]
   doneeCredit?: string
 }
-export const Contents: VFC<ContentsProps> = ({
+export const Contents: VFC<
+  ContentsProps & {
+    isDonee: boolean
+    hasDonated: boolean
+  }
+> = ({
   id,
   keyVisual,
   title,
@@ -29,6 +34,8 @@ export const Contents: VFC<ContentsProps> = ({
   refundRequests,
   doneeCredit,
   hasClosed,
+  hasDonated,
+  isDonee,
 }) => (
   <>
     <>
@@ -40,7 +47,13 @@ export const Contents: VFC<ContentsProps> = ({
         description={description}
         totalDonation={totalDonation}
       />
-      <ActionSection postTitle={title} postId={id} hasClosed={hasClosed} />
+      <ActionSection
+        postTitle={title}
+        postId={id}
+        isDonee={isDonee}
+        hasClosed={hasClosed}
+        hasDonated={hasDonated}
+      />
       <DonationSection
         donee={donee}
         canceledDonations={canceledDonations}

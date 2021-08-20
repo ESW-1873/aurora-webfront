@@ -19,8 +19,14 @@ export type PostProps = {
     endTime: Dayjs
   }
   ownDonation?: Donation
+  isDonee: boolean
 }
-export const Post: VFC<PostProps> = ({ ownDonation, postProps, seoProps }) => {
+export const Post: VFC<PostProps> = ({
+  isDonee,
+  ownDonation,
+  postProps,
+  seoProps,
+}) => {
   const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
     postProps
   return (
@@ -30,7 +36,7 @@ export const Post: VFC<PostProps> = ({ ownDonation, postProps, seoProps }) => {
         description={`${description.slice(0, 100)}...`}
         {...seoProps}
       >
-        <Contents {...postProps} />
+        <Contents {...postProps} hasDonated={!!ownDonation} isDonee={isDonee} />
       </PageWrapper>
       <FooterSpacer />
       <FixedFooter>

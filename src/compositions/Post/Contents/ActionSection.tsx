@@ -1,4 +1,4 @@
-import React, { useState, VFC } from 'react'
+import React, { useMemo, VFC } from 'react'
 import {
   CancelButton,
   PrimaryButton,
@@ -17,26 +17,36 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-/**
- * this depends on project status from the user's perspective (e.g. open/donated/closed)
- */
-// TODO: 現状は仮実装
-export const ActionSection: VFC<{
-  postTitle: string
-  postId: string
+type Status = 'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'MINE' | 'CLOSED'
+
+type ComputeStatusParam = {
+  isDonee: boolean
   hasClosed: boolean
-}> = ({ postTitle, postId, hasClosed }) => {
-  const { active } = useWeb3React()
+  hasDonated: boolean
+}
+const computeStatus = ({
+  isDonee,
+  hasClosed,
+  hasDonated,
+}: ComputeStatusParam): Status => {
+  if (isDonee) return 'MINE'
+  if (hasDonated) return hasClosed ? 'REFUNDABLE' : 'CANCELABLE'
+  return hasClosed ? 'CLOSED' : 'DONATABLE'
+}
+
+export const ActionSection: VFC<
+  {
+    postTitle: string
+    postId: string
+  } & ComputeStatusParam
+> = ({ postTitle, postId, ...params }) => {
   const { active } = useWalletStore()
   const { open: openWalletModal } = useWalletModalStore()
   const { open: openDonationModal } = useDonationModalStore()
   const { open: openCancelModal } = useCancelModalStore()
   const { open: openRefundRequestModal } = useRefundRequestModalStore()
 
-  // TODO: UIチェックのために仮で入れてる。ステータスの定義や管理を検討（Recoilかな）
-  const [status, setStatus] = useState<
-    'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'MINE' | 'CLOSED'
-  >('DONATABLE')
+  const status = useMemo(() => computeStatus(params), [params])
 
   return (
     <>
