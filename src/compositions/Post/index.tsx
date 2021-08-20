@@ -46,7 +46,10 @@ export const Post: VFC<PostProps> = ({
       <WalletModal />
       <DonationModal postId={id} totalDonation={totalDonation} />
       <CancelModal receiptId={receiptId} cancelableAmount={donatedAmount} />
-      <RefundRequestModal refundableAmount={donatedAmount} />
+      <RefundRequestModal
+        receiptId={receiptId}
+        refundableAmount={donatedAmount}
+      />
     </>
   )
 }

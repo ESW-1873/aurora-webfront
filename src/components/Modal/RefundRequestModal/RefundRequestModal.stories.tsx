@@ -1,7 +1,7 @@
 import React, { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import { isOpenedRefundRequestModalAtom } from 'src/stores/Modal/refundRequestModal'
-import { RefundRequestModal } from './RefundRequestModal'
+import { RefundRequestModal } from '.'
 
 export default {
   title: 'RefundRequestModal',
@@ -13,6 +13,9 @@ export const RefundRequestModalPage: VFC = () => (
   <RecoilRoot
     initializeState={(snap) => snap.set(isOpenedRefundRequestModalAtom, true)}
   >
-    <RefundRequestModal refundableAmount={MOCK_REFUNDABLE_AMOUNT} />
+    <RefundRequestModal
+      receiptId={''}
+      refundableAmount={MOCK_REFUNDABLE_AMOUNT}
+    />
   </RecoilRoot>
 )
