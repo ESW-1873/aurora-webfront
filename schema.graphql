@@ -18,10 +18,10 @@ scalar Bytes
 type Donation {
   id: ID!
   receiptId: BigInt!
-  serialNum: BigInt!
+  serialNo: Int!
   sender: Bytes!
   amount: BigInt!
-  donateTime: BigInt!
+  donateTime: Int!
   donated: PostContent
   cancelled: PostContent
   refundRequested: PostContent
@@ -45,14 +45,14 @@ input Donation_filter {
   receiptId_lte: BigInt
   receiptId_in: [BigInt!]
   receiptId_not_in: [BigInt!]
-  serialNum: BigInt
-  serialNum_not: BigInt
-  serialNum_gt: BigInt
-  serialNum_lt: BigInt
-  serialNum_gte: BigInt
-  serialNum_lte: BigInt
-  serialNum_in: [BigInt!]
-  serialNum_not_in: [BigInt!]
+  serialNo: Int
+  serialNo_not: Int
+  serialNo_gt: Int
+  serialNo_lt: Int
+  serialNo_gte: Int
+  serialNo_lte: Int
+  serialNo_in: [Int!]
+  serialNo_not_in: [Int!]
   sender: Bytes
   sender_not: Bytes
   sender_in: [Bytes!]
@@ -67,14 +67,14 @@ input Donation_filter {
   amount_lte: BigInt
   amount_in: [BigInt!]
   amount_not_in: [BigInt!]
-  donateTime: BigInt
-  donateTime_not: BigInt
-  donateTime_gt: BigInt
-  donateTime_lt: BigInt
-  donateTime_gte: BigInt
-  donateTime_lte: BigInt
-  donateTime_in: [BigInt!]
-  donateTime_not_in: [BigInt!]
+  donateTime: Int
+  donateTime_not: Int
+  donateTime_gt: Int
+  donateTime_lt: Int
+  donateTime_gte: Int
+  donateTime_lte: Int
+  donateTime_in: [Int!]
+  donateTime_not_in: [Int!]
   donated: String
   donated_not: String
   donated_gt: String
@@ -136,7 +136,7 @@ input Donation_filter {
 enum Donation_orderBy {
   id
   receiptId
-  serialNum
+  serialNo
   sender
   amount
   donateTime
@@ -154,15 +154,12 @@ enum OrderDirection {
 type PostContent {
   id: ID!
   metadata: String!
-  imageUrl: String!
-  title: String!
-  description: String!
   donee: Bytes!
-  capacity: BigInt!
-  periodHours: BigInt!
-  startTime: BigInt!
-  endTime: BigInt!
-  donatedCount: BigInt!
+  capacity: Int!
+  periodHours: Int!
+  startTime: Int!
+  endTime: Int!
+  donatedCount: Int!
   donatedSum: BigInt!
   withdrawn: BigInt!
   donations(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
@@ -194,94 +191,52 @@ input PostContent_filter {
   metadata_not_starts_with: String
   metadata_ends_with: String
   metadata_not_ends_with: String
-  imageUrl: String
-  imageUrl_not: String
-  imageUrl_gt: String
-  imageUrl_lt: String
-  imageUrl_gte: String
-  imageUrl_lte: String
-  imageUrl_in: [String!]
-  imageUrl_not_in: [String!]
-  imageUrl_contains: String
-  imageUrl_not_contains: String
-  imageUrl_starts_with: String
-  imageUrl_not_starts_with: String
-  imageUrl_ends_with: String
-  imageUrl_not_ends_with: String
-  title: String
-  title_not: String
-  title_gt: String
-  title_lt: String
-  title_gte: String
-  title_lte: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  description: String
-  description_not: String
-  description_gt: String
-  description_lt: String
-  description_gte: String
-  description_lte: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
   donee: Bytes
   donee_not: Bytes
   donee_in: [Bytes!]
   donee_not_in: [Bytes!]
   donee_contains: Bytes
   donee_not_contains: Bytes
-  capacity: BigInt
-  capacity_not: BigInt
-  capacity_gt: BigInt
-  capacity_lt: BigInt
-  capacity_gte: BigInt
-  capacity_lte: BigInt
-  capacity_in: [BigInt!]
-  capacity_not_in: [BigInt!]
-  periodHours: BigInt
-  periodHours_not: BigInt
-  periodHours_gt: BigInt
-  periodHours_lt: BigInt
-  periodHours_gte: BigInt
-  periodHours_lte: BigInt
-  periodHours_in: [BigInt!]
-  periodHours_not_in: [BigInt!]
-  startTime: BigInt
-  startTime_not: BigInt
-  startTime_gt: BigInt
-  startTime_lt: BigInt
-  startTime_gte: BigInt
-  startTime_lte: BigInt
-  startTime_in: [BigInt!]
-  startTime_not_in: [BigInt!]
-  endTime: BigInt
-  endTime_not: BigInt
-  endTime_gt: BigInt
-  endTime_lt: BigInt
-  endTime_gte: BigInt
-  endTime_lte: BigInt
-  endTime_in: [BigInt!]
-  endTime_not_in: [BigInt!]
-  donatedCount: BigInt
-  donatedCount_not: BigInt
-  donatedCount_gt: BigInt
-  donatedCount_lt: BigInt
-  donatedCount_gte: BigInt
-  donatedCount_lte: BigInt
-  donatedCount_in: [BigInt!]
-  donatedCount_not_in: [BigInt!]
+  capacity: Int
+  capacity_not: Int
+  capacity_gt: Int
+  capacity_lt: Int
+  capacity_gte: Int
+  capacity_lte: Int
+  capacity_in: [Int!]
+  capacity_not_in: [Int!]
+  periodHours: Int
+  periodHours_not: Int
+  periodHours_gt: Int
+  periodHours_lt: Int
+  periodHours_gte: Int
+  periodHours_lte: Int
+  periodHours_in: [Int!]
+  periodHours_not_in: [Int!]
+  startTime: Int
+  startTime_not: Int
+  startTime_gt: Int
+  startTime_lt: Int
+  startTime_gte: Int
+  startTime_lte: Int
+  startTime_in: [Int!]
+  startTime_not_in: [Int!]
+  endTime: Int
+  endTime_not: Int
+  endTime_gt: Int
+  endTime_lt: Int
+  endTime_gte: Int
+  endTime_lte: Int
+  endTime_in: [Int!]
+  endTime_not_in: [Int!]
+  donatedCount: Int
+  donatedCount_not: Int
+  donatedCount_gt: Int
+  donatedCount_lt: Int
+  donatedCount_gte: Int
+  donatedCount_lte: Int
+  donatedCount_in: [Int!]
+  donatedCount_not_in: [Int!]
   donatedSum: BigInt
   donatedSum_not: BigInt
   donatedSum_gt: BigInt
@@ -303,9 +258,6 @@ input PostContent_filter {
 enum PostContent_orderBy {
   id
   metadata
-  imageUrl
-  title
-  description
   donee
   capacity
   periodHours

@@ -36,7 +36,7 @@ export default {
             "args": []
           },
           {
-            "name": "serialNum",
+            "name": "serialNo",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -135,39 +135,6 @@ export default {
           },
           {
             "name": "metadata",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "imageUrl",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "title",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "description",
             "type": {
               "kind": "NON_NULL",
               "ofType": {

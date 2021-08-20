@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import React from 'react'
+import { getPostContent } from 'src/api/arweaveClient'
 import { publicApiClient } from 'src/api/client'
 import { PostContainer, PostStaticProps } from 'src/container/PostContainer'
 import { isProd } from 'src/utils/env'
@@ -44,15 +45,15 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
       notFound: true,
     }
 
-  const { id, title, imageUrl, description, donee, endTime } =
-    data.postContent || {}
+  const { id, metadata, donee, endTime } = data.postContent || {}
+  const post = await getPostContent(metadata)
 
   const props: PostStaticProps = {
     postStaticProps: {
       id,
-      title,
-      keyVisual: imageUrl,
-      description,
+      title: post.name,
+      keyVisual: post.image,
+      description: post.description,
       donee,
       endTime,
     },

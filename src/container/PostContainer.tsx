@@ -10,7 +10,7 @@ export type PostStaticProps = {
     PostProps['postProps'],
     'id' | 'keyVisual' | 'title' | 'description' | 'donee'
   > & {
-    endTime: string
+    endTime: number
   }
 }
 export const PostContainer: VFC<PostStaticProps> = ({
@@ -31,7 +31,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
     data?.donations?.find(({ sender }) => sender === myAddress)?.amount || '0'
   const canceledDonations = data?.cancelled || []
   const refundRequests = data?.refundRequested || []
-  const endTime = dayjs.unix(+(data?.endTime || postStaticProps.endTime))
+  const endTime = dayjs.unix(data?.endTime || postStaticProps.endTime)
   const hasClosed = dayjs().isAfter(endTime)
   return (
     <Post
