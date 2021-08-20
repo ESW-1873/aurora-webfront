@@ -20,17 +20,11 @@ export const Disclaimer: VFC = () => (
 
 const Section = styled.section`
   text-align: left;
-  padding-top: 32px;
-  padding-bottom: 64px;
-  h2,
-  > label {
+  h2 {
     margin-bottom: 32px;
   }
   @media ${breakpoint.m} {
-    padding-top: 24px;
-    padding-bottom: 40px;
-    h2,
-    > label {
+    h2 {
       margin-bottom: 24px;
     }
   }
