@@ -3,7 +3,7 @@ import { CancelButton } from 'src/components/Buttons/CtaButton'
 import { useCancelModalStore } from 'src/stores'
 import styled from 'styled-components'
 import { Modal } from '.'
-import { DonationInputPanel } from '../Input/DonationInputPanel'
+import { EthValueLabel } from '../Label'
 import { Heading, SubHeading } from './common'
 
 export const CancelModal: VFC<{ cancelableAmount: string }> = ({
@@ -16,7 +16,7 @@ export const CancelModal: VFC<{ cancelableAmount: string }> = ({
         <Layout>
           <Heading>Cancel</Heading>
           <SubHeading>Amount to be returned</SubHeading>
-          <DonationInputPanel amount={cancelableAmount} />
+          <EthValueLabel value={cancelableAmount} />
           <CancelButton />
         </Layout>
       </Modal>

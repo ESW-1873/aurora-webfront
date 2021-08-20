@@ -7,7 +7,7 @@ const TopPage = () => {
   if (isProd) {
     Router.replace('404')
   } else {
-    Router.replace('0x1994f5a902ef80')
+    Router.replace('0xe6a8b2b83a40')
   }
   return <></>
 }
