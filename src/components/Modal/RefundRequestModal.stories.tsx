@@ -7,9 +7,9 @@ export default {
   title: 'RefundRequestModal',
 }
 
-const MOCK_REFUNDABLE_AMOUNT = '3.42432'
+const MOCK_REFUNDABLE_AMOUNT = '40000000000000000'
 
-export const Content: VFC = () => (
+export const RefundRequestModalPage: VFC = () => (
   <RecoilRoot
     initializeState={(snap) => snap.set(isOpenedRefundRequestModalAtom, true)}
   >
