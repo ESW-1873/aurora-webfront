@@ -1,4 +1,3 @@
-import { useWeb3React } from '@web3-react/core'
 import { useCallback } from 'react'
 import {
   atom,
@@ -27,8 +26,7 @@ const contractAtom = atom<PostManager | null>({
  * Contractに関連するデータのstate管理を行う
  */
 export const useContractStore = () => {
-  const { chainId } = useWeb3React()
-  const { currentSigner } = useWalletStore()
+  const { chainId, currentSigner } = useWalletStore()
   const contractState = useRecoilValue(contractAtom)
   const setContractState = useSetRecoilState(contractAtom)
   const resetContractState = useResetRecoilState(contractAtom)

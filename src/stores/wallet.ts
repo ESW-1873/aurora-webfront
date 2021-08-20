@@ -51,7 +51,9 @@ const currentConnectedWalletTypeAtom = atom<WalletType | null>({
  * Walletに関連するデータのstate管理を行う
  */
 export const useWalletStore = (): {
-  account?: string | null
+  error: Error | undefined
+  chainId: number | undefined
+  account: string | null | undefined
   active: boolean
   activeWalletType: WalletType | null
   metamaskSigner: ethers.providers.JsonRpcSigner | null
@@ -62,7 +64,7 @@ export const useWalletStore = (): {
   disconnectMetamask: () => void
   disconnectWalletConnect: () => void
 } => {
-  const { library, account, active } = useWeb3React()
+  const { library, error, account, active, chainId } = useWeb3React()
 
   const activeWalletType = useRecoilValue(activeWalletTypeAtom)
   const setActiveWalletType = useSetRecoilState(activeWalletTypeAtom)
@@ -155,6 +157,8 @@ export const useWalletStore = (): {
       : null
 
   return {
+    error,
+    chainId,
     account,
     active,
     activeWalletType,

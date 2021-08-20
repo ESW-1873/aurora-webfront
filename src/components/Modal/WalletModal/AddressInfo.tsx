@@ -1,4 +1,3 @@
-import { useWeb3React } from '@web3-react/core'
 import React, { useState, VFC } from 'react'
 import {
   IconCheck,
@@ -34,7 +33,7 @@ export const AddressInfo: VFC<{
   const { disconnect } = useWalletConnect()
   const { activeWalletType } = useWalletStore()
 
-  const { chainId } = useWeb3React()
+  const { chainId } = useWalletStore()
   const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
 
   return (
