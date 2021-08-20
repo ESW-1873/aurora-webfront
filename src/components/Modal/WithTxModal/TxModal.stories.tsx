@@ -2,9 +2,9 @@ import React, { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import { isOpenedDonationModalAtom } from 'src/stores/Modal/donationModal'
 import { Modal } from '..'
-import { Confirmation } from '../TxModal/Confirmation'
-import { Submitted } from '../TxModal/Submitted'
-import { TxError } from '../TxModal/TxError'
+import { Confirmation } from './Confirmation'
+import { Submitted } from './Submitted'
+import { TxError } from './TxError'
 
 export default {
   title: 'TxModal',

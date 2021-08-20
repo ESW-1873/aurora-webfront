@@ -8,7 +8,9 @@ import React, {
   VFC,
 } from 'react'
 import { Modal } from '..'
-import { Confirmation, Submitted, TxError } from '../TxModal'
+import { Confirmation } from './Confirmation'
+import { Submitted } from './Submitted'
+import { TxError } from './TxError'
 
 type WithTxModalContextProps = {
   setLoading: Dispatch<SetStateAction<boolean>>
