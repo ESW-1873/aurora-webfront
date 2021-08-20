@@ -18,9 +18,11 @@ export type PostProps = {
     endTime: Dayjs
   }
   donatedAmount: string
+  receiptId: string
 }
 export const Post: VFC<PostProps> = ({
   donatedAmount,
+  receiptId,
   postProps,
   seoProps,
 }) => {
@@ -43,7 +45,7 @@ export const Post: VFC<PostProps> = ({
       </FixedFooter>
       <WalletModal />
       <DonateModal postId={id} totalDonation={totalDonation} />
-      <CancelModal cancelableAmount={donatedAmount} />
+      <CancelModal receiptId={receiptId} cancelableAmount={donatedAmount} />
       <RefundRequestModal refundableAmount={donatedAmount} />
     </>
   )
