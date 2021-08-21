@@ -2,7 +2,7 @@ import React, { useMemo, VFC } from 'react'
 import {
   CancelButton,
   PrimaryButton,
-  RefundButton,
+  RefundRequestButton,
 } from 'src/components/Buttons/CtaButton'
 import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
 import {
@@ -76,7 +76,7 @@ export const ActionSection: VFC<
       {status === 'REFUND_REQUESTABLE' && (
         <SingleButtonLayout>
           <Label color={errorColor}>Do you have a problem?</Label>
-          <RefundButton onClick={openRefundRequestModal} />
+          <RefundRequestButton onClick={openRefundRequestModal} />
         </SingleButtonLayout>
       )}
       {status === 'CLOSED' && (
