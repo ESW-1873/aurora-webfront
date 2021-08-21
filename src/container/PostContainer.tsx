@@ -37,7 +37,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
   const refundRequests = data.refundRequested || []
   const endTime = dayjs.unix(data.endTime || postStaticProps.endTime)
   const hasClosed = dayjs().isAfter(endTime)
-  const isDonee = data.donee === account
+  const isDonee = equals(data.donee, account)
   return (
     <Post
       postProps={{
