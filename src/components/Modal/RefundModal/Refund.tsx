@@ -29,7 +29,7 @@ export const Refund: VFC<{ refundRequest: Donation }> = ({
           onClick={async () => {
             setLoading(true)
             try {
-              const tx = await refund(receiptId)
+              const tx = await refund(receiptId, amount)
               console.log(tx)
             } catch (error: any) {
               onFail(error)
