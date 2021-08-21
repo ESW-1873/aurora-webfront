@@ -8,28 +8,32 @@ import styled from 'styled-components'
 export const TotalDonationLabel: VFC<{ amountWei: string }> = ({
   amountWei,
 }) => {
-  const ref = useRef(null)
   const ethStr = weiToEth(amountWei)
-  const ethNum = Number.isNaN(+ethStr) ? 0 : +ethStr
-  const { start } = useCountUp({
-    ref,
-    end: ethNum,
-    decimals: ethNum > 1 ? 4 : `${ethNum}`.split('.')[1]?.length || 4,
-    duration: 0.25,
-  })
-  useEffect(() => {
-    if (ethNum) start()
-  }, [ethNum, start])
+  const ethNum = Number.isNaN(+ethStr) ? -1 : +ethStr
+  console.log(ethStr, ethNum)
   return (
     <Label>
       <span>Total Donation:</span>
       <div>
-        <span ref={ref} />
-        {!ethNum && ethStr}
+        {ethNum >= 0 && <CountUp num={ethNum} />}
+        {ethNum < 0 && ethStr}
         <span>ETH</span>
       </div>
     </Label>
   )
+}
+const CountUp: VFC<{ num: number }> = ({ num }) => {
+  const ref = useRef(null)
+  const { start } = useCountUp({
+    ref,
+    end: num,
+    decimals: num > 1 ? 4 : `${num}`.split('.')[1]?.length || 4,
+    duration: 0.25,
+  })
+  useEffect(() => {
+    if (num) start()
+  }, [num, start])
+  return <span ref={ref} />
 }
 
 const Label = styled.label`
