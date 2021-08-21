@@ -69,7 +69,7 @@ export const ActionSection: VFC<
       )}
       {status === 'CANCELABLE' && (
         <SingleButtonLayout>
-          <Label>You’ve already donated.</Label>
+          <Label>You have already donated.</Label>
           <CancelButton onClick={openCancelModal} />
         </SingleButtonLayout>
       )}
@@ -80,7 +80,7 @@ export const ActionSection: VFC<
         </SingleButtonLayout>
       )}
       {status === 'CLOSED' && (
-        <Label>This Project has already been closed.</Label>
+        <Label>This project has already been closed.</Label>
       )}
       {status === 'MINE' && (
         <DubbleButtonLayout>

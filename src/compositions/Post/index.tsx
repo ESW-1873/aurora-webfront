@@ -56,8 +56,8 @@ export const Post: VFC<PostProps> = ({
       <FixedFooter>
         <p>
           {hasClosed
-            ? 'This donation has been closed.'
-            : `This donation will end on ${endTime.format('MMMM D, YYYY')}`}
+            ? 'This project has already been closed.'
+            : `This project will end on ${endTime.format('MMMM D, YYYY')}`}
         </p>
       </FixedFooter>
       <WalletModal />
