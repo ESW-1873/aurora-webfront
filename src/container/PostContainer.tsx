@@ -33,7 +33,6 @@ export const PostContainer: VFC<PostStaticProps> = ({
     (account &&
       data.donations?.find(({ sender }) => equals(sender, account))) ||
     undefined
-  const canceledDonations = data.cancelled || []
   const refundRequests = data.refundRequested || []
   const endTime = dayjs.unix(data.endTime || postStaticProps.endTime)
   const hasClosed = dayjs().isAfter(endTime)
@@ -43,7 +42,6 @@ export const PostContainer: VFC<PostStaticProps> = ({
       postProps={{
         ...postStaticProps,
         totalDonation,
-        canceledDonations,
         refundRequests,
         hasClosed,
         endTime,

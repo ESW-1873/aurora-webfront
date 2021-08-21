@@ -16,10 +16,6 @@ query GetPostContent($id: ID!) {
       sender
       amount
     }
-    cancelled {
-      id
-      sender
-    }
     refundRequested {
       id
       sender

@@ -8,14 +8,12 @@ import styled from 'styled-components'
 type DonationSectionProps = {
   donee: string
   credit?: string
-  canceledDonations: { id: string }[]
   refundRequests: { id: string }[]
   hasClosed?: boolean
 }
 export const DonationSection: VFC<DonationSectionProps> = ({
   donee,
   credit,
-  canceledDonations,
   refundRequests,
   hasClosed,
 }) => (
@@ -29,10 +27,8 @@ export const DonationSection: VFC<DonationSectionProps> = ({
           <CreditLabel>{`${credit} CREDIT`}</CreditLabel>
         </Wrapper>
       )}
-      {hasClosed ? (
+      {hasClosed && (
         <TxnsWrapper title="Refund Requests" txns={refundRequests} hasClosed />
-      ) : (
-        <TxnsWrapper title="Canceled Donations" txns={canceledDonations} />
       )}
     </Section>
   </>

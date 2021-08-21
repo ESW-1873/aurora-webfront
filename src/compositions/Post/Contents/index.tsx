@@ -14,7 +14,6 @@ export type ContentsProps = {
   donee: string
   hasClosed: boolean
   totalDonation: string
-  canceledDonations: { id: string }[]
   refundRequests: { id: string }[]
   doneeCredit?: string
 }
@@ -30,7 +29,6 @@ export const Contents: VFC<
   description,
   donee,
   totalDonation,
-  canceledDonations,
   refundRequests,
   doneeCredit,
   hasClosed,
@@ -56,7 +54,6 @@ export const Contents: VFC<
       />
       <DonationSection
         donee={donee}
-        canceledDonations={canceledDonations}
         refundRequests={refundRequests}
         credit={doneeCredit}
         hasClosed={hasClosed}
