@@ -69,7 +69,7 @@ export const ActionSection: VFC<
       )}
       {status === 'CANCELABLE' && (
         <SingleButtonLayout>
-          <Label>You have already donated.</Label>
+          <Label>{`You've already donated.`}</Label>
           <CancelButton onClick={openCancelModal} />
         </SingleButtonLayout>
       )}
