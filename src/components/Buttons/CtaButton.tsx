@@ -23,7 +23,12 @@ export const CancelButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
 
 export const RefundButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props
-}) => <RefundButtonElement {...props}>Refund Request</RefundButtonElement>
+}) => <RefundButtonElement {...props}>Refund</RefundButtonElement>
+
+export const RefundRequestButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> =
+  ({ ...props }) => (
+    <RefundButtonElement {...props}>Refund Request</RefundButtonElement>
+  )
 
 export const GetStartedButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props

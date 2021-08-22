@@ -1,29 +1,35 @@
 import React, { VFC } from 'react'
-import { RefundRequestButton } from 'src/components/Buttons/CtaButton'
+import { Donation } from 'src/api/types'
+import { RefundButton } from 'src/components/Buttons/CtaButton'
+import { AddressLabel } from 'src/components/ExplorerLabel'
 import { EthValueLabel } from 'src/components/Label'
 import { useContract } from 'src/external/contract/hooks'
+import { fontWeightSemiBold } from 'src/styles/font'
 import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
-import { RefundRequestModalProps } from '.'
 import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
 
-export const RefundRequest: VFC<RefundRequestModalProps> = ({
-  ownDonation: { amount, receiptId },
+export const Refund: VFC<{ refundRequest: Donation }> = ({
+  refundRequest: { sender, amount, receiptId },
 }) => {
-  const { requestRefund } = useContract()
+  const { refund } = useContract()
   const { setLoading, onSuccess, onFail } = useWithTxModalContext()
   return (
     <>
       <Layout>
-        <Heading>Refund request</Heading>
+        <Heading>Refund</Heading>
         <SubHeading>It might be returned</SubHeading>
+        <AddressDiv>
+          <p>To: </p>
+          <AddressLabel address={sender} />
+        </AddressDiv>
         <EthValueLabel value={weiToEth(amount)} />
-        <RefundRequestButton
+        <RefundButton
           onClick={async () => {
             setLoading(true)
             try {
-              const tx = await requestRefund(receiptId) // TODO: add metadataURI
+              const tx = await refund(receiptId, amount)
               console.log(tx)
             } catch (error: any) {
               onFail(error)
@@ -44,5 +50,14 @@ const Layout = styled.div`
   }
   ${SubHeading}, > div, button:not(:last-child) {
     margin-bottom: 24px;
+  }
+`
+const AddressDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  * {
+    font-size: 18px;
+    font-weight: ${fontWeightSemiBold};
   }
 `

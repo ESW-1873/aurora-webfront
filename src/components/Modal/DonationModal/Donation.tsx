@@ -61,7 +61,11 @@ export const Donation: VFC<DonationModalProps> = ({
           {`Total Donation ${weiToEth(totalDonation)} ETH`}
         </SubHeading>
         <DonationInputPanel value={inputValue} onUserInput={onUserInput} />
-        <DisclaimerCheckbox id="disclaimer-check" setIsChecked={setIsChecked} />
+        <DisclaimerCheckbox
+          id="disclaimer-check"
+          setIsChecked={setIsChecked}
+          isChecked={isChecked}
+        />
         <PrimaryButton
           label={isInsufficient ? 'Insuffcient ETH' : 'Donate'}
           disabled={!canDonate}

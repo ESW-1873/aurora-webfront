@@ -3,6 +3,7 @@ import React, { VFC } from 'react'
 import { Donation } from 'src/api/types'
 import { CancelModal } from 'src/components/Modal/CancelModal'
 import { DonationModal } from 'src/components/Modal/DonationModal'
+import { RefundModal } from 'src/components/Modal/RefundModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
@@ -19,6 +20,7 @@ export type PostProps = {
     endTime: Dayjs
   }
   ownDonation?: Donation
+  refundRequest?: Donation
   isDonee?: boolean
 }
 export const Post: VFC<PostProps> = ({
@@ -27,8 +29,15 @@ export const Post: VFC<PostProps> = ({
   postProps,
   seoProps,
 }) => {
-  const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
-    postProps
+  const {
+    id,
+    keyVisual,
+    description,
+    totalDonation,
+    endTime,
+    hasClosed,
+    refundRequests,
+  } = postProps
   return (
     <>
       <PageWrapper
@@ -36,14 +45,19 @@ export const Post: VFC<PostProps> = ({
         description={`${description.slice(0, 100)}...`}
         {...seoProps}
       >
-        <Contents {...postProps} hasDonated={!!ownDonation} isDonee={isDonee} />
+        <Contents
+          {...postProps}
+          hasDonated={!!ownDonation}
+          isDonee={isDonee}
+          hasRefundRequests={refundRequests.length > 0}
+        />
       </PageWrapper>
       <FooterSpacer />
       <FixedFooter>
         <p>
           {hasClosed
-            ? 'This donation has been closed.'
-            : `This donation will end on ${endTime.format('MMMM D, YYYY')}`}
+            ? 'This project has already been closed.'
+            : `This project will end on ${endTime.format('MMMM D, YYYY')}`}
         </p>
       </FixedFooter>
       <WalletModal />
@@ -54,6 +68,7 @@ export const Post: VFC<PostProps> = ({
         ) : (
           <CancelModal ownDonation={ownDonation} />
         ))}
+      {isDonee && hasClosed && <RefundModal />}
     </>
   )
 }
