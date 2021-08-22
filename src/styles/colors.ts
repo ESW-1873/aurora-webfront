@@ -9,6 +9,7 @@ export const twitter = '#1da1f2'
 
 export const primaryColor = darkpurple
 export const errorColor = '#F31431'
+export const defaultShadow = '0px 3px 6px #00000029'
 
 export type Colors =
   | typeof black

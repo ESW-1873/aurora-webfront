@@ -34,6 +34,10 @@ export const GetStartedButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props
 }) => <GetStartedButtonElement {...props}>Get Started</GetStartedButtonElement>
 
+export const PublishButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  ...props
+}) => <PublishButtonElement {...props}>Publish</PublishButtonElement>
+
 export const BaseButtonElement = styled.button`
   height: 64px;
   width: 100%;
@@ -85,5 +89,21 @@ const GetStartedButtonElement = styled(BaseButtonElement)`
   :hover,
   :focus {
     background: ${turquoise}80;
+  }
+`
+
+const PublishButtonElement = styled(BaseButtonElement)`
+  display: block;
+  margin: 0 auto;
+  opacity: 0.5;
+  background: ${purple};
+  color: ${primaryColor};
+  :enabled {
+    opacity: 1;
+    color: ${white};
+    :hover,
+    :focus {
+      background: ${purple}80;
+    }
   }
 `
