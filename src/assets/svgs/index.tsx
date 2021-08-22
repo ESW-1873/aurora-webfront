@@ -7,6 +7,7 @@ import IconColorfulCircle from './icon_colorful_circle.svg'
 import IconCopy from './icon_copy.svg'
 import IconEth from './icon_eth.svg'
 import IconExternalLink from './icon_external_link.svg'
+import IconImage from './icon_image.svg'
 import IconLoading from './icon_loading.svg'
 import IconMetamask from './icon_metamask.svg'
 import IconTwitter from './icon_twitter.svg'
@@ -34,4 +35,5 @@ export {
   IconEth,
   IconAlert,
   IconArrowUp,
+  IconImage,
 }
