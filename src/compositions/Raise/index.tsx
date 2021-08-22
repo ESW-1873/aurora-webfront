@@ -18,11 +18,11 @@ import { absoluteFill, flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 
-export type GetStartedProps = {
+export type RaiseProps = {
   seoProps?: SEOProps
 }
 type PostFormData = NonNullable<Parameters<typeof postClient.postPost>['0']>
-export const GetStarted: VFC<GetStartedProps> = ({ seoProps }) => {
+export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const methods = useForm<PostFormData>()
@@ -113,6 +113,7 @@ const UploadCta: VFC<UploadCtaStyleProps> = ({ $hasImage }) => (
     <p>{$hasImage ? 'Change' : 'Add'} Image</p>
   </UploadCtaDiv>
 )
+const Wrapper = styled.div``
 const UploadCtaDiv = styled.div`
   flex-direction: column;
   filter: drop-shadow(${defaultShadow});
