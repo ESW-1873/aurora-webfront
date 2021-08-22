@@ -2,12 +2,12 @@ overwrite: true
 schema: 'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.8'
 documents: 'src/**/*.graphql'
 generates:
-  src/__generated__/introspection.ts:
+  src/__generated__/graphql/introspection.ts:
     plugins:
       - urql-introspection
     config:
       useTypeImports: true
-  src/__generated__/graphql.ts:
+  src/__generated__/graphql/graphql.ts:
     plugins:
       - 'typescript'
       - 'typescript-operations'

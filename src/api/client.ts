@@ -2,7 +2,7 @@ import { dedupExchange, fetchExchange } from '@urql/core'
 import { cacheExchange } from '@urql/exchange-graphcache'
 import { initUrqlClient } from 'next-urql'
 import { GRAPHQL_ENDPOINT } from 'src/utils/env'
-import schema from 'src/__generated__/introspection'
+import schema from 'src/__generated__/graphql/introspection'
 
 export const publicApiClient = () => {
   const client = initUrqlClient(

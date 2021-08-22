@@ -5,7 +5,7 @@ import { SEOProps } from 'src/components/SEO'
 import { Post, PostProps } from 'src/compositions/Post'
 import { useWalletStore } from 'src/stores'
 import { equals } from 'src/utils/address'
-import { useGetPostContentQuery } from 'src/__generated__/graphql'
+import { useGetPostContentQuery } from 'src/__generated__/graphql/graphql'
 
 export type PostStaticProps = {
   seoProps?: SEOProps

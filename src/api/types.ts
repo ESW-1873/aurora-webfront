@@ -1,4 +1,4 @@
-import { GetPostContentQuery } from 'src/__generated__/graphql'
+import { GetPostContentQuery } from 'src/__generated__/graphql/graphql'
 
 type ElementType<T> = T extends (infer A)[] ? A : never
 

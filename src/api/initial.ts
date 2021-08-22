@@ -1,4 +1,4 @@
-import { GetPostContentQuery } from 'src/__generated__/graphql'
+import { GetPostContentQuery } from 'src/__generated__/graphql/graphql'
 
 export const INITIAL_POST: NonNullable<GetPostContentQuery['postContent']> = {
   capacity: 0,

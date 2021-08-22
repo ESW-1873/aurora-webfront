@@ -9,7 +9,7 @@ import {
   GetPostContentDocument,
   GetPostContentQuery,
   GetPostContentQueryVariables,
-} from 'src/__generated__/graphql'
+} from 'src/__generated__/graphql/graphql'
 
 type PostPageContext = {
   postId: string
