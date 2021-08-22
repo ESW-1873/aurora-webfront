@@ -1,3 +1,7 @@
-circle {
-  transform: unset;
+circle,
+path {
+  transform: initial;
+}
+text {
+  opacity: initial !important;
 }
