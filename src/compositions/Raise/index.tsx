@@ -24,25 +24,16 @@ export type RaiseProps = {
 }
 type PostFormData = NonNullable<Parameters<typeof postClient.postPost>['0']>
 export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const methods = useForm<PostFormData>({
-    defaultValues: {
-      description: '',
-      image: {
-        data: '',
-        contentType: '',
-      },
-      title: '',
-    },
-  })
-  const { register, setValue, handleSubmit, watch } = methods
+  const methods = useForm<PostFormData>()
+  const { register, setValue, handleSubmit } = methods
   useEffect(() => {
     register('image')
   }, [register])
-  const imageUrl = watch('image.data')
   return (
     <>
-      <BlurredBackground imageUrl={imageUrl} />
+      <BlurredBackground imageUrl={imagePreviewUrl} />
       <PageWrapper {...seoProps}>
         <main>
           <Form
@@ -59,23 +50,24 @@ export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
             })}
           >
             <FormProvider {...methods}>
-              <UploadImageLabel $hasImage={!!imageUrl}>
+              <UploadImageLabel $hasImage={!!imagePreviewUrl}>
                 <input
                   type="file"
                   onChange={async ({ target: { files } }) => {
                     if (!files?.length) return
                     const file = files[0]
-                    const base64 = await readAsDataURLAsync(file)
-                    if (!base64) return
+                    const dataUrl = await readAsDataURLAsync(file)
+                    if (!dataUrl) return
+                    setImagePreviewUrl(dataUrl)
                     setValue('image', {
-                      data: base64,
+                      data: dataUrl.replace(/data.*base64,/, ''),
                       contentType: file.type,
                     })
                   }}
                   accept="image/*"
                 />
-                {imageUrl && <Image src={imageUrl} alt="" />}
-                <UploadCta $hasImage={!!imageUrl} />
+                {imagePreviewUrl && <Image src={imagePreviewUrl} alt="" />}
+                <UploadCta $hasImage={!!imagePreviewUrl} />
               </UploadImageLabel>
               <TitleTextarea
                 {...register('title')}
