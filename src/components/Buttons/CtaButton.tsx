@@ -11,11 +11,13 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const PrimaryButton: VFC<
+const PrimaryButtonBase: VFC<
   { label: string } & ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ label, ...props }) => (
   <PrimaryButtonElement {...props}>{label}</PrimaryButtonElement>
 )
+
+export const PrimaryButton = styled(PrimaryButtonBase)``
 
 export const CancelButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props

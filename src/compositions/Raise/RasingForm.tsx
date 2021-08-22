@@ -1,10 +1,11 @@
-import React, { useEffect, useState, VFC } from 'react'
+import React, { useEffect, VFC } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
 import { PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
+import { useSpecificationModalStore } from 'src/stores/Modal/specificationModal'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -15,11 +16,9 @@ import { absoluteFill, flexCenter } from 'src/styles/mixins'
 import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 
-const DEFAULT_ERROR_MESSAGE =
-  'Something wrong with your request or server. Please check your request or try again later.'
-
 export type RaisingFormProps = {
   publish: (data: RaisingFormData) => Promise<any>
+  errorMessage: string
 }
 export type RaisingFormData = Omit<
   NonNullable<Parameters<typeof postClient.postPost>['0']>,
@@ -31,53 +30,53 @@ export type RaisingFormData = Omit<
   }
 }
 
-export const RaisingForm: VFC<RaisingFormProps> = ({ publish }) => {
-  const [errorMessage, setErrorMessage] = useState('')
-  const { register, setValue, handleSubmit, watch } =
-    useFormContext<RaisingFormData>()
+export const RaisingForm: VFC<RaisingFormProps> = ({ errorMessage }) => {
+  const { open } = useSpecificationModalStore()
+  const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const imageUrl = watch('image.dataUrl')
   useEffect(() => {
     register('image')
   }, [register])
   return (
-    <Form
-      onSubmit={handleSubmit((data) =>
-        publish(data).catch((e) =>
-          setErrorMessage(e?.message || DEFAULT_ERROR_MESSAGE),
-        ),
-      )}
-    >
-      <UploadImageLabel $hasImage={!!imageUrl}>
-        <input
-          type="file"
-          onChange={async ({ target: { files } }) => {
-            if (!files?.length) return
-            const file = files[0]
-            const dataUrl = await readAsDataURLAsync(file)
-            if (!dataUrl) return
-            setValue('image', {
-              dataUrl,
-              contentType: file.type,
-            })
-          }}
-          accept="image/*"
+    <>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault()
+          open()
+        }}
+      >
+        <UploadImageLabel $hasImage={!!imageUrl}>
+          <input
+            type="file"
+            onChange={async ({ target: { files } }) => {
+              if (!files?.length) return
+              const file = files[0]
+              const dataUrl = await readAsDataURLAsync(file)
+              if (!dataUrl) return
+              setValue('image', {
+                dataUrl,
+                contentType: file.type,
+              })
+            }}
+            accept="image/*"
+          />
+          {imageUrl && <Image src={imageUrl} alt="" />}
+          <UploadCta $hasImage={!!imageUrl} />
+        </UploadImageLabel>
+        <TitleTextarea
+          {...register('title')}
+          placeholder="Project Title(Within 30 chars)…"
+          maxLength={30}
         />
-        {imageUrl && <Image src={imageUrl} alt="" />}
-        <UploadCta $hasImage={!!imageUrl} />
-      </UploadImageLabel>
-      <TitleTextarea
-        {...register('title')}
-        placeholder="Project Title(Within 30 chars)…"
-        maxLength={30}
-      />
-      <DescriptionTextarea
-        {...register('description')}
-        placeholder="Project description(Within 800 chars)…"
-        maxLength={800}
-      />
-      <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
-      <SubmitButton />
-    </Form>
+        <DescriptionTextarea
+          {...register('description')}
+          placeholder="Project description(Within 800 chars)…"
+          maxLength={800}
+        />
+        <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
+        <SubmitButton />
+      </Form>
+    </>
   )
 }
 const SubmitButton = styled(({ className }) => {

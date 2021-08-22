@@ -4,10 +4,9 @@ import React, { VFC } from 'react'
 import { GetPostContents } from 'src/api/client'
 import { postClient } from 'src/api/postClient'
 import { SEOProps } from 'src/components/SEO'
-import { Raise } from 'src/compositions/Raise'
+import { Raise, RaisingFormData } from 'src/compositions/Raise'
 import { useContract } from 'src/external/contract/hooks'
 import { useLoadingModalStore, useWalletStore } from 'src/stores'
-import { RaisingFormData } from './RasingForm'
 
 export type RaiseConainerProps = {
   seoProps?: SEOProps
