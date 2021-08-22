@@ -1,5 +1,5 @@
-import { Raise } from 'src/compositions/Raise'
+import { RaiseConainer } from 'src/container/RaiseContainer'
 
-const RaisePage = () => <Raise />
+const RaisePage = () => <RaiseConainer />
 
 export default RaisePage
