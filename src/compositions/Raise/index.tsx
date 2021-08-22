@@ -5,6 +5,7 @@ import { LoadingModal } from 'src/components/Modal/LoadingModal'
 import { SpecificationModal } from 'src/components/Modal/SpecificationModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
+import { createGlobalStyle } from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 import { RaisingForm, RaisingFormData } from './RasingForm'
 
@@ -24,6 +25,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
   const imageUrl = watch('image.dataUrl')
   return (
     <>
+      <RaiseStyles />
       <BlurredBackground imageUrl={imageUrl} />
       <PageWrapper {...seoProps} noFooter>
         <main>
@@ -44,3 +46,12 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
     </>
   )
 }
+
+const RaiseStyles = createGlobalStyle`
+  html{
+    height: 100%;
+  }
+  body {
+   height: 100%;
+  }
+`

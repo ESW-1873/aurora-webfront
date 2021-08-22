@@ -49,9 +49,6 @@ const Styles = createGlobalStyle`
   p {
     ${paragraphStyle};
   }
-  html {
-    height: 100%;
-  }
   body {
     ${pageMarginCssVar}: max(5.12vw, 20px);
     ${pageMarginNegativeCssVar}: calc(0px - max(5.12vw, 20px));
@@ -60,7 +57,6 @@ const Styles = createGlobalStyle`
     background-color: ${white};
     color: ${primaryColor};
     min-height: 100vh;
-    height: 100%;
     > div#__next {
       height: 100%;
       display: flex;
