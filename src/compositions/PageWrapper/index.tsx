@@ -1,6 +1,5 @@
 import React, { ReactNode, VFC } from 'react'
-import { BlurredBackground } from 'src/components/Background'
-import { PlainBackground } from 'src/components/Background/PlainBackground'
+import { BlurredBackground, PlainBackground } from 'src/components/Background'
 import { Footer } from 'src/components/Footer'
 import { Header } from 'src/components/Header'
 import { SEO, SEOProps } from 'src/components/SEO'
