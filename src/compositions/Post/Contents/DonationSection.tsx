@@ -1,6 +1,8 @@
 import React, { ReactNode, VFC } from 'react'
-import { AddressLabel, TxHashLabel } from 'src/components/ExplorerLabel'
+import { Donation } from 'src/api/types'
+import { AddressButton, AddressLabel } from 'src/components/ExplorerLabel'
 import { HorizontalDashedLine } from 'src/components/HorizontalDashedLine'
+import { useRefundModalStore } from 'src/stores/Modal/refundModal'
 import { errorColor, turquoise } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import styled from 'styled-components'
@@ -8,16 +10,16 @@ import styled from 'styled-components'
 type DonationSectionProps = {
   donee: string
   credit?: string
-  canceledDonations: { id: string }[]
-  refundRequests: { id: string }[]
+  refundRequests: Donation[]
   hasClosed?: boolean
+  isDonee?: boolean
 }
 export const DonationSection: VFC<DonationSectionProps> = ({
   donee,
   credit,
-  canceledDonations,
   refundRequests,
   hasClosed,
+  isDonee,
 }) => (
   <>
     <Section>
@@ -29,10 +31,13 @@ export const DonationSection: VFC<DonationSectionProps> = ({
           <CreditLabel>{`${credit} CREDIT`}</CreditLabel>
         </Wrapper>
       )}
-      {hasClosed ? (
-        <TxnsWrapper title="Refund Requests" txns={refundRequests} hasClosed />
-      ) : (
-        <TxnsWrapper title="Canceled Donations" txns={canceledDonations} />
+      {hasClosed && (
+        <ReceiptsWrapper
+          title="Refund Requests"
+          receipts={refundRequests}
+          isDonee={isDonee}
+          hasClosed
+        />
       )}
     </Section>
   </>
@@ -51,25 +56,35 @@ const Wrapper: VFC<{
   </>
 )
 
-const TxnsWrapper: VFC<{
+const ReceiptsWrapper: VFC<{
   title: string
-  txns: { id: string }[]
+  receipts: Donation[]
+  isDonee?: boolean
   hasClosed?: boolean
-}> = ({ title, txns, hasClosed }) =>
-  txns.length > 0 ? (
+}> = ({ title, receipts, hasClosed, isDonee }) => {
+  const { open } = useRefundModalStore()
+  if (receipts.length <= 0) return <></>
+  return (
     <>
       <HorizontalDashedLine />
       <Wrapper title={title} hasClosed={hasClosed}>
         <AccountListDiv>
-          {txns.map(({ id }) => {
-            return <TxHashLabel key={id} txHash={id} />
-          })}
+          {isDonee
+            ? receipts.map((receipt) => (
+                <AddressButton
+                  key={receipt.id}
+                  address={receipt.sender}
+                  onClick={() => open(receipt)}
+                />
+              ))
+            : receipts.map(({ id, sender }) => {
+                return <AddressLabel key={id} address={sender} />
+              })}
         </AccountListDiv>
       </Wrapper>
     </>
-  ) : (
-    <></>
   )
+}
 
 const AccountListDiv = styled.div`
   display: flex;

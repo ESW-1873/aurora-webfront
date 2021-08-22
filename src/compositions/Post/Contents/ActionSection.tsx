@@ -2,7 +2,7 @@ import React, { useMemo, VFC } from 'react'
 import {
   CancelButton,
   PrimaryButton,
-  RefundButton,
+  RefundRequestButton,
 } from 'src/components/Buttons/CtaButton'
 import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
 import {
@@ -17,20 +17,28 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-type Status = 'DONATABLE' | 'CANCELABLE' | 'REFUNDABLE' | 'MINE' | 'CLOSED'
+type Status =
+  | 'DONATABLE'
+  | 'CANCELABLE'
+  | 'REFUND_REQUESTABLE'
+  | 'MINE'
+  | 'REFUND_REQUESTED'
+  | 'CLOSED'
 
 type ComputeStatusParam = Partial<{
   isDonee: boolean
   hasClosed: boolean
   hasDonated: boolean
+  hasRefundRequests: boolean
 }>
 const computeStatus = ({
   isDonee,
   hasClosed,
   hasDonated,
+  hasRefundRequests,
 }: ComputeStatusParam): Status => {
-  if (isDonee) return 'MINE'
-  if (hasDonated) return hasClosed ? 'REFUNDABLE' : 'CANCELABLE'
+  if (isDonee) return hasRefundRequests ? 'REFUND_REQUESTED' : 'MINE'
+  if (hasDonated) return hasClosed ? 'REFUND_REQUESTABLE' : 'CANCELABLE'
   return hasClosed ? 'CLOSED' : 'DONATABLE'
 }
 
@@ -61,15 +69,18 @@ export const ActionSection: VFC<
       )}
       {status === 'CANCELABLE' && (
         <SingleButtonLayout>
-          <Label>You’ve already donated.</Label>
+          <Label>{`You've already donated.`}</Label>
           <CancelButton onClick={openCancelModal} />
         </SingleButtonLayout>
       )}
-      {status === 'REFUNDABLE' && (
+      {status === 'REFUND_REQUESTABLE' && (
         <SingleButtonLayout>
           <Label color={errorColor}>Do you have a problem?</Label>
-          <RefundButton onClick={openRefundRequestModal} />
+          <RefundRequestButton onClick={openRefundRequestModal} />
         </SingleButtonLayout>
+      )}
+      {status === 'CLOSED' && (
+        <Label>This project has already been closed.</Label>
       )}
       {status === 'MINE' && (
         <DubbleButtonLayout>
@@ -77,8 +88,8 @@ export const ActionSection: VFC<
           <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}
-      {status === 'CLOSED' && (
-        <Label>This Project has already been closed.</Label>
+      {status === 'REFUND_REQUESTED' && (
+        <Label color={errorColor}>{`You've got refund requests.`}</Label>
       )}
     </>
   )

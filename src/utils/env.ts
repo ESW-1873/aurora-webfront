@@ -9,5 +9,5 @@ export const HOSTNAME = isProd
 export const ROOT_URL = `https://${HOSTNAME}`
 
 export const GRAPHQL_ENDPOINT =
-  process.env.GRAPHQL_ENDPOINT ||
+  process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
   'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.7'

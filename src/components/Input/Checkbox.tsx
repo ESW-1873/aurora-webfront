@@ -6,11 +6,13 @@ import styled, { css, keyframes } from 'styled-components'
 
 type Props = {
   id: string
+  isChecked: boolean
   setIsChecked: (checked: boolean) => void
 } & InputHTMLAttributes<HTMLInputElement>
 
 export const DisclaimerCheckbox: VFC<Props> = ({
   id,
+  isChecked,
   setIsChecked,
   ...props
 }) => {
@@ -20,9 +22,14 @@ export const DisclaimerCheckbox: VFC<Props> = ({
         {...props}
         type="checkbox"
         id={id}
+        checked={isChecked}
         onChange={(e) => setIsChecked(e.target.checked)}
       />
-      <label htmlFor={id}>
+      <label
+        htmlFor={id}
+        tabIndex={0}
+        onKeyPress={() => setIsChecked(!isChecked)}
+      >
         I understand{' '}
         <a target="_blank" href={DISCLAIMER} rel="noreferrer">
           Disclaimer
