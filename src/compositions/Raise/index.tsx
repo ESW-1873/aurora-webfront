@@ -15,6 +15,7 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { absoluteFill, flexCenter } from 'src/styles/mixins'
+import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 
@@ -23,16 +24,25 @@ export type RaiseProps = {
 }
 type PostFormData = NonNullable<Parameters<typeof postClient.postPost>['0']>
 export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
-  const [imagePreviewUrl, setImagePreviewUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const methods = useForm<PostFormData>()
-  const { register, setValue, handleSubmit } = methods
+  const methods = useForm<PostFormData>({
+    defaultValues: {
+      description: '',
+      image: {
+        data: '',
+        contentType: '',
+      },
+      title: '',
+    },
+  })
+  const { register, setValue, handleSubmit, watch } = methods
   useEffect(() => {
     register('image')
   }, [register])
+  const imageUrl = watch('image.data')
   return (
     <>
-      <BlurredBackground imageUrl={imagePreviewUrl} />
+      <BlurredBackground imageUrl={imageUrl} />
       <PageWrapper {...seoProps}>
         <main>
           <Form
@@ -49,22 +59,23 @@ export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
             })}
           >
             <FormProvider {...methods}>
-              <UploadImageLabel $hasImage={!!imagePreviewUrl}>
+              <UploadImageLabel $hasImage={!!imageUrl}>
                 <input
                   type="file"
                   onChange={async ({ target: { files } }) => {
                     if (!files?.length) return
                     const file = files[0]
-                    setImagePreviewUrl(window.URL.createObjectURL(file))
+                    const base64 = await readAsDataURLAsync(file)
+                    if (!base64) return
                     setValue('image', {
-                      data: await file.text(),
+                      data: base64,
                       contentType: file.type,
                     })
                   }}
                   accept="image/*"
                 />
-                {imagePreviewUrl && <Image src={imagePreviewUrl} alt="" />}
-                <UploadCta $hasImage={!!imagePreviewUrl} />
+                {imageUrl && <Image src={imageUrl} alt="" />}
+                <UploadCta $hasImage={!!imageUrl} />
               </UploadImageLabel>
               <TitleTextarea
                 {...register('title')}
