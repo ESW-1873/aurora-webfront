@@ -10,7 +10,6 @@ export const TotalDonationLabel: VFC<{ amountWei: string }> = ({
 }) => {
   const ethStr = weiToEth(amountWei)
   const ethNum = Number.isNaN(+ethStr) ? -1 : +ethStr
-  console.log(ethStr, ethNum)
   return (
     <Label>
       <span>Total Donation:</span>
