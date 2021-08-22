@@ -1,5 +1,17 @@
+const fs = require('fs')
+const dotenv = require('dotenv')
+
 const branchName = process.env.VERCEL_GIT_COMMIT_REF
 const isProd = branchName === 'main'
+
+const envFilePath = `.env/${branchName}`
+const envVars = {
+  NEXT_PUBLIC_IS_PROD: isProd,
+}
+if (fs.existsSync(envFilePath))
+  Object.assign(envVars, dotenv.config({ path: envFilePath }).parsed)
+
+console.log(envVars)
 
 const withMDX = require('@next/mdx')()
 const withPlugins = require('next-compose-plugins')
@@ -9,9 +21,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withPlugins([[withBundleAnalyzer], [withMDX]], {
   reactStrictMode: true,
-  env: {
-    NEXT_PUBLIC_IS_PROD: isProd,
-  },
+  env: envVars,
   images: {
     domains: ['arweave.net'],
   },
