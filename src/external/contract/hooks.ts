@@ -1,4 +1,4 @@
-import { ContractReceipt, ContractTransaction, utils } from 'ethers'
+import { BigNumber, ContractReceipt, ContractTransaction, utils } from 'ethers'
 import { useCallback } from 'react'
 import { useContractStore } from 'src/stores'
 
@@ -94,10 +94,32 @@ export const useContract = () => {
     [contract],
   )
 
+  const raise = useCallback(
+    async (
+      metadataURI: string,
+      capacity: number = 100,
+      periodHours: number = 72,
+    ): Promise<ContractReceipt | ContractTransaction | null> => {
+      if (contract === null) return handleNoContract()
+      return call(
+        contract.newPost(
+          metadataURI,
+          BigNumber.from(capacity),
+          BigNumber.from(periodHours),
+          {
+            gasLimit: DEFAULT_GAS_LIMIT,
+          },
+        ),
+      )
+    },
+    [contract],
+  )
+
   return {
     donate,
     cancel,
     requestRefund,
     refund,
+    raise,
   }
 }

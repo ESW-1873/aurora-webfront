@@ -8,6 +8,7 @@ import { PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
+import { useContract } from 'src/external/contract/hooks'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -26,8 +27,21 @@ type PostFormData = NonNullable<Parameters<typeof postClient.postPost>['0']>
 export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const { raise } = useContract()
   const methods = useForm<PostFormData>()
   const { register, setValue, handleSubmit } = methods
+  const publish = async (data: PostFormData) => {
+    try {
+      const res = await postClient.postPost(data)
+      if (!res.data.metadataUrl) throw new Error()
+      await raise(res.data.metadataUrl, 1, 1)
+    } catch (e) {
+      console.error(e)
+      setErrorMessage(
+        'Something wrong with your request or server. Please check your request or try again later.',
+      )
+    }
+  }
   useEffect(() => {
     register('image')
   }, [register])
@@ -36,19 +50,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps }) => {
       <BlurredBackground imageUrl={imagePreviewUrl} />
       <PageWrapper {...seoProps}>
         <main>
-          <Form
-            onSubmit={handleSubmit(async (data) => {
-              try {
-                const res = await postClient.postPost(data)
-                console.log(res.data)
-              } catch (e) {
-                console.error(e)
-                setErrorMessage(
-                  'Something wrong with your request or server. Please check your requests or try again later.',
-                )
-              }
-            })}
-          >
+          <Form onSubmit={handleSubmit(publish)}>
             <FormProvider {...methods}>
               <UploadImageLabel $hasImage={!!imagePreviewUrl}>
                 <input
