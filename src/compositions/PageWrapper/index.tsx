@@ -1,5 +1,6 @@
 import React, { ReactNode, VFC } from 'react'
 import { BlurredBackground } from 'src/components/Background'
+import { PlainBackground } from 'src/components/Background/PlainBackground'
 import { Footer } from 'src/components/Footer'
 import { Header } from 'src/components/Header'
 import { SEO, SEOProps } from 'src/components/SEO'
@@ -8,20 +9,23 @@ import { breakpoint, pageGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type PageWrapperProps = SEOProps & {
-  backgroundImage: string
   children: ReactNode
+  backgroundImage?: string
+  backgroundColor?: string
   className?: string
 }
 export const PageWrapper: VFC<PageWrapperProps> = ({
-  backgroundImage,
   children,
+  backgroundImage,
+  backgroundColor,
   className,
   ...seoProps
 }) => (
   <>
     <SEO {...seoProps} />
-    <BlurredBackground imageUrl={backgroundImage} />
-    <Layout>
+    {backgroundImage && <BlurredBackground imageUrl={backgroundImage} />}
+    {backgroundColor && <PlainBackground backgroundColor={backgroundColor} />}
+    <Layout className={className}>
       <Header />
       {children}
       <Footer />
