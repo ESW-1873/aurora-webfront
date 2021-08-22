@@ -27,7 +27,7 @@ function handleNoContract() {
  */
 const DEFAULT_GAS_LIMIT = 4500000
 const DEFAULT_CAPACITY = 100000
-const DEFAULT_PERIOD_HOURS = 60 * 60 * 24 * 3
+export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
 const DEFAULT_METADATA_URI = 'unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0'
 /**
  * Contractを利用するためのhooks
@@ -100,7 +100,7 @@ export const useContract = () => {
     async (
       metadataURI: string,
       capacity: number = DEFAULT_CAPACITY,
-      periodHours: number = DEFAULT_PERIOD_HOURS,
+      periodHours: number = DEFAULT_PERIOD_SECONDS,
     ): Promise<ContractReceipt | ContractTransaction | null> => {
       if (contract === null) return handleNoContract()
       return call(
