@@ -25,7 +25,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
   return (
     <>
       <BlurredBackground imageUrl={imageUrl} />
-      <PageWrapper {...seoProps}>
+      <PageWrapper {...seoProps} noFooter>
         <main>
           <FormProvider {...methods}>
             <RaisingForm publish={publish} errorMessage={errorMessage} />
