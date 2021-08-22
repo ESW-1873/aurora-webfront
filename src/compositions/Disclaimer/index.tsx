@@ -1,22 +1,26 @@
 import React, { VFC } from 'react'
-import { FOOTER_SRC } from 'src/assets/images'
 import { DISCLAIMER_TEXT } from 'src/data/disclaimer'
+import { primaryColor, white } from 'src/styles/colors'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 
 export const Disclaimer: VFC = () => (
   <>
-    <PageWrapper pageTitle="Disclaimer" backgroundImage={FOOTER_SRC}>
+    <StyledPageWrapper pageTitle="Disclaimer" backgroundColor={primaryColor}>
       <main>
         <Section>
           <h2>Disclaimer</h2>
           <p>{DISCLAIMER_TEXT}</p>
         </Section>
       </main>
-    </PageWrapper>
+    </StyledPageWrapper>
   </>
 )
+
+const StyledPageWrapper = styled(PageWrapper)`
+  background: ${white};
+`
 
 const Section = styled.section`
   text-align: left;
