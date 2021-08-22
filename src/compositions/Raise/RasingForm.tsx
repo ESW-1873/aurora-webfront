@@ -15,6 +15,9 @@ import { absoluteFill, flexCenter } from 'src/styles/mixins'
 import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 
+const DEFAULT_ERROR_MESSAGE =
+  'Something wrong with your request or server. Please check your request or try again later.'
+
 export type RaisingFormProps = {
   publish: (data: RaisingFormData) => Promise<any>
 }
@@ -29,7 +32,7 @@ export type RaisingFormData = Omit<
 }
 
 export const RaisingForm: VFC<RaisingFormProps> = ({ publish }) => {
-  const [hasError, setHasError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const { register, setValue, handleSubmit, watch } =
     useFormContext<RaisingFormData>()
   const imageUrl = watch('image.dataUrl')
@@ -39,7 +42,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({ publish }) => {
   return (
     <Form
       onSubmit={handleSubmit((data) =>
-        publish(data).catch(() => setHasError(true)),
+        publish(data).catch((e) =>
+          setErrorMessage(e?.message || DEFAULT_ERROR_MESSAGE),
+        ),
       )}
     >
       <UploadImageLabel $hasImage={!!imageUrl}>
@@ -70,10 +75,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({ publish }) => {
         placeholder="Project description(Within 800 chars)…"
         maxLength={800}
       />
-      <ErrorMessage visible={!!hasError}>
-        Something wrong with your request or server. Please check your request
-        or try again later.
-      </ErrorMessage>
+      <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
       <SubmitButton />
     </Form>
   )
