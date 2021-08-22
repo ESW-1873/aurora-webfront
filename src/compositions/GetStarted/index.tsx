@@ -68,12 +68,12 @@ export const GetStarted: VFC<GetStartedProps> = ({ seoProps }) => {
               </UploadImageLabel>
               <TitleTextarea
                 {...register('title')}
-                placeholder="Project Title(Within 30 bytes)…"
+                placeholder="Project Title(Within 30 chars)…"
                 maxLength={30}
               />
               <DescriptionTextarea
                 {...register('description')}
-                placeholder="Project description(Within 800 bytes)…"
+                placeholder="Project description(Within 800 chars)…"
                 maxLength={800}
               />
               <ErrorMessage visible={!!errorMessage}>
