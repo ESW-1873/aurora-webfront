@@ -97,11 +97,10 @@ const GetStartedButtonElement = styled(BaseButtonElement)`
 const PublishButtonElement = styled(BaseButtonElement)`
   display: block;
   margin: 0 auto;
-  opacity: 0.5;
-  background: ${purple};
-  color: ${primaryColor};
+  background: ${purple}80;
+  color: ${primaryColor}80;
   :enabled {
-    opacity: 1;
+    background: ${purple};
     color: ${white};
     :hover,
     :focus {

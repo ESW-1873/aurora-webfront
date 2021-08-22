@@ -12,7 +12,12 @@ import {
   fontWeightRegular,
   fontWeightSemiBold,
 } from 'src/styles/font'
-import { absoluteFill, flexCenter } from 'src/styles/mixins'
+import {
+  absoluteFill,
+  breakpoint,
+  flexCenter,
+  noGuide,
+} from 'src/styles/mixins'
 import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 
@@ -45,24 +50,26 @@ export const RaisingForm: VFC<RaisingFormProps> = ({ errorMessage }) => {
           open()
         }}
       >
-        <UploadImageLabel $hasImage={!!imageUrl}>
-          <input
-            type="file"
-            onChange={async ({ target: { files } }) => {
-              if (!files?.length) return
-              const file = files[0]
-              const dataUrl = await readAsDataURLAsync(file)
-              if (!dataUrl) return
-              setValue('image', {
-                dataUrl,
-                contentType: file.type,
-              })
-            }}
-            accept="image/*"
-          />
-          {imageUrl && <Image src={imageUrl} alt="" />}
-          <UploadCta $hasImage={!!imageUrl} />
-        </UploadImageLabel>
+        <UploadImageDiv>
+          <UploadImageLabel $hasImage={!!imageUrl}>
+            <input
+              type="file"
+              onChange={async ({ target: { files } }) => {
+                if (!files?.length) return
+                const file = files[0]
+                const dataUrl = await readAsDataURLAsync(file)
+                if (!dataUrl) return
+                setValue('image', {
+                  dataUrl,
+                  contentType: file.type,
+                })
+              }}
+              accept="image/*"
+            />
+            {imageUrl && <Image src={imageUrl} alt="" />}
+            <UploadCta $hasImage={!!imageUrl} />
+          </UploadImageLabel>
+        </UploadImageDiv>
         <TitleTextarea
           {...register('title')}
           placeholder="Project Title(Within 30 chars)…"
@@ -104,7 +111,7 @@ const UploadCta: VFC<UploadCtaStyleProps> = ({ $hasImage }) => (
     <p>{$hasImage ? 'Change' : 'Add'} Image</p>
   </UploadCtaDiv>
 )
-const Wrapper = styled.div``
+
 const UploadCtaDiv = styled.div`
   flex-direction: column;
   filter: drop-shadow(${defaultShadow});
@@ -114,6 +121,11 @@ const UploadCtaDiv = styled.div`
     color: ${white};
     font-weight: ${fontWeightSemiBold};
     letter-spacing: -0.04em;
+  }
+`
+const UploadImageDiv = styled.div`
+  @media ${breakpoint.m} {
+    ${noGuide};
   }
 `
 const UploadImageLabel = styled.label<UploadCtaStyleProps>`
@@ -157,22 +169,28 @@ const UploadImageLabel = styled.label<UploadCtaStyleProps>`
     `}
 `
 const TitleTextarea = styled.textarea`
+  width: 100%;
   height: 156px;
-  margin-top: 32px;
   resize: none;
 
   font-size: 64px;
   font-weight: ${fontWeightBold};
+  @media ${breakpoint.m} {
+    font-size: 32px;
+  }
 `
 const DescriptionTextarea = styled(TextareaAutosize)`
   width: 100%;
-  height: auto;
+  min-height: 72px;
   resize: none;
 
   font-size: 20px;
   font-weight: ${fontWeightRegular};
   line-height: 2;
   letter-spacing: 0.03rem;
+  @media ${breakpoint.m} {
+    font-size: 16px;
+  }
 `
 const ErrorMessage = styled.p<{ visible: boolean }>`
   margin-top: 20px;
@@ -180,6 +198,9 @@ const ErrorMessage = styled.p<{ visible: boolean }>`
   color: ${errorColor};
   font-weight: ${fontWeightBold};
   visibility: ${({ visible }) => (visible ? 'visibile' : 'hidden')};
+  @media ${breakpoint.m} {
+    font-size: 16px;
+  }
 `
 const Form = styled.form`
   ${TitleTextarea} {
@@ -190,5 +211,14 @@ const Form = styled.form`
   }
   ${SubmitButton} {
     margin-top: 20px;
+  }
+  @media ${breakpoint.m} {
+    font-size: 16px;
+    ${TitleTextarea} {
+      margin-top: 24px;
+    }
+    ${DescriptionTextarea} {
+      margin-top: 32px;
+    }
   }
 `
