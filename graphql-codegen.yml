@@ -9,9 +9,9 @@ generates:
       useTypeImports: true
   src/__generated__/graphql/graphql.ts:
     plugins:
-      - 'typescript'
-      - 'typescript-operations'
-      - 'typescript-urql'
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
   schema.graphql:
     plugins:
       - schema-ast
