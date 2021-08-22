@@ -203,6 +203,7 @@ const ErrorMessage = styled.p<{ visible: boolean }>`
   }
 `
 const Form = styled.form`
+  padding-bottom: 64px;
   ${TitleTextarea} {
     margin-top: 32px;
   }
