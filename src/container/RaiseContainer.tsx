@@ -18,8 +18,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
   const publish = async ({ image, ...data }: RaisingFormData) => {
     open({ heading: 'Sending your project info...', subHeading: '' })
     if (!account) {
-      close()
-      throw new Error('You must connect wallet.')
+      return Promise.reject('You must connect wallet.')
     }
     const res = await postClient.postPost({
       ...data,
@@ -48,12 +47,13 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       if (!data?.postContents.length) {
         throw new Error()
       }
-      close()
       router.push(`/${data.postContents[0].id}`)
     }
     retry(setPostIdIfExists, {
       forever: true,
     })
   }
-  return <Raise {...seoProps} publish={publish} />
+  return (
+    <Raise {...seoProps} publish={(data) => publish(data).finally(close)} />
+  )
 }

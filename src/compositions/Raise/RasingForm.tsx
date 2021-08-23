@@ -5,7 +5,6 @@ import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
 import { PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
-import { useSpecificationModalStore } from 'src/stores/Modal/specificationModal'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -22,7 +21,7 @@ import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 
 export type RaisingFormProps = {
-  publish: (data: RaisingFormData) => Promise<any>
+  submit: VoidFunction
   errorMessage: string
 }
 export type RaisingFormData = Omit<
@@ -35,8 +34,10 @@ export type RaisingFormData = Omit<
   }
 }
 
-export const RaisingForm: VFC<RaisingFormProps> = ({ errorMessage }) => {
-  const { open } = useSpecificationModalStore()
+export const RaisingForm: VFC<RaisingFormProps> = ({
+  errorMessage,
+  submit,
+}) => {
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const imageUrl = watch('image.dataUrl')
   useEffect(() => {
@@ -47,7 +48,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({ errorMessage }) => {
       <Form
         onSubmit={(e) => {
           e.preventDefault()
-          open()
+          submit()
         }}
       >
         <UploadImageDiv>

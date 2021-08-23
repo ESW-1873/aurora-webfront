@@ -5,6 +5,7 @@ import { LoadingModal } from 'src/components/Modal/LoadingModal'
 import { SpecificationModal } from 'src/components/Modal/SpecificationModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
+import { useSpecificationModalStore } from 'src/stores/Modal/specificationModal'
 import { createGlobalStyle } from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 import { RaisingForm, RaisingFormData } from './RasingForm'
@@ -20,6 +21,8 @@ export type RaiseProps = {
 }
 export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
   const [errorMessage, setErrorMessage] = useState('')
+  const { close: closeSpecificationModal, open: openSpecificationModal } =
+    useSpecificationModalStore()
   const methods = useForm<RaisingFormData>()
   const { watch, handleSubmit } = methods
   const imageUrl = watch('image.dataUrl')
@@ -30,17 +33,21 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
       <PageWrapper {...seoProps} noFooter>
         <main>
           <FormProvider {...methods}>
-            <RaisingForm publish={publish} errorMessage={errorMessage} />
+            <RaisingForm
+              submit={openSpecificationModal}
+              errorMessage={errorMessage}
+            />
           </FormProvider>
         </main>
       </PageWrapper>
       <WalletModal />
       <SpecificationModal
-        publish={handleSubmit((data) =>
+        publish={handleSubmit((data) => {
+          closeSpecificationModal()
           publish(data).catch((e) =>
-            setErrorMessage(e?.message || DEFAULT_ERROR_MESSAGE),
-          ),
-        )}
+            setErrorMessage(typeof e === 'string' ? e : DEFAULT_ERROR_MESSAGE),
+          )
+        })}
       />
       <LoadingModal />
     </>
