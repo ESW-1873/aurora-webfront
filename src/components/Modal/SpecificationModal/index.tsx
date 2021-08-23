@@ -1,12 +1,13 @@
 import React, { VFC } from 'react'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
-import { useSpecificationModalStore } from 'src/stores/Modal/specificationModal'
+import { useSpecificationModalStore } from 'src/stores'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { DISCLAIMER } from 'src/utils/router'
 import styled from 'styled-components'
 import { Modal } from '..'
 import { Heading } from '../common'
+
 export const SpecificationModal: VFC<{ publish: VoidFunction }> = ({
   publish,
 }) => {
