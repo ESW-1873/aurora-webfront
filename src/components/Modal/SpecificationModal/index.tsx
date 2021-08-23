@@ -20,7 +20,7 @@ export const SpecificationModal: VFC<{ publish: VoidFunction }> = ({
         <p>The project will be automatically closed due to below.</p>
         <ul>
           <li>- Passed 72 hours since published.</li>
-          <li>- Got 100 donations.</li>
+          <li>- Got 100,000 donations.</li>
         </ul>
         <h3>02</h3>
         <p>

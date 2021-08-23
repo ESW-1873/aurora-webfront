@@ -16,7 +16,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
   const { raise } = useContract()
   const { open, close } = useLoadingModalStore()
   const publish = async ({ image, ...data }: RaisingFormData) => {
-    open({ heading: 'Sending your project info...', subHeading: '' })
+    open({ heading: 'Sending your project data...', subHeading: '' })
     if (!account) {
       return Promise.reject('You must connect wallet.')
     }
@@ -38,7 +38,8 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
     await raise(metadata)
     open({
       heading: 'Waiting for confirmation',
-      subHeading: 'Redirect to project page after your transaction confirmed',
+      subHeading:
+        'Redirect to your project page after your transaction confirmed',
     })
     const setPostIdIfExists = async () => {
       const data = await GetPostContents({ donee: account, metadata }).catch(
@@ -47,7 +48,9 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       if (!data?.postContents.length) {
         throw new Error()
       }
-      router.push(`/${data.postContents[0].id}`)
+      const path = `/${data.postContents[0].id}`
+      await router.prefetch(path)
+      router.push(path)
     }
     retry(setPostIdIfExists, {
       forever: true,

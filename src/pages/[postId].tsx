@@ -30,7 +30,14 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
     }
 
   const { id, metadata, donee, endTime } = data.postContent || {}
-  const post = await getPostContent(metadata)
+
+  const post = metadata
+    ? await getPostContent(metadata)
+    : {
+        name: '',
+        image: '',
+        description: '',
+      }
 
   const props: PostStaticProps = {
     postStaticProps: {
