@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.8'
+schema: 'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.12'
 documents: 'src/**/*.graphql'
 generates:
   src/__generated__/graphql/graphql.ts:

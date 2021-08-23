@@ -10,7 +10,7 @@ export const ROOT_URL = `https://${HOSTNAME}`
 
 export const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-  'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.8'
+  'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.12'
 
 export const POST_API_ENDPOINT =
   process.env.NEXT_PUBLIC_POST_API_ENDPOINT || 'https://api.auroradao-dev.tk'
