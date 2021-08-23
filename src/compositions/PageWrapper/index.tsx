@@ -12,11 +12,13 @@ type PageWrapperProps = SEOProps & {
   backgroundImage?: string
   backgroundColor?: string
   className?: string
+  noFooter?: boolean
 }
 export const PageWrapper: VFC<PageWrapperProps> = ({
   children,
   backgroundImage,
   backgroundColor,
+  noFooter,
   className,
   ...seoProps
 }) => (
@@ -27,7 +29,7 @@ export const PageWrapper: VFC<PageWrapperProps> = ({
     <Layout className={className}>
       <Header />
       {children}
-      <Footer />
+      {!noFooter && <Footer />}
     </Layout>
   </>
 )

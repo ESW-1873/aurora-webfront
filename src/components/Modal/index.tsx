@@ -1,7 +1,6 @@
-import React, { ReactNode, useEffect, VFC } from 'react'
+import React, { ReactNode, VFC } from 'react'
 import { black, white } from 'src/styles/colors'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
-import { disableScroll, enableScroll } from 'src/utils/handleScroll'
 import styled from 'styled-components'
 
 type Props = {
@@ -11,13 +10,6 @@ type Props = {
 }
 
 export const Modal: VFC<Props> = ({ isOpen, closeModal, children }) => {
-  useEffect(() => {
-    if (isOpen) {
-      disableScroll()
-    }
-    return () => enableScroll()
-  }, [isOpen])
-
   return (
     <>
       {isOpen && (
@@ -42,12 +34,14 @@ const Overlay = styled.div`
 
 const Contents = styled.div`
   max-width: 400px;
+  max-height: 85vh;
   width: 50vw;
   padding: 40px 53px 48px 53px;
   position: relative;
   border-radius: 32px;
   background-color: ${white}80;
   backdrop-filter: blur(30px) brightness(150%);
+  overflow-y: auto;
 
   @media ${breakpoint.l} {
     width: 80vw;

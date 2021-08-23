@@ -15,6 +15,7 @@ import {
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
+import { HOSTNAME } from 'src/utils/env'
 import styled from 'styled-components'
 
 type Status =
@@ -84,7 +85,15 @@ export const ActionSection: VFC<
       )}
       {status === 'MINE' && (
         <DubbleButtonLayout>
-          <PrimaryButton onClick={() => alert('TODO')} label="Share URL" />
+          <PrimaryButton
+            onClick={() => {
+              window.navigator.share({
+                title: postTitle,
+                url: `https://${HOSTNAME}/${postId}`,
+              })
+            }}
+            label="Share URL"
+          />
           <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}

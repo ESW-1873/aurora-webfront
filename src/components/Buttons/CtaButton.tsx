@@ -11,11 +11,13 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const PrimaryButton: VFC<
+const PrimaryButtonBase: VFC<
   { label: string } & ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ label, ...props }) => (
   <PrimaryButtonElement {...props}>{label}</PrimaryButtonElement>
 )
+
+export const PrimaryButton = styled(PrimaryButtonBase)``
 
 export const CancelButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...props
@@ -95,11 +97,10 @@ const GetStartedButtonElement = styled(BaseButtonElement)`
 const PublishButtonElement = styled(BaseButtonElement)`
   display: block;
   margin: 0 auto;
-  opacity: 0.5;
-  background: ${purple};
-  color: ${primaryColor};
+  background: ${purple}80;
+  color: ${primaryColor}80;
   :enabled {
-    opacity: 1;
+    background: ${purple};
     color: ${white};
     :hover,
     :focus {

@@ -1,10 +1,10 @@
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import gql from 'graphql-tag';
-import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -455,6 +455,14 @@ export type GetPostContentQueryVariables = Exact<{
 
 export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
 
+export type GetPostContentsQueryVariables = Exact<{
+  donee: Scalars['Bytes'];
+  metadata: Scalars['String'];
+}>;
+
+
+export type GetPostContentsQuery = { __typename?: 'Query', postContents: Array<{ __typename?: 'PostContent', id: string }> };
+
 
 export const GetPostContentDocument = gql`
     query GetPostContent($id: ID!) {
@@ -488,7 +496,27 @@ export const GetPostContentDocument = gql`
   }
 }
     `;
+export const GetPostContentsDocument = gql`
+    query GetPostContents($donee: Bytes!, $metadata: String!) {
+  postContents(where: {donee: $donee, metadata: $metadata}) {
+    id
+  }
+}
+    `;
 
-export function useGetPostContentQuery(options: Omit<Urql.UseQueryArgs<GetPostContentQueryVariables>, 'query'> = {}) {
-  return Urql.useQuery<GetPostContentQuery>({ query: GetPostContentDocument, ...options });
-};
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    GetPostContent(variables: GetPostContentQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostContentQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPostContentQuery>(GetPostContentDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetPostContent');
+    },
+    GetPostContents(variables: GetPostContentsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostContentsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPostContentsQuery>(GetPostContentsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetPostContents');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

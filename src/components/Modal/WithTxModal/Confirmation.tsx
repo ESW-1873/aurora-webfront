@@ -1,5 +1,5 @@
 import React, { VFC } from 'react'
-import { LoadingCircle } from 'src/assets/svgs'
+import { ConnectingCircle } from 'src/assets/svgs'
 import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { Heading, SubHeading } from '../common'
@@ -16,7 +16,7 @@ export const Confirmation: VFC = () => {
   )
 }
 
-const StyledConnectingCircle = styled(LoadingCircle)`
+const StyledConnectingCircle = styled(ConnectingCircle)`
   transform: translateX(-6px);
   width: 65%;
   margin-bottom: 16px;

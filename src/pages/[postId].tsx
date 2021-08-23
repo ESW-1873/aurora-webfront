@@ -1,15 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import React from 'react'
 import { getPostContent } from 'src/api/arweaveClient'
-import { publicApiClient } from 'src/api/client'
+import { GetPostContent } from 'src/api/client'
 import { PostContainer, PostStaticProps } from 'src/container/PostContainer'
+import { DEFAULT_PERIOD_SECONDS } from 'src/external/contract/hooks'
 import { isProd } from 'src/utils/env'
 import { isString } from 'src/utils/typeguard'
-import {
-  GetPostContentDocument,
-  GetPostContentQuery,
-  GetPostContentQueryVariables,
-} from 'src/__generated__/graphql'
 
 type PostPageContext = {
   postId: string
@@ -27,20 +23,8 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
     return {
       notFound: true,
     }
-  const client = publicApiClient()
-  if (!client)
-    return {
-      notFound: true,
-    }
-
-  const { data, error } = await client
-    .query<GetPostContentQuery, GetPostContentQueryVariables>(
-      GetPostContentDocument,
-      { id: params.postId },
-    )
-    .toPromise()
-
-  if (error || !data?.postContent)
+  const data = await GetPostContent({ id: params.postId }).catch(() => null)
+  if (!data?.postContent)
     return {
       notFound: true,
     }
@@ -61,7 +45,7 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
 
   const result = {
     props,
-    revalidate: isProd ? undefined : 1,
+    revalidate: isProd ? DEFAULT_PERIOD_SECONDS : 1,
   }
   return JSON.parse(JSON.stringify(result))
 }

@@ -1,3 +1,4 @@
+import router from 'next/router'
 import React, { VFC } from 'react'
 import { FOOTER_SRC } from 'src/assets/images'
 import { FooterLogo } from 'src/assets/svgs'
@@ -6,6 +7,7 @@ import { Image } from 'src/components/Image'
 import { white } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import { breakpoint, flexCenter, noGuide, pageGuide } from 'src/styles/mixins'
+import { RAISE } from 'src/utils/router'
 import styled from 'styled-components'
 
 const HEADING_TEXT = 'Ultimately Fast And Easy Online Fundraising.'
@@ -19,7 +21,7 @@ export const Footer: VFC = () => {
         <FooterLogo />
         <SubHeadingBelowLogo>{SUBHEADING_TEXT}</SubHeadingBelowLogo>
         <Heading>{HEADING_TEXT}</Heading>
-        <GetStartedButton />
+        <GetStartedButton onClick={() => router.push(RAISE)} />
       </FooterContainer>
     </FooterLayout>
   )

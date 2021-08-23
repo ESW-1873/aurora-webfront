@@ -1,4 +1,4 @@
-import { ContractReceipt, ContractTransaction, utils } from 'ethers'
+import { BigNumber, ContractReceipt, ContractTransaction, utils } from 'ethers'
 import { useCallback } from 'react'
 import { useContractStore } from 'src/stores'
 
@@ -26,6 +26,8 @@ function handleNoContract() {
  * TODO: resetting
  */
 const DEFAULT_GAS_LIMIT = 4500000
+const DEFAULT_CAPACITY = 100000
+export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
 const DEFAULT_METADATA_URI = 'unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0'
 /**
  * Contractを利用するためのhooks
@@ -94,10 +96,32 @@ export const useContract = () => {
     [contract],
   )
 
+  const raise = useCallback(
+    async (
+      metadataURI: string,
+      capacity: number = DEFAULT_CAPACITY,
+      periodHours: number = DEFAULT_PERIOD_SECONDS,
+    ): Promise<ContractReceipt | ContractTransaction | null> => {
+      if (contract === null) return handleNoContract()
+      return call(
+        contract.newPost(
+          metadataURI,
+          BigNumber.from(capacity),
+          BigNumber.from(periodHours),
+          {
+            gasLimit: DEFAULT_GAS_LIMIT,
+          },
+        ),
+      )
+    },
+    [contract],
+  )
+
   return {
     donate,
     cancel,
     requestRefund,
     refund,
+    raise,
   }
 }

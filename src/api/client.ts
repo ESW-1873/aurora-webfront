@@ -1,17 +1,20 @@
-import { dedupExchange, fetchExchange } from '@urql/core'
-import { cacheExchange } from '@urql/exchange-graphcache'
-import { initUrqlClient } from 'next-urql'
+import { GraphQLClient } from 'graphql-request'
+import { useEffect, useState } from 'react'
 import { GRAPHQL_ENDPOINT } from 'src/utils/env'
-import schema from 'src/__generated__/introspection'
+import { getSdk } from 'src/__generated__/graphql/graphql'
+import { PromiseType } from 'utility-types'
 
-export const publicApiClient = () => {
-  const client = initUrqlClient(
-    {
-      url: GRAPHQL_ENDPOINT,
-      exchanges: [dedupExchange, cacheExchange({ schema }), fetchExchange],
-    },
-    false,
-  )
-  if (!client) throw new Error('failed to initialize graphql client.')
-  return client
+const sdk = getSdk(new GraphQLClient(GRAPHQL_ENDPOINT))
+
+export const GetPostContent = sdk.GetPostContent
+
+export const GetPostContents = sdk.GetPostContents
+
+export const usePostContent = (id: string) => {
+  const [data, setData] =
+    useState<PromiseType<ReturnType<typeof GetPostContent>>>()
+  useEffect(() => {
+    GetPostContent({ id }).then(setData)
+  }, [id])
+  return data
 }
