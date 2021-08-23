@@ -48,7 +48,9 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       if (!data?.postContents.length) {
         throw new Error()
       }
-      router.push(`/${data.postContents[0].id}`)
+      const path = `/${data.postContents[0].id}`
+      await router.prefetch(path)
+      router.push(path)
     }
     retry(setPostIdIfExists, {
       forever: true,
