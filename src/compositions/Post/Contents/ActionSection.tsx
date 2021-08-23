@@ -2,6 +2,7 @@ import React, { useMemo, VFC } from 'react'
 import {
   CancelButton,
   PrimaryButton,
+  PrimaryTxButton,
   RefundRequestButton,
 } from 'src/components/Buttons/CtaButton'
 import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
@@ -9,8 +10,6 @@ import {
   useCancelModalStore,
   useDonationModalStore,
   useRefundRequestModalStore,
-  useWalletModalStore,
-  useWalletStore,
 } from 'src/stores'
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
@@ -23,7 +22,7 @@ type Status =
   | 'CANCELABLE'
   | 'REFUND_REQUESTABLE'
   | 'MINE'
-  | 'REFUND_REQUESTED'
+  | 'MINE_CLOSED'
   | 'CLOSED'
 
 type ComputeStatusParam = Partial<{
@@ -38,7 +37,7 @@ const computeStatus = ({
   hasDonated,
   hasRefundRequests,
 }: ComputeStatusParam): Status => {
-  if (isDonee) return hasRefundRequests ? 'REFUND_REQUESTED' : 'MINE'
+  if (isDonee) return hasClosed ? 'MINE_CLOSED' : 'MINE'
   if (hasDonated) return hasClosed ? 'REFUND_REQUESTABLE' : 'CANCELABLE'
   return hasClosed ? 'CLOSED' : 'DONATABLE'
 }
@@ -49,8 +48,6 @@ export const ActionSection: VFC<
     postId: string
   } & ComputeStatusParam
 > = ({ postTitle, postId, ...params }) => {
-  const { active } = useWalletStore()
-  const { open: openWalletModal } = useWalletModalStore()
   const { open: openDonationModal } = useDonationModalStore()
   const { open: openCancelModal } = useCancelModalStore()
   const { open: openRefundRequestModal } = useRefundRequestModalStore()
@@ -61,10 +58,7 @@ export const ActionSection: VFC<
     <>
       {status === 'DONATABLE' && (
         <DubbleButtonLayout>
-          <PrimaryButton
-            onClick={active ? openDonationModal : openWalletModal}
-            label={active ? 'Donate' : 'Connect Wallet'}
-          />
+          <PrimaryTxButton onClick={openDonationModal} label="Donate" />
           <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}
@@ -97,8 +91,13 @@ export const ActionSection: VFC<
           <TwitterShareButton message={postTitle} path={postId} />
         </DubbleButtonLayout>
       )}
-      {status === 'REFUND_REQUESTED' && (
-        <Label color={errorColor}>{`You've got refund requests.`}</Label>
+      {status === 'MINE_CLOSED' && (
+        <SingleButtonLayout>
+          {params.hasRefundRequests && (
+            <Label color={errorColor}>{`You've got refund requests.`}</Label>
+          )}
+          <PrimaryTxButton onClick={openDonationModal} label="Withdraw" />
+        </SingleButtonLayout>
       )}
     </>
   )

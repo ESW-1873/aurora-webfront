@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
+import { useWalletModalStore, useWalletStore } from 'src/stores'
 import {
   errorColor,
   gray,
@@ -11,34 +12,59 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-const PrimaryButtonBase: VFC<
-  { label: string } & ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ label, ...props }) => (
-  <PrimaryButtonElement {...props}>{label}</PrimaryButtonElement>
-)
+type ButtonProps = { label?: string } & ButtonHTMLAttributes<HTMLButtonElement>
+const PrimaryButtonBase: VFC<ButtonProps & { label: string }> = ({
+  label,
+  ...props
+}) => <PrimaryButtonElement {...props}>{label}</PrimaryButtonElement>
+
+type AsTxButtonHoc = <T extends ButtonProps>(Component: VFC<T>) => VFC<T>
+
+const asTxButton: AsTxButtonHoc = (ButtonComponent) => (props) => {
+  const { active } = useWalletStore()
+  const { open } = useWalletModalStore()
+  return active ? (
+    <ButtonComponent {...props} />
+  ) : (
+    <ButtonComponent
+      {...props}
+      disabled={false}
+      label="Connect Wallet"
+      onClick={open}
+    />
+  )
+}
 
 export const PrimaryButton = styled(PrimaryButtonBase)``
+export const PrimaryTxButton = styled(asTxButton(PrimaryButtonBase))``
 
-export const CancelButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  ...props
-}) => <CancelButtonElement {...props}>Cancel</CancelButtonElement>
+export const CancelButton: VFC<ButtonProps> = asTxButton(
+  ({ label = 'Cancel', ...props }) => (
+    <CancelButtonElement {...props}>{label}</CancelButtonElement>
+  ),
+)
 
-export const RefundButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  ...props
-}) => <RefundButtonElement {...props}>Refund</RefundButtonElement>
+export const RefundButton: VFC<ButtonProps> = asTxButton(
+  ({ label = 'Refund', ...props }) => (
+    <RefundButtonElement {...props}></RefundButtonElement>
+  ),
+)
 
-export const RefundRequestButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> =
-  ({ ...props }) => (
-    <RefundButtonElement {...props}>Refund Request</RefundButtonElement>
-  )
+export const RefundRequestButton: VFC<ButtonProps> = asTxButton(
+  ({ label = 'Refund Request', ...props }) => (
+    <RefundButtonElement {...props}>{label}</RefundButtonElement>
+  ),
+)
 
-export const GetStartedButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  ...props
-}) => <GetStartedButtonElement {...props}>Get Started</GetStartedButtonElement>
+export const GetStartedButton: VFC<Omit<ButtonProps, 'label'>> = (props) => (
+  <GetStartedButtonElement {...props}>Get Started</GetStartedButtonElement>
+)
 
-export const PublishButton: VFC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  ...props
-}) => <PublishButtonElement {...props}>Publish</PublishButtonElement>
+export const PublishButton: VFC<ButtonProps> = asTxButton(
+  ({ label = 'Publish', ...props }) => (
+    <PublishButtonElement {...props}>{label}</PublishButtonElement>
+  ),
+)
 
 export const BaseButtonElement = styled.button`
   height: 64px;
