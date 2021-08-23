@@ -1,4 +1,4 @@
-import React, { useEffect, VFC } from 'react'
+import React, { useEffect, useState, VFC } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postClient } from 'src/api/postClient'
@@ -38,6 +38,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   errorMessage,
   submit,
 }) => {
+  const [imgErrorMessage, setImgErrorMessage] = useState('')
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const imageUrl = watch('image.dataUrl')
   useEffect(() => {
@@ -58,6 +59,10 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
               onChange={async ({ target: { files } }) => {
                 if (!files?.length) return
                 const file = files[0]
+                if (file.size >= 1024 * 1024 * 5) {
+                  setImgErrorMessage('Images must be smaller than 5MB')
+                  return
+                }
                 const dataUrl = await readAsDataURLAsync(file)
                 if (!dataUrl) return
                 setValue('image', {
@@ -69,6 +74,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             />
             {imageUrl && <Image src={imageUrl} alt="" />}
             <UploadCta $hasImage={!!imageUrl} />
+            <ErrorMessage visible={!!imgErrorMessage}>
+              {imgErrorMessage}
+            </ErrorMessage>
           </UploadImageLabel>
         </UploadImageDiv>
         <TitleTextarea
