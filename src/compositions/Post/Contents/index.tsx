@@ -23,6 +23,7 @@ export const Contents: VFC<
   ContentsProps & {
     isDonee?: boolean
     hasDonated?: boolean
+    hasNoDonations?: boolean
   }
 > = ({
   id,
@@ -37,6 +38,7 @@ export const Contents: VFC<
   hasDonated,
   hasWithdrawn,
   isDonee,
+  hasNoDonations,
 }) => (
   <>
     <>
@@ -60,6 +62,7 @@ export const Contents: VFC<
         hasDonated={hasDonated}
         hasRefundRequests={refundRequests.length > 0}
         hasWithdrawn={hasWithdrawn}
+        hasNoDonations={hasNoDonations}
       />
       <DonationSection
         donee={donee}

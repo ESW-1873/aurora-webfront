@@ -51,7 +51,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   useEffect(() => {
     register('image')
   }, [register])
-  console.log(process.env)
   return (
     <>
       <Form

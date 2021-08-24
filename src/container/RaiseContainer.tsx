@@ -1,6 +1,6 @@
 import retry from 'async-retry'
 import router from 'next/router'
-import React, { VFC } from 'react'
+import React, { useEffect, VFC } from 'react'
 import { GetPostContents } from 'src/api/client'
 import { postClient } from 'src/api/postClient'
 import { SEOProps } from 'src/components/SEO'
@@ -14,7 +14,7 @@ export type RaiseConainerProps = {
 export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
   const { account } = useWalletStore()
   const { raise } = useContract()
-  const { open, close } = useLoadingModalStore()
+  const { open } = useLoadingModalStore()
   const publish = async ({
     image,
     capacity,
@@ -61,7 +61,9 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       forever: true,
     })
   }
-  return (
-    <Raise {...seoProps} publish={(data) => publish(data).finally(close)} />
-  )
+  useEffect(() => {
+    router.events.on('routeChangeComplete', close)
+    return () => router.events.off('routeChangeComplete', close)
+  }, [])
+  return <Raise {...seoProps} publish={publish} />
 }

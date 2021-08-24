@@ -6,6 +6,7 @@ import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundModal } from 'src/components/Modal/RefundModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
+import { WithdrawModal } from 'src/components/Modal/WithdrawModal'
 import { SEOProps } from 'src/components/SEO'
 import { primaryColor, white } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
@@ -22,12 +23,14 @@ export type PostProps = {
   ownDonation?: Donation
   refundRequest?: Donation
   isDonee?: boolean
+  hasNoDonations?: boolean
 }
 export const Post: VFC<PostProps> = ({
   isDonee,
   ownDonation,
   postProps,
   seoProps,
+  hasNoDonations,
 }) => {
   const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
     postProps
@@ -39,7 +42,12 @@ export const Post: VFC<PostProps> = ({
         description={`${description.slice(0, 100)}...`}
         {...seoProps}
       >
-        <Contents {...postProps} hasDonated={!!ownDonation} isDonee={isDonee} />
+        <Contents
+          {...postProps}
+          hasDonated={!!ownDonation}
+          isDonee={isDonee}
+          hasNoDonations={hasNoDonations}
+        />
       </StyledPageWrapper>
       {postProps.title && (
         <>
@@ -57,11 +65,16 @@ export const Post: VFC<PostProps> = ({
       <DonationModal postId={id} totalDonation={totalDonation} />
       {ownDonation &&
         (hasClosed ? (
-          <RefundRequestModal ownDonation={ownDonation} />
+          <RefundRequestModal postId={id} ownDonation={ownDonation} />
         ) : (
           <CancelModal ownDonation={ownDonation} />
         ))}
-      {isDonee && hasClosed && <RefundModal />}
+      {isDonee && hasClosed && (
+        <>
+          <WithdrawModal postId={id} amount={totalDonation} />
+          <RefundModal />
+        </>
+      )}
     </>
   )
 }
