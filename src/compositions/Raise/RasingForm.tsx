@@ -9,6 +9,7 @@ import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
+import { useImageCropModalStore } from 'src/stores'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -47,6 +48,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 }) => {
   const [imgErrorMessage, setImgErrorMessage] = useState('')
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
+  const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
   useEffect(() => {
     register('image')
@@ -65,16 +67,22 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
               type="file"
               onChange={async ({ target: { files } }) => {
                 if (!files?.length) return
-                const file = files[0]
-                if (file.size >= 1024 * 1024 * 5) {
-                  setImgErrorMessage('Images must be smaller than 5MB')
-                  return
-                }
-                const dataUrl = await readAsDataURLAsync(file)
-                if (!dataUrl) return
-                setValue('image', {
-                  dataUrl,
-                  contentType: file.type,
+                const objectUrl = window.URL.createObjectURL(files[0])
+                open({
+                  src: objectUrl,
+                  save: async (url: string) => {
+                    const file = await (await fetch(url)).blob()
+                    if (file.size >= 1024 * 1024 * 5) {
+                      setImgErrorMessage('Images must be smaller than 5MB')
+                      return
+                    }
+                    const dataUrl = await readAsDataURLAsync(file)
+                    if (!dataUrl) return
+                    setValue('image', {
+                      dataUrl,
+                      contentType: file.type,
+                    })
+                  },
                 })
               }}
               accept="image/*"
@@ -268,4 +276,24 @@ const ProjectSettingsDiv = styled.div`
     margin: 0 8px;
     border: 1px solid;
   }
+`
+
+const cardText = css`
+  font-family: ocr-a-std, monospace;
+  font-weight: 400;
+  font-style: normal;
+  color: #231815;
+`
+
+const CardTitle = styled.p`
+  ${cardText};
+  font-size: 141.1627655029297px;
+  width: 2472.62px;
+  height: 141.34px;
+`
+const CardDescription = styled.p`
+  ${cardText};
+  font-size: 74px;
+  width: 2592.38px;
+  height: 1244.11px;
 `

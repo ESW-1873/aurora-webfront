@@ -1,6 +1,7 @@
 export { useContractStore } from './contract'
 export { useCancelModalStore } from './Modal/cancelModal'
 export { useDonationModalStore } from './Modal/donationModal'
+export { useImageCropModalStore } from './Modal/imageCropModal'
 export { useLoadingModalStore } from './Modal/loadingModal'
 export { useModelViewerModalStore } from './Modal/modelViewerModal'
 export { useRefundModalStore } from './Modal/refundModal'
