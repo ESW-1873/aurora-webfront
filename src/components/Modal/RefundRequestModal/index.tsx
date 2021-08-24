@@ -5,16 +5,18 @@ import { WithTxModal } from '../WithTxModal'
 import { RefundRequest } from './RefundRequest'
 
 export type RefundRequestModalProps = {
+  postId: string
   ownDonation: Donation
 }
 
 export const RefundRequestModal: VFC<RefundRequestModalProps> = ({
+  postId,
   ownDonation,
 }) => {
   const { isOpen, close } = useRefundRequestModalStore()
   return (
     <WithTxModal isOpen={isOpen} close={close}>
-      <RefundRequest ownDonation={ownDonation} />
+      <RefundRequest postId={postId} ownDonation={ownDonation} />
     </WithTxModal>
   )
 }

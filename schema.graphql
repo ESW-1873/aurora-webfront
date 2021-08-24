@@ -161,7 +161,7 @@ type PostContent {
   endTime: Int!
   donatedCount: Int!
   donatedSum: BigInt!
-  withdrawn: BigInt!
+  withdrawn: Boolean!
   donations(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
   cancelled(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
   refundRequested(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
@@ -245,14 +245,10 @@ input PostContent_filter {
   donatedSum_lte: BigInt
   donatedSum_in: [BigInt!]
   donatedSum_not_in: [BigInt!]
-  withdrawn: BigInt
-  withdrawn_not: BigInt
-  withdrawn_gt: BigInt
-  withdrawn_lt: BigInt
-  withdrawn_gte: BigInt
-  withdrawn_lte: BigInt
-  withdrawn_in: [BigInt!]
-  withdrawn_not_in: [BigInt!]
+  withdrawn: Boolean
+  withdrawn_not: Boolean
+  withdrawn_in: [Boolean!]
+  withdrawn_not_in: [Boolean!]
 }
 
 enum PostContent_orderBy {

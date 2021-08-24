@@ -1,5 +1,6 @@
 import { utils } from 'ethers'
 import React, { useCallback, useEffect, useState, VFC } from 'react'
+import { postClient } from 'src/api/postClient'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useContract } from 'src/external/contract/hooks'
 import { useWalletStore } from 'src/stores'
@@ -15,11 +16,12 @@ export const Donation: VFC<DonationModalProps> = ({
   postId,
   totalDonation,
 }) => {
+  const { account } = useWalletStore()
   const { setLoading, onSuccess, onFail } = useWithTxModalContext()
 
   const [isChecked, setIsChecked] = useState(false)
   const [canDonate, setCanDonate] = useState(false)
-  const [inputValue, setInputValue] = useState('')
+  const [inputValueEth, setInputValueEth] = useState('')
   const [balance, setBalance] = useState('')
   const [isInsufficient, setIsInsufficient] = useState(false)
 
@@ -39,19 +41,19 @@ export const Donation: VFC<DonationModalProps> = ({
 
   const onUserInput = useCallback(
     (value: string) => {
-      setInputValue(value)
+      setInputValueEth(value)
       setIsInsufficient(value > balance)
     },
-    [setInputValue, balance],
+    [setInputValueEth, balance],
   )
 
   useEffect(() => {
-    if (isChecked && inputValue !== '' && !isInsufficient) {
+    if (isChecked && inputValueEth !== '' && !isInsufficient) {
       setCanDonate(true)
     } else {
       setCanDonate(false)
     }
-  }, [isChecked, inputValue, isInsufficient])
+  }, [isChecked, inputValueEth, isInsufficient])
 
   return (
     <>
@@ -60,7 +62,7 @@ export const Donation: VFC<DonationModalProps> = ({
         <SubHeading>
           {`Total Donation ${weiToEth(totalDonation)} ETH`}
         </SubHeading>
-        <DonationInputPanel value={inputValue} onUserInput={onUserInput} />
+        <DonationInputPanel value={inputValueEth} onUserInput={onUserInput} />
         <DisclaimerCheckbox
           id="disclaimer-check"
           setIsChecked={setIsChecked}
@@ -72,8 +74,14 @@ export const Donation: VFC<DonationModalProps> = ({
           onClick={async () => {
             setLoading(true)
             try {
+              if (!account) throw new Error('You must connect wallet.')
+              const res = await postClient.postReceipt({
+                postId,
+                address: account,
+                amount: inputValueEth,
+              })
               // memo: txの承認状況を別な場所（ヘッダーとか？）に表示する？
-              const tx = await donate(postId, inputValue) // TODO: add metadataURI
+              const tx = await donate(postId, inputValueEth, res.data.metadata)
               console.log(tx)
             } catch (error: any) {
               onFail(error)

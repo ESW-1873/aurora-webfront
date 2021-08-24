@@ -84,6 +84,57 @@ export interface InlineObject {
 /**
  *
  * @export
+ * @interface InlineObject1
+ */
+export interface InlineObject1 {
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject1
+   */
+  postId: string
+}
+/**
+ *
+ * @export
+ * @interface InlineObject2
+ */
+export interface InlineObject2 {
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject2
+   */
+  amount: string
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject2
+   */
+  postId: string
+  /**
+   * address of a wallet
+   * @type {string}
+   * @memberof InlineObject2
+   */
+  address: string
+}
+/**
+ *
+ * @export
+ * @interface Metadata
+ */
+export interface Metadata {
+  /**
+   *
+   * @type {string}
+   * @memberof Metadata
+   */
+  metadata: string
+}
+/**
+ *
+ * @export
  * @interface PostResponse
  */
 export interface PostResponse {
@@ -157,6 +208,102 @@ export const DefaultApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       }
     },
+    /**
+     *
+     * @summary Upload receipt
+     * @param {InlineObject2} [inlineObject2]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postReceipt: async (
+      inlineObject2?: InlineObject2,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/receipt`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        inlineObject2,
+        localVarRequestOptions,
+        configuration,
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary Upload refund request
+     * @param {InlineObject1} [inlineObject1]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postRefund: async (
+      inlineObject1?: InlineObject1,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/refund`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        inlineObject1,
+        localVarRequestOptions,
+        configuration,
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
   }
 }
 
@@ -182,6 +329,54 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.postPost(
         inlineObject,
+        options,
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      )
+    },
+    /**
+     *
+     * @summary Upload receipt
+     * @param {InlineObject2} [inlineObject2]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postReceipt(
+      inlineObject2?: InlineObject2,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Metadata>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postReceipt(
+        inlineObject2,
+        options,
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      )
+    },
+    /**
+     *
+     * @summary Upload refund request
+     * @param {InlineObject1} [inlineObject1]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postRefund(
+      inlineObject1?: InlineObject1,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Metadata>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postRefund(
+        inlineObject1,
         options,
       )
       return createRequestFunction(
@@ -220,6 +415,36 @@ export const DefaultApiFactory = function (
         .postPost(inlineObject, options)
         .then((request) => request(axios, basePath))
     },
+    /**
+     *
+     * @summary Upload receipt
+     * @param {InlineObject2} [inlineObject2]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postReceipt(
+      inlineObject2?: InlineObject2,
+      options?: any,
+    ): AxiosPromise<Metadata> {
+      return localVarFp
+        .postReceipt(inlineObject2, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary Upload refund request
+     * @param {InlineObject1} [inlineObject1]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postRefund(
+      inlineObject1?: InlineObject1,
+      options?: any,
+    ): AxiosPromise<Metadata> {
+      return localVarFp
+        .postRefund(inlineObject1, options)
+        .then((request) => request(axios, basePath))
+    },
   }
 }
 
@@ -241,6 +466,34 @@ export class DefaultApi extends BaseAPI {
   public postPost(inlineObject?: InlineObject, options?: any) {
     return DefaultApiFp(this.configuration)
       .postPost(inlineObject, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary Upload receipt
+   * @param {InlineObject2} [inlineObject2]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public postReceipt(inlineObject2?: InlineObject2, options?: any) {
+    return DefaultApiFp(this.configuration)
+      .postReceipt(inlineObject2, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary Upload refund request
+   * @param {InlineObject1} [inlineObject1]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public postRefund(inlineObject1?: InlineObject1, options?: any) {
+    return DefaultApiFp(this.configuration)
+      .postRefund(inlineObject1, options)
       .then((request) => request(this.axios, this.basePath))
   }
 }

@@ -176,7 +176,7 @@ export type PostContent = {
   endTime: Scalars['Int'];
   donatedCount: Scalars['Int'];
   donatedSum: Scalars['BigInt'];
-  withdrawn: Scalars['BigInt'];
+  withdrawn: Scalars['Boolean'];
   donations?: Maybe<Array<Donation>>;
   cancelled?: Maybe<Array<Donation>>;
   refundRequested?: Maybe<Array<Donation>>;
@@ -296,14 +296,10 @@ export type PostContent_Filter = {
   donatedSum_lte?: Maybe<Scalars['BigInt']>;
   donatedSum_in?: Maybe<Array<Scalars['BigInt']>>;
   donatedSum_not_in?: Maybe<Array<Scalars['BigInt']>>;
-  withdrawn?: Maybe<Scalars['BigInt']>;
-  withdrawn_not?: Maybe<Scalars['BigInt']>;
-  withdrawn_gt?: Maybe<Scalars['BigInt']>;
-  withdrawn_lt?: Maybe<Scalars['BigInt']>;
-  withdrawn_gte?: Maybe<Scalars['BigInt']>;
-  withdrawn_lte?: Maybe<Scalars['BigInt']>;
-  withdrawn_in?: Maybe<Array<Scalars['BigInt']>>;
-  withdrawn_not_in?: Maybe<Array<Scalars['BigInt']>>;
+  withdrawn?: Maybe<Scalars['Boolean']>;
+  withdrawn_not?: Maybe<Scalars['Boolean']>;
+  withdrawn_in?: Maybe<Array<Scalars['Boolean']>>;
+  withdrawn_not_in?: Maybe<Array<Scalars['Boolean']>>;
 };
 
 export enum PostContent_OrderBy {
@@ -453,7 +449,7 @@ export type GetPostContentQueryVariables = Exact<{
 }>;
 
 
-export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: string, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
+export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: boolean, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
 
 export type GetPostContentsQueryVariables = Exact<{
   donee: Scalars['Bytes'];
