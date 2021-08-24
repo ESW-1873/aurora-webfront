@@ -1,6 +1,7 @@
 import { HOSTNAME } from './env'
 
 export const SERVICE_URL = `https://${HOSTNAME}`
+export const TOP = '/'
 export const DISCLAIMER = '/disclaimer'
 export const RAISE = '/raise'
 
