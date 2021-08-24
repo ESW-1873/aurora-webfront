@@ -15,7 +15,12 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
   const { account } = useWalletStore()
   const { raise } = useContract()
   const { open, close } = useLoadingModalStore()
-  const publish = async ({ image, ...data }: RaisingFormData) => {
+  const publish = async ({
+    image,
+    capacity,
+    periodSeconds,
+    ...data
+  }: RaisingFormData) => {
     open({ heading: 'Sending your project data...', subHeading: '' })
     if (!account) {
       return Promise.reject('You must connect wallet.')
@@ -35,7 +40,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       heading: 'Waiting for confirmation',
       subHeading: 'Confirm this transaction in your wallet',
     })
-    await raise(metadata)
+    await raise(metadata, capacity, periodSeconds)
     open({
       heading: 'Waiting for confirmation',
       subHeading:

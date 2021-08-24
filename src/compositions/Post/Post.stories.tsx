@@ -30,6 +30,7 @@ export const RefundablePage = () => (
 export const DoneePage = () => (
   <Post postProps={MOCK_POST} ownDonation={MOCK_DONATION} isDonee />
 )
+
 export const RefundingPage = () => (
   <Post
     postProps={{
@@ -39,5 +40,19 @@ export const RefundingPage = () => (
     }}
     ownDonation={MOCK_DONATION}
     isDonee
+  />
+)
+
+export const ClosedPage = () => (
+  <Post
+    postProps={{
+      ...MOCK_POST,
+      title: '',
+      description: '',
+      keyVisual: '',
+      hasClosed: true,
+      hasWithdrawn: true,
+    }}
+    ownDonation={MOCK_DONATION}
   />
 )

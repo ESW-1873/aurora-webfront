@@ -5,6 +5,10 @@ import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
 import { PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
+import {
+  DEFAULT_CAPACITY,
+  DEFAULT_PERIOD_SECONDS,
+} from 'src/external/contract/hooks'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -17,6 +21,7 @@ import {
   flexCenter,
   noGuide,
 } from 'src/styles/mixins'
+import { isProd, IS_STORYBOOK } from 'src/utils/env'
 import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 
@@ -32,6 +37,8 @@ export type RaisingFormData = Omit<
     dataUrl: string
     contentType: string
   }
+  capacity?: number
+  periodSeconds?: number
 }
 
 export const RaisingForm: VFC<RaisingFormProps> = ({
@@ -44,6 +51,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   useEffect(() => {
     register('image')
   }, [register])
+  console.log(process.env)
   return (
     <>
       <Form
@@ -89,6 +97,27 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
+        {!isProd && !IS_STORYBOOK && (
+          <ProjectSettingsDiv>
+            <p>These fields are shown on non-production env only.</p>
+            <label>
+              Capacity
+              <input
+                {...register('capacity')}
+                type="number"
+                defaultValue={DEFAULT_CAPACITY}
+              />
+            </label>
+            <label>
+              Period seconds
+              <input
+                {...register('periodSeconds')}
+                type="number"
+                defaultValue={DEFAULT_PERIOD_SECONDS}
+              />
+            </label>
+          </ProjectSettingsDiv>
+        )}
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <SubmitButton />
       </Form>
@@ -230,5 +259,14 @@ const Form = styled.form`
     ${DescriptionTextarea} {
       margin-top: 32px;
     }
+  }
+`
+
+const ProjectSettingsDiv = styled.div`
+  border: 1px dotted;
+  padding: 5px 10px 15px;
+  input {
+    margin: 0 8px;
+    border: 1px solid;
   }
 `

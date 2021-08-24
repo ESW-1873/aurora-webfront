@@ -17,12 +17,12 @@ export type ContentsProps = {
   totalDonation: string
   refundRequests: Donation[]
   doneeCredit?: string
+  hasWithdrawn?: boolean
 }
 export const Contents: VFC<
   ContentsProps & {
     isDonee?: boolean
     hasDonated?: boolean
-    hasRefundRequests?: boolean
   }
 > = ({
   id,
@@ -35,14 +35,18 @@ export const Contents: VFC<
   doneeCredit,
   hasClosed,
   hasDonated,
-  hasRefundRequests,
+  hasWithdrawn,
   isDonee,
 }) => (
   <>
     <>
-      <ImageDiv>
-        <Image src={keyVisual} alt="key visual" />
-      </ImageDiv>
+      {keyVisual ? (
+        <ImageDiv>
+          <Image src={keyVisual} alt="key visual" />
+        </ImageDiv>
+      ) : (
+        <p>This project has already been closed.</p>
+      )}
       <PostSection
         title={title}
         description={description}
@@ -54,7 +58,8 @@ export const Contents: VFC<
         isDonee={isDonee}
         hasClosed={hasClosed}
         hasDonated={hasDonated}
-        hasRefundRequests={hasRefundRequests}
+        hasRefundRequests={refundRequests.length > 0}
+        hasWithdrawn={hasWithdrawn}
       />
       <DonationSection
         donee={donee}

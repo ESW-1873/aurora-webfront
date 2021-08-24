@@ -7,10 +7,10 @@ import { RefundModal } from 'src/components/Modal/RefundModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
-import { white } from 'src/styles/colors'
+import { primaryColor, white } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { CONTENT_MAX_WIDTH, PageWrapper } from '../PageWrapper'
 import { Contents, ContentsProps } from './Contents'
 
@@ -29,37 +29,30 @@ export const Post: VFC<PostProps> = ({
   postProps,
   seoProps,
 }) => {
-  const {
-    id,
-    keyVisual,
-    description,
-    totalDonation,
-    endTime,
-    hasClosed,
-    refundRequests,
-  } = postProps
+  const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
+    postProps
   return (
     <>
-      <PageWrapper
+      <StyledPageWrapper
         backgroundImage={keyVisual}
+        backgroundColor={keyVisual ? undefined : primaryColor}
         description={`${description.slice(0, 100)}...`}
         {...seoProps}
       >
-        <Contents
-          {...postProps}
-          hasDonated={!!ownDonation}
-          isDonee={isDonee}
-          hasRefundRequests={refundRequests.length > 0}
-        />
-      </PageWrapper>
-      <FooterSpacer />
-      <FixedFooter>
-        <p>
-          {hasClosed
-            ? 'This project has already been closed.'
-            : `This project will end on ${endTime.format('MMMM D, YYYY')}`}
-        </p>
-      </FixedFooter>
+        <Contents {...postProps} hasDonated={!!ownDonation} isDonee={isDonee} />
+      </StyledPageWrapper>
+      {postProps.title && (
+        <>
+          <FooterSpacer />
+          <FixedFooter>
+            <p>
+              {hasClosed
+                ? 'This project has already been closed.'
+                : `This project will end on ${endTime.format('MMMM D, YYYY')}`}
+            </p>
+          </FixedFooter>
+        </>
+      )}
       <WalletModal />
       <DonationModal postId={id} totalDonation={totalDonation} />
       {ownDonation &&
@@ -73,6 +66,13 @@ export const Post: VFC<PostProps> = ({
   )
 }
 
+const StyledPageWrapper = styled(PageWrapper)<{ backgroundImage?: string }>`
+  ${({ backgroundImage }) =>
+    !backgroundImage &&
+    css`
+      background: ${white};
+    `}
+`
 const FOOTER_HEIGHT = '64px'
 const FooterSpacer = styled.div`
   padding-top: ${FOOTER_HEIGHT};
