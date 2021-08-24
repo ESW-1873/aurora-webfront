@@ -1,7 +1,9 @@
 import React, { VFC } from 'react'
+import { postClient } from 'src/api/postClient'
 import { RefundRequestButton } from 'src/components/Buttons/CtaButton'
 import { EthValueLabel } from 'src/components/Label'
 import { useContract } from 'src/external/contract/hooks'
+import { useWalletStore } from 'src/stores'
 import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { RefundRequestModalProps } from '.'
@@ -9,8 +11,10 @@ import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
 
 export const RefundRequest: VFC<RefundRequestModalProps> = ({
+  postId,
   ownDonation: { amount, receiptId },
 }) => {
+  const { account } = useWalletStore()
   const { requestRefund } = useContract()
   const { setLoading, onSuccess, onFail } = useWithTxModalContext()
   return (
@@ -23,7 +27,11 @@ export const RefundRequest: VFC<RefundRequestModalProps> = ({
           onClick={async () => {
             setLoading(true)
             try {
-              const tx = await requestRefund(receiptId) // TODO: add metadataURI
+              if (!account) throw new Error('You must connect wallet.')
+              const res = await postClient.postRefund({
+                postId,
+              })
+              const tx = await requestRefund(receiptId, res.data.metadata)
               console.log(tx)
             } catch (error: any) {
               onFail(error)

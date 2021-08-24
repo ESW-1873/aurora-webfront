@@ -28,7 +28,7 @@ function handleNoContract() {
 const DEFAULT_GAS_LIMIT = 4500000
 export const DEFAULT_CAPACITY = 100000
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
-const DEFAULT_METADATA_URI = 'unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0'
+
 /**
  * Contractを利用するためのhooks
  */
@@ -38,12 +38,13 @@ export const useContract = () => {
   const donate = useCallback(
     async (
       postId: string,
-      amount: string,
+      amountEth: string,
+      metadata: string,
     ): Promise<ContractReceipt | ContractTransaction | null> => {
       if (contract === null) return handleNoContract()
-      const parsedAmount = utils.parseEther(amount) // ether to wei
+      const parsedAmount = utils.parseEther(amountEth) // ether to wei
       return call(
-        contract.donate(postId, DEFAULT_METADATA_URI, {
+        contract.donate(postId, metadata, {
           value: parsedAmount,
           gasLimit: DEFAULT_GAS_LIMIT,
         }),
@@ -69,10 +70,11 @@ export const useContract = () => {
   const requestRefund = useCallback(
     async (
       receiptId: string,
+      metadata: string,
     ): Promise<ContractReceipt | ContractTransaction | null> => {
       if (contract === null) return handleNoContract()
       return call(
-        contract.requestRefund(receiptId, DEFAULT_METADATA_URI, {
+        contract.requestRefund(receiptId, metadata, {
           gasLimit: DEFAULT_GAS_LIMIT,
         }),
       )
