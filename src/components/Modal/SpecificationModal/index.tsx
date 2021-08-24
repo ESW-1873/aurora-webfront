@@ -3,7 +3,7 @@ import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useSpecificationModalStore } from 'src/stores'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import { DISCLAIMER } from 'src/utils/router'
+import { DISCLAIMER, TOP } from 'src/utils/router'
 import styled from 'styled-components'
 import { Modal } from '..'
 import { Heading } from '../common'
@@ -15,21 +15,13 @@ export const SpecificationModal: VFC<{ publish: VoidFunction }> = ({
   return (
     <Modal isOpen={isOpen} closeModal={close}>
       <Layout>
-        <Heading>Specification Description</Heading>
-        <h3>01</h3>
-        <p>The project will be automatically closed due to below.</p>
-        <ul>
-          <li>- Passed 72 hours since published.</li>
-          <li>- Got 100,000 donations.</li>
-        </ul>
-        <h3>02</h3>
+        <Heading>Note</Heading>
         <p>
-          Once a project is published, it cannot be closed until the end of the
-          project period.
-        </p>
-        <h3>03</h3>
-        <p>
-          Publisher must understand{' '}
+          {'You must understand\r\n'}
+          <a target="_blank" href={TOP} rel="noreferrer">
+            Specification
+          </a>
+          {' and '}
           <a target="_blank" href={DISCLAIMER} rel="noreferrer">
             Disclaimer
           </a>
@@ -64,6 +56,6 @@ const Layout = styled.div`
     text-decoration: underline;
   }
   ${PrimaryButton} {
-    margin-top: 48px;
+    margin-top: 32px;
   }
 `
