@@ -2,7 +2,7 @@ import React, { VFC } from 'react'
 import {
   AFTER_PROJECT_ENDS_TEXT,
   CANCEL_TEXT,
-  DONATION_TEXT,
+  DONATE_TEXT,
   FEE_TEXT,
   FUNDRAISERS_STEP1_TEXT_1,
   FUNDRAISERS_STEP1_TEXT_2,
@@ -59,9 +59,9 @@ export const Top: VFC = () => (
             <h2>2. During the project</h2>
             <h3>Fundraisers</h3>
             <p>{FUNDRAISERS_STEP2_TEXT}</p>
-            <h3>Donor</h3>
-            <h4>Donation</h4>
-            <p>{DONATION_TEXT}</p>
+            <h3>Donors</h3>
+            <h4>Donate</h4>
+            <p>{DONATE_TEXT}</p>
             <h4>Cancel</h4>
             <p>{CANCEL_TEXT}</p>
           </div>
@@ -73,7 +73,7 @@ export const Top: VFC = () => (
             <p>{REFUND_TEXT}</p>
             <h4>Withdraw</h4>
             <p>{WITHDRAW_TEXT}</p>
-            <h3>Donor</h3>
+            <h3>Donors</h3>
             <h4>Request Refund</h4>
             <p>{REFUND_REQUEST_TEXT}</p>
           </div>

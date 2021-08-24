@@ -10,7 +10,7 @@ export const FUNDRAISERS_STEP1_TEXT_2 =
 export const FUNDRAISERS_STEP2_TEXT =
   'The key to a project success is sharing your project. There is no search page on Aurora, so you need share your url to others as many as possible.'
 
-export const DONATION_TEXT =
+export const DONATE_TEXT =
   'Anyone who has ETH can donate to the project you like, and get the receipt NFT. It is allowed you to donate only once per project.'
 
 export const CANCEL_TEXT =
