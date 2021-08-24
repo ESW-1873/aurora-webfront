@@ -3,6 +3,7 @@ import React, { VFC } from 'react'
 import { Donation } from 'src/api/types'
 import { CancelModal } from 'src/components/Modal/CancelModal'
 import { DonationModal } from 'src/components/Modal/DonationModal'
+import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import { RefundModal } from 'src/components/Modal/RefundModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
@@ -63,6 +64,7 @@ export const Post: VFC<PostProps> = ({
       )}
       <WalletModal />
       <DonationModal postId={id} totalDonation={totalDonation} />
+      <ModelViewerModal />
       {ownDonation &&
         (hasClosed ? (
           <RefundRequestModal postId={id} ownDonation={ownDonation} />
