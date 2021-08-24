@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs'
-import React, { VFC } from 'react'
-import { Donation } from 'src/api/types'
+import React, { memo, VFC } from 'react'
+import { Donation, PostContent } from 'src/api/types'
 import { CancelModal } from 'src/components/Modal/CancelModal'
 import { DonationModal } from 'src/components/Modal/DonationModal'
 import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
@@ -25,61 +25,64 @@ export type PostProps = {
   refundRequest?: Donation
   isDonee?: boolean
   hasNoDonations?: boolean
+  refetch: () => Promise<PostContent>
 }
-export const Post: VFC<PostProps> = ({
-  isDonee,
-  ownDonation,
-  postProps,
-  seoProps,
-  hasNoDonations,
-}) => {
-  const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
-    postProps
-  return (
-    <>
-      <StyledPageWrapper
-        backgroundImage={keyVisual}
-        backgroundColor={keyVisual ? undefined : primaryColor}
-        description={`${description.slice(0, 100)}...`}
-        {...seoProps}
-      >
-        <Contents
-          {...postProps}
-          hasDonated={!!ownDonation}
-          isDonee={isDonee}
-          hasNoDonations={hasNoDonations}
+export const Post: VFC<PostProps> = memo(
+  ({ isDonee, ownDonation, postProps, seoProps, hasNoDonations, refetch }) => {
+    const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
+      postProps
+    return (
+      <>
+        <StyledPageWrapper
+          backgroundImage={keyVisual}
+          backgroundColor={keyVisual ? undefined : primaryColor}
+          description={`${description.slice(0, 100)}...`}
+          {...seoProps}
+        >
+          <Contents
+            {...postProps}
+            hasDonated={!!ownDonation}
+            isDonee={isDonee}
+            hasNoDonations={hasNoDonations}
+          />
+        </StyledPageWrapper>
+        {postProps.title && (
+          <>
+            <FooterSpacer />
+            <FixedFooter>
+              <p>
+                {hasClosed
+                  ? 'This project has already been closed.'
+                  : `This project will end on ${endTime.format(
+                      'MMMM D, YYYY',
+                    )}`}
+              </p>
+            </FixedFooter>
+          </>
+        )}
+        <WalletModal />
+        <DonationModal
+          postId={id}
+          totalDonation={totalDonation}
+          refetch={refetch}
         />
-      </StyledPageWrapper>
-      {postProps.title && (
-        <>
-          <FooterSpacer />
-          <FixedFooter>
-            <p>
-              {hasClosed
-                ? 'This project has already been closed.'
-                : `This project will end on ${endTime.format('MMMM D, YYYY')}`}
-            </p>
-          </FixedFooter>
-        </>
-      )}
-      <WalletModal />
-      <DonationModal postId={id} totalDonation={totalDonation} />
-      <ModelViewerModal />
-      {ownDonation &&
-        (hasClosed ? (
-          <RefundRequestModal postId={id} ownDonation={ownDonation} />
-        ) : (
-          <CancelModal ownDonation={ownDonation} />
-        ))}
-      {isDonee && hasClosed && (
-        <>
-          <WithdrawModal postId={id} amount={totalDonation} />
-          <RefundModal />
-        </>
-      )}
-    </>
-  )
-}
+        <ModelViewerModal />
+        {ownDonation &&
+          (hasClosed ? (
+            <RefundRequestModal postId={id} ownDonation={ownDonation} />
+          ) : (
+            <CancelModal ownDonation={ownDonation} />
+          ))}
+        {isDonee && hasClosed && (
+          <>
+            <WithdrawModal postId={id} amount={totalDonation} />
+            <RefundModal />
+          </>
+        )}
+      </>
+    )
+  },
+)
 
 const StyledPageWrapper = styled(PageWrapper)<{ backgroundImage?: string }>`
   ${({ backgroundImage }) =>

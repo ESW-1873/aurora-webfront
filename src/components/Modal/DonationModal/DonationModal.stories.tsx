@@ -14,6 +14,11 @@ export const DonationModalPage = () => (
   <RecoilRoot
     initializeState={(snap) => snap.set(isOpenedDonationModalAtom, true)}
   >
-    <DonationModal postId={MOCK_POST_ID} totalDonation={MOCK_TOTAL_DONATION} />
+    <DonationModal
+      postId={MOCK_POST_ID}
+      totalDonation={MOCK_TOTAL_DONATION}
+      // @ts-ignore
+      refetch={() => {}}
+    />
   </RecoilRoot>
 )

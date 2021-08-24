@@ -1,3 +1,4 @@
+import AsyncRetry from 'async-retry'
 import { utils } from 'ethers'
 import React, { useCallback, useEffect, useState, VFC } from 'react'
 import { postClient } from 'src/api/postClient'
@@ -5,6 +6,7 @@ import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { MOCK_MODEL_URL } from 'src/data/__mocks__'
 import { useContract } from 'src/external/contract/hooks'
 import { useModelViewerModalStore, useWalletStore } from 'src/stores'
+import { equals } from 'src/utils/address'
 import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { DonationModalProps } from '.'
@@ -16,6 +18,7 @@ import { useWithTxModalContext } from '../WithTxModal'
 export const Donation: VFC<DonationModalProps> = ({
   postId,
   totalDonation,
+  refetch,
 }) => {
   const { account } = useWalletStore()
   const { setLoading, close, onFail } = useWithTxModalContext()
@@ -85,9 +88,18 @@ export const Donation: VFC<DonationModalProps> = ({
                 amount: inputValueEth,
               })
               const modelUrl = MOCK_MODEL_URL // res.data.imageUrl
+              await donate(postId, inputValueEth, 'dummy') //res.data.metadata)
               await Promise.all([
                 fetch(modelUrl),
-                donate(postId, inputValueEth, res.data.metadata),
+                AsyncRetry(async () => {
+                  const res = await refetch()
+                  if (
+                    !res?.donations?.some((each) =>
+                      equals(each.sender, account),
+                    )
+                  )
+                    throw new Error()
+                }),
               ])
               openModelViewerModal(modelUrl)
               close()

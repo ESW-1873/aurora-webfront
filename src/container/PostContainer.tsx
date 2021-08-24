@@ -22,7 +22,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
 }) => {
   const { id } = postStaticProps
   const { account } = useWalletStore()
-  const result = usePostContent(id)
+  const { data: result, refetch } = usePostContent(id)
   const data = result?.postContent || INITIAL_POST
   const totalDonation = data.donatedSum
   const ownDonation =
@@ -47,6 +47,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
       ownDonation={ownDonation}
       seoProps={seoProps}
       hasNoDonations={!data.donations?.length}
+      refetch={refetch}
     />
   )
 }
