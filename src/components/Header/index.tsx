@@ -2,8 +2,10 @@ import { UnsupportedChainIdError } from '@web3-react/core'
 import React, { VFC } from 'react'
 import { HeaderButton } from 'src/components/Buttons/HeaderButton'
 import { Logo } from 'src/components/Logo'
+import { Link } from 'src/elements/Link'
 import { useWalletModalStore, useWalletStore } from 'src/stores'
 import { shortenAddress } from 'src/utils/address'
+import { TOP } from 'src/utils/router'
 import styled from 'styled-components'
 
 export const Header: VFC = () => {
@@ -13,7 +15,9 @@ export const Header: VFC = () => {
   return (
     <>
       <HeaderLayout>
-        <Logo />
+        <Link href={TOP}>
+          <Logo />
+        </Link>
         {isUnsupportedChainIdError ? (
           <HeaderButton
             hasError
