@@ -6,6 +6,7 @@ import { DonationModal } from 'src/components/Modal/DonationModal'
 import { RefundModal } from 'src/components/Modal/RefundModal'
 import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
+import { WithdrawModal } from 'src/components/Modal/WithdrawModal'
 import { SEOProps } from 'src/components/SEO'
 import { primaryColor, white } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
@@ -61,7 +62,12 @@ export const Post: VFC<PostProps> = ({
         ) : (
           <CancelModal ownDonation={ownDonation} />
         ))}
-      {isDonee && hasClosed && <RefundModal />}
+      {isDonee && hasClosed && (
+        <>
+          <WithdrawModal postId={id} amount={totalDonation} />
+          <RefundModal />
+        </>
+      )}
     </>
   )
 }
