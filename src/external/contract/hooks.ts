@@ -61,13 +61,12 @@ export const useContract = () => {
     async (postId: string, amountEth: string, metadata: string) => {
       if (!web3Provider || !contract) return handleNoContract()
       const parsedAmount = utils.parseEther(amountEth) // ether to wei
-      const res = await call(
+      return call(
         contract.donate(postId, metadata, {
           value: parsedAmount,
           gasLimit: DEFAULT_GAS_LIMIT,
         }),
       )
-      return waitConfirmations(res.hash, web3Provider)
     },
     [contract, web3Provider],
   )

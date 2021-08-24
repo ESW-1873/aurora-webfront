@@ -1,4 +1,5 @@
 import React from 'react'
+import { PostContent } from 'src/api/types'
 import {
   MOCK_DONATION,
   MOCK_POST,
@@ -10,10 +11,15 @@ export default {
   title: 'Post',
 }
 
-export const WalletDisconnectedPage = () => <Post postProps={MOCK_POST} />
+// @ts-ignore
+const refetch: () => Promise<PostContent> = () => {}
+
+export const WalletDisconnectedPage = () => (
+  <Post postProps={MOCK_POST} refetch={refetch} />
+)
 
 export const CancelablePage = () => (
-  <Post postProps={MOCK_POST} ownDonation={MOCK_DONATION} />
+  <Post postProps={MOCK_POST} ownDonation={MOCK_DONATION} refetch={refetch} />
 )
 
 export const RefundablePage = () => (
@@ -24,11 +30,17 @@ export const RefundablePage = () => (
       refundRequests: MOCK_REFUND_REQUESTS,
     }}
     ownDonation={MOCK_DONATION}
+    refetch={refetch}
   />
 )
 
 export const DoneePage = () => (
-  <Post postProps={MOCK_POST} ownDonation={MOCK_DONATION} isDonee />
+  <Post
+    postProps={MOCK_POST}
+    ownDonation={MOCK_DONATION}
+    isDonee
+    refetch={refetch}
+  />
 )
 
 export const RefundingPage = () => (
@@ -40,6 +52,7 @@ export const RefundingPage = () => (
     }}
     ownDonation={MOCK_DONATION}
     isDonee
+    refetch={refetch}
   />
 )
 
@@ -54,5 +67,6 @@ export const ClosedPage = () => (
       hasWithdrawn: true,
     }}
     ownDonation={MOCK_DONATION}
+    refetch={refetch}
   />
 )

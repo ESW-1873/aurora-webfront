@@ -16,5 +16,13 @@ export const usePostContent = (id: string) => {
   useEffect(() => {
     GetPostContent({ id }).then(setData)
   }, [id])
-  return data
+  return {
+    data,
+    refetch: () =>
+      GetPostContent({ id }).then((res) => {
+        if (!res.postContent) return undefined
+        setData(res)
+        return res.postContent
+      }),
+  }
 }
