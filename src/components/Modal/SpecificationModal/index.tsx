@@ -15,7 +15,7 @@ export const SpecificationModal: VFC<{ publish: VoidFunction }> = ({
   return (
     <Modal isOpen={isOpen} closeModal={close}>
       <Layout>
-        <Heading>Note</Heading>
+        <Heading>Attention</Heading>
         <p>
           {'You must understand\r\n'}
           <a target="_blank" href={TOP} rel="noreferrer">
