@@ -40,9 +40,13 @@ export const Contents: VFC<
 }) => (
   <>
     <>
-      <ImageDiv>
-        <Image src={keyVisual} alt="key visual" />
-      </ImageDiv>
+      {keyVisual ? (
+        <ImageDiv>
+          <Image src={keyVisual} alt="key visual" />
+        </ImageDiv>
+      ) : (
+        <p>This project has already been closed.</p>
+      )}
       <PostSection
         title={title}
         description={description}
