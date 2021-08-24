@@ -152,8 +152,11 @@ components:
         metadata:
           type: string
           minLength: 1
+        imageUrl:
+          type: string
       required:
         - metadata
+        - imageUrl
   securitySchemes:
     APIKey:
       name: API Key

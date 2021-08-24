@@ -131,6 +131,12 @@ export interface Metadata {
    * @memberof Metadata
    */
   metadata: string
+  /**
+   *
+   * @type {string}
+   * @memberof Metadata
+   */
+  imageUrl: string
 }
 /**
  *

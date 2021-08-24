@@ -26,6 +26,7 @@ type Status =
   | 'REFUND_REQUESTABLE'
   | 'MINE'
   | 'MINE_CLOSED'
+  | 'MINE_CLOSED_NO_DONATIONS'
   | 'CLOSED'
 
 type ComputeStatusParam = Partial<{
@@ -40,8 +41,12 @@ const computeStatus = ({
   isDonee,
   hasClosed,
   hasDonated,
+  hasNoDonations,
 }: ComputeStatusParam): Status => {
-  if (isDonee) return hasClosed ? 'MINE_CLOSED' : 'MINE'
+  if (isDonee) {
+    if (!hasClosed) return 'MINE'
+    return hasNoDonations ? 'MINE_CLOSED_NO_DONATIONS' : 'MINE_CLOSED'
+  }
   if (hasDonated) return hasClosed ? 'REFUND_REQUESTABLE' : 'CANCELABLE'
   return hasClosed ? 'CLOSED' : 'DONATABLE'
 }
@@ -101,19 +106,21 @@ export const ActionSection: VFC<
           {params.hasRefundRequests && (
             <Label color={errorColor}>{`You've got refund requests.`}</Label>
           )}
-          {params.hasNoDonations ? (
-            <>
-              <Label>oops! donation not found.</Label>
-              <PrimaryTxButton
-                onClick={() => router.push(RAISE)}
-                label="Never give up!"
-              />
-            </>
-          ) : params.hasWithdrawn ? (
-            <Label>Withdrawn.</Label>
-          ) : (
+          {params.hasWithdrawn && !params.hasRefundRequests && (
+            <Label>Withdrawn</Label>
+          )}
+          {!params.hasWithdrawn && (
             <PrimaryTxButton onClick={openWithdrawModal} label="Withdraw" />
           )}
+        </SingleButtonLayout>
+      )}
+      {status === 'MINE_CLOSED_NO_DONATIONS' && (
+        <SingleButtonLayout>
+          <Label>oops! donation not found.</Label>
+          <PrimaryTxButton
+            onClick={() => router.push(RAISE)}
+            label="Never give up!"
+          />
         </SingleButtonLayout>
       )}
     </>

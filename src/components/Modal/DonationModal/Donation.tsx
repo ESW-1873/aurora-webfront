@@ -2,8 +2,9 @@ import { utils } from 'ethers'
 import React, { useCallback, useEffect, useState, VFC } from 'react'
 import { postClient } from 'src/api/postClient'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
+import { MOCK_MODEL_URL } from 'src/data/__mocks__'
 import { useContract } from 'src/external/contract/hooks'
-import { useWalletStore } from 'src/stores'
+import { useModelViewerModalStore, useWalletStore } from 'src/stores'
 import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
 import { DonationModalProps } from '.'
@@ -17,7 +18,8 @@ export const Donation: VFC<DonationModalProps> = ({
   totalDonation,
 }) => {
   const { account } = useWalletStore()
-  const { setLoading, onSuccess, onFail } = useWithTxModalContext()
+  const { setLoading, close, onFail } = useWithTxModalContext()
+  const { open: openModelViewerModal } = useModelViewerModalStore()
 
   const [isChecked, setIsChecked] = useState(false)
   const [canDonate, setCanDonate] = useState(false)
@@ -74,21 +76,27 @@ export const Donation: VFC<DonationModalProps> = ({
           onClick={async () => {
             setLoading(true)
             try {
-              if (!account) throw new Error('You must connect wallet.')
+              if (!account) {
+                throw new Error('You must connect wallet.')
+              }
               const res = await postClient.postReceipt({
                 postId,
                 address: account,
                 amount: inputValueEth,
               })
-              // memo: txの承認状況を別な場所（ヘッダーとか？）に表示する？
-              const tx = await donate(postId, inputValueEth, res.data.metadata)
-              console.log(tx)
+              const modelUrl = MOCK_MODEL_URL // res.data.imageUrl
+              await Promise.all([
+                fetch(modelUrl),
+                donate(postId, inputValueEth, res.data.metadata),
+              ])
+              openModelViewerModal(modelUrl)
+              close()
+              setLoading(false)
             } catch (error: any) {
               onFail(error)
               console.error(error)
               return
             }
-            onSuccess()
           }}
         />
       </Layout>
