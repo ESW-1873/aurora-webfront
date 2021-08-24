@@ -10,6 +10,7 @@ import {
   useCancelModalStore,
   useDonationModalStore,
   useRefundRequestModalStore,
+  useWithdrawModalStore,
 } from 'src/stores'
 import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
@@ -30,12 +31,12 @@ type ComputeStatusParam = Partial<{
   hasClosed: boolean
   hasDonated: boolean
   hasRefundRequests: boolean
+  hasWithdrawn: boolean
 }>
 const computeStatus = ({
   isDonee,
   hasClosed,
   hasDonated,
-  hasRefundRequests,
 }: ComputeStatusParam): Status => {
   if (isDonee) return hasClosed ? 'MINE_CLOSED' : 'MINE'
   if (hasDonated) return hasClosed ? 'REFUND_REQUESTABLE' : 'CANCELABLE'
@@ -51,6 +52,7 @@ export const ActionSection: VFC<
   const { open: openDonationModal } = useDonationModalStore()
   const { open: openCancelModal } = useCancelModalStore()
   const { open: openRefundRequestModal } = useRefundRequestModalStore()
+  const { open: openWithdrawModal } = useWithdrawModalStore()
 
   const status = useMemo(() => computeStatus(params), [params])
 
@@ -96,7 +98,11 @@ export const ActionSection: VFC<
           {params.hasRefundRequests && (
             <Label color={errorColor}>{`You've got refund requests.`}</Label>
           )}
-          <PrimaryTxButton onClick={openDonationModal} label="Withdraw" />
+          {params.hasWithdrawn ? (
+            <Label>Withdrawn.</Label>
+          ) : (
+            <PrimaryTxButton onClick={openWithdrawModal} label="Withdraw" />
+          )}
         </SingleButtonLayout>
       )}
     </>

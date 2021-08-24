@@ -96,6 +96,16 @@ export const useContract = () => {
     [contract],
   )
 
+  const withdraw = useCallback(
+    async (
+      postId: string,
+    ): Promise<ContractReceipt | ContractTransaction | null> => {
+      if (contract === null) return handleNoContract()
+      return call(contract.withdraw(postId, { gasLimit: DEFAULT_GAS_LIMIT }))
+    },
+    [contract],
+  )
+
   const raise = useCallback(
     async (
       metadataURI: string,
@@ -122,6 +132,7 @@ export const useContract = () => {
     cancel,
     requestRefund,
     refund,
+    withdraw,
     raise,
   }
 }

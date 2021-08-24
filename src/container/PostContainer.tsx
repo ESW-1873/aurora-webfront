@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { BigNumber } from 'ethers'
 import React, { VFC } from 'react'
 import { usePostContent } from 'src/api/client'
 import { INITIAL_POST } from 'src/api/initial'
@@ -41,6 +42,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
         refundRequests,
         hasClosed,
         endTime,
+        hasWithdrawn: !BigNumber.from(data.withdrawn).isZero(),
       }}
       isDonee={isDonee}
       ownDonation={ownDonation}

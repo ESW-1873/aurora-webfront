@@ -29,15 +29,8 @@ export const Post: VFC<PostProps> = ({
   postProps,
   seoProps,
 }) => {
-  const {
-    id,
-    keyVisual,
-    description,
-    totalDonation,
-    endTime,
-    hasClosed,
-    refundRequests,
-  } = postProps
+  const { id, keyVisual, description, totalDonation, endTime, hasClosed } =
+    postProps
   return (
     <>
       <PageWrapper
@@ -45,12 +38,7 @@ export const Post: VFC<PostProps> = ({
         description={`${description.slice(0, 100)}...`}
         {...seoProps}
       >
-        <Contents
-          {...postProps}
-          hasDonated={!!ownDonation}
-          isDonee={isDonee}
-          hasRefundRequests={refundRequests.length > 0}
-        />
+        <Contents {...postProps} hasDonated={!!ownDonation} isDonee={isDonee} />
       </PageWrapper>
       <FooterSpacer />
       <FixedFooter>
