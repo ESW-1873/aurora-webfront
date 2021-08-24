@@ -1,6 +1,7 @@
 import { SITE_SEO_DATA } from 'src/constants/seo'
 
 export const isProd = Boolean(process.env.NEXT_PUBLIC_IS_PROD)
+export const IS_STORYBOOK = Boolean(process.env.STORYBOOK)
 
 export const HOSTNAME = isProd
   ? SITE_SEO_DATA.siteDomain
