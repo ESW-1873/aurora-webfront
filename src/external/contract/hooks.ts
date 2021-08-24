@@ -1,12 +1,17 @@
-import { BigNumber, ContractReceipt, ContractTransaction, utils } from 'ethers'
+import AsyncRetry from 'async-retry'
+import {
+  BigNumber,
+  ContractReceipt,
+  ContractTransaction,
+  ethers,
+  utils,
+} from 'ethers'
 import { useCallback } from 'react'
-import { useContractStore } from 'src/stores'
+import { useContractStore, useWalletStore } from 'src/stores'
 
 // common logic for usecase related to using contract
 /** wrapper when call Contract methods  */
-async function call(
-  func: Promise<ContractTransaction>,
-): Promise<ContractReceipt | ContractTransaction | null> {
+const call = async (func: Promise<ContractTransaction>) => {
   try {
     const tx = await func
     return tx
@@ -21,6 +26,22 @@ function handleNoContract() {
   return null
 }
 
+const waitConfirmations = async (
+  txHash: string,
+  provider: ethers.providers.Web3Provider,
+  confirmations = 1,
+) =>
+  AsyncRetry(
+    async () => {
+      const res = await provider.getTransaction(txHash)
+      if (!res || res.confirmations < confirmations) throw new Error()
+      return res
+    },
+    {
+      forever: true,
+    },
+  )
+
 /**
  * Consts for using Contract
  * TODO: resetting
@@ -33,24 +54,22 @@ export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
  * Contractを利用するためのhooks
  */
 export const useContract = () => {
+  const { web3Provider } = useWalletStore()
   const { contract } = useContractStore()
 
   const donate = useCallback(
-    async (
-      postId: string,
-      amountEth: string,
-      metadata: string,
-    ): Promise<ContractReceipt | ContractTransaction | null> => {
-      if (contract === null) return handleNoContract()
+    async (postId: string, amountEth: string, metadata: string) => {
+      if (!web3Provider || !contract) return handleNoContract()
       const parsedAmount = utils.parseEther(amountEth) // ether to wei
-      return call(
+      const res = await call(
         contract.donate(postId, metadata, {
           value: parsedAmount,
           gasLimit: DEFAULT_GAS_LIMIT,
         }),
       )
+      return waitConfirmations(res.hash, web3Provider)
     },
-    [contract],
+    [contract, web3Provider],
   )
 
   const cancel = useCallback(

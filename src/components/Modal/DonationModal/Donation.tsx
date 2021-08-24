@@ -69,7 +69,7 @@ export const Donation: VFC<DonationModalProps> = ({
           isChecked={isChecked}
         />
         <PrimaryButton
-          label={isInsufficient ? 'Insuffcient ETH' : 'Donate'}
+          label={isInsufficient ? 'Insufficient ETH' : 'Donate'}
           disabled={!canDonate}
           onClick={async () => {
             setLoading(true)
@@ -80,7 +80,7 @@ export const Donation: VFC<DonationModalProps> = ({
                 address: account,
                 amount: inputValueEth,
               })
-              // memo: txの承認状況を別な場所（ヘッダーとか？）に表示する？
+              // memo: txの承認状況を別な場所（ヘッダーとか？）に表示する？
               const tx = await donate(postId, inputValueEth, res.data.metadata)
               console.log(tx)
             } catch (error: any) {
