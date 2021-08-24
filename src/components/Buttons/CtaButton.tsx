@@ -30,6 +30,7 @@ const asTxButton: AsTxButtonHoc = (ButtonComponent) => (props) => {
       {...props}
       disabled={false}
       label="Connect Wallet"
+      onSubmit={undefined}
       onClick={open}
     />
   )

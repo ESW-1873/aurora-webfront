@@ -1,6 +1,6 @@
-import retry from 'async-retry'
+import AsyncRetry from 'async-retry'
 import router from 'next/router'
-import React, { useEffect, VFC } from 'react'
+import React, { VFC } from 'react'
 import { GetPostContents } from 'src/api/client'
 import { postClient } from 'src/api/postClient'
 import { SEOProps } from 'src/components/SEO'
@@ -57,13 +57,9 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       await router.prefetch(path)
       router.push(path)
     }
-    retry(setPostIdIfExists, {
+    AsyncRetry(setPostIdIfExists, {
       forever: true,
     })
   }
-  useEffect(() => {
-    router.events.on('routeChangeComplete', close)
-    return () => router.events.off('routeChangeComplete', close)
-  }, [])
   return <Raise {...seoProps} publish={publish} />
 }
