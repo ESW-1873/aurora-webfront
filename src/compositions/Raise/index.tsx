@@ -1,6 +1,8 @@
+import Head from 'next/head'
 import React, { useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { BlurredBackground } from 'src/components/Background'
+import { ImageCropModal } from 'src/components/Modal/ImageCropModal'
 import { LoadingModal } from 'src/components/Modal/LoadingModal'
 import { SpecificationModal } from 'src/components/Modal/SpecificationModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
@@ -29,6 +31,9 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
   const imageUrl = watch('image.dataUrl')
   return (
     <>
+      <Head>
+        <link rel="stylesheet" href="https://use.typekit.net/bnj3ccw.css" />
+      </Head>
       <RaiseStyles />
       <BlurredBackground imageUrl={imageUrl} />
       <PageWrapper {...seoProps} noFooter>
@@ -42,6 +47,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
         </main>
       </PageWrapper>
       <WalletModal />
+      <ImageCropModal />
       <SpecificationModal
         publish={handleSubmit((data) => {
           closeSpecificationModal()
