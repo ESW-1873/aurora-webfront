@@ -23,7 +23,7 @@ export const DonationSection: VFC<DonationSectionProps> = ({
 }) => (
   <>
     <Section>
-      <Wrapper title="Donee Address">
+      <Wrapper title="Fundraiser Address">
         <AddressLabel address={donee} />
       </Wrapper>
       {credit && (
