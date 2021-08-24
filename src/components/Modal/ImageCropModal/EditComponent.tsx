@@ -137,7 +137,7 @@ export const ImageEditComponent: React.FC<ImageEditComponentProps> = ({
 
   return (
     <StyledImageEditComponent>
-      <Description>You can set cropping area</Description>
+      <Description>Set cropping area</Description>
       <ReactCrop
         src={editingImg}
         onImageLoaded={onLoad}
@@ -174,11 +174,12 @@ const Description = styled.p`
   font-size: 1.6rem;
   font-weight: ${fontWeightBold};
   letter-spacing: 0.016em;
+  text-align: center;
 `
 
 const ButtonDiv = styled.div`
   margin-top: 4rem;
-  width: 24rem;
+  width: 100%;
   ${flexCenter};
 `
 
