@@ -1,3 +1,4 @@
+import router from 'next/router'
 import React, { useMemo, VFC } from 'react'
 import {
   CancelButton,
@@ -16,6 +17,7 @@ import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { HOSTNAME } from 'src/utils/env'
+import { RAISE } from 'src/utils/router'
 import styled from 'styled-components'
 
 type Status =
@@ -100,7 +102,13 @@ export const ActionSection: VFC<
             <Label color={errorColor}>{`You've got refund requests.`}</Label>
           )}
           {params.hasNoDonations ? (
-            <Label>oops! donation not found.</Label>
+            <>
+              <Label>oops! donation not found.</Label>
+              <PrimaryTxButton
+                onClick={() => router.push(RAISE)}
+                label="Never give up!"
+              />
+            </>
           ) : params.hasWithdrawn ? (
             <Label>Withdrawn.</Label>
           ) : (
