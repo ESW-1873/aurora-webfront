@@ -32,6 +32,7 @@ type ComputeStatusParam = Partial<{
   hasDonated: boolean
   hasRefundRequests: boolean
   hasWithdrawn: boolean
+  hasNoDonations: boolean
 }>
 const computeStatus = ({
   isDonee,
@@ -98,7 +99,9 @@ export const ActionSection: VFC<
           {params.hasRefundRequests && (
             <Label color={errorColor}>{`You've got refund requests.`}</Label>
           )}
-          {params.hasWithdrawn ? (
+          {params.hasNoDonations ? (
+            <Label>oops! donation not found.</Label>
+          ) : params.hasWithdrawn ? (
             <Label>Withdrawn.</Label>
           ) : (
             <PrimaryTxButton onClick={openWithdrawModal} label="Withdraw" />

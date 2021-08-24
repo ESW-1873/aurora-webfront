@@ -46,6 +46,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
       isDonee={isDonee}
       ownDonation={ownDonation}
       seoProps={seoProps}
+      hasNoDonations={!data.donations?.length}
     />
   )
 }
