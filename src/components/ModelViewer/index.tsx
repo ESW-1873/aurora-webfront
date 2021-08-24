@@ -35,7 +35,6 @@ const Layout = styled.div`
   height: 100%;
   * {
     width: 100%;
-    min-width: 50vw;
     height: 100%;
     min-height: 360px;
     margin: 0 auto;

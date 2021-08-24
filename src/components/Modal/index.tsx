@@ -7,15 +7,21 @@ type Props = {
   isOpen: boolean
   children: ReactNode
   closeModal?: () => void
+  transparent?: boolean
 }
 
-export const Modal: VFC<Props> = ({ isOpen, closeModal, children }) => {
+export const Modal: VFC<Props> = ({
+  isOpen,
+  closeModal,
+  transparent,
+  children,
+}) => {
   return (
     <>
       {isOpen && (
-        <Overlay onClick={closeModal ?? undefined}>
+        <Overlay onClick={closeModal}>
           <div onClick={(e) => e.stopPropagation()}>
-            <Contents>{children}</Contents>
+            {transparent ? children : <Contents>{children}</Contents>}
           </div>
         </Overlay>
       )}

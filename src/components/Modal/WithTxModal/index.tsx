@@ -16,12 +16,14 @@ type WithTxModalContextProps = {
   setLoading: Dispatch<SetStateAction<boolean>>
   onSuccess: () => void
   onFail: (error: any) => void
+  close: () => void
 }
 
 const WithTxModalContext = createContext<WithTxModalContextProps>({
   setLoading: () => {},
   onSuccess: () => {},
   onFail: () => {},
+  close: () => {},
 })
 export const useWithTxModalContext = () => useContext(WithTxModalContext)
 
@@ -67,7 +69,9 @@ export const WithTxModal: VFC<WithTxModalProps> = ({
   }
   return (
     <Modal isOpen={isOpen} closeModal={onClose}>
-      <WithTxModalContext.Provider value={{ setLoading, onSuccess, onFail }}>
+      <WithTxModalContext.Provider
+        value={{ setLoading, onSuccess, onFail, close: onClose }}
+      >
         {getlModalContent()}
       </WithTxModalContext.Provider>
     </Modal>

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { IconClose } from 'src/assets/svgs'
 import { ModelViewerProps } from 'src/components/ModelViewer'
 import { PageWrapper } from 'src/compositions/PageWrapper'
+import { MOCK_MODEL_URL } from 'src/data/__mocks__'
 import { black, primaryColor, white } from 'src/styles/colors'
 import { fontWeightBold } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
@@ -30,7 +31,7 @@ const SandboxPage: NextPage = () => {
         <Overlay onClick={() => setIsOpen(false)}>
           <div onClick={(e) => e.stopPropagation()}>
             <Model
-              src="assets/tmp/receipt.gltf"
+              src={MOCK_MODEL_URL}
               // poster="assets/tmp/poster.jpg"
               alt="receipt card"
             />

@@ -31,3 +31,5 @@ export const MOCK_REFUND_REQUESTS = [
   MOCK_DONATION,
   MOCK_DONATION,
 ]
+
+export const MOCK_MODEL_URL = 'assets/tmp/receipt.gltf'
