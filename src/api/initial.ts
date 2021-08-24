@@ -10,5 +10,5 @@ export const INITIAL_POST: NonNullable<GetPostContentQuery['postContent']> = {
   metadata: '',
   periodHours: 0,
   startTime: 0,
-  withdrawn: '0',
+  withdrawn: false,
 }
