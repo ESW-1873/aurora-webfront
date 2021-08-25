@@ -1,4 +1,5 @@
 import React, { VFC } from 'react'
+import { WalletModal } from 'src/components/Modal/WalletModal'
 import {
   AFTER_PROJECT_ENDS_TEXT,
   CANCEL_TEXT,
@@ -84,6 +85,7 @@ export const Top: VFC = () => (
         </Section>
       </main>
     </StyledPageWrapper>
+    <WalletModal />
   </>
 )
 

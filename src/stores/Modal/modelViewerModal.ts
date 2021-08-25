@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
 
 export const modelViewerModalAtom = atom<string | undefined>({
-  key: 'modelodelViewerModal',
+  key: 'modelViewerModal',
   default: undefined,
 })
 
