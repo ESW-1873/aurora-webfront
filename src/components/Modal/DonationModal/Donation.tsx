@@ -3,7 +3,6 @@ import { utils } from 'ethers'
 import React, { useCallback, useEffect, useState, VFC } from 'react'
 import { postClient } from 'src/api/postClient'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
-import { MOCK_MODEL_URL } from 'src/data/__mocks__'
 import { useContract } from 'src/external/contract/hooks'
 import { useModelViewerModalStore, useWalletStore } from 'src/stores'
 import { equals } from 'src/utils/address'
@@ -87,8 +86,8 @@ export const Donation: VFC<DonationModalProps> = ({
                 address: account,
                 amount: inputValueEth,
               })
-              const modelUrl = MOCK_MODEL_URL // res.data.imageUrl
-              await donate(postId, inputValueEth, 'dummy') //res.data.metadata)
+              const modelUrl = res.data.imageUrl
+              await donate(postId, inputValueEth, res.data.metadata)
               await Promise.all([
                 fetch(modelUrl),
                 AsyncRetry(async () => {
