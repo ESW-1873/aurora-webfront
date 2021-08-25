@@ -5,7 +5,11 @@ import { postClient } from 'src/api/postClient'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { STORAGE_HOST } from 'src/constants/misc'
 import { useContract } from 'src/external/contract/hooks'
-import { useModelViewerModalStore, useWalletStore } from 'src/stores'
+import {
+  useDonationModalStore,
+  useModelViewerModalStore,
+  useWalletStore,
+} from 'src/stores'
 import { equals } from 'src/utils/address'
 import { weiToEth } from 'src/utils/amount'
 import styled from 'styled-components'
@@ -20,6 +24,7 @@ export const Donation: VFC<DonationModalProps> = ({
   totalDonation,
   refetch,
 }) => {
+  const { disableEscape, enableEscape } = useDonationModalStore()
   const { account } = useWalletStore()
   const { setLoading, close, onFail } = useWithTxModalContext()
   const { open: openModelViewerModal } = useModelViewerModalStore()
@@ -79,6 +84,7 @@ export const Donation: VFC<DonationModalProps> = ({
           disabled={!canDonate}
           onClick={async () => {
             setLoading(true)
+            disableEscape()
             try {
               if (!account) {
                 throw new Error('You must connect wallet.')
@@ -108,6 +114,8 @@ export const Donation: VFC<DonationModalProps> = ({
               onFail(error)
               console.error(error)
               return
+            } finally {
+              enableEscape()
             }
           }}
         />

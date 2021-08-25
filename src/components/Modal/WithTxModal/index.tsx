@@ -31,11 +31,13 @@ type WithTxModalProps = {
   isOpen: boolean
   close: () => void
   children: ReactNode
+  isEscapeDisabled?: boolean
 }
 
 export const WithTxModal: VFC<WithTxModalProps> = ({
   isOpen,
   close,
+  isEscapeDisabled,
   children,
 }) => {
   const [loading, setLoading] = useState(false)
@@ -68,7 +70,7 @@ export const WithTxModal: VFC<WithTxModalProps> = ({
     return children
   }
   return (
-    <Modal isOpen={isOpen} closeModal={onClose}>
+    <Modal isOpen={isOpen} closeModal={isEscapeDisabled ? undefined : onClose}>
       <WithTxModalContext.Provider
         value={{ setLoading, onSuccess, onFail, close: onClose }}
       >
