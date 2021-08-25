@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React, { useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { BlurredBackground } from 'src/components/Background'
@@ -31,9 +30,6 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
   const imageUrl = watch('image.dataUrl')
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="https://use.typekit.net/bnj3ccw.css" />
-      </Head>
       <RaiseStyles />
       <BlurredBackground imageUrl={imageUrl} />
       <PageWrapper

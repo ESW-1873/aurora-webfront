@@ -136,14 +136,14 @@ components:
       description: ''
       type: object
       properties:
-        imageUrl:
+        image:
           type: string
           minLength: 1
         metadata:
           type: string
           minLength: 1
       required:
-        - imageUrl
+        - image
         - metadata
     Metadata:
       description: ''
@@ -152,11 +152,11 @@ components:
         metadata:
           type: string
           minLength: 1
-        imageUrl:
+        image:
           type: string
       required:
         - metadata
-        - imageUrl
+        - image
   securitySchemes:
     APIKey:
       name: API Key

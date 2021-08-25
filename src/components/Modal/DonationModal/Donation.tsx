@@ -3,6 +3,7 @@ import { utils } from 'ethers'
 import React, { useCallback, useEffect, useMemo, useState, VFC } from 'react'
 import { postClient } from 'src/api/postClient'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
+import { STORAGE_HOST } from 'src/constants/misc'
 import { useContract } from 'src/external/contract/hooks'
 import { useModelViewerModalStore, useWalletStore } from 'src/stores'
 import { equals } from 'src/utils/address'
@@ -87,22 +88,16 @@ export const Donation: VFC<DonationModalProps> = ({
                 address: account,
                 amount: inputValueEth,
               })
-              const modelUrl = res.data.imageUrl
               await donate(postId, inputValueEth, res.data.metadata)
-              await Promise.all([
-                fetch(modelUrl),
-                AsyncRetry(async () => {
-                  const res = await refetch()
-                  if (
-                    !res?.donations?.some((each) =>
-                      equals(each.sender, account),
-                    )
-                  )
-                    throw new Error()
-                }),
-              ])
+              await AsyncRetry(async () => {
+                const res = await refetch()
+                if (
+                  !res?.donations?.some((each) => equals(each.sender, account))
+                )
+                  throw new Error()
+              })
               openModelViewerModal({
-                src: modelUrl,
+                src: `${STORAGE_HOST}/${res.data.image}`,
                 alt: 'NFT Card',
                 onLoad: () => {
                   close()

@@ -136,7 +136,7 @@ export interface Metadata {
    * @type {string}
    * @memberof Metadata
    */
-  imageUrl: string
+  image: string
 }
 /**
  *
@@ -149,7 +149,7 @@ export interface PostResponse {
    * @type {string}
    * @memberof PostResponse
    */
-  imageUrl: string
+  image: string
   /**
    *
    * @type {string}
