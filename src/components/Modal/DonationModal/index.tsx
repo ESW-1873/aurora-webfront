@@ -15,9 +15,13 @@ export const DonationModal: VFC<DonationModalProps> = ({
   totalDonation,
   refetch,
 }) => {
-  const { isOpen, close } = useDonationModalStore()
+  const { isOpen, close, isEscapeDisabled } = useDonationModalStore()
   return (
-    <WithTxModal isOpen={isOpen} close={close}>
+    <WithTxModal
+      isOpen={isOpen}
+      close={close}
+      isEscapeDisabled={isEscapeDisabled}
+    >
       <Donation
         postId={postId}
         totalDonation={totalDonation}
