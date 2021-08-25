@@ -1,6 +1,6 @@
 overwrite: true
-schema: "https://api.studio.thegraph.com/query/2636/auroradao/v0.0.19"
-documents: "src/**/*.graphql"
+schema: 'https://api.studio.thegraph.com/query/2636/auroradao/v0.0.16'
+documents: 'src/**/*.graphql'
 generates:
   src/__generated__/graphql/graphql.ts:
     plugins:
