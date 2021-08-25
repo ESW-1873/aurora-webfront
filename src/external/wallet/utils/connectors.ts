@@ -11,7 +11,7 @@ export const injected = new InjectedConnector({
   supportedChainIds: isProd ? SUPPORTED_CHAIN_IDS : DEV_SUPPORTED_CHAIN_IDS,
 })
 
-const INFURA_ID = '5b086d843739469d8df05dae6fcde6d0' // TODO: need infuraId or rpc (now, temp value)
+const INFURA_ID = '602183a665b846d7af6d11341f98261a'
 /** WalletConnect */
 export const walletconnect = new WalletConnectConnector({
   supportedChainIds: isProd ? SUPPORTED_CHAIN_IDS : DEV_SUPPORTED_CHAIN_IDS,
