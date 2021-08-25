@@ -36,7 +36,13 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
       </Head>
       <RaiseStyles />
       <BlurredBackground imageUrl={imageUrl} />
-      <PageWrapper {...seoProps} noindex noFooter>
+      <PageWrapper
+        {...seoProps}
+        pageTitle="Fund Raising"
+        description="Raise your project ultimately fast and easily."
+        noindex
+        noFooter
+      >
         <main>
           <FormProvider {...methods}>
             <RaisingForm
