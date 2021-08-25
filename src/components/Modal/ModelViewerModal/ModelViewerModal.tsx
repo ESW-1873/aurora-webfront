@@ -16,11 +16,11 @@ const Model = dynamic<ModelViewerProps>(
 )
 
 export const ModelViewerModal: VFC = () => {
-  const { src, close } = useModelViewerModalStore()
+  const { props = { src: '', alt: '' }, close } = useModelViewerModalStore()
   return (
-    <Modal isOpen={!!src} transparent>
+    <Modal isOpen={!!props.src} transparent>
       <Layout>
-        <Model src={src || ''} alt="NFT Card" />
+        <Model {...props} />
       </Layout>
       <StyledIconClose onClick={close} />
     </Modal>

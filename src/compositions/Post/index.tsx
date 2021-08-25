@@ -38,6 +38,7 @@ export const Post: VFC<PostProps> = memo(
           backgroundColor={keyVisual ? undefined : primaryColor}
           description={`${description.slice(0, 100)}...`}
           {...seoProps}
+          noindex
         >
           <Contents
             {...postProps}

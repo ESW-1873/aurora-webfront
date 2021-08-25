@@ -1,18 +1,22 @@
 import { useCallback } from 'react'
 import { atom, useRecoilState } from 'recoil'
+import { ModelViewerProps } from 'src/components/ModelViewer'
 
-export const modelViewerModalAtom = atom<string | undefined>({
+export const modelViewerModalAtom = atom<ModelViewerProps | undefined>({
   key: 'modelViewerModal',
   default: undefined,
 })
 
 export const useModelViewerModalStore = () => {
-  const [src, setSrc] = useRecoilState(modelViewerModalAtom)
-  const open = useCallback((srcUrl: string) => setSrc(srcUrl), [setSrc])
-  const close = useCallback(() => setSrc(undefined), [setSrc])
+  const [props, setProps] = useRecoilState(modelViewerModalAtom)
+  const open = useCallback(
+    (newProps: ModelViewerProps) => setProps(newProps),
+    [setProps],
+  )
+  const close = useCallback(() => setProps(undefined), [setProps])
 
   return {
-    src,
+    props,
     open,
     close,
   }

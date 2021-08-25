@@ -36,7 +36,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
       </Head>
       <RaiseStyles />
       <BlurredBackground imageUrl={imageUrl} />
-      <PageWrapper {...seoProps} noFooter>
+      <PageWrapper {...seoProps} noindex noFooter>
         <main>
           <FormProvider {...methods}>
             <RaisingForm

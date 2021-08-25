@@ -1,6 +1,6 @@
 import AsyncRetry from 'async-retry'
 import { utils } from 'ethers'
-import React, { useCallback, useEffect, useState, VFC } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, VFC } from 'react'
 import { postClient } from 'src/api/postClient'
 import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useContract } from 'src/external/contract/hooks'
@@ -24,10 +24,19 @@ export const Donation: VFC<DonationModalProps> = ({
   const { open: openModelViewerModal } = useModelViewerModalStore()
 
   const [isChecked, setIsChecked] = useState(false)
-  const [canDonate, setCanDonate] = useState(false)
   const [inputValueEth, setInputValueEth] = useState('')
   const [balance, setBalance] = useState('')
   const [isInsufficient, setIsInsufficient] = useState(false)
+
+  const canDonate = useMemo(() => {
+    try {
+      return (
+        isChecked && utils.parseEther(inputValueEth).gt(0) && !isInsufficient
+      )
+    } catch {
+      return false
+    }
+  }, [isChecked, inputValueEth, isInsufficient])
 
   const { donate } = useContract()
   const { currentSigner } = useWalletStore()
@@ -50,14 +59,6 @@ export const Donation: VFC<DonationModalProps> = ({
     },
     [setInputValueEth, balance],
   )
-
-  useEffect(() => {
-    if (isChecked && inputValueEth !== '' && !isInsufficient) {
-      setCanDonate(true)
-    } else {
-      setCanDonate(false)
-    }
-  }, [isChecked, inputValueEth, isInsufficient])
 
   return (
     <>
@@ -100,9 +101,14 @@ export const Donation: VFC<DonationModalProps> = ({
                     throw new Error()
                 }),
               ])
-              openModelViewerModal(modelUrl)
-              close()
-              setLoading(false)
+              openModelViewerModal({
+                src: modelUrl,
+                alt: 'NFT Card',
+                onLoad: () => {
+                  close()
+                  setLoading(false)
+                },
+              })
             } catch (error: any) {
               onFail(error)
               console.error(error)
