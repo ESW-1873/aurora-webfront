@@ -27,7 +27,11 @@ import { PageWrapper } from '../PageWrapper'
 
 export const Top: VFC = () => (
   <>
-    <StyledPageWrapper pageTitle="Top" backgroundColor={primaryColor}>
+    <StyledPageWrapper
+      siteTitle="Aurora - Ultimately Fast And Easy Online Fundraising"
+      description="Aurora is a decentralized collaborative giving marketplace. We are committed to open source software and building on the decentralized web."
+      backgroundColor={primaryColor}
+    >
       <main>
         <Section>
           <div>
