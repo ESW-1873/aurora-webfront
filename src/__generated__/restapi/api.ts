@@ -155,7 +155,7 @@ export interface PostResponse {
    * @type {string}
    * @memberof PostResponse
    */
-  metadataUrl: string
+  metadata: string
 }
 
 /**

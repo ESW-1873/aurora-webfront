@@ -1,6 +1,8 @@
 import Arweave from 'arweave'
 
 const client = Arweave.init({
+  host: 'arweave.net',
+  protocol: 'https',
   port: 443,
   timeout: 20000,
   logging: false,
