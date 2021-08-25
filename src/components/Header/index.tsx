@@ -7,6 +7,7 @@ import { useWalletModalStore, useWalletStore } from 'src/stores'
 import { shortenAddress } from 'src/utils/address'
 import { TOP } from 'src/utils/router'
 import styled from 'styled-components'
+import { WalletModal } from '../Modal/WalletModal'
 
 export const Header: VFC = () => {
   const { account, error } = useWalletStore()
@@ -34,6 +35,7 @@ export const Header: VFC = () => {
           <HeaderButton label="Connect Wallet" onClick={openWalletModal} />
         )}
       </HeaderLayout>
+      <WalletModal />
     </>
   )
 }
