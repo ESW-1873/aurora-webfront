@@ -32,7 +32,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
         contentType: image.contentType,
       },
     })
-    const metadata = res.data.metadataUrl
+    const { metadata } = res.data
     if (!metadata) {
       throw new Error()
     }

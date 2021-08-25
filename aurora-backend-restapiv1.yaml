@@ -139,12 +139,12 @@ components:
         imageUrl:
           type: string
           minLength: 1
-        metadataUrl:
+        metadata:
           type: string
           minLength: 1
       required:
         - imageUrl
-        - metadataUrl
+        - metadata
     Metadata:
       description: ''
       type: object
