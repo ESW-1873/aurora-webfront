@@ -10,7 +10,9 @@ export default {
 
 export const ModelViewerModalPage: VFC = () => (
   <RecoilRoot
-    initializeState={(snap) => snap.set(modelViewerModalAtom, MOCK_MODEL_URL)}
+    initializeState={(snap) =>
+      snap.set(modelViewerModalAtom, { src: MOCK_MODEL_URL, alt: '' })
+    }
   >
     <ModelViewerModal />
   </RecoilRoot>

@@ -101,9 +101,14 @@ export const Donation: VFC<DonationModalProps> = ({
                     throw new Error()
                 }),
               ])
-              openModelViewerModal(modelUrl)
-              close()
-              setLoading(false)
+              openModelViewerModal({
+                src: modelUrl,
+                alt: 'NFT Card',
+                onLoad: () => {
+                  close()
+                  setLoading(false)
+                },
+              })
             } catch (error: any) {
               onFail(error)
               console.error(error)

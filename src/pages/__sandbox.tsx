@@ -17,12 +17,17 @@ const Model = dynamic<ModelViewerProps>(
 )
 const SandboxPage: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpen2, setIsOpen2] = useState(false)
   return (
     <>
       <PageWrapper>
         <Layout>
           <h2>Receipt NFT Test Page</h2>
-          <button onClick={() => setIsOpen(!isOpen)}>
+          <button
+            onClick={async () => {
+              setIsOpen(true)
+            }}
+          >
             {isOpen ? 'Close' : 'Get Receipt'}
           </button>
         </Layout>
@@ -34,6 +39,8 @@ const SandboxPage: NextPage = () => {
               src={MOCK_MODEL_URL}
               // poster="assets/tmp/poster.jpg"
               alt="receipt card"
+              onLoad={(props) => console.log('loaded', props)}
+              onProgress={(props) => console.log('progress', props)}
             />
             <StyledIconClose onClick={() => setIsOpen(false)} />
           </div>
