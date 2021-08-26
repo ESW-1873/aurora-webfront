@@ -58,9 +58,9 @@ export const useContract = () => {
   const { contract } = useContractStore()
 
   const donate = useCallback(
-    async (postId: string, amountEth: string, metadata: string) => {
+    async (postId: string, amountMatic: string, metadata: string) => {
       if (!web3Provider || !contract) return handleNoContract()
-      const parsedAmount = utils.parseEther(amountEth) // ether to wei
+      const parsedAmount = utils.parseEther(amountMatic) // matic to wei
       return call(
         contract.donate(postId, metadata, {
           value: parsedAmount,

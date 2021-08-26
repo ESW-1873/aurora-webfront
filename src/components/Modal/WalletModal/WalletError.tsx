@@ -13,7 +13,7 @@ export const WalletError: VFC<{ error: Error }> = ({ error }) => {
         </Heading>
         <SubHeading>
           {isUnsupportedChainIdError
-            ? 'Please switch to Matic'
+            ? 'Please switch to Polygon Mainnet (Matic)'
             : 'Please try refreshing the page and connecting again'}
         </SubHeading>
       </Layout>

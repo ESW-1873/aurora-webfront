@@ -6,10 +6,10 @@ import IconCheck from './icon_check.svg'
 import IconClose from './icon_close.svg'
 import IconColorfulCircle from './icon_colorful_circle.svg'
 import IconCopy from './icon_copy.svg'
-import IconEth from './icon_eth.svg'
 import IconExternalLink from './icon_external_link.svg'
 import IconImage from './icon_image.svg'
 import IconLoading from './icon_loading.svg'
+import IconMatic from './icon_matic.svg'
 import IconMetamask from './icon_metamask.svg'
 import IconTwitter from './icon_twitter.svg'
 import IconWalletConnect from './icon_walletconnect.svg'
@@ -34,8 +34,8 @@ export {
   IconLoading,
   LoadingCircle,
   ConnectingCircle,
-  IconEth,
   IconAlert,
   IconArrowUp,
   IconImage,
+  IconMatic,
 }

@@ -1,8 +1,8 @@
 import React, { VFC } from 'react'
 import { PrimaryTxButton } from 'src/components/Buttons/CtaButton'
-import { EthValueLabel } from 'src/components/Label'
+import { MaticValueLabel } from 'src/components/Label'
 import { useContract } from 'src/external/contract/hooks'
-import { weiToEth } from 'src/utils/amount'
+import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
@@ -16,7 +16,7 @@ export const Withdraw: VFC<WithdrawProps> = ({ postId, amount }) => {
       <Layout>
         <Heading>Withdraw</Heading>
         <SubHeading>You will get</SubHeading>
-        <EthValueLabel value={weiToEth(amount)} />
+        <MaticValueLabel value={weiToMatic(amount)} />
         <PrimaryTxButton
           label="Withdraw"
           onClick={async () => {
