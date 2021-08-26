@@ -1,4 +1,4 @@
-import { useMemo, useState, VFC } from 'react'
+import { InputHTMLAttributes, useMemo, useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import ABIJSON from 'src/abi/PostManager.json'
 import { Header } from 'src/components/Header'
@@ -7,7 +7,7 @@ import { useWalletStore } from 'src/stores'
 import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
 import { ABIModel, ContractModel } from './models'
-import { Element } from './types'
+import { Element, FieldType } from './types'
 
 const abi = new ABIModel(JSON.stringify(ABIJSON))
 
@@ -74,13 +74,14 @@ const Form: VFC<{
   return (
     <FormProvider key={element.name} {...methods}>
       <form
-        onSubmit={handleSubmit(
-          async (data) =>
-            call &&
-            call(element, data)
-              .then(setOutput)
-              .catch((e) => setErrorMessage(JSON.stringify(e))),
-        )}
+        onSubmit={handleSubmit((data) => {
+          if (!call) return
+          setOutput(undefined)
+          setErrorMessage('')
+          return call(element, data)
+            .then(setOutput)
+            .catch((e) => setErrorMessage(JSON.stringify(e)))
+        })}
       >
         <Section>
           <div>
@@ -90,23 +91,22 @@ const Form: VFC<{
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           <Inputs>
             {element.stateMutability === 'payable' && (
-              <label>
-                <p>
-                  value: <span>uint256</span>
-                </p>
-                <input {...register(`value`, { required: true })} />
-              </label>
+              <Input
+                label="value"
+                fieldType="uint256"
+                {...register(`value`, { required: true })}
+              />
             )}
             {element.inputs.map((each, idx, arr) => {
               const name =
                 each.name || (arr.length > 1 ? `key${idx + 1}` : 'key')
               return (
-                <label key={name}>
-                  <p>
-                    {name}: <span>{each.type}</span>
-                  </p>
-                  <input {...register(`args[${idx}]`, { required: true })} />
-                </label>
+                <Input
+                  key={name}
+                  label={name}
+                  fieldType={each.type}
+                  {...register(`args[${idx}]`, { required: true })}
+                />
               )
             })}
           </Inputs>
@@ -116,6 +116,19 @@ const Form: VFC<{
     </FormProvider>
   )
 }
+
+type InputProps = {
+  label: string
+  fieldType: FieldType
+} & InputHTMLAttributes<HTMLInputElement>
+const Input: VFC<InputProps> = ({ label, fieldType, ...props }) => (
+  <label>
+    <p>
+      {label}: <span>{fieldType}</span>
+    </p>
+    <input {...props} />
+  </label>
+)
 
 const Layout = styled.div`
   width: 100%;

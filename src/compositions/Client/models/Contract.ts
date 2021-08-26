@@ -1,23 +1,7 @@
 import { Provider } from '@ethersproject/providers'
-import { BigNumber, Contract, Signer } from 'ethers'
-import { ABI, Element, FieldType } from './../types'
-
-const convert = (type: FieldType, input: string) => {
-  if (type === 'uint256') {
-    return BigNumber.from(input)
-  }
-  return input
-}
-
-const toOption = (
-  stateMutability: Element['stateMutability'],
-  gasLimit: string,
-  value?: string,
-) => ({
-  value:
-    stateMutability === 'payable' && value ? BigNumber.from(value) : undefined,
-  gasLimit: stateMutability === 'view' ? undefined : gasLimit,
-})
+import { Contract, Signer } from 'ethers'
+import { convert, toOption } from './../converter'
+import { ABI, Element } from './../types'
 
 const DEFAULT_GAS_LIMIT = '4500000'
 
