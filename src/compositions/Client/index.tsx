@@ -6,7 +6,7 @@ import { Form, Settings } from './components'
 import { ABIModel, ContractModel } from './models'
 
 export const Client = () => {
-  const [abiJsonStr, setAbiJsonStr] = useState<string>()
+  const [abiJsonStr, setAbiJsonStr] = useState('')
   const [contractAddress, setContractAddress] = useState('')
   const { active, currentSigner } = useWalletStore()
   const abi = useMemo(
@@ -24,6 +24,7 @@ export const Client = () => {
         : undefined,
     [contractAddress, abi, currentSigner],
   )
+  const isCallable = useMemo(() => !!(active && contract), [contract, active])
   return (
     <Layout>
       <Header />
@@ -32,7 +33,7 @@ export const Client = () => {
         setContractAddress={setContractAddress}
         setAbiJsonStr={setAbiJsonStr}
       />
-      <ContractForms abi={abi} active={active} call={contract?.call} />
+      <ContractForms abi={abi} active={isCallable} call={contract?.call} />
     </Layout>
   )
 }
