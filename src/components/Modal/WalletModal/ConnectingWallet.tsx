@@ -1,23 +1,24 @@
 import { UnsupportedChainIdError } from '@web3-react/core'
 import React, { VFC } from 'react'
+import { IconLoading, IconMetamask, IconWalletConnect } from 'src/assets/svgs'
 import {
-  IconBack,
-  IconLoading,
-  IconMetamask,
-  IconWalletConnect,
-} from 'src/assets/svgs'
+  METAMASK_DESCRIPTION,
+  WALLET_CONNECT_DESCRIPTION,
+} from 'src/constants/misc'
 import { useMetamask } from 'src/external/wallet/metamask'
 import { useWalletConnect } from 'src/external/wallet/wallet_connect'
 import { useWalletModalStore, WalletType } from 'src/stores'
-import { darkpurple, errorColor, gray, purple, white } from 'src/styles/colors'
-import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
+import {
+  errorColor,
+  gray,
+  primaryColor,
+  purple,
+  white,
+} from 'src/styles/colors'
+import { fontWeightMedium } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
-import styled from 'styled-components'
-// import { CtaButton } from '../../Buttons'
-
-/**
- * only from SelectWalletModal
- */
+import styled, { css } from 'styled-components'
+import { Heading, StyledIconBack } from '../common'
 
 export const ConnectingWallet: VFC<{
   onBack: () => void
@@ -33,13 +34,11 @@ export const ConnectingWallet: VFC<{
     <>
       <StyledIconBack onClick={onBack} />
       <Layout>
-        <Title>Connect Wallet</Title>
+        <Heading>Connect Wallet</Heading>
         {!errors ? (
           <LoadingDiv>
-            <LoadingContentsArea>
-              <IconLoading />
-              <Label>Initializing...</Label>
-            </LoadingContentsArea>
+            <IconLoading />
+            <Label>Initializing...</Label>
           </LoadingDiv>
         ) : (
           <ErrorDiv>
@@ -68,19 +67,16 @@ export const ConnectingWallet: VFC<{
           </ErrorDiv>
         )}
         <WalletDiv>
-          <ContentsArea>
-            <div>
-              <Label>{selectedWalletType}</Label>
-              <WalletDescription>
-                {selectedWalletType === 'Metamask' &&
-                  'Easy-to-use browser extension.'}
-                {selectedWalletType === 'WalletConnect' &&
-                  'Connect to Trust Wallet, Rainbow Wallet and more…'}
-              </WalletDescription>
-            </div>
-            {selectedWalletType === 'Metamask' && <IconMetamask />}
-            {selectedWalletType === 'WalletConnect' && <IconWalletConnect />}
-          </ContentsArea>
+          <div>
+            <Label>{selectedWalletType}</Label>
+            <SmallLabel>
+              {selectedWalletType === 'Metamask' && METAMASK_DESCRIPTION}
+              {selectedWalletType === 'WalletConnect' &&
+                WALLET_CONNECT_DESCRIPTION}
+            </SmallLabel>
+          </div>
+          {selectedWalletType === 'Metamask' && <IconMetamask />}
+          {selectedWalletType === 'WalletConnect' && <IconWalletConnect />}
         </WalletDiv>
       </Layout>
     </>
@@ -88,92 +84,72 @@ export const ConnectingWallet: VFC<{
 }
 
 const Layout = styled.div`
-  max-width: 268px;
-  margin: 0 auto;
-  @media ${breakpoint.s} {
-    padding-top: 16px;
+  > div {
+    max-width: 262px;
+    margin: 0 auto;
   }
-`
-
-const Title = styled.h3`
-  font-size: 32px;
-  font-weight: ${fontWeightBold};
-  line-height: calc(40 / 32);
-  text-align: center;
-  margin-bottom: 24px;
+  ${Heading} {
+    margin-bottom: 16px;
+  }
+  @media ${breakpoint.s} {
+    ${Heading} {
+      padding: 16px 32px 0;
+    }
+  }
 `
 
 const Label = styled.span`
   line-height: 1.25;
-  display: inline-flex;
 `
 
-const WalletDescription = styled.p`
+const SmallLabel = styled.p`
   font-size: 10px;
   letter-spacing: 0.012em;
   margin-top: 5px;
 `
 
-const ContentsArea = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
+const baseDivStyle = css`
+  min-height: 64px;
+  border-radius: 16px;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: ${fontWeightMedium};
-  > div {
-    margin-right: 8px;
-  }
   > svg {
     height: 100%;
     width: 32px;
   }
+  :not(:last-child) {
+    margin-bottom: 18px;
+  }
 `
 
-const LoadingContentsArea = styled(ContentsArea)`
+const WalletDiv = styled.div`
+  ${baseDivStyle}
+  color: ${white};
+  background: ${purple};
+  font-weight: ${fontWeightMedium};
+  > div {
+    margin-right: 8px;
+  }
+`
+
+const LoadingDiv = styled.div`
+  ${baseDivStyle}
   justify-content: start;
+  color: ${primaryColor};
+  background: ${white}0d;
+  backdrop-filter: blur(30px) brightness(110%);
   > svg {
     margin-right: 8px;
   }
 `
 
-const WalletDiv = styled.div`
-  position: relative;
-  width: 100%;
-  padding: 14px 24px;
-  min-height: 64px;
-  color: ${white};
-  background: ${purple};
-  border-radius: 16px;
-  :not(:last-child) {
-    margin-bottom: 24px;
-  }
-`
-
-const StyledIconBack = styled(IconBack)`
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  cursor: pointer;
-`
-const LoadingDiv = styled(WalletDiv)`
-  display: flex;
-  align-items: center;
-  background: unset;
-  backdrop-filter: blur(30px) brightness(110%);
-  background: ${white}0d;
-  color: ${darkpurple};
-`
-
-const ErrorDiv = styled(WalletDiv)`
-  background: unset;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const ErrorDiv = styled.div`
+  ${baseDivStyle}
   border: 1px solid ${errorColor};
   padding-right: 16px;
-  > span {
+  ${Label} {
     color: ${errorColor};
     margin-right: 8px;
   }
@@ -188,6 +164,7 @@ const RetryButton = styled.button`
   font-weight: ${fontWeightMedium};
   letter-spacing: 0.016em;
   background: ${gray};
+  color: ${white};
   :hover {
     background: ${gray}7d;
   }

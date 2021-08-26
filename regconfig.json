@@ -12,13 +12,13 @@
     "reg-keygen-git-hash-plugin": {},
     "reg-publish-s3-plugin": {
       "bucketName": "squard-vrt-results",
-      "pathPrefix": "hologram-dao.com",
+      "pathPrefix": "auroradao.org",
       "acl": "private"
     },
     "reg-notify-github-plugin": {
       "prComment": true,
       "prCommentBehavior": "default",
-      "clientId": "M7YwNbQwM7K00M/Iz8lPL0rM1S1PTUorys8r0Tc0NTY0NjYw0S8uLE0sSsnMSwYA"
+      "clientId": "M7awNDKztDC21E8sLcovStQtT01KK8rPK9E3NDU2NDY2MNEvLixNLErJzEsGAA=="
     },
     "reg-notify-slack-plugin": {
       "webhookUrl": "https://hooks.slack.com/services/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"

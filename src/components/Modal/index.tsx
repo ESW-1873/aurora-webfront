@@ -1,29 +1,27 @@
-import React, { ReactNode, useEffect, VFC } from 'react'
+import React, { ReactNode, VFC } from 'react'
 import { black, white } from 'src/styles/colors'
-import { breakpoint } from 'src/styles/mixins'
-import { disableScroll, enableScroll } from 'src/utils/handleScroll'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type Props = {
   isOpen: boolean
   children: ReactNode
   closeModal?: () => void
+  transparent?: boolean
 }
 
-export const Modal: VFC<Props> = ({ isOpen, closeModal, children }) => {
-  useEffect(() => {
-    if (isOpen) {
-      disableScroll()
-    }
-    return () => enableScroll()
-  }, [isOpen])
-
+export const Modal: VFC<Props> = ({
+  isOpen,
+  closeModal,
+  transparent,
+  children,
+}) => {
   return (
     <>
       {isOpen && (
-        <Overlay onClick={closeModal ?? undefined}>
+        <Overlay onClick={closeModal}>
           <div onClick={(e) => e.stopPropagation()}>
-            <Contents>{children}</Contents>
+            {transparent ? children : <Contents>{children}</Contents>}
           </div>
         </Overlay>
       )}
@@ -32,24 +30,24 @@ export const Modal: VFC<Props> = ({ isOpen, closeModal, children }) => {
 }
 
 const Overlay = styled.div`
+  ${flexCenter}
   position: fixed;
-  overflow: hidden;
   inset: 0;
+  overflow: hidden;
   background-color: ${black}80;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 1000;
 `
 
 const Contents = styled.div`
   max-width: 400px;
+  max-height: 85vh;
   width: 50vw;
-  padding: 40px 66px 48px 66px;
+  padding: 40px 53px 48px 53px;
   position: relative;
   border-radius: 32px;
   background-color: ${white}80;
   backdrop-filter: blur(30px) brightness(150%);
+  overflow-y: auto;
 
   @media ${breakpoint.l} {
     width: 80vw;

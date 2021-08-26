@@ -1,9 +1,8 @@
 import { UnsupportedChainIdError } from '@web3-react/core'
-import React, { ReactNode, VFC } from 'react'
+import React, { VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import { ZERO_ADDRESS } from 'src/constants/misc'
-import { isOpenedWalletModalAtom } from 'src/stores/walletModal'
-import { GlobalStyles } from 'src/styles/global-styles'
+import { isOpenedWalletModalAtom } from 'src/stores/Modal/walletModal'
 import { Modal } from '..'
 import { AddressInfo } from './AddressInfo'
 import { ConnectingWallet } from './ConnectingWallet'
@@ -12,61 +11,43 @@ import { WalletError } from './WalletError'
 
 export default {
   title: 'WalletModal',
+  decorators: [
+    (Story: VFC) => (
+      <RecoilRoot
+        initializeState={(snap) => snap.set(isOpenedWalletModalAtom, true)}
+      >
+        <Modal isOpen={true} closeModal={() => {}}>
+          <Story />
+        </Modal>
+      </RecoilRoot>
+    ),
+  ],
 }
 
-const WalletModalWrapper: VFC<{ children: ReactNode }> = ({ children }) => (
-  <RecoilRoot
-    initializeState={(snap) => snap.set(isOpenedWalletModalAtom, true)}
-  >
-    <GlobalStyles />
-    <Modal isOpen={true} closeModal={() => {}}>
-      {children}
-    </Modal>
-  </RecoilRoot>
-)
+export const SelectWalletModalPage = () => <SelectWallet />
 
-export const SelectWalletModalPage = () => (
-  <WalletModalWrapper>
-    <SelectWallet />
-  </WalletModalWrapper>
-)
-
-export const AddressInfoModalPage = () => (
-  <WalletModalWrapper>
-    <AddressInfo address={ZERO_ADDRESS} />
-  </WalletModalWrapper>
-)
+export const AddressInfoModalPage = () => <AddressInfo address={ZERO_ADDRESS} />
 
 export const NetworkErrorModalPage = () => (
-  <WalletModalWrapper>
-    <WalletError error={new UnsupportedChainIdError(3)} />
-  </WalletModalWrapper>
+  <WalletError error={new UnsupportedChainIdError(3)} />
 )
 
-export const UnknownErrorModalPage = () => (
-  <WalletModalWrapper>
-    <WalletError error={Error()} />
-  </WalletModalWrapper>
-)
+export const UnknownErrorModalPage = () => <WalletError error={Error()} />
 
 export const ConnectingModalPage = () => (
-  <WalletModalWrapper>
-    <ConnectingWallet
-      onBack={() => {}}
-      errors={null}
-      setErrors={() => {}}
-      selectedWalletType={'Metamask'}
-    />
-  </WalletModalWrapper>
+  <ConnectingWallet
+    onBack={() => {}}
+    errors={null}
+    setErrors={() => {}}
+    selectedWalletType={'Metamask'}
+  />
 )
 
 export const ConnectingErrorModalPage = () => (
-  <WalletModalWrapper>
-    <ConnectingWallet
-      onBack={() => {}}
-      errors={'error'}
-      setErrors={() => {}}
-      selectedWalletType={'Metamask'}
-    />
-  </WalletModalWrapper>
+  <ConnectingWallet
+    onBack={() => {}}
+    errors={'error'}
+    setErrors={() => {}}
+    selectedWalletType={'Metamask'}
+  />
 )

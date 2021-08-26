@@ -1,14 +1,14 @@
 import { UnsupportedChainIdError } from '@web3-react/core'
 import React, { useState, VFC } from 'react'
 import { isMobile } from 'react-device-detect'
-import { IconBack } from 'src/assets/svgs'
 import { WalletOption } from 'src/components/WalletOption'
 import { useMetamask, useWalletConnect } from 'src/external'
 import { isMetaMaskInstalled } from 'src/external/wallet/metamask'
 import { useWalletModalStore, useWalletStore, WalletType } from 'src/stores'
-import { fontWeightBold } from 'src/styles/font'
+import { breakpoint } from 'src/styles/mixins'
 import { METAMASK_URL } from 'src/utils/router'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { Heading, StyledIconBack, SubHeading } from '../common'
 import { ConnectingWallet } from './ConnectingWallet'
 
 export const SelectWallet: VFC<{
@@ -22,16 +22,17 @@ export const SelectWallet: VFC<{
   const [connecting, setConnecting] = useState(false)
   const [errors, setErrors] = useState()
   const [selectedWalletTypeState, setSelectedWalletTypeState] =
-    useState<WalletType>('Metamask')
+    useState<WalletType>()
 
   const cancelConnecting = () => {
     setErrors(undefined)
+    setSelectedWalletTypeState(undefined)
     setConnecting(false)
   }
 
   return (
     <>
-      {connecting ? (
+      {connecting && selectedWalletTypeState ? (
         <ConnectingWallet
           onBack={cancelConnecting}
           errors={errors}
@@ -40,17 +41,17 @@ export const SelectWallet: VFC<{
         />
       ) : (
         <>
-          {onBack && <StyledIconBack onClick={() => onBack()} />}
-          <div>
-            <Title>Connect Wallet</Title>
-            <Subtitle>To start using Aurora</Subtitle>
+          {onBack && <StyledIconBack onClick={onBack} />}
+          <Layout hasBackIcon={!!onBack}>
+            <Heading>Connect Wallet</Heading>
+            <SubHeading>To start using Aurora</SubHeading>
             {!isMobile && (
               <WalletOption
                 label={isMetaMaskInstalled() ? 'Metamask' : 'Install Metamask'}
                 onClick={
                   isMetaMaskInstalled()
                     ? activeWalletType === 'Metamask' && onBack
-                      ? () => onBack()
+                      ? onBack
                       : async () => {
                           setSelectedWalletTypeState('Metamask')
                           setConnecting(true)
@@ -73,7 +74,7 @@ export const SelectWallet: VFC<{
               label="WalletConnect"
               onClick={
                 activeWalletType === 'WalletConnect' && onBack
-                  ? () => onBack()
+                  ? onBack
                   : async () => {
                       setSelectedWalletTypeState('WalletConnect')
                       setConnecting(true)
@@ -90,31 +91,30 @@ export const SelectWallet: VFC<{
                     }
               }
             />
-          </div>
+          </Layout>
         </>
       )}
     </>
   )
 }
 
-const StyledIconBack = styled(IconBack)`
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  cursor: pointer;
-`
-
-const Title = styled.h3`
-  font-size: 32px;
-  font-weight: ${fontWeightBold};
-  line-height: calc(40 / 32);
-  text-align: center;
-  margin-bottom: 16px;
-`
-
-const Subtitle = styled.p`
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 24px;
-  letter-spacing: -0.04em;
+const Layout = styled.div<{ hasBackIcon: boolean }>`
+  ${Heading} {
+    margin-bottom: 16px;
+  }
+  ${SubHeading} {
+    margin-bottom: 40px;
+  }
+  button:not(:last-child) {
+    margin-bottom: 24px;
+  }
+  ${({ hasBackIcon }) =>
+    hasBackIcon &&
+    css`
+      @media ${breakpoint.s} {
+        ${Heading} {
+          padding: 16px 32px 0;
+        }
+      }
+    `}
 `

@@ -9,9 +9,9 @@ import { useWalletStore } from 'src/stores'
  * recoil state, Wallet接続からのeventをwatchして必要なside effectを管理する
  */
 export const WalletInitializer: React.FC = ({ children }) => {
-  const { active, activate } = useWeb3React()
+  const { activate } = useWeb3React()
   const { disconnect } = useMetamask()
-  const { activateWallet, metamaskSigner } = useWalletStore()
+  const { active, activateWallet, metamaskSigner } = useWalletStore()
 
   /**
    * event handling methods

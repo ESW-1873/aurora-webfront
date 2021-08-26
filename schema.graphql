@@ -1,0 +1,397 @@
+directive @derivedFrom(field: String) on FIELD_DEFINITION
+
+directive @entity on OBJECT
+
+directive @subgraphId(id: String) on OBJECT
+
+scalar BigDecimal
+
+scalar BigInt
+
+input Block_height {
+  hash: Bytes
+  number: Int
+}
+
+scalar Bytes
+
+type Donation {
+  id: ID!
+  receiptId: BigInt!
+  serialNo: Int!
+  sender: Bytes!
+  amount: BigInt!
+  donateTime: Int!
+  donated: PostContent
+  cancelled: PostContent
+  refundRequested: PostContent
+  refunded: PostContent
+}
+
+input Donation_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  receiptId: BigInt
+  receiptId_not: BigInt
+  receiptId_gt: BigInt
+  receiptId_lt: BigInt
+  receiptId_gte: BigInt
+  receiptId_lte: BigInt
+  receiptId_in: [BigInt!]
+  receiptId_not_in: [BigInt!]
+  serialNo: Int
+  serialNo_not: Int
+  serialNo_gt: Int
+  serialNo_lt: Int
+  serialNo_gte: Int
+  serialNo_lte: Int
+  serialNo_in: [Int!]
+  serialNo_not_in: [Int!]
+  sender: Bytes
+  sender_not: Bytes
+  sender_in: [Bytes!]
+  sender_not_in: [Bytes!]
+  sender_contains: Bytes
+  sender_not_contains: Bytes
+  amount: BigInt
+  amount_not: BigInt
+  amount_gt: BigInt
+  amount_lt: BigInt
+  amount_gte: BigInt
+  amount_lte: BigInt
+  amount_in: [BigInt!]
+  amount_not_in: [BigInt!]
+  donateTime: Int
+  donateTime_not: Int
+  donateTime_gt: Int
+  donateTime_lt: Int
+  donateTime_gte: Int
+  donateTime_lte: Int
+  donateTime_in: [Int!]
+  donateTime_not_in: [Int!]
+  donated: String
+  donated_not: String
+  donated_gt: String
+  donated_lt: String
+  donated_gte: String
+  donated_lte: String
+  donated_in: [String!]
+  donated_not_in: [String!]
+  donated_contains: String
+  donated_not_contains: String
+  donated_starts_with: String
+  donated_not_starts_with: String
+  donated_ends_with: String
+  donated_not_ends_with: String
+  cancelled: String
+  cancelled_not: String
+  cancelled_gt: String
+  cancelled_lt: String
+  cancelled_gte: String
+  cancelled_lte: String
+  cancelled_in: [String!]
+  cancelled_not_in: [String!]
+  cancelled_contains: String
+  cancelled_not_contains: String
+  cancelled_starts_with: String
+  cancelled_not_starts_with: String
+  cancelled_ends_with: String
+  cancelled_not_ends_with: String
+  refundRequested: String
+  refundRequested_not: String
+  refundRequested_gt: String
+  refundRequested_lt: String
+  refundRequested_gte: String
+  refundRequested_lte: String
+  refundRequested_in: [String!]
+  refundRequested_not_in: [String!]
+  refundRequested_contains: String
+  refundRequested_not_contains: String
+  refundRequested_starts_with: String
+  refundRequested_not_starts_with: String
+  refundRequested_ends_with: String
+  refundRequested_not_ends_with: String
+  refunded: String
+  refunded_not: String
+  refunded_gt: String
+  refunded_lt: String
+  refunded_gte: String
+  refunded_lte: String
+  refunded_in: [String!]
+  refunded_not_in: [String!]
+  refunded_contains: String
+  refunded_not_contains: String
+  refunded_starts_with: String
+  refunded_not_starts_with: String
+  refunded_ends_with: String
+  refunded_not_ends_with: String
+}
+
+enum Donation_orderBy {
+  id
+  receiptId
+  serialNo
+  sender
+  amount
+  donateTime
+  donated
+  cancelled
+  refundRequested
+  refunded
+}
+
+enum OrderDirection {
+  asc
+  desc
+}
+
+type PostContent {
+  id: ID!
+  metadata: String!
+  donee: Bytes!
+  capacity: Int!
+  periodHours: Int!
+  startTime: Int!
+  endTime: Int!
+  donatedCount: Int!
+  donatedSum: BigInt!
+  withdrawn: Boolean!
+  donations(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
+  cancelled(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
+  refundRequested(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
+  refunded(skip: Int = 0, first: Int = 100, orderBy: Donation_orderBy, orderDirection: OrderDirection, where: Donation_filter): [Donation!]
+}
+
+input PostContent_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  metadata: String
+  metadata_not: String
+  metadata_gt: String
+  metadata_lt: String
+  metadata_gte: String
+  metadata_lte: String
+  metadata_in: [String!]
+  metadata_not_in: [String!]
+  metadata_contains: String
+  metadata_not_contains: String
+  metadata_starts_with: String
+  metadata_not_starts_with: String
+  metadata_ends_with: String
+  metadata_not_ends_with: String
+  donee: Bytes
+  donee_not: Bytes
+  donee_in: [Bytes!]
+  donee_not_in: [Bytes!]
+  donee_contains: Bytes
+  donee_not_contains: Bytes
+  capacity: Int
+  capacity_not: Int
+  capacity_gt: Int
+  capacity_lt: Int
+  capacity_gte: Int
+  capacity_lte: Int
+  capacity_in: [Int!]
+  capacity_not_in: [Int!]
+  periodHours: Int
+  periodHours_not: Int
+  periodHours_gt: Int
+  periodHours_lt: Int
+  periodHours_gte: Int
+  periodHours_lte: Int
+  periodHours_in: [Int!]
+  periodHours_not_in: [Int!]
+  startTime: Int
+  startTime_not: Int
+  startTime_gt: Int
+  startTime_lt: Int
+  startTime_gte: Int
+  startTime_lte: Int
+  startTime_in: [Int!]
+  startTime_not_in: [Int!]
+  endTime: Int
+  endTime_not: Int
+  endTime_gt: Int
+  endTime_lt: Int
+  endTime_gte: Int
+  endTime_lte: Int
+  endTime_in: [Int!]
+  endTime_not_in: [Int!]
+  donatedCount: Int
+  donatedCount_not: Int
+  donatedCount_gt: Int
+  donatedCount_lt: Int
+  donatedCount_gte: Int
+  donatedCount_lte: Int
+  donatedCount_in: [Int!]
+  donatedCount_not_in: [Int!]
+  donatedSum: BigInt
+  donatedSum_not: BigInt
+  donatedSum_gt: BigInt
+  donatedSum_lt: BigInt
+  donatedSum_gte: BigInt
+  donatedSum_lte: BigInt
+  donatedSum_in: [BigInt!]
+  donatedSum_not_in: [BigInt!]
+  withdrawn: Boolean
+  withdrawn_not: Boolean
+  withdrawn_in: [Boolean!]
+  withdrawn_not_in: [Boolean!]
+}
+
+enum PostContent_orderBy {
+  id
+  metadata
+  donee
+  capacity
+  periodHours
+  startTime
+  endTime
+  donatedCount
+  donatedSum
+  withdrawn
+  donations
+  cancelled
+  refundRequested
+  refunded
+}
+
+type Query {
+  postContent(
+    id: ID!
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): PostContent
+  postContents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: PostContent_orderBy
+    orderDirection: OrderDirection
+    where: PostContent_filter
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): [PostContent!]!
+  donation(
+    id: ID!
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): Donation
+  donations(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Donation_orderBy
+    orderDirection: OrderDirection
+    where: Donation_filter
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): [Donation!]!
+
+  """Access to subgraph metadata"""
+  _meta(block: Block_height): _Meta_
+}
+
+type Subscription {
+  postContent(
+    id: ID!
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): PostContent
+  postContents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: PostContent_orderBy
+    orderDirection: OrderDirection
+    where: PostContent_filter
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): [PostContent!]!
+  donation(
+    id: ID!
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): Donation
+  donations(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Donation_orderBy
+    orderDirection: OrderDirection
+    where: Donation_filter
+
+    """
+    The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+  ): [Donation!]!
+
+  """Access to subgraph metadata"""
+  _meta(block: Block_height): _Meta_
+}
+
+type _Block_ {
+  """The hash of the block"""
+  hash: Bytes
+
+  """The block number"""
+  number: Int!
+}
+
+"""The type for the top-level _meta field"""
+type _Meta_ {
+  """
+  Information about a specific subgraph block. The hash of the block
+  will be null if the _meta field has a block constraint that asks for
+  a block number. It will be filled if the _meta field has no block constraint
+  and therefore asks for the latest  block
+  
+  """
+  block: _Block_!
+
+  """The deployment ID"""
+  deployment: String!
+
+  """If `true`, the subgraph encountered indexing errors at some past block"""
+  hasIndexingErrors: Boolean!
+}
+
+enum _SubgraphErrorPolicy_ {
+  """Data will be returned even if the subgraph has indexing errors"""
+  allow
+
+  """
+  If the subgraph has indexing errors, data will be omitted. The default.
+  """
+  deny
+}

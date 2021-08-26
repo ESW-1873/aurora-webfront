@@ -8,6 +8,11 @@ import {
   useSetRecoilState,
 } from 'recoil'
 
+const web3ProviderAtom = atom<ethers.providers.Web3Provider | null>({
+  key: 'web3Provider',
+  default: null,
+  dangerouslyAllowMutability: true, // for skipping deep freeze
+})
 /**
  * a simple Signer provided by Web3Provider
  *
@@ -51,7 +56,12 @@ const currentConnectedWalletTypeAtom = atom<WalletType | null>({
  * Walletに関連するデータのstate管理を行う
  */
 export const useWalletStore = (): {
+  error: Error | undefined
+  chainId: number | undefined
+  account: string | null | undefined
+  active: boolean
   activeWalletType: WalletType | null
+  web3Provider: ethers.providers.Web3Provider | null
   metamaskSigner: ethers.providers.JsonRpcSigner | null
   walletConnectSigner: ethers.providers.JsonRpcSigner | null
   currentSigner: ethers.providers.JsonRpcSigner | null
@@ -60,7 +70,7 @@ export const useWalletStore = (): {
   disconnectMetamask: () => void
   disconnectWalletConnect: () => void
 } => {
-  const { library } = useWeb3React()
+  const { library, error, account, active, chainId } = useWeb3React()
 
   const activeWalletType = useRecoilValue(activeWalletTypeAtom)
   const setActiveWalletType = useSetRecoilState(activeWalletTypeAtom)
@@ -71,6 +81,9 @@ export const useWalletStore = (): {
   const setCurrentConnectedWalletType = useSetRecoilState(
     currentConnectedWalletTypeAtom,
   )
+  const web3Provider = useRecoilValue(web3ProviderAtom)
+  const setWeb3Provider = useSetRecoilState(web3ProviderAtom)
+  const resetWeb3Provider = useResetRecoilState(web3ProviderAtom)
 
   const metamaskSigner = useRecoilValue(metamaskSignerAtom)
   const setMetamaskSigner = useSetRecoilState(metamaskSignerAtom)
@@ -87,6 +100,8 @@ export const useWalletStore = (): {
    */
   useEffect(() => {
     if (library) {
+      const provider = library as ethers.providers.Web3Provider
+      setWeb3Provider(provider)
       const signer = (library as ethers.providers.Web3Provider).getSigner()
       switch (currentConnectedWalletType) {
         case 'Metamask': {
@@ -104,6 +119,7 @@ export const useWalletStore = (): {
   }, [
     currentConnectedWalletType,
     library,
+    setWeb3Provider,
     setMetamaskSigner,
     setWalletConnectSigner,
   ])
@@ -131,18 +147,30 @@ export const useWalletStore = (): {
    * clear state for wallet
    */
   const disconnectMetamask = useCallback(() => {
+    resetWeb3Provider()
     resetMetamaskSigner()
     if (activeWalletType === 'Metamask') {
       setActiveWalletType(null)
     }
-  }, [resetMetamaskSigner, activeWalletType, setActiveWalletType])
+  }, [
+    resetWeb3Provider,
+    resetMetamaskSigner,
+    activeWalletType,
+    setActiveWalletType,
+  ])
 
   const disconnectWalletConnect = useCallback(() => {
+    resetWeb3Provider()
     resetWalletConnectSigner()
     if (activeWalletType === 'WalletConnect') {
       setActiveWalletType(null)
     }
-  }, [resetWalletConnectSigner, activeWalletType, setActiveWalletType])
+  }, [
+    resetWeb3Provider,
+    resetWalletConnectSigner,
+    activeWalletType,
+    setActiveWalletType,
+  ])
 
   /** get signer of selected wallet */
   const currentSigner: ethers.providers.JsonRpcSigner | null =
@@ -153,10 +181,15 @@ export const useWalletStore = (): {
       : null
 
   return {
+    error,
+    chainId,
+    account,
+    active,
     activeWalletType,
     metamaskSigner,
     walletConnectSigner,
     currentSigner,
+    web3Provider,
     setActiveWallet,
     activateWallet,
     disconnectMetamask,

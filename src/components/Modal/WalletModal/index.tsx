@@ -1,13 +1,12 @@
-import { useWeb3React } from '@web3-react/core'
 import React, { VFC } from 'react'
-import { useWalletModalStore } from 'src/stores'
+import { useWalletModalStore, useWalletStore } from 'src/stores'
 import { Modal } from '..'
 import { AddressInfo } from './AddressInfo'
 import { SelectWallet } from './SelectWallet'
 import { WalletError } from './WalletError'
 
 export const WalletModal: VFC = () => {
-  const { account, error } = useWeb3React()
+  const { account, error } = useWalletStore()
   const { isOpen, close } = useWalletModalStore()
 
   const getWalletModalContent = () => {

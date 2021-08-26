@@ -1,6 +1,8 @@
+import { OGP_SRC } from 'src/assets/images'
+
 export const SITE_SEO_DATA = {
-  siteTitle: 'Hologram',
-  author: 'HologramDAO',
-  siteDomain: 'hologramdao.com',
-  image: '',
+  siteTitle: 'Aurora',
+  author: 'AuroraDao',
+  siteDomain: 'auroradao.org',
+  image: OGP_SRC,
 }

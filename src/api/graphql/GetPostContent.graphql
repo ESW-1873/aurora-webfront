@@ -1,0 +1,30 @@
+query GetPostContent($id: ID!) {
+  postContent(id: $id) {
+    id
+    metadata
+    donee
+    capacity
+    periodHours
+    startTime
+    endTime
+    donatedCount
+    donatedSum
+    withdrawn
+    donations {
+      id
+      receiptId
+      sender
+      amount
+    }
+    refundRequested {
+      id
+      receiptId
+      sender
+      amount
+    }
+    refunded {
+      id
+      sender
+    }
+  }
+}

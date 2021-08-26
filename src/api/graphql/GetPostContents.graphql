@@ -1,0 +1,5 @@
+query GetPostContents($donee: Bytes!, $metadata: String!) {
+  postContents(where: { donee: $donee, metadata: $metadata }) {
+    id
+  }
+}
