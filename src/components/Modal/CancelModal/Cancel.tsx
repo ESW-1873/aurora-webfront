@@ -1,8 +1,8 @@
 import React, { VFC } from 'react'
 import { CancelButton } from 'src/components/Buttons/CtaButton'
-import { EthValueLabel } from 'src/components/Label'
+import { MaticValueLabel } from 'src/components/Label'
 import { useContract } from 'src/external/contract/hooks'
-import { weiToEth } from 'src/utils/amount'
+import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 import { CancelModalProps } from '.'
 import { Heading, SubHeading } from '../common'
@@ -18,7 +18,7 @@ export const Cancel: VFC<CancelModalProps> = ({
       <Layout>
         <Heading>Cancel</Heading>
         <SubHeading>Amount to be returned</SubHeading>
-        <EthValueLabel value={weiToEth(amount)} />
+        <MaticValueLabel value={weiToMatic(amount)} />
         <CancelButton
           onClick={async () => {
             setLoading(true)

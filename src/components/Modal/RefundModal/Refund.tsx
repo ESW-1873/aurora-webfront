@@ -2,10 +2,10 @@ import React, { VFC } from 'react'
 import { Donation } from 'src/api/types'
 import { RefundButton } from 'src/components/Buttons/CtaButton'
 import { AddressLabel } from 'src/components/ExplorerLabel'
-import { EthValueLabel } from 'src/components/Label'
+import { MaticValueLabel } from 'src/components/Label'
 import { useContract } from 'src/external/contract/hooks'
 import { fontWeightSemiBold } from 'src/styles/font'
-import { weiToEth } from 'src/utils/amount'
+import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
@@ -24,7 +24,7 @@ export const Refund: VFC<{ refundRequest: Donation }> = ({
           <p>To: </p>
           <AddressLabel address={sender} />
         </AddressDiv>
-        <EthValueLabel value={weiToEth(amount)} />
+        <MaticValueLabel value={weiToMatic(amount)} />
         <RefundButton
           onClick={async () => {
             setLoading(true)

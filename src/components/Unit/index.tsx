@@ -1,12 +1,12 @@
 import React, { VFC } from 'react'
-import { IconEth } from 'src/assets/svgs'
+import { IconMatic } from 'src/assets/svgs'
 import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
 
-export const EthUnit: VFC = () => (
+export const MaticUnit: VFC = () => (
   <IconAndUnit>
-    <IconEth />
-    <UnitLabel>ETH</UnitLabel>
+    <IconMatic />
+    <UnitLabel>MATIC</UnitLabel>
   </IconAndUnit>
 )
 

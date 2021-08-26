@@ -1,3 +1,4 @@
 import { ethers } from 'ethers'
 
-export const weiToEth = (wei: string) => ethers.utils.formatUnits(wei, 'ether')
+export const weiToMatic = (wei: string) =>
+  ethers.utils.formatUnits(wei, 'ether')
