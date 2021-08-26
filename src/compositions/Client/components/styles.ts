@@ -5,6 +5,7 @@ export const Output = styled.div`
   width: 100%;
   padding: 12px;
   font-size: 14px;
+  min-height: 40px;
   background-color: lightgray;
   word-break: break-all;
   white-space: pre-wrap;

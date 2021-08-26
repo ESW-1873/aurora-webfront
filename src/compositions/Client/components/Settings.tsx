@@ -23,6 +23,7 @@ export const Settings: VFC<SettingsProps> = ({
   const [addressErrorMessage, setAddressErrorMessage] = useState('')
 
   const setContractAddress = (address: string) => {
+    setAddressErrorMessage('')
     if (!ethers.utils.isAddress(address)) {
       setAddressErrorMessage('Invalid address.')
       setEditingAddress(address)
