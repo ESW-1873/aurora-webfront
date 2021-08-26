@@ -5,8 +5,9 @@ import { WalletOption } from 'src/components/WalletOption'
 import { useMetamask, useWalletConnect } from 'src/external'
 import { isMetaMaskInstalled } from 'src/external/wallet/metamask'
 import { useWalletModalStore, useWalletStore, WalletType } from 'src/stores'
+import { breakpoint } from 'src/styles/mixins'
 import { METAMASK_URL } from 'src/utils/router'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Heading, StyledIconBack, SubHeading } from '../common'
 import { ConnectingWallet } from './ConnectingWallet'
 
@@ -41,7 +42,7 @@ export const SelectWallet: VFC<{
       ) : (
         <>
           {onBack && <StyledIconBack onClick={onBack} />}
-          <Layout>
+          <Layout hasBackIcon={!!onBack}>
             <Heading>Connect Wallet</Heading>
             <SubHeading>To start using Aurora</SubHeading>
             {!isMobile && (
@@ -97,7 +98,7 @@ export const SelectWallet: VFC<{
   )
 }
 
-const Layout = styled.div`
+const Layout = styled.div<{ hasBackIcon: boolean }>`
   ${Heading} {
     margin-bottom: 16px;
   }
@@ -107,4 +108,13 @@ const Layout = styled.div`
   button:not(:last-child) {
     margin-bottom: 24px;
   }
+  ${({ hasBackIcon }) =>
+    hasBackIcon &&
+    css`
+      @media ${breakpoint.s} {
+        ${Heading} {
+          padding: 16px 32px 0;
+        }
+      }
+    `}
 `

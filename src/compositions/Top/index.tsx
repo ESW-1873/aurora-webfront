@@ -111,6 +111,7 @@ const Section = styled.section`
     font-weight: ${fontWeightSemiBold};
   }
   h4 {
+    margin-bottom: 10px;
     font-size: 24px;
     font-weight: ${fontWeightMedium};
   }
@@ -145,10 +146,11 @@ const Section = styled.section`
     }
     h3 {
       font-size: 24px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     h4 {
       font-size: 18px;
+      margin-bottom: 6px;
     }
     p {
       margin-bottom: 24px;

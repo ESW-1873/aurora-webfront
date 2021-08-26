@@ -1,4 +1,5 @@
 import React, { VFC } from 'react'
+import { WalletModal } from 'src/components/Modal/WalletModal'
 import { DISCLAIMER_TEXT } from 'src/data/disclaimer'
 import { primaryColor, white } from 'src/styles/colors'
 import { breakpoint } from 'src/styles/mixins'
@@ -15,6 +16,7 @@ export const Disclaimer: VFC = () => (
         </Section>
       </main>
     </StyledPageWrapper>
+    <WalletModal />
   </>
 )
 
