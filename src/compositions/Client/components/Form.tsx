@@ -81,10 +81,10 @@ type InputProps = {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, fieldType, doc, ...props }, ref) => (
     <label>
-      <p>
+      <div>
         {label}: <span>{fieldType}</span>
         <Doc>{doc}</Doc>
-      </p>
+      </div>
       <input {...props} ref={ref} />
     </label>
   ),
