@@ -18,6 +18,7 @@ export class ABIModel {
   readonly payables: Method[]
   readonly nonpayables: Method[]
   readonly views: Method[]
+  readonly purefunctions: Method[]
   readonly docs: {
     devdoc?: ABIDoc
     userdoc?: ABIDoc
@@ -28,6 +29,7 @@ export class ABIModel {
     this.payables = abiFunctionsFilter(this.abi, 'payable')
     this.nonpayables = abiFunctionsFilter(this.abi, 'nonpayable')
     this.views = abiFunctionsFilter(this.abi, 'view')
+    this.purefunctions = abiFunctionsFilter(this.abi, 'pure')
     this.docs = {
       devdoc: abiSpec.devdoc,
       userdoc: abiSpec.userdoc,

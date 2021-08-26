@@ -25,7 +25,7 @@ export type ABI = Method[]
 export type Method = {
   name: string
   type: 'constructor' | 'function'
-  stateMutability: 'view' | 'nonpayable' | 'payable'
+  stateMutability: 'view' | 'nonpayable' | 'payable' | 'pure'
   inputs: Field[]
   outputs: Field[]
 }
@@ -36,7 +36,10 @@ export type Field = {
   internalType: 'address' | 'uint256' | 'string' | 'bool'
 }
 
-export type FieldType = FieldTypes | `${FieldTypes}[]`
+export type FieldType =
+  | FieldTypes
+  | `${FieldTypes}[]`
+  | `${FieldTypes}[${number}]`
 
 type FieldTypes =
   | 'address'
