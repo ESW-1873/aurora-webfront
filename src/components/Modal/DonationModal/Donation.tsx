@@ -11,7 +11,7 @@ import {
   useWalletStore,
 } from 'src/stores'
 import { equals } from 'src/utils/address'
-import { weiToEth } from 'src/utils/amount'
+import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 import { DonationModalProps } from '.'
 import { DisclaimerCheckbox } from '../../Input/Checkbox'
@@ -30,19 +30,19 @@ export const Donation: VFC<DonationModalProps> = ({
   const { open: openModelViewerModal } = useModelViewerModalStore()
 
   const [isChecked, setIsChecked] = useState(false)
-  const [inputValueEth, setInputValueEth] = useState('')
+  const [inputValueMatic, setInputValueMatic] = useState('')
   const [balance, setBalance] = useState('')
   const [isInsufficient, setIsInsufficient] = useState(false)
 
   const canDonate = useMemo(() => {
     try {
       return (
-        isChecked && utils.parseEther(inputValueEth).gt(0) && !isInsufficient
+        isChecked && utils.parseEther(inputValueMatic).gt(0) && !isInsufficient
       )
     } catch {
       return false
     }
-  }, [isChecked, inputValueEth, isInsufficient])
+  }, [isChecked, inputValueMatic, isInsufficient])
 
   const { donate } = useContract()
   const { currentSigner } = useWalletStore()
@@ -60,10 +60,10 @@ export const Donation: VFC<DonationModalProps> = ({
 
   const onUserInput = useCallback(
     (value: string) => {
-      setInputValueEth(value)
+      setInputValueMatic(value)
       setIsInsufficient(value > balance)
     },
-    [setInputValueEth, balance],
+    [setInputValueMatic, balance],
   )
 
   return (
@@ -71,16 +71,16 @@ export const Donation: VFC<DonationModalProps> = ({
       <Layout>
         <Heading>Donation</Heading>
         <SubHeading>
-          {`Total Donation ${weiToEth(totalDonation)} ETH`}
+          {`Total Donation ${weiToMatic(totalDonation)} MATIC`}
         </SubHeading>
-        <DonationInputPanel value={inputValueEth} onUserInput={onUserInput} />
+        <DonationInputPanel value={inputValueMatic} onUserInput={onUserInput} />
         <DisclaimerCheckbox
           id="disclaimer-check"
           setIsChecked={setIsChecked}
           isChecked={isChecked}
         />
         <PrimaryButton
-          label={isInsufficient ? 'Insufficient ETH' : 'Donate'}
+          label={isInsufficient ? 'Insufficient MATIC' : 'Donate'}
           disabled={!canDonate}
           onClick={async () => {
             setLoading(true)
@@ -92,9 +92,9 @@ export const Donation: VFC<DonationModalProps> = ({
               const res = await postClient.postReceipt({
                 postId,
                 address: account,
-                amount: inputValueEth,
+                amount: inputValueMatic,
               })
-              await donate(postId, inputValueEth, res.data.metadata)
+              await donate(postId, inputValueMatic, res.data.metadata)
               await AsyncRetry(async () => {
                 const res = await refetch()
                 if (

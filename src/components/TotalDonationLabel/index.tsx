@@ -2,21 +2,21 @@ import React, { useEffect, useRef, VFC } from 'react'
 import { useCountUp } from 'react-countup'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
-import { weiToEth } from 'src/utils/amount'
+import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 
 export const TotalDonationLabel: VFC<{ amountWei: string }> = ({
   amountWei,
 }) => {
-  const ethStr = weiToEth(amountWei)
-  const ethNum = Number.isNaN(+ethStr) ? -1 : +ethStr
+  const maticStr = weiToMatic(amountWei)
+  const maticNum = Number.isNaN(+maticStr) ? -1 : +maticStr
   return (
     <Label>
       <span>Total Donation:</span>
       <div>
-        {ethNum >= 0 && <CountUp num={ethNum} />}
-        {ethNum < 0 && ethStr}
-        <span>ETH</span>
+        {maticNum >= 0 && <CountUp num={maticNum} />}
+        {maticNum < 0 && maticStr}
+        <span>MATIC</span>
       </div>
     </Label>
   )

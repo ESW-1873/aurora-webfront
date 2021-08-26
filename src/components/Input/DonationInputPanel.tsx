@@ -1,5 +1,5 @@
 import React, { VFC } from 'react'
-import { EthUnit } from 'src/components/Unit'
+import { MaticUnit } from 'src/components/Unit'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { escapeRegExp } from 'src/utils/string'
@@ -19,7 +19,7 @@ export const DonationInputPanel: VFC<{
   }
   return (
     <LayoutDiv>
-      <EthUnit />
+      <MaticUnit />
       <Input
         value={value}
         placeholder="0.00"

@@ -47,7 +47,7 @@ export const CancelButton: VFC<ButtonProps> = asTxButton(
 
 export const RefundButton: VFC<ButtonProps> = asTxButton(
   ({ label = 'Refund', ...props }) => (
-    <RefundButtonElement {...props}></RefundButtonElement>
+    <RefundButtonElement {...props}>{label}</RefundButtonElement>
   ),
 )
 

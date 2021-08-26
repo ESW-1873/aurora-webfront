@@ -1,15 +1,15 @@
 import React, { VFC } from 'react'
-import { EthUnit } from 'src/components/Unit'
+import { MaticUnit } from 'src/components/Unit'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
-export const EthValueLabel: VFC<{
+export const MaticValueLabel: VFC<{
   value: string
 }> = ({ value }) => {
   return (
     <LayoutDiv>
-      <EthUnit />
+      <MaticUnit />
       <Label>{value}</Label>
     </LayoutDiv>
   )

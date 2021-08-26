@@ -1,10 +1,10 @@
 import React, { VFC } from 'react'
 import { postClient } from 'src/api/postClient'
 import { RefundRequestButton } from 'src/components/Buttons/CtaButton'
-import { EthValueLabel } from 'src/components/Label'
+import { MaticValueLabel } from 'src/components/Label'
 import { useContract } from 'src/external/contract/hooks'
 import { useWalletStore } from 'src/stores'
-import { weiToEth } from 'src/utils/amount'
+import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 import { RefundRequestModalProps } from '.'
 import { Heading, SubHeading } from '../common'
@@ -22,7 +22,7 @@ export const RefundRequest: VFC<RefundRequestModalProps> = ({
       <Layout>
         <Heading>Refund request</Heading>
         <SubHeading>It might be returned</SubHeading>
-        <EthValueLabel value={weiToEth(amount)} />
+        <MaticValueLabel value={weiToMatic(amount)} />
         <RefundRequestButton
           onClick={async () => {
             setLoading(true)
