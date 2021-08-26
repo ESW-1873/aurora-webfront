@@ -1,7 +1,6 @@
 import { useState, VFC } from 'react'
-import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
-import { Output } from './styles'
+import { ctaStyle, Output } from './styles'
 
 type SettingsProps = {
   contractAddress: string
@@ -80,6 +79,9 @@ const Layout = styled.div`
   }
   input {
     border: 1px solid;
+    padding: 4px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `
 const Address = styled.div`
@@ -102,18 +104,6 @@ const AbiControl = styled.div`
   }
   label,
   button {
-    background-color: darkslategray;
-    border-radius: 17px;
-    width: 152px;
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: ${fontWeightSemiBold};
-    color: white;
-    cursor: pointer;
-    :disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
+    ${ctaStyle};
   }
 `

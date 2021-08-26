@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
 import { Element, FieldType } from '../types'
-import { ErrorMessage, Output } from './styles'
+import { ctaStyle, ErrorMessage, Output } from './styles'
 
 export const Form: VFC<{
   element: Element
@@ -27,33 +27,40 @@ export const Form: VFC<{
         })}
       >
         <Section>
-          <div>
+          <Caption>
             <h3>{element.name}</h3>
-            <button disabled={!active}>Call</button>
-          </div>
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-          <Inputs>
-            {element.stateMutability === 'payable' && (
-              <Input
-                label="value"
-                fieldType="uint256"
-                {...register(`value`, { required: true })}
-              />
-            )}
-            {element.inputs.map((each, idx, arr) => {
-              const name =
-                each.name || (arr.length > 1 ? `key${idx + 1}` : 'key')
-              return (
+          </Caption>
+          <CollapsableDiv>
+            <Inputs>
+              {!element.inputs.length && element.stateMutability !== 'payable' && (
+                <NoParams>
+                  <p>No Params</p>
+                </NoParams>
+              )}
+              {element.stateMutability === 'payable' && (
                 <Input
-                  key={name}
-                  label={name}
-                  fieldType={each.type}
-                  {...register(`args[${idx}]`, { required: true })}
+                  label="value"
+                  fieldType="uint256"
+                  {...register(`value`, { required: true })}
                 />
-              )
-            })}
-          </Inputs>
-          {output != null && <Output>{JSON.stringify(output)}</Output>}
+              )}
+              {element.inputs.map((each, idx, arr) => {
+                const name =
+                  each.name || (arr.length > 1 ? `key${idx + 1}` : 'key')
+                return (
+                  <Input
+                    key={name}
+                    label={name}
+                    fieldType={each.type}
+                    {...register(`args[${idx}]`, { required: true })}
+                  />
+                )
+              })}
+              <button disabled={!active}>Call</button>
+            </Inputs>
+            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            {output != null && <Output>{JSON.stringify(output)}</Output>}
+          </CollapsableDiv>
         </Section>
       </form>
     </FormProvider>
@@ -75,16 +82,25 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ),
 )
 
-const Section = styled.section`
+const Section = styled.details`
   margin-top: 20px;
   font-size: 24px;
-  > div {
-    display: flex;
-    justify-content: space-between;
-  }
+  border: 1px solid;
+`
+const CollapsableDiv = styled.div`
+  border-top: 1px solid;
+`
+const Caption = styled.summary`
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
   h3 {
     font-size: 24px;
     font-weight: ${fontWeightSemiBold};
+    padding: 4px 8px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   button {
     display: block;
@@ -95,20 +111,34 @@ const Section = styled.section`
   }
 `
 const Inputs = styled.div`
-  margin-top: 12px;
   display: flex;
-  padding: 0 56px;
+  padding: 12px 56px 24px;
   flex-direction: column;
   label {
     width: 100%;
     margin-top: 8px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     span {
       font-style: italic;
     }
     input {
       border: 1px solid;
+      padding: 4px 8px;
+    }
+    > * {
+      width: 100%;
+      max-width: 320px;
     }
   }
+  button {
+    margin-top: 20px;
+    margin-left: auto;
+    ${ctaStyle};
+  }
+`
+const NoParams = styled.label`
+  opacity: 0.75;
+  font-style: italic;
 `

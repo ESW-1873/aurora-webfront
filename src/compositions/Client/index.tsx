@@ -32,37 +32,39 @@ export const Client = () => {
         setContractAddress={setContractAddress}
         setAbiJsonStr={setAbiJsonStr}
       />
-      {abi && <ContractForms abi={abi} active={active} call={contract?.call} />}
+      <ContractForms abi={abi} active={active} call={contract?.call} />
     </Layout>
   )
 }
 
 type ContractFormsProps = {
-  abi: ABIModel
-  active?: boolean
-  call?: (...args: any[]) => Promise<any>
+  abi: ABIModel | undefined
+  active: boolean | undefined
+  call: ((...args: any[]) => Promise<any>) | undefined
 }
-const ContractForms: VFC<ContractFormsProps> = memo(({ abi, active, call }) => (
-  <>
-    <h2>PAYABLE</h2>
-    {abi.payables.map((each) => (
-      <Form key={each.name} element={each} active={active} call={call} />
-    ))}
-    <h2>NON-PAYABLE</h2>
-    {abi.nonpayables.map((each) => (
-      <Form key={each.name} element={each} active={active} call={call} />
-    ))}
-    <h2>VIEW</h2>
-    {abi.views.map((each) => (
-      <Form key={each.name} element={each} active={active} call={call} />
-    ))}
-  </>
-))
+const ContractForms: VFC<ContractFormsProps> = memo(
+  ({ abi = { payables: [], nonpayables: [], views: [] }, active, call }) => (
+    <>
+      <h2>PAYABLE</h2>
+      {abi.payables.map((each) => (
+        <Form key={each.name} element={each} active={active} call={call} />
+      ))}
+      <h2>NON-PAYABLE</h2>
+      {abi.nonpayables.map((each) => (
+        <Form key={each.name} element={each} active={active} call={call} />
+      ))}
+      <h2>VIEW</h2>
+      {abi.views.map((each) => (
+        <Form key={each.name} element={each} active={active} call={call} />
+      ))}
+    </>
+  ),
+)
 
 const Layout = styled.div`
   width: 100%;
   padding: 40px;
-  max-width: 720px;
+  max-width: 1260px;
   margin: 0 auto;
   font-size: 16px;
   h2 {
