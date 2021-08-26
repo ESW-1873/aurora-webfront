@@ -1,7 +1,7 @@
 import { Provider } from '@ethersproject/providers'
 import { Contract, Signer } from 'ethers'
 import { convert, toOption } from './../converter'
-import { ABI, Element } from './../types'
+import { ABI, Method } from './../types'
 
 const DEFAULT_GAS_LIMIT = '4500000'
 
@@ -21,17 +21,17 @@ export class ContractModel {
   }
 
   readonly call = async (
-    element: Element,
+    method: Method,
     data: { [x: string]: string },
     gasLimit = DEFAULT_GAS_LIMIT,
   ) => {
-    const func = this.contract[element.name]
-    if (!func) throw new Error(`Function not found: ${element.name}`)
-    const args = element.inputs.map(({ type }, idx) => {
+    const func = this.contract[method.name]
+    if (!func) throw new Error(`Function not found: ${method.name}`)
+    const args = method.inputs.map(({ type }, idx) => {
       const input = data.args[idx]
       return convert(type, input)
     })
-    const option = toOption(element.stateMutability, gasLimit, data.value)
+    const option = toOption(method.stateMutability, gasLimit, data.value)
     return func(...args, option)
   }
 }

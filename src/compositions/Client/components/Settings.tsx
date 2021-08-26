@@ -37,10 +37,10 @@ export const Settings: VFC<SettingsProps> = ({
     try {
       const json = JSON.parse(data)
       if (Array.isArray(json)) {
-        setAbiJsonStr(data)
+        setAbiJsonStr(JSON.stringify({ abi: data }))
       } else {
         json.address && setContractAddress(json.address)
-        json.abi && setAbiJsonStr(JSON.stringify(json.abi))
+        json.abi && setAbiJsonStr(data)
       }
       setAbiJsonLabel(label)
       setAbiJsonUrl('')

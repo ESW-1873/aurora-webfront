@@ -1,8 +1,28 @@
 // see: https://docs.soliditylang.org/en/v0.5.3/abi-spec.html
 
-export type ABI = Element[]
+export type ABISpec = {
+  abi: ABI
+  address?: string
+  devdoc?: ABIDoc
+  userdoc?: ABIDoc
+}
+export type ABIDoc = {
+  author: string
+  kind: string
+  methods: {
+    [key in string]: MethodDoc
+  }
+}
 
-export type Element = {
+export type MethodDoc = {
+  details?: string
+  params?: {
+    [key in string]: string
+  }
+}
+export type ABI = Method[]
+
+export type Method = {
   name: string
   type: 'constructor' | 'function'
   stateMutability: 'view' | 'nonpayable' | 'payable'

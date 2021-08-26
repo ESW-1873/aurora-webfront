@@ -42,24 +42,40 @@ type ContractFormsProps = {
   active: boolean | undefined
   call: ((...args: any[]) => Promise<any>) | undefined
 }
-const ContractForms: VFC<ContractFormsProps> = memo(
-  ({ abi = { payables: [], nonpayables: [], views: [] }, active, call }) => (
-    <>
-      <h2>PAYABLE</h2>
-      {abi.payables.map((each) => (
-        <Form key={each.name} element={each} active={active} call={call} />
-      ))}
-      <h2>NON-PAYABLE</h2>
-      {abi.nonpayables.map((each) => (
-        <Form key={each.name} element={each} active={active} call={call} />
-      ))}
-      <h2>VIEW</h2>
-      {abi.views.map((each) => (
-        <Form key={each.name} element={each} active={active} call={call} />
-      ))}
-    </>
-  ),
-)
+const ContractForms: VFC<ContractFormsProps> = memo(({ abi, active, call }) => (
+  <>
+    <h2>PAYABLE</h2>
+    {abi?.payables.map((each) => (
+      <Form
+        key={each.name}
+        method={each}
+        active={active}
+        call={call}
+        doc={abi.findDoc(each)}
+      />
+    ))}
+    <h2>NON-PAYABLE</h2>
+    {abi?.nonpayables.map((each) => (
+      <Form
+        key={each.name}
+        method={each}
+        active={active}
+        call={call}
+        doc={abi.findDoc(each)}
+      />
+    ))}
+    <h2>VIEW</h2>
+    {abi?.views.map((each) => (
+      <Form
+        key={each.name}
+        method={each}
+        active={active}
+        call={call}
+        doc={abi.findDoc(each)}
+      />
+    ))}
+  </>
+))
 
 const Layout = styled.div`
   width: 100%;
