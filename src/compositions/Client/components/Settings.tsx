@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import querystring from 'querystring'
-import { useEffect, useState, VFC } from 'react'
+import { ReactNode, useEffect, useState, VFC } from 'react'
 import styled from 'styled-components'
 import { ctaStyle, ErrorMessage, Output } from './styles'
 
@@ -74,41 +74,27 @@ export const Settings: VFC<SettingsProps> = ({
   return (
     <Layout>
       <h2>Settings</h2>
-      <Address>
-        <h3>Contarct Address</h3>
-        <Output>{contractAddress}</Output>
-        {addressErrorMessage && (
-          <ErrorMessage>{addressErrorMessage}</ErrorMessage>
-        )}
+      <AddressForm
+        title="Contarct Address"
+        output={contractAddress}
+        errorMessage={addressErrorMessage}
+      >
         <input
           value={editingAddress}
           onChange={({ target: { value } }) => setEditingAddress(value)}
         />
         <button
-          onClick={() => {
-            setContractAddress(editingAddress)
-          }}
+          onClick={() => setContractAddress(editingAddress)}
           disabled={!editingAddress}
         >
           Set
         </button>
-      </Address>
-      <div>
-        <h3>ABI</h3>
-        <Output>
-          {abiJsonLabel.startsWith('http') ? (
-            <a href={abiJsonLabel} target="_blank" rel="noreferrer">
-              {abiJsonLabel}
-            </a>
-          ) : (
-            abiJsonLabel
-          )}
-        </Output>
-        {abiErrorMessage && (
-          <ErrorMessage>
-            {JSON.stringify(abiErrorMessage.message, null, 4)}
-          </ErrorMessage>
-        )}
+      </AddressForm>
+      <SettingsFormItem
+        title="ABI"
+        output={abiJsonLabel}
+        errorMessage={JSON.stringify(abiErrorMessage?.message, null, 4) || ''}
+      >
         <AbiControl>
           <label>
             Upload
@@ -132,8 +118,40 @@ export const Settings: VFC<SettingsProps> = ({
             onChange={({ target: { value } }) => setAbiJsonUrl(value)}
           />
         </AbiControl>
-      </div>
+      </SettingsFormItem>
     </Layout>
+  )
+}
+
+type SettingsFormItemProps = {
+  title: string
+  output: string
+  errorMessage: string
+  children: ReactNode
+  className?: string
+}
+const SettingsFormItem: VFC<SettingsFormItemProps> = ({
+  title,
+  output,
+  errorMessage,
+  children,
+  className,
+}) => {
+  return (
+    <div className={className}>
+      <h3>{title}</h3>
+      <Output>
+        {output.startsWith('http') ? (
+          <a href={output} target="_blank" rel="noreferrer">
+            {output}
+          </a>
+        ) : (
+          output
+        )}
+      </Output>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {children}
+    </div>
   )
 }
 
@@ -149,7 +167,7 @@ const Layout = styled.div`
     text-overflow: ellipsis;
   }
 `
-const Address = styled.div`
+const AddressForm = styled(SettingsFormItem)`
   input {
     margin-top: 12px;
     display: block;
