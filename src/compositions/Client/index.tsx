@@ -1,6 +1,6 @@
 import { Provider } from '@ethersproject/providers'
 import { BigNumber, Contract, Signer } from 'ethers'
-import { useMemo, useState, VFC } from 'react'
+import { useCallback, useMemo, useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import ABIJSON from 'src/abi/PostManager.json'
 import { Header } from 'src/components/Header'
@@ -8,7 +8,7 @@ import { CONTRACT_ADDRESS } from 'src/constants/address'
 import { useWalletStore } from 'src/stores'
 import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
-import { ABI, Element } from './types'
+import { ABI, Element, FieldType } from './types'
 
 const abi = ABIJSON as ABI
 
@@ -24,8 +24,26 @@ const factory = (
   return new Contract(getContractAddress(chainId), abi, signerOrProvider)
 }
 
+const convert = (type: FieldType, input: string) => {
+  if (type === 'uint256') {
+    return BigNumber.from(input)
+  }
+  return input
+}
+const toOption = (
+  stateMutability: Element['stateMutability'],
+  gasLimit: string,
+  value?: string,
+) => ({
+  value:
+    stateMutability === 'payable' && value ? BigNumber.from(value) : undefined,
+  gasLimit: stateMutability === 'view' ? undefined : gasLimit,
+})
+
+const DEFAULT_GAS_LIMIT = '4500000'
+
 export const Client = () => {
-  const { account, chainId, currentSigner } = useWalletStore()
+  const { active, chainId, currentSigner } = useWalletStore()
   const contract = useMemo(
     () =>
       chainId && currentSigner
@@ -45,49 +63,48 @@ export const Client = () => {
     (element) =>
       element.type === 'function' && element.stateMutability === 'payable',
   )
+  const call = useCallback(
+    async (element: Element, data: { [x: string]: string }) => {
+      if (!contract) throw new Error("Can't access to contract.")
+      const func = contract[element.name]
+      if (!func) throw new Error(`Function not found: ${element.name}`)
+      const args = element.inputs.map(({ type }, idx) => {
+        const input = data.args[idx]
+        return convert(type, input)
+      })
+      const option = toOption(
+        element.stateMutability,
+        DEFAULT_GAS_LIMIT,
+        data.value,
+      )
+      return func(...args, option)
+    },
+    [contract],
+  )
   return (
     <Layout>
       <Header />
       <h2>VIEW</h2>
       {views.map((each) => (
-        <Form
-          key={each.name}
-          element={each}
-          account={account}
-          contract={contract}
-          view
-        />
+        <Form key={each.name} element={each} active={active} call={call} />
       ))}
       <h2>NON-PAYABLE</h2>
       {nonpayable.map((each) => (
-        <Form
-          key={each.name}
-          element={each}
-          account={account}
-          contract={contract}
-        />
+        <Form key={each.name} element={each} active={active} call={call} />
       ))}
       <h2>PAYABLE</h2>
       {payable.map((each) => (
-        <Form
-          key={each.name}
-          element={each}
-          account={account}
-          contract={contract}
-          payable
-        />
+        <Form key={each.name} element={each} active={active} call={call} />
       ))}
     </Layout>
   )
 }
-const DEFAULT_GAS_LIMIT = 4500000
+
 const Form: VFC<{
   element: Element
-  account?: string | null
-  contract?: Contract
-  payable?: boolean
-  view?: boolean
-}> = ({ element, account, contract, payable, view }) => {
+  active?: boolean
+  call: (...args: any[]) => Promise<any>
+}> = ({ element, active, call }) => {
   const methods = useForm()
   const { handleSubmit, register } = methods
   const [output, setOutput] = useState()
@@ -95,40 +112,20 @@ const Form: VFC<{
   return (
     <FormProvider key={element.name} {...methods}>
       <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            if (!contract) return
-            const func = contract[element.name]
-            if (!func) return
-            const args = element.inputs.map(({ type }, idx) => {
-              const input = data.args[idx]
-              if (type === 'uint256') {
-                return BigNumber.from(input)
-              }
-              return input
-            })
-            const options = {
-              value: payable ? BigNumber.from(data.value) : undefined,
-              gasLimit: view ? undefined : DEFAULT_GAS_LIMIT,
-            }
-            console.log(...args, options)
-            const res = args
-              ? await func(...args, options)
-              : await func(options)
-            setOutput(res)
-          } catch (e) {
-            setErrorMessage(JSON.stringify(e))
-          }
-        })}
+        onSubmit={handleSubmit(async (data) =>
+          call(element, data)
+            .then(setOutput)
+            .catch((e) => setErrorMessage(JSON.stringify(e))),
+        )}
       >
         <Section>
           <div>
             <h3>{element.name}</h3>
-            <button disabled={!account}>Call</button>
+            <button disabled={!active}>Call</button>
           </div>
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           <Inputs>
-            {payable && (
+            {element.stateMutability === 'payable' && (
               <label>
                 <p>
                   value: <span>uint256</span>
