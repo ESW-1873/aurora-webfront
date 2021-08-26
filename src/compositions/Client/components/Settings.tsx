@@ -28,6 +28,7 @@ export const Settings: VFC<SettingsProps> = ({
   }
   return (
     <Layout>
+      <h2>Settings</h2>
       <Address>
         <h3>Contarct Address</h3>
         <input
