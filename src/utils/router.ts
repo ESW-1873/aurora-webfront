@@ -7,6 +7,7 @@ export const RAISE = '/raise'
 
 export const METAMASK_URL = 'https://metamask.io/'
 export const ETHERSCAN_URL = 'https://etherscan.io/'
+export const POLYGONSCAN_URL = 'https://polygonscan.com/'
 
 export const postPage = (id: string, options?: Partial<{ fullUrl: boolean }>) =>
   options?.fullUrl ? `${SERVICE_URL}/${id}` : `/${id}`

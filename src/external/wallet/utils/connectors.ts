@@ -16,8 +16,10 @@ const INFURA_ID = '602183a665b846d7af6d11341f98261a'
 export const walletconnect = new WalletConnectConnector({
   supportedChainIds: isProd ? SUPPORTED_CHAIN_IDS : DEV_SUPPORTED_CHAIN_IDS,
   rpc: {
-    1: `https://mainnet.infura.io/v3/${INFURA_ID}`,
-    4: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
+    // 1: `https://mainnet.infura.io/v3/${INFURA_ID}`,
+    // 4: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
+    137: `https://polygon-mainnet.infura.io/v3/${INFURA_ID}`,
+    80001: `https://polygon-mumbai.infura.io/v3/${INFURA_ID}`,
   },
   qrcode: true,
   pollingInterval: 15000,
