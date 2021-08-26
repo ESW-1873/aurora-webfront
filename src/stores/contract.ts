@@ -46,8 +46,8 @@ export const useContractStore = () => {
       if (currentSigner !== null) {
         const newContract = PostManager__factory.connect(
           isProd
-            ? CONTRACT_ADDRESS[SupportedChainId.MAINNET]
-            : CONTRACT_ADDRESS[chainId ? chainId : SupportedChainId.RINKEBY],
+            ? CONTRACT_ADDRESS[SupportedChainId.MATIC]
+            : CONTRACT_ADDRESS[chainId ? chainId : SupportedChainId.MUMBAI],
           currentSigner,
         )
         setContractState(newContract)

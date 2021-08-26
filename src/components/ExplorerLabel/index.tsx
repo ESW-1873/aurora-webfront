@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components'
 
 export const AddressLabel: VFC<{ address: string }> = ({ address }) => {
   const { chainId } = useWalletStore()
-  const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
+  const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MATIC]
   return (
     <AccountLink
       href={`${explorer}address/${address}`}
@@ -26,7 +26,7 @@ export const AddressButton: VFC<{ address: string; onClick: VoidFunction }> = ({
 
 export const TxHashLabel: VFC<{ txHash: string }> = ({ txHash }) => {
   const { chainId } = useWalletStore()
-  const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MAINNET]
+  const { explorer } = CHAIN_INFO[chainId ? chainId : SupportedChainId.MATIC]
   return (
     <AccountLink
       href={`${explorer}tx/${txHash}`}

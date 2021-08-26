@@ -13,7 +13,7 @@ export const WalletError: VFC<{ error: Error }> = ({ error }) => {
         </Heading>
         <SubHeading>
           {isUnsupportedChainIdError
-            ? 'Please switch to Ethereum Mainnet'
+            ? 'Please switch to Matic'
             : 'Please try refreshing the page and connecting again'}
         </SubHeading>
       </Layout>
