@@ -8,6 +8,11 @@ export const Output = styled.div`
   background-color: lightgray;
   word-break: break-all;
   white-space: pre-wrap;
+  a {
+    :hover {
+      text-decoration: underline;
+    }
+  }
 `
 
 export const ErrorMessage = styled(Output)`
