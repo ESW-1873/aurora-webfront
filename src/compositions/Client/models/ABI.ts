@@ -12,13 +12,11 @@ const abiFunctionsFilter = (
   )
 
 export class ABIModel {
-  readonly abi: ABI
   readonly payables: Element[]
   readonly nonpayables: Element[]
   readonly views: Element[]
 
-  constructor(readonly abiJson: string) {
-    this.abi = JSON.parse(abiJson)
+  constructor(readonly abi: ABI) {
     this.payables = abiFunctionsFilter(this.abi, 'payable')
     this.nonpayables = abiFunctionsFilter(this.abi, 'nonpayable')
     this.views = abiFunctionsFilter(this.abi, 'view')

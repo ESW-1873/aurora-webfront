@@ -1,63 +1,129 @@
-import { InputHTMLAttributes, useMemo, useState, VFC } from 'react'
+import { forwardRef, InputHTMLAttributes, useMemo, useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import ABIJSON from 'src/abi/PostManager.json'
 import { Header } from 'src/components/Header'
-import { CONTRACT_ADDRESS } from 'src/constants/address'
 import { useWalletStore } from 'src/stores'
 import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
 import { ABIModel, ContractModel } from './models'
 import { Element, FieldType } from './types'
 
-const abi = new ABIModel(JSON.stringify(ABIJSON))
-
-const getContractAddress = (chainId: number) => {
-  return CONTRACT_ADDRESS[chainId]
-}
-
 export const Client = () => {
-  const { active, chainId, currentSigner } = useWalletStore()
+  const [abiJson, setAbiJson] = useState<string>()
+  const [abiJsonUrl, setAbiJsonUrl] = useState('')
+  const [abiJsonLabel, setAbiJsonLabel] = useState('')
+  const [contractAddress, setContractAddress] = useState('')
+  const { active, currentSigner } = useWalletStore()
+  const abi = useMemo(
+    () => (abiJson ? new ABIModel(JSON.parse(abiJson)) : undefined),
+    [abiJson],
+  )
   const contract = useMemo(
     () =>
-      chainId && currentSigner
+      contractAddress && abi && currentSigner
         ? new ContractModel({
-            address: getContractAddress(chainId),
+            address: contractAddress,
             abi: abi.abi,
             signerOrProvider: currentSigner,
           })
         : undefined,
-    [chainId, currentSigner],
+    [contractAddress, abi, currentSigner],
   )
   return (
     <Layout>
       <Header />
-      <h2>PAYABLE</h2>
-      {abi.payables.map((each) => (
-        <Form
-          key={each.name}
-          element={each}
-          active={active}
-          call={contract?.call}
-        />
-      ))}
-      <h2>NON-PAYABLE</h2>
-      {abi.nonpayables.map((each) => (
-        <Form
-          key={each.name}
-          element={each}
-          active={active}
-          call={contract?.call}
-        />
-      ))}
-      <h2>VIEW</h2>
-      {abi.views.map((each) => (
-        <Form
-          key={each.name}
-          element={each}
-          active={active}
-          call={contract?.call}
-        />
-      ))}
+      <div>
+        <div>
+          Contarct Address: {contractAddress}{' '}
+          <input
+            value={contractAddress}
+            onChange={({ target: { value } }) => setContractAddress(value)}
+          />
+        </div>
+        <div>
+          ABI: {abiJsonLabel}
+          <div>
+            from URL:
+            <input
+              value={abiJsonUrl}
+              onChange={({ target: { value } }) => setAbiJsonUrl(value)}
+            />
+            <button
+              onClick={() =>
+                fetch(abiJsonUrl).then((res) =>
+                  res.text().then((data) => {
+                    const json = JSON.parse(data)
+                    if (Array.isArray(json)) {
+                      setAbiJson(data)
+                    } else {
+                      json.address && setContractAddress(json.address)
+                      json.abi && setAbiJson(JSON.stringify(json.abi))
+                    }
+                    setAbiJsonLabel(abiJsonUrl)
+                    setAbiJsonUrl('')
+                  }),
+                )
+              }
+            >
+              Load
+            </button>
+          </div>
+          or
+          <div>
+            <label>
+              Upload
+              <input
+                type="file"
+                onChange={({ target: { files } }) => {
+                  if (!files) return
+                  const filename = files[0]
+                  filename.text().then((data) => {
+                    const json = JSON.parse(data)
+                    if (Array.isArray(json)) {
+                      setAbiJson(data)
+                    } else {
+                      json.address && setContractAddress(json.address)
+                      json.abi && setAbiJson(JSON.stringify(json.abi))
+                    }
+                    setAbiJsonLabel(filename.name)
+                  })
+                }}
+                hidden
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      {abi && (
+        <>
+          <h2>PAYABLE</h2>
+          {abi.payables.map((each) => (
+            <Form
+              key={each.name}
+              element={each}
+              active={active}
+              call={contract?.call}
+            />
+          ))}
+          <h2>NON-PAYABLE</h2>
+          {abi.nonpayables.map((each) => (
+            <Form
+              key={each.name}
+              element={each}
+              active={active}
+              call={contract?.call}
+            />
+          ))}
+          <h2>VIEW</h2>
+          {abi.views.map((each) => (
+            <Form
+              key={each.name}
+              element={each}
+              active={active}
+              call={contract?.call}
+            />
+          ))}
+        </>
+      )}
     </Layout>
   )
 }
@@ -121,13 +187,15 @@ type InputProps = {
   label: string
   fieldType: FieldType
 } & InputHTMLAttributes<HTMLInputElement>
-const Input: VFC<InputProps> = ({ label, fieldType, ...props }) => (
-  <label>
-    <p>
-      {label}: <span>{fieldType}</span>
-    </p>
-    <input {...props} />
-  </label>
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ label, fieldType, ...props }, ref) => (
+    <label>
+      <p>
+        {label}: <span>{fieldType}</span>
+      </p>
+      <input {...props} ref={ref} />
+    </label>
+  ),
 )
 
 const Layout = styled.div`
