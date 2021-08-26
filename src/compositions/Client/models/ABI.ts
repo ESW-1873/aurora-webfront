@@ -47,6 +47,6 @@ export class ABIModel {
       : prefer === 'userdoc'
       ? merge(this.docs.devdoc, this.docs.userdoc)
       : merge(this.docs.userdoc, this.docs.devdoc)
-    return target?.methods[toSignature(method)]
+    return target?.methods?.[toSignature(method)]
   }
 }
