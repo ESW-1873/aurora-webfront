@@ -89,7 +89,7 @@ const Layout = styled.div`
     margin: 0 auto;
   }
   ${Heading} {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   @media ${breakpoint.s} {
     ${Heading} {

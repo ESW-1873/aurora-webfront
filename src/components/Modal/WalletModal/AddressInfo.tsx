@@ -116,10 +116,11 @@ const ActionAreaDiv = styled.div`
   a {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   > div {
     cursor: pointer;
-    margin-right: 16px;
+    margin-right: 24px;
     min-width: 88px;
   }
   span {
@@ -140,7 +141,7 @@ const AddressLabelDiv = styled.div`
 
 const Layout = styled.div`
   ${Heading} {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   ${SubHeading} {
     opacity: 0.5;
@@ -150,6 +151,6 @@ const Layout = styled.div`
     margin-bottom: 12px;
   }
   ${ActionAreaDiv} {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 `
