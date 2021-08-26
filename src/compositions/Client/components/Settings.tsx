@@ -1,6 +1,6 @@
 import { useState, VFC } from 'react'
 import styled from 'styled-components'
-import { ctaStyle, Output } from './styles'
+import { ctaStyle, ErrorMessage, Output } from './styles'
 
 type SettingsProps = {
   contractAddress: string
@@ -14,17 +14,22 @@ export const Settings: VFC<SettingsProps> = ({
 }) => {
   const [abiJsonUrl, setAbiJsonUrl] = useState('')
   const [abiJsonLabel, setAbiJsonLabel] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState<any>()
   const updateAbi = (data: any, label: string) => {
-    const json = JSON.parse(data)
-    if (Array.isArray(json)) {
-      setAbiJsonStr(data)
-    } else {
-      json.address && setContractAddress(json.address)
-      json.abi && setAbiJsonStr(JSON.stringify(json.abi))
+    setErrorMessage(undefined)
+    try {
+      const json = JSON.parse(data)
+      if (Array.isArray(json)) {
+        setAbiJsonStr(data)
+      } else {
+        json.address && setContractAddress(json.address)
+        json.abi && setAbiJsonStr(JSON.stringify(json.abi))
+      }
+      setAbiJsonLabel(label)
+      setAbiJsonUrl('')
+    } catch (e) {
+      setErrorMessage(e)
     }
-    setAbiJsonLabel(label)
-    setAbiJsonUrl('')
   }
   return (
     <Layout>
@@ -39,6 +44,11 @@ export const Settings: VFC<SettingsProps> = ({
       <div>
         <h3>ABI</h3>
         <Output>{abiJsonLabel}</Output>
+        {errorMessage && (
+          <ErrorMessage>
+            {JSON.stringify(errorMessage.message, null, 4)}
+          </ErrorMessage>
+        )}
         <AbiControl>
           <label>
             Upload
@@ -55,8 +65,9 @@ export const Settings: VFC<SettingsProps> = ({
           or
           <button
             onClick={() =>
-              fetch(abiJsonUrl).then((res) =>
-                res.text().then((data) => updateAbi(data, abiJsonUrl)),
+              fetch(abiJsonUrl).then(
+                (res) => res.text().then((data) => updateAbi(data, abiJsonUrl)),
+                setErrorMessage,
               )
             }
             disabled={!abiJsonUrl}
