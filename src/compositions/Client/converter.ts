@@ -1,5 +1,5 @@
 import { BigNumber } from 'ethers'
-import { Element, FieldType } from './types'
+import { FieldType, Method } from './types'
 
 const IS_NUMBER = /^u?int/
 export const convert = (type: FieldType, input: string) => {
@@ -8,7 +8,7 @@ export const convert = (type: FieldType, input: string) => {
 }
 
 export const toOption = (
-  stateMutability: Element['stateMutability'],
+  stateMutability: Method['stateMutability'],
   gasLimit: string,
   value?: string,
 ) => ({
