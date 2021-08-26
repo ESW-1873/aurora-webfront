@@ -1,4 +1,7 @@
 import { useState, VFC } from 'react'
+import { fontWeightSemiBold } from 'src/styles/font'
+import styled from 'styled-components'
+import { Output } from './styles'
 
 type SettingsProps = {
   contractAddress: string
@@ -12,68 +15,105 @@ export const Settings: VFC<SettingsProps> = ({
 }) => {
   const [abiJsonUrl, setAbiJsonUrl] = useState('')
   const [abiJsonLabel, setAbiJsonLabel] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const updateAbi = (data: any, label: string) => {
+    const json = JSON.parse(data)
+    if (Array.isArray(json)) {
+      setAbiJsonStr(data)
+    } else {
+      json.address && setContractAddress(json.address)
+      json.abi && setAbiJsonStr(JSON.stringify(json.abi))
+    }
+    setAbiJsonLabel(label)
+    setAbiJsonUrl('')
+  }
   return (
-    <div>
-      <div>
-        Contarct Address: {contractAddress}{' '}
+    <Layout>
+      <Address>
+        <h3>Contarct Address</h3>
         <input
           value={contractAddress}
           onChange={({ target: { value } }) => setContractAddress(value)}
         />
-      </div>
+      </Address>
       <div>
-        ABI: {abiJsonLabel}
-        <div>
-          from URL:
-          <input
-            value={abiJsonUrl}
-            onChange={({ target: { value } }) => setAbiJsonUrl(value)}
-          />
-          <button
-            onClick={() =>
-              fetch(abiJsonUrl).then((res) =>
-                res.text().then((data) => {
-                  const json = JSON.parse(data)
-                  if (Array.isArray(json)) {
-                    setAbiJsonStr(data)
-                  } else {
-                    json.address && setContractAddress(json.address)
-                    json.abi && setAbiJsonStr(JSON.stringify(json.abi))
-                  }
-                  setAbiJsonLabel(abiJsonUrl)
-                  setAbiJsonUrl('')
-                }),
-              )
-            }
-          >
-            Load
-          </button>
-        </div>
-        or
-        <div>
+        <h3>ABI</h3>
+        <Output>{abiJsonLabel}</Output>
+        <AbiControl>
           <label>
             Upload
             <input
               type="file"
               onChange={({ target: { files } }) => {
-                if (!files) return
-                const filename = files[0]
-                filename.text().then((data) => {
-                  const json = JSON.parse(data)
-                  if (Array.isArray(json)) {
-                    setAbiJsonStr(data)
-                  } else {
-                    json.address && setContractAddress(json.address)
-                    json.abi && setAbiJsonStr(JSON.stringify(json.abi))
-                  }
-                  setAbiJsonLabel(filename.name)
-                })
+                if (!files?.length) return
+                const file = files[0]
+                file.text().then((data) => updateAbi(data, file.name))
               }}
               hidden
             />
           </label>
-        </div>
+          or
+          <button
+            onClick={() =>
+              fetch(abiJsonUrl).then((res) =>
+                res.text().then((data) => updateAbi(data, abiJsonUrl)),
+              )
+            }
+            disabled={!abiJsonUrl}
+          >
+            Load
+          </button>
+          from URL:
+          <input
+            value={abiJsonUrl}
+            onChange={({ target: { value } }) => setAbiJsonUrl(value)}
+          />
+        </AbiControl>
       </div>
-    </div>
+    </Layout>
   )
 }
+const Layout = styled.div`
+  h3 {
+    margin-top: 16px;
+    font-size: 24px;
+  }
+  input {
+    border: 1px solid;
+  }
+`
+const Address = styled.div`
+  input {
+    margin-top: 12px;
+    display: block;
+    width: 100%;
+    padding: 4px 8px;
+  }
+`
+const AbiControl = styled.div`
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  > * {
+    margin: 0 8px;
+  }
+  input {
+    flex: 1;
+  }
+  label,
+  button {
+    background-color: darkslategray;
+    border-radius: 17px;
+    width: 152px;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: ${fontWeightSemiBold};
+    color: white;
+    cursor: pointer;
+    :disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+`

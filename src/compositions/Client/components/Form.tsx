@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { fontWeightSemiBold } from 'src/styles/font'
 import styled from 'styled-components'
 import { Element, FieldType } from '../types'
+import { ErrorMessage, Output } from './styles'
 
 export const Form: VFC<{
   element: Element
@@ -110,25 +111,4 @@ const Inputs = styled.div`
       border: 1px solid;
     }
   }
-`
-
-const Output = styled.div`
-  margin-top: 12px;
-  width: 100%;
-  border: 1px dotted;
-  padding: 12px;
-  font-size: 14px;
-  background-color: lightgray;
-  word-break: break-all;
-`
-
-const ErrorMessage = styled.div`
-  margin-top: 12px;
-  width: 100%;
-  border: 1px dotted;
-  padding: 12px;
-  font-size: 14px;
-  background-color: lightgray;
-  color: darkred;
-  word-break: break-all;
 `
