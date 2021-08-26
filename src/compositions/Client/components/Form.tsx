@@ -23,7 +23,7 @@ export const Form: VFC<{
           setErrorMessage('')
           return call(element, data)
             .then(setOutput)
-            .catch((e) => setErrorMessage(JSON.stringify(e)))
+            .catch((e) => setErrorMessage(JSON.stringify(e, null, 4)))
         })}
       >
         <Section>
@@ -59,7 +59,9 @@ export const Form: VFC<{
               <button disabled={!active}>Call</button>
             </Inputs>
             {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-            {output != null && <Output>{JSON.stringify(output)}</Output>}
+            {output != null && (
+              <Output>{JSON.stringify(output, null, 4)}</Output>
+            )}
           </CollapsableDiv>
         </Section>
       </form>
