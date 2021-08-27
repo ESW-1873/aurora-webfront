@@ -26,23 +26,23 @@ interface PostManagerInterface extends ethers.utils.Interface {
     "allDonations(uint256)": FunctionFragment;
     "allPosts(uint256)": FunctionFragment;
     "auroraAddress()": FunctionFragment;
-    "burnUltraRare(uint256,string)": FunctionFragment;
+    "burnUltraRare(uint256)": FunctionFragment;
     "cancel(uint256)": FunctionFragment;
     "cancelableAmount(uint256)": FunctionFragment;
-    "computePostId(string,uint256)": FunctionFragment;
-    "computeReceiptId(address,uint256,uint256)": FunctionFragment;
+    "computeDonationReceiptId(address,uint256,uint256)": FunctionFragment;
     "computeRefundRequestId(address,uint256)": FunctionFragment;
     "donate(uint256,string)": FunctionFragment;
     "eventAddress()": FunctionFragment;
     "isOpen(uint256)": FunctionFragment;
+    "isRare(uint256)": FunctionFragment;
     "nameRegistryAddress()": FunctionFragment;
     "newPost(string,uint256,uint256)": FunctionFragment;
+    "nextReceiptSeed()": FunctionFragment;
     "owner()": FunctionFragment;
     "postAddress()": FunctionFragment;
     "receiptAddress()": FunctionFragment;
     "refund(uint256)": FunctionFragment;
     "refundAddress()": FunctionFragment;
-    "refundReceipts(uint256,uint256)": FunctionFragment;
     "refundRequests(uint256)": FunctionFragment;
     "requestRefund(uint256,string)": FunctionFragment;
     "requireVoucher()": FunctionFragment;
@@ -75,7 +75,7 @@ interface PostManagerInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "burnUltraRare",
-    values: [BigNumberish, string]
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "cancel",
@@ -86,11 +86,7 @@ interface PostManagerInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "computePostId",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "computeReceiptId",
+    functionFragment: "computeDonationReceiptId",
     values: [string, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
@@ -110,12 +106,20 @@ interface PostManagerInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "isRare",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "nameRegistryAddress",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "newPost",
     values: [string, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "nextReceiptSeed",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -133,10 +137,6 @@ interface PostManagerInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "refundAddress",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "refundReceipts",
-    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "refundRequests",
@@ -210,11 +210,7 @@ interface PostManagerInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "computePostId",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "computeReceiptId",
+    functionFragment: "computeDonationReceiptId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -227,11 +223,16 @@ interface PostManagerInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "isOpen", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isRare", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "nameRegistryAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "newPost", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "nextReceiptSeed",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "postAddress",
@@ -244,10 +245,6 @@ interface PostManagerInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "refund", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "refundAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "refundReceipts",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -296,7 +293,25 @@ interface PostManagerInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
 
-  events: {};
+  events: {
+    "BurnUltraRare(uint256,uint256)": EventFragment;
+    "CancelDonation(uint256,uint256,address,uint256)": EventFragment;
+    "Donate(uint256,uint256,uint256,address,uint256,string)": EventFragment;
+    "NewPost(uint256,string,address,uint256,uint256,uint256,uint256)": EventFragment;
+    "ReachCapacity(uint256,uint256,uint256,uint256,uint256)": EventFragment;
+    "Refund(uint256,uint256,uint256,uint256)": EventFragment;
+    "RequestRefund(uint256,address,uint256,string)": EventFragment;
+    "Withdraw(uint256,address,uint256)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "BurnUltraRare"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "CancelDonation"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Donate"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "NewPost"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ReachCapacity"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Refund"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestRefund"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
 export class PostManager extends BaseContract {
@@ -371,16 +386,18 @@ export class PostManager extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
+        boolean
       ] & {
         postId: BigNumber;
-        metadataURI: string;
+        metadata: string;
         capacity: BigNumber;
-        periodHours: BigNumber;
+        periodSeconds: BigNumber;
         startTime: BigNumber;
         endTime: BigNumber;
         donatedCount: BigNumber;
         donatedSum: BigNumber;
+        withdrawed: boolean;
       }
     >;
 
@@ -388,13 +405,12 @@ export class PostManager extends BaseContract {
 
     burnUltraRare(
       receiptId: BigNumberish,
-      metadataURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     cancel(
       receiptId: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     cancelableAmount(
@@ -402,16 +418,10 @@ export class PostManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    computePostId(
-      metadataURI: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    computeReceiptId(
+    computeDonationReceiptId(
       account: string,
-      postId: BigNumberish,
-      index: BigNumberish,
+      seed: BigNumberish,
+      serialNum: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -423,7 +433,7 @@ export class PostManager extends BaseContract {
 
     donate(
       postId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -431,14 +441,21 @@ export class PostManager extends BaseContract {
 
     isOpen(postId: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
 
+    isRare(
+      receiptId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     nameRegistryAddress(overrides?: CallOverrides): Promise<[string]>;
 
     newPost(
-      metadataURI: string,
+      metadata: string,
       capacity: BigNumberish,
-      periodHours: BigNumberish,
+      periodSeconds: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    nextReceiptSeed(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -453,12 +470,6 @@ export class PostManager extends BaseContract {
 
     refundAddress(overrides?: CallOverrides): Promise<[string]>;
 
-    refundReceipts(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     refundRequests(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -466,7 +477,7 @@ export class PostManager extends BaseContract {
 
     requestRefund(
       receiptId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -530,16 +541,18 @@ export class PostManager extends BaseContract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber
+      BigNumber,
+      boolean
     ] & {
       postId: BigNumber;
-      metadataURI: string;
+      metadata: string;
       capacity: BigNumber;
-      periodHours: BigNumber;
+      periodSeconds: BigNumber;
       startTime: BigNumber;
       endTime: BigNumber;
       donatedCount: BigNumber;
       donatedSum: BigNumber;
+      withdrawed: boolean;
     }
   >;
 
@@ -547,13 +560,12 @@ export class PostManager extends BaseContract {
 
   burnUltraRare(
     receiptId: BigNumberish,
-    metadataURI: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   cancel(
     receiptId: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   cancelableAmount(
@@ -561,16 +573,10 @@ export class PostManager extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  computePostId(
-    metadataURI: string,
-    blockNumber: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  computeReceiptId(
+  computeDonationReceiptId(
     account: string,
-    postId: BigNumberish,
-    index: BigNumberish,
+    seed: BigNumberish,
+    serialNum: BigNumberish,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -582,7 +588,7 @@ export class PostManager extends BaseContract {
 
   donate(
     postId: BigNumberish,
-    metadataURI: string,
+    metadata: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -590,14 +596,18 @@ export class PostManager extends BaseContract {
 
   isOpen(postId: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
+  isRare(receiptId: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
+
   nameRegistryAddress(overrides?: CallOverrides): Promise<string>;
 
   newPost(
-    metadataURI: string,
+    metadata: string,
     capacity: BigNumberish,
-    periodHours: BigNumberish,
+    periodSeconds: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  nextReceiptSeed(overrides?: CallOverrides): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -612,12 +622,6 @@ export class PostManager extends BaseContract {
 
   refundAddress(overrides?: CallOverrides): Promise<string>;
 
-  refundReceipts(
-    arg0: BigNumberish,
-    arg1: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   refundRequests(
     arg0: BigNumberish,
     overrides?: CallOverrides
@@ -625,7 +629,7 @@ export class PostManager extends BaseContract {
 
   requestRefund(
     receiptId: BigNumberish,
-    metadataURI: string,
+    metadata: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -689,16 +693,18 @@ export class PostManager extends BaseContract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
+        boolean
       ] & {
         postId: BigNumber;
-        metadataURI: string;
+        metadata: string;
         capacity: BigNumber;
-        periodHours: BigNumber;
+        periodSeconds: BigNumber;
         startTime: BigNumber;
         endTime: BigNumber;
         donatedCount: BigNumber;
         donatedSum: BigNumber;
+        withdrawed: boolean;
       }
     >;
 
@@ -706,7 +712,6 @@ export class PostManager extends BaseContract {
 
     burnUltraRare(
       receiptId: BigNumberish,
-      metadataURI: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -717,16 +722,10 @@ export class PostManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    computePostId(
-      metadataURI: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    computeReceiptId(
+    computeDonationReceiptId(
       account: string,
-      postId: BigNumberish,
-      index: BigNumberish,
+      seed: BigNumberish,
+      serialNum: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -738,7 +737,7 @@ export class PostManager extends BaseContract {
 
     donate(
       postId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -746,14 +745,21 @@ export class PostManager extends BaseContract {
 
     isOpen(postId: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
+    isRare(
+      receiptId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     nameRegistryAddress(overrides?: CallOverrides): Promise<string>;
 
     newPost(
-      metadataURI: string,
+      metadata: string,
       capacity: BigNumberish,
-      periodHours: BigNumberish,
+      periodSeconds: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    nextReceiptSeed(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -765,12 +771,6 @@ export class PostManager extends BaseContract {
 
     refundAddress(overrides?: CallOverrides): Promise<string>;
 
-    refundReceipts(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     refundRequests(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -778,7 +778,7 @@ export class PostManager extends BaseContract {
 
     requestRefund(
       receiptId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -809,7 +809,126 @@ export class PostManager extends BaseContract {
     ): Promise<BigNumber>;
   };
 
-  filters: {};
+  filters: {
+    BurnUltraRare(
+      receiptId?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber],
+      { receiptId: BigNumber; amount: BigNumber }
+    >;
+
+    CancelDonation(
+      postId?: null,
+      receiptId?: null,
+      donee?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, string, BigNumber],
+      {
+        postId: BigNumber;
+        receiptId: BigNumber;
+        donee: string;
+        amount: BigNumber;
+      }
+    >;
+
+    Donate(
+      postId?: null,
+      receiptId?: null,
+      serialId?: null,
+      applyer?: null,
+      amount?: null,
+      metadata?: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, BigNumber, string, BigNumber, string],
+      {
+        postId: BigNumber;
+        receiptId: BigNumber;
+        serialId: BigNumber;
+        applyer: string;
+        amount: BigNumber;
+        metadata: string;
+      }
+    >;
+
+    NewPost(
+      postId?: BigNumberish | null,
+      metadata?: null,
+      donee?: null,
+      capacity?: null,
+      periodSeconds?: null,
+      startTime?: null,
+      endTime?: null
+    ): TypedEventFilter<
+      [BigNumber, string, string, BigNumber, BigNumber, BigNumber, BigNumber],
+      {
+        postId: BigNumber;
+        metadata: string;
+        donee: string;
+        capacity: BigNumber;
+        periodSeconds: BigNumber;
+        startTime: BigNumber;
+        endTime: BigNumber;
+      }
+    >;
+
+    ReachCapacity(
+      postId?: BigNumberish | null,
+      capacity?: null,
+      endTime?: null,
+      donatedCount?: null,
+      donatedSum?: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber],
+      {
+        postId: BigNumber;
+        capacity: BigNumber;
+        endTime: BigNumber;
+        donatedCount: BigNumber;
+        donatedSum: BigNumber;
+      }
+    >;
+
+    Refund(
+      receiptId?: null,
+      postId?: null,
+      requestId?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, BigNumber, BigNumber],
+      {
+        receiptId: BigNumber;
+        postId: BigNumber;
+        requestId: BigNumber;
+        amount: BigNumber;
+      }
+    >;
+
+    RequestRefund(
+      requestId?: null,
+      sender?: null,
+      receiptId?: null,
+      metadata?: null
+    ): TypedEventFilter<
+      [BigNumber, string, BigNumber, string],
+      {
+        requestId: BigNumber;
+        sender: string;
+        receiptId: BigNumber;
+        metadata: string;
+      }
+    >;
+
+    Withdraw(
+      postId?: null,
+      donee?: null,
+      amount?: null
+    ): TypedEventFilter<
+      [BigNumber, string, BigNumber],
+      { postId: BigNumber; donee: string; amount: BigNumber }
+    >;
+  };
 
   estimateGas: {
     accumulatorAddress(overrides?: CallOverrides): Promise<BigNumber>;
@@ -825,13 +944,12 @@ export class PostManager extends BaseContract {
 
     burnUltraRare(
       receiptId: BigNumberish,
-      metadataURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     cancel(
       receiptId: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     cancelableAmount(
@@ -839,16 +957,10 @@ export class PostManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    computePostId(
-      metadataURI: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    computeReceiptId(
+    computeDonationReceiptId(
       account: string,
-      postId: BigNumberish,
-      index: BigNumberish,
+      seed: BigNumberish,
+      serialNum: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -860,7 +972,7 @@ export class PostManager extends BaseContract {
 
     donate(
       postId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -868,14 +980,21 @@ export class PostManager extends BaseContract {
 
     isOpen(postId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+    isRare(
+      receiptId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     nameRegistryAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
     newPost(
-      metadataURI: string,
+      metadata: string,
       capacity: BigNumberish,
-      periodHours: BigNumberish,
+      periodSeconds: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    nextReceiptSeed(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -890,12 +1009,6 @@ export class PostManager extends BaseContract {
 
     refundAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
-    refundReceipts(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     refundRequests(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -903,7 +1016,7 @@ export class PostManager extends BaseContract {
 
     requestRefund(
       receiptId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -958,13 +1071,12 @@ export class PostManager extends BaseContract {
 
     burnUltraRare(
       receiptId: BigNumberish,
-      metadataURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     cancel(
       receiptId: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     cancelableAmount(
@@ -972,16 +1084,10 @@ export class PostManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    computePostId(
-      metadataURI: string,
-      blockNumber: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    computeReceiptId(
+    computeDonationReceiptId(
       account: string,
-      postId: BigNumberish,
-      index: BigNumberish,
+      seed: BigNumberish,
+      serialNum: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -993,7 +1099,7 @@ export class PostManager extends BaseContract {
 
     donate(
       postId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1004,16 +1110,23 @@ export class PostManager extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    isRare(
+      receiptId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     nameRegistryAddress(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     newPost(
-      metadataURI: string,
+      metadata: string,
       capacity: BigNumberish,
-      periodHours: BigNumberish,
+      periodSeconds: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    nextReceiptSeed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1028,12 +1141,6 @@ export class PostManager extends BaseContract {
 
     refundAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    refundReceipts(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     refundRequests(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -1041,7 +1148,7 @@ export class PostManager extends BaseContract {
 
     requestRefund(
       receiptId: BigNumberish,
-      metadataURI: string,
+      metadata: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
