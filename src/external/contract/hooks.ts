@@ -47,6 +47,7 @@ const waitConfirmations = async (
  * TODO: resetting
  */
 const DEFAULT_GAS_LIMIT = 10000000
+const DEFAULT_GAS_PRICE = 20000000000
 export const DEFAULT_CAPACITY = 100000
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
 
@@ -65,6 +66,7 @@ export const useContract = () => {
         contract.donate(postId, metadata, {
           value: parsedAmount,
           gasLimit: DEFAULT_GAS_LIMIT,
+          gasPrice: DEFAULT_GAS_PRICE,
         }),
       )
     },
