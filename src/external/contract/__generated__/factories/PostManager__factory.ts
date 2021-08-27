@@ -19,6 +19,272 @@ const _abi = [
     type: "constructor",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "receiptId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "BurnUltraRare",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "receiptId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "donee",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "CancelDonation",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "receiptId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "serialId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "applyer",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string",
+      },
+    ],
+    name: "Donate",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "donee",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "capacity",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "periodSeconds",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "startTime",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "endTime",
+        type: "uint256",
+      },
+    ],
+    name: "NewPost",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "capacity",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "endTime",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "donatedCount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "donatedSum",
+        type: "uint256",
+      },
+    ],
+    name: "ReachCapacity",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "receiptId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "requestId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Refund",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "requestId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "receiptId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "metadata",
+        type: "string",
+      },
+    ],
+    name: "RequestRefund",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "donee",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Withdraw",
+    type: "event",
+  },
+  {
     inputs: [],
     name: "accumulatorAddress",
     outputs: [
@@ -92,7 +358,7 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "metadataURI",
+        name: "metadata",
         type: "string",
       },
       {
@@ -102,7 +368,7 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "periodHours",
+        name: "periodSeconds",
         type: "uint256",
       },
       {
@@ -124,6 +390,11 @@ const _abi = [
         internalType: "uint256",
         name: "donatedSum",
         type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "withdrawed",
+        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -149,11 +420,6 @@ const _abi = [
         name: "receiptId",
         type: "uint256",
       },
-      {
-        internalType: "string",
-        name: "metadataURI",
-        type: "string",
-      },
     ],
     name: "burnUltraRare",
     outputs: [],
@@ -170,7 +436,7 @@ const _abi = [
     ],
     name: "cancel",
     outputs: [],
-    stateMutability: "payable",
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -195,46 +461,22 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "metadataURI",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "blockNumber",
-        type: "uint256",
-      },
-    ],
-    name: "computePostId",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
         name: "account",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "postId",
+        name: "seed",
         type: "uint256",
       },
       {
         internalType: "uint256",
-        name: "index",
+        name: "serialNum",
         type: "uint256",
       },
     ],
-    name: "computeReceiptId",
+    name: "computeDonationReceiptId",
     outputs: [
       {
         internalType: "uint256",
@@ -278,7 +520,7 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "metadataURI",
+        name: "metadata",
         type: "string",
       },
     ],
@@ -320,6 +562,25 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "receiptId",
+        type: "uint256",
+      },
+    ],
+    name: "isRare",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "nameRegistryAddress",
     outputs: [
@@ -336,7 +597,7 @@ const _abi = [
     inputs: [
       {
         internalType: "string",
-        name: "metadataURI",
+        name: "metadata",
         type: "string",
       },
       {
@@ -346,13 +607,26 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "periodHours",
+        name: "periodSeconds",
         type: "uint256",
       },
     ],
     name: "newPost",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nextReceiptSeed",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -427,30 +701,6 @@ const _abi = [
         name: "",
         type: "uint256",
       },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "refundReceipts",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
     ],
     name: "refundRequests",
     outputs: [
@@ -472,7 +722,7 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "metadataURI",
+        name: "metadata",
         type: "string",
       },
     ],
