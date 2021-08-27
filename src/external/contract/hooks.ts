@@ -46,7 +46,7 @@ const waitConfirmations = async (
  * Consts for using Contract
  * TODO: resetting
  */
-const DEFAULT_GAS_LIMIT = 4500000
+const DEFAULT_GAS_LIMIT = 10000000
 export const DEFAULT_CAPACITY = 100000
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
 
