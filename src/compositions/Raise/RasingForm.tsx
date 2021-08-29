@@ -52,6 +52,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   const imageUrl = watch('image.dataUrl')
   useEffect(() => {
     register('image')
+    register('title')
   }, [register])
   return (
     <>
@@ -95,7 +96,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           </UploadImageLabel>
         </UploadImageDiv>
         <TitleTextarea
-          {...register('title')}
+          onChange={({ target: { value } }) =>
+            setValue(`title`, value.replace(/\r?\n/g, ''))
+          }
           placeholder="Project Title(Within 30 chars)…"
           maxLength={30}
         />
@@ -215,7 +218,7 @@ const UploadImageLabel = styled.label<UploadCtaStyleProps>`
 `
 const TitleTextarea = styled.textarea`
   width: 100%;
-  height: 156px;
+  height: 234px;
   resize: none;
 
   font-size: 64px;
