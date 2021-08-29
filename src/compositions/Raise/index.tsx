@@ -1,6 +1,5 @@
 import React, { useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { BlurredBackground } from 'src/components/Background'
 import { ImageCropModal } from 'src/components/Modal/ImageCropModal'
 import { LoadingModal } from 'src/components/Modal/LoadingModal'
 import { SpecificationModal } from 'src/components/Modal/SpecificationModal'
@@ -27,11 +26,9 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
     useSpecificationModalStore()
   const methods = useForm<RaisingFormData>()
   const { watch, handleSubmit } = methods
-  const imageUrl = watch('image.dataUrl')
   return (
     <>
       <RaiseStyles />
-      <BlurredBackground imageUrl={imageUrl} />
       <PageWrapper
         {...seoProps}
         pageTitle="Fund Raising"
