@@ -1,8 +1,8 @@
 export enum SupportedChainId {
   // MAINNET = 1,
-  // RINKEBY = 4,
+  RINKEBY = 4,
   MATIC = 137,
-  MUMBAI = 80001,
+  // MUMBAI = 80001,
   GANACHE = 1337,
 }
 
@@ -10,7 +10,7 @@ export const SUPPORTED_CHAIN_IDS: SupportedChainId[] = [SupportedChainId.MATIC]
 
 export const DEV_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
   SupportedChainId.MATIC,
-  SupportedChainId.MUMBAI,
+  SupportedChainId.RINKEBY,
   SupportedChainId.GANACHE,
 ]
 
@@ -30,18 +30,18 @@ export const CHAIN_INFO: ChainInfo = {
   //   explorer: 'https://etherscan.io/',
   //   label: 'Mainnet',
   // },
-  // [SupportedChainId.RINKEBY]: {
-  //   explorer: 'https://rinkeby.etherscan.io/',
-  //   label: 'Rinkeby',
-  // },
+  [SupportedChainId.RINKEBY]: {
+    explorer: 'https://rinkeby.etherscan.io/',
+    label: 'Rinkeby',
+  },
   [SupportedChainId.MATIC]: {
     explorer: 'https://polygonscan.com/',
     label: 'Matic',
   },
-  [SupportedChainId.MUMBAI]: {
-    explorer: 'https://mumbai.polygonscan.com/',
-    label: 'Mumbai',
-  },
+  // [SupportedChainId.MUMBAI]: {
+  //   explorer: 'https://mumbai.polygonscan.com/',
+  //   label: 'Mumbai',
+  // },
   [SupportedChainId.GANACHE]: {
     explorer: '',
     label: 'Ganache',

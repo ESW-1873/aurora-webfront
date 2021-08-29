@@ -47,7 +47,7 @@ export const useContractStore = () => {
         const newContract = PostManager__factory.connect(
           isProd
             ? CONTRACT_ADDRESS[SupportedChainId.MATIC]
-            : CONTRACT_ADDRESS[chainId ? chainId : SupportedChainId.MUMBAI],
+            : CONTRACT_ADDRESS[chainId ? chainId : SupportedChainId.RINKEBY],
           currentSigner,
         )
         setContractState(newContract)
