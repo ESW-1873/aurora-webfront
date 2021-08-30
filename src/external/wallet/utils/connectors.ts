@@ -17,9 +17,9 @@ export const walletconnect = new WalletConnectConnector({
   supportedChainIds: isProd ? SUPPORTED_CHAIN_IDS : DEV_SUPPORTED_CHAIN_IDS,
   rpc: {
     // 1: `https://mainnet.infura.io/v3/${INFURA_ID}`,
-    // 4: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
+    4: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
     137: `https://polygon-mainnet.g.alchemy.com/v2/9apanUOHDQhhzl4RJHtcxY8SpMbH3QWJ`,
-    80001: `https://polygon-mumbai.g.alchemy.com/v2/9apanUOHDQhhzl4RJHtcxY8SpMbH3QWJ`,
+    // 80001: `https://polygon-mumbai.g.alchemy.com/v2/9apanUOHDQhhzl4RJHtcxY8SpMbH3QWJ`,
   },
   qrcode: true,
   pollingInterval: 15000,

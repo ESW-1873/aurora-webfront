@@ -42,6 +42,7 @@ const paragraphStyle = css`
 const Styles = createGlobalStyle`
   img {
     vertical-align: bottom;
+    pointer-events: none;
   }
   h2 {
     ${heading2Style};
