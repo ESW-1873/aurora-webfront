@@ -11,7 +11,7 @@ const TopPage = () => {
   if (preferredLang === 'ja' || preferredLang === 'ja-JP') {
     Router.replace('0x989690') // japanese one
   } else {
-    Router.replace('hoge') // english one
+    Router.replace('0x989692') // english one
   }
   return <></>
 }
