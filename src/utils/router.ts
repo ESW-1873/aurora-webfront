@@ -1,7 +1,9 @@
 import { HOSTNAME } from './env'
 
 export const SERVICE_URL = `https://${HOSTNAME}`
-export const TOP = '/'
+// TODO: 10/1になったらaboutを削除してrootに戻す
+export const TOP = '/about'
+// export const TOP = '/'
 export const DISCLAIMER = '/disclaimer'
 export const RAISE = '/raise'
 
