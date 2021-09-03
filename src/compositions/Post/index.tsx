@@ -11,7 +11,7 @@ import { WithdrawModal } from 'src/components/Modal/WithdrawModal'
 import { SEOProps } from 'src/components/SEO'
 import { primaryColor, white } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
 import { CONTENT_MAX_WIDTH, PageWrapper } from '../PageWrapper'
 import { Contents, ContentsProps } from './Contents'
@@ -109,5 +109,11 @@ const FixedFooter = styled.div`
     background-color: ${white}26;
     ${flexCenter};
     font-weight: ${fontWeightSemiBold};
+  }
+  @media ${breakpoint.m} {
+    p {
+      backdrop-filter: blur(8px) brightness(1);
+      background-color: ${white}05;
+    }
   }
 `
