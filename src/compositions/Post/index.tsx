@@ -112,7 +112,8 @@ const FixedFooter = styled.div`
   }
   @media ${breakpoint.m} {
     p {
-      backdrop-filter: blur(15px) brightness(1);
+      backdrop-filter: blur(8px) brightness(0.999);
+      background-color: ${white}0d;
     }
   }
 `
