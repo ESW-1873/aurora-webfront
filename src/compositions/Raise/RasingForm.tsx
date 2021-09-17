@@ -32,7 +32,6 @@ import {
   flexCenter,
   noGuide,
 } from 'src/styles/mixins'
-import { isProd, IS_STORYBOOK } from 'src/utils/env'
 import { readAsDataURLAsync } from 'src/utils/reader'
 import styled, { css } from 'styled-components'
 
@@ -67,6 +66,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
     register('image')
     register('title')
     register('periodSeconds')
+    register('capacity')
   }, [register])
 
   return (
@@ -181,30 +181,33 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             timeIntervals={5}
             dateFormat="yyyy/MM/dd HH:mm:ss"
           />
-          <ExpirationFormBtn
+          <ProjectSettingsBtn
             onClick={() => setValue('periodSeconds', MAX_EXPIRATION_SECONDS)}
           >
             MAX
-          </ExpirationFormBtn>
-          <ExpirationFormBtn
+          </ProjectSettingsBtn>
+          <ProjectSettingsBtn
             onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
           >
             RESET
-          </ExpirationFormBtn>
+          </ProjectSettingsBtn>
         </ExpirationFormWrapper>
-        {!isProd && !IS_STORYBOOK && (
-          <ProjectSettingsDiv>
-            <p>These fields are shown on non-production env only.</p>
-            <label>
-              Capacity
-              <input
-                {...register('capacity')}
-                type="number"
-                defaultValue={DEFAULT_CAPACITY}
-              />
-            </label>
-          </ProjectSettingsDiv>
-        )}
+        <CapacityDiv>
+          <p>Capacity</p>
+          <span>Please set capacity. Default is 100,000.</span>
+          <div>
+            <input
+              {...register('capacity')}
+              type="number"
+              defaultValue={DEFAULT_CAPACITY}
+            />
+          </div>
+          <ProjectSettingsBtn
+            onClick={() => setValue('capacity', DEFAULT_CAPACITY)}
+          >
+            RESET
+          </ProjectSettingsBtn>
+        </CapacityDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <SubmitButton />
       </Form>
@@ -388,7 +391,7 @@ const ExpirationFormWrapper = styled.div`
   }
 `
 
-const ExpirationFormBtn = styled.button`
+const ProjectSettingsBtn = styled.button`
   margin: 4px 4px;
   width: 96px;
   height: 32px;
@@ -401,5 +404,11 @@ const ExpirationFormBtn = styled.button`
   color: ${white};
   :hover {
     background: ${gray}7d;
+  }
+`
+const CapacityDiv = styled.div`
+  margin: 16px 0;
+  input {
+    border: 1px solid;
   }
 `
