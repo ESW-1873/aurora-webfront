@@ -216,7 +216,13 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 }
 const SubmitButton = styled(({ className }) => {
   const { watch } = useFormContext<RaisingFormData>()
-  const { image, title = '', description = '', periodSeconds } = watch()
+  const {
+    image,
+    title = '',
+    description = '',
+    periodSeconds,
+    capacity,
+  } = watch()
   const isSubmittable =
     image &&
     title.length > 0 &&
@@ -224,7 +230,8 @@ const SubmitButton = styled(({ className }) => {
     description.length > 0 &&
     description.length <= 800 &&
     (!periodSeconds ||
-      (periodSeconds >= 0 && periodSeconds <= MAX_EXPIRATION_SECONDS))
+      (periodSeconds >= 0 && periodSeconds <= MAX_EXPIRATION_SECONDS)) &&
+    (!capacity || capacity >= 0)
   return (
     <PublishButton
       className={className}
