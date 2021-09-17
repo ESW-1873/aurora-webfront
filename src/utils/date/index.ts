@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 
@@ -9,6 +10,7 @@ const ISO8601 = 'YYYY-MM-DDTHH:mm:ssZ'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(advancedFormat)
+dayjs.extend(customParseFormat)
 
 export const formatJSTYMD = (str?: string) =>
   str ? dayjs(str).tz(TimeZone).format('YYYY.MM.DD') : ''
