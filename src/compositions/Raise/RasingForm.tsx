@@ -183,14 +183,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                 defaultValue={DEFAULT_CAPACITY}
               />
             </label>
-            <label>
-              Period seconds
-              <input
-                {...register('periodSeconds')}
-                type="number"
-                defaultValue={DEFAULT_PERIOD_SECONDS}
-              />
-            </label>
           </ProjectSettingsDiv>
         )}
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
