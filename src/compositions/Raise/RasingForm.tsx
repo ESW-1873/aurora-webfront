@@ -13,9 +13,16 @@ import {
   DEFAULT_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
 import { useImageCropModalStore } from 'src/stores'
-import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
+import {
+  defaultShadow,
+  errorColor,
+  gray,
+  purple,
+  white,
+} from 'src/styles/colors'
 import {
   fontWeightBold,
+  fontWeightMedium,
   fontWeightRegular,
   fontWeightSemiBold,
 } from 'src/styles/font'
@@ -174,6 +181,16 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             timeIntervals={5}
             dateFormat="yyyy/MM/dd HH:mm:ss"
           />
+          <ExpirationFormBtn
+            onClick={() => setValue('periodSeconds', MAX_EXPIRATION_SECONDS)}
+          >
+            MAX
+          </ExpirationFormBtn>
+          <ExpirationFormBtn
+            onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
+          >
+            RESET
+          </ExpirationFormBtn>
         </ExpirationFormWrapper>
         {!isProd && !IS_STORYBOOK && (
           <ProjectSettingsDiv>
@@ -368,5 +385,21 @@ const ExpirationFormWrapper = styled.div`
   input {
     border: 1px solid black;
     width: 200;
+  }
+`
+
+const ExpirationFormBtn = styled.button`
+  margin: 4px 4px;
+  width: 96px;
+  height: 32px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: ${fontWeightMedium};
+  letter-spacing: 0.016em;
+  background: ${gray};
+  color: ${white};
+  :hover {
+    background: ${gray}7d;
   }
 `
