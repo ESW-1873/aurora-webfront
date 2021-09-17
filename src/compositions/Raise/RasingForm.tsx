@@ -117,6 +117,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         />
         <ExpirationFormWrapper>
           <p>Period Datetime</p>
+          <span>
+            Please set expiration date. Maximum is 7 days. Default is 3 days.
+          </span>
           <ReactDatePicker
             selected={baseDate
               .add(watch('periodSeconds') || 0, 'second')
