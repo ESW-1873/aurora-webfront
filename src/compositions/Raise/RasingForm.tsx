@@ -205,6 +205,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             />
           </div>
           <ProjectSettingsBtn
+            type="button"
             onClick={() => setValue('capacity', DEFAULT_CAPACITY)}
           >
             RESET
