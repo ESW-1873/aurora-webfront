@@ -182,11 +182,13 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             dateFormat="yyyy/MM/dd HH:mm:ss"
           />
           <ExpirationFormBtn
+            type="button"
             onClick={() => setValue('periodSeconds', MAX_EXPIRATION_SECONDS)}
           >
             MAX
           </ExpirationFormBtn>
           <ExpirationFormBtn
+            type="button"
             onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
           >
             RESET
