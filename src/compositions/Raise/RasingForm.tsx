@@ -11,6 +11,7 @@ import { Image } from 'src/components/Image'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
+  MAX_EXPIRATION_SECONDS,
 } from 'src/external/contract/hooks'
 import { useImageCropModalStore } from 'src/stores'
 import {
@@ -51,8 +52,6 @@ export type RaisingFormData = Omit<
   periodSeconds?: number
 }
 
-// プロジェクト有効期間の最大値: 7日間
-const MAX_EXPIRATION_SECONDS = 60 * 60 * 24 * 7
 export const RaisingForm: VFC<RaisingFormProps> = ({
   errorMessage,
   submit,
