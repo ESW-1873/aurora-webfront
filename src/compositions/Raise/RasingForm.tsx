@@ -297,6 +297,10 @@ const ButtonsLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media ${breakpoint.s} {
+    flex-direction: column;
+    gap: 16px 0;
+  }
 `
 
 const Form = styled.form`
