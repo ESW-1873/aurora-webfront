@@ -48,8 +48,8 @@ export type RaisingFormData = Omit<
     dataUrl: string
     contentType: string
   }
-  capacity?: number
-  periodSeconds?: number
+  capacity?: number // memo: optional の必要はない？
+  periodSeconds?: number // memo: optional の必要はない？
 }
 
 export const RaisingForm: VFC<RaisingFormProps> = ({
@@ -121,6 +121,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
+        {/** 有効期限設定 */}
         <ExpirationFormWrapper>
           <p>Period Datetime</p>
           <span>
@@ -133,6 +134,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             onChange={(d: Date) => {
               const periodSeconds = dayjs(d).diff(baseDate, 'second')
               if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                // 入力値が最大値を超えた場合には、最大値を設定する
                 setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
               } else {
                 setValue('periodSeconds', periodSeconds)
@@ -143,12 +145,13 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
               if (input.isValid()) {
                 const periodSeconds = input.diff(baseDate, 'second')
                 if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                  // 入力値が最大値を超えた場合には、最大値を設定する
                   setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
                 } else {
                   setValue('periodSeconds', periodSeconds)
                 }
               } else {
-                // 入力形式が正しくない場合は、0にする
+                // 入力形式が正しくない場合は、デフォルトに戻す
                 setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)
               }
             }}
@@ -193,6 +196,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             RESET
           </ProjectSettingsBtn>
         </ExpirationFormWrapper>
+        {/** 人数設定 */}
         <CapacityDiv>
           <p>Capacity</p>
           <span>Please set capacity. Default is 100,000.</span>
