@@ -1329,6 +1329,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bridges-inc/next-seo@2.0.0":
+  version "2.0.0"
+  resolved "https://npm.pkg.github.com/download/@bridges-inc/next-seo/2.0.0/32d1f87bf1e67ee1218f9010608f07b37b02888a8b6652da3ae523d31a237203#b9f43da13554ae95d053364342ddbaec297a7a42"
+  integrity sha512-vIj8fuc74+tkwAOfygYf6ScNZuJcJ7yNpuuwpHKJ465XeML05mBgziU7iAcwwT5DBq8pJOVXNQmo+gt2OZcGVQ==
+
 "@cspotcode/source-map-consumer@0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-consumer/-/source-map-consumer-0.8.0.tgz#33bf4b7b39c178821606f669bbc447a6a629786b"
@@ -2796,11 +2801,6 @@
   integrity sha512-iQADsW4LBMISqZ6Ci1dupJL9pprqwcVFTcOsEmQOEhW+KLCVn/Y4Jrvg2k19fIHCp+iFprriYPTdRcQR8NbUPg==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
-
-"@squardinc/next-seo@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@squardinc/next-seo/1.0.0/ee850e78bd41e7a6119c129194852d814dae8f1c72d767ee38d564e8007efd8e#ac2e9aeffdf3fd58a1473a167a2e7f30aae89b16"
-  integrity sha512-3/fUAJVzZwl2UkAdLTzzD/jrC6IhSm9qOEDdltAEawL0Ec13Rqm6FQ9eAReoAgzzkaxQ9UXXRPE5dCIVh//lpw==
 
 "@storybook/addon-viewport@^6.3.4":
   version "6.3.4"

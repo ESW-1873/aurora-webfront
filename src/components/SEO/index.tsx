@@ -1,4 +1,7 @@
-import { SEO as ReactSEO, SEOProps as ReactSEOProps } from '@squardinc/next-seo'
+import {
+  SEO as ReactSEO,
+  SEOProps as ReactSEOProps,
+} from '@bridges-inc/next-seo'
 import { VFC } from 'react'
 import { SITE_SEO_DATA } from 'src/constants/seo'
 import { ROOT_URL } from 'src/utils/env'
