@@ -50,6 +50,8 @@ const DEFAULT_GAS_LIMIT = 10000000
 const DEFAULT_GAS_PRICE = 20000000000
 export const DEFAULT_CAPACITY = 100000
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
+// プロジェクト有効期間の最大値: 7日間
+export const MAX_EXPIRATION_SECONDS = 60 * 60 * 24 * 7
 
 /**
  * Contractを利用するためのhooks
