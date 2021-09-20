@@ -3,24 +3,14 @@ import { useFormContext } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
-import {
-  BaseButtonElement,
-  PublishButton,
-} from 'src/components/Buttons/CtaButton'
+import { PreviewButton, PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
 import { useImageCropModalStore } from 'src/stores'
-import {
-  defaultShadow,
-  errorColor,
-  gray,
-  primaryColor,
-  purple,
-  white,
-} from 'src/styles/colors'
+import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
   fontWeightRegular,
@@ -141,7 +131,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
           <SubmitButton />
-          <PreviewButton />
+          <PreviewButtonContainer />
         </ButtonsLayout>
       </Form>
     </>
@@ -166,7 +156,7 @@ const SubmitButton = styled(({ className }) => {
   )
 })``
 
-const PreviewButton = styled(({ className }) => {
+const PreviewButtonContainer = styled(({ className }) => {
   const { watch } = useFormContext<RaisingFormData>()
   const { image, title = '', description = '' } = watch()
   const isAvailable =
@@ -177,20 +167,20 @@ const PreviewButton = styled(({ className }) => {
     description.length <= 800
 
   return (
-    <PreviewButtonElement
+    <PreviewButton
       className={className}
       type="button"
       disabled={!isAvailable}
       onClick={() =>
-        alert({
-          image: image,
-          title: title,
-          description: description,
-        })
+        alert(
+          JSON.stringify({
+            title: title,
+            description: description,
+            image: image,
+          }),
+        )
       }
-    >
-      Preview
-    </PreviewButtonElement>
+    />
   )
 })``
 
@@ -349,19 +339,4 @@ const CardDescription = styled.p`
   font-size: 74px;
   width: 2592.38px;
   height: 1244.11px;
-`
-
-const PreviewButtonElement = styled(BaseButtonElement)`
-  display: block;
-  margin: 0 auto;
-  background: ${gray}80;
-  color: ${primaryColor}80;
-  :enabled {
-    background: ${gray};
-    color: ${white};
-    :hover,
-    :focus {
-      background: ${gray}80;
-    }
-  }
 `
