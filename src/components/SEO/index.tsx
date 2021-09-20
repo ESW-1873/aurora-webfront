@@ -20,6 +20,7 @@ export const SEO: VFC<ReactSEOProps> = ({
     siteTitle={siteTitle || SITE_SEO_DATA.siteTitle}
     author={author || SITE_SEO_DATA.author}
     image={image || SITE_SEO_DATA.image}
+    noindex
     {...props}
   />
 )
