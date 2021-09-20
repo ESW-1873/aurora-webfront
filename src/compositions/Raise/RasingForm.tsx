@@ -1,4 +1,7 @@
+import dayjs from 'dayjs'
 import React, { useEffect, useState, VFC } from 'react'
+import ReactDatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import { useFormContext } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postClient } from 'src/api/postClient'
@@ -10,9 +13,16 @@ import {
   DEFAULT_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
 import { useImageCropModalStore } from 'src/stores'
-import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
+import {
+  defaultShadow,
+  errorColor,
+  gray,
+  purple,
+  white,
+} from 'src/styles/colors'
 import {
   fontWeightBold,
+  fontWeightMedium,
   fontWeightRegular,
   fontWeightSemiBold,
 } from 'src/styles/font'
@@ -42,6 +52,8 @@ export type RaisingFormData = Omit<
   periodSeconds?: number
 }
 
+// プロジェクト有効期間の最大値: 7日間
+const MAX_EXPIRATION_SECONDS = 60 * 60 * 24 * 7
 export const RaisingForm: VFC<RaisingFormProps> = ({
   errorMessage,
   submit,
@@ -50,10 +62,13 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
+  const baseDate = dayjs()
   useEffect(() => {
     register('image')
     register('title')
+    register('periodSeconds')
   }, [register])
+
   return (
     <>
       <Form
@@ -107,6 +122,78 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
+        <ExpirationFormWrapper>
+          <p>Period Datetime</p>
+          <span>
+            Please set expiration date. Maximum is 7 days. Default is 3 days.
+          </span>
+          <ReactDatePicker
+            selected={baseDate
+              .add(watch('periodSeconds') || 0, 'second')
+              .toDate()}
+            onChange={(d: Date) => {
+              const periodSeconds = dayjs(d).diff(baseDate, 'second')
+              if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+              } else {
+                setValue('periodSeconds', periodSeconds)
+              }
+            }}
+            onChangeRaw={(e: React.FocusEvent<HTMLInputElement>) => {
+              const input = dayjs(e.target.value, 'YYYY/MM/DD HH:mm:ss', true)
+              if (input.isValid()) {
+                const periodSeconds = input.diff(baseDate, 'second')
+                if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                  setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                } else {
+                  setValue('periodSeconds', periodSeconds)
+                }
+              } else {
+                // 入力形式が正しくない場合は、0にする
+                setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)
+              }
+            }}
+            allowSameDay={false}
+            minDate={baseDate.clone().toDate()}
+            maxDate={baseDate.clone().second(MAX_EXPIRATION_SECONDS).toDate()}
+            minTime={
+              baseDate
+                .clone()
+                .add(watch('periodSeconds') || 0, 'second')
+                .diff(
+                  baseDate.clone().add(1, 'day').hour(0).minute(0).second(0),
+                ) < 0
+                ? baseDate.clone().toDate()
+                : baseDate.clone().hour(0).minute(0).second(0).toDate()
+            }
+            maxTime={
+              baseDate
+                .clone()
+                .add(watch('periodSeconds') || 0, 'second')
+                .diff(
+                  baseDate.clone().add(6, 'day').hour(0).minute(0).second(0),
+                ) > 0
+                ? baseDate.clone().toDate()
+                : baseDate.clone().hour(23).minute(59).second(59).toDate()
+            }
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={5}
+            dateFormat="yyyy/MM/dd HH:mm:ss"
+          />
+          <ExpirationFormBtn
+            type="button"
+            onClick={() => setValue('periodSeconds', MAX_EXPIRATION_SECONDS)}
+          >
+            MAX
+          </ExpirationFormBtn>
+          <ExpirationFormBtn
+            type="button"
+            onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
+          >
+            RESET
+          </ExpirationFormBtn>
+        </ExpirationFormWrapper>
         {!isProd && !IS_STORYBOOK && (
           <ProjectSettingsDiv>
             <p>These fields are shown on non-production env only.</p>
@@ -116,14 +203,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                 {...register('capacity')}
                 type="number"
                 defaultValue={DEFAULT_CAPACITY}
-              />
-            </label>
-            <label>
-              Period seconds
-              <input
-                {...register('periodSeconds')}
-                type="number"
-                defaultValue={DEFAULT_PERIOD_SECONDS}
               />
             </label>
           </ProjectSettingsDiv>
@@ -136,13 +215,15 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 }
 const SubmitButton = styled(({ className }) => {
   const { watch } = useFormContext<RaisingFormData>()
-  const { image, title = '', description = '' } = watch()
+  const { image, title = '', description = '', periodSeconds } = watch()
   const isSubmittable =
     image &&
     title.length > 0 &&
     title.length <= 30 &&
     description.length > 0 &&
-    description.length <= 800
+    description.length <= 800 &&
+    (!periodSeconds ||
+      (periodSeconds >= 0 && periodSeconds <= MAX_EXPIRATION_SECONDS))
   return (
     <PublishButton
       className={className}
@@ -299,4 +380,28 @@ const CardDescription = styled.p`
   font-size: 74px;
   width: 2592.38px;
   height: 1244.11px;
+`
+
+const ExpirationFormWrapper = styled.div`
+  margin: 16px 0;
+  input {
+    border: 1px solid black;
+    width: 200;
+  }
+`
+
+const ExpirationFormBtn = styled.button`
+  margin: 4px 4px;
+  width: 96px;
+  height: 32px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: ${fontWeightMedium};
+  letter-spacing: 0.016em;
+  background: ${gray};
+  color: ${white};
+  :hover {
+    background: ${gray}7d;
+  }
 `
