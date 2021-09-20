@@ -38,7 +38,6 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
         {...seoProps}
         pageTitle="Fund Raising"
         description="Raise your project ultimately fast and easily."
-        noindex
         noFooter
       >
         <main>

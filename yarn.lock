@@ -1329,6 +1329,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bridges-inc/next-seo@2.0.0":
+  version "2.0.0"
+  resolved "https://npm.pkg.github.com/download/@bridges-inc/next-seo/2.0.0/32d1f87bf1e67ee1218f9010608f07b37b02888a8b6652da3ae523d31a237203#b9f43da13554ae95d053364342ddbaec297a7a42"
+  integrity sha512-vIj8fuc74+tkwAOfygYf6ScNZuJcJ7yNpuuwpHKJ465XeML05mBgziU7iAcwwT5DBq8pJOVXNQmo+gt2OZcGVQ==
+
 "@cspotcode/source-map-consumer@0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-consumer/-/source-map-consumer-0.8.0.tgz#33bf4b7b39c178821606f669bbc447a6a629786b"
@@ -2802,11 +2807,6 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@squardinc/next-seo@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@squardinc/next-seo/1.0.0/ee850e78bd41e7a6119c129194852d814dae8f1c72d767ee38d564e8007efd8e#ac2e9aeffdf3fd58a1473a167a2e7f30aae89b16"
-  integrity sha512-3/fUAJVzZwl2UkAdLTzzD/jrC6IhSm9qOEDdltAEawL0Ec13Rqm6FQ9eAReoAgzzkaxQ9UXXRPE5dCIVh//lpw==
-
 "@storybook/addon-viewport@^6.3.4":
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-6.3.4.tgz#9ea72c6fc37efde6d5a3f0fe0368b90c2572afd1"
@@ -3842,6 +3842,11 @@
     "@types/react" "*"
     date-fns "^2.0.1"
     react-popper "^2.2.5"
+
+"@types/react-gtm-module@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-gtm-module/-/react-gtm-module-2.0.1.tgz#b2c6cd14ec251d6ae7fa576edf1d43825908a378"
+  integrity sha512-T/DN9gAbCYk5wJ1nxf4pSwmXz4d1iVjM++OoG+mwMfz9STMAotGjSb65gJHOS5bPvl6vLSsJnuC+y/43OQrltg==
 
 "@types/react-image-crop@^8.1.3":
   version "8.1.3"
@@ -14237,6 +14242,11 @@ react-fast-compare@^3.0.1, react-fast-compare@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
+
+react-gtm-module@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/react-gtm-module/-/react-gtm-module-2.0.11.tgz#14484dac8257acd93614e347c32da9c5ac524206"
+  integrity sha512-8gyj4TTxeP7eEyc2QKawEuQoAZdjKvMY4pgWfycGmqGByhs17fR+zEBs0JUDq4US/l+vbTl+6zvUIx27iDo/Vw==
 
 react-helmet-async@^1.0.7:
   version "1.0.9"

@@ -1,7 +1,8 @@
 import { Web3ReactProvider } from '@web3-react/core'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { VFC } from 'react'
+import { useEffect, VFC } from 'react'
+import TagManager from 'react-gtm-module'
 import { RecoilRoot } from 'recoil'
 import { Favicons } from 'src/components/Favicons'
 import { getLibrary } from 'src/external'
@@ -10,11 +11,14 @@ import 'src/styles/fonts.css'
 import { GlobalStyles } from 'src/styles/global-styles'
 import 'src/styles/globals.css'
 import 'src/styles/reset.css'
-import { ROOT_URL } from 'src/utils/env'
+import { GTM_ID, ROOT_URL } from 'src/utils/env'
 import { extractPathname } from 'src/utils/router'
 
 const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
   const pageUrl = `${ROOT_URL}${extractPathname(asPath)}`
+  useEffect(() => {
+    if (GTM_ID) TagManager.initialize({ gtmId: GTM_ID })
+  }, [])
   return (
     <>
       <Web3ReactProvider getLibrary={getLibrary}>
