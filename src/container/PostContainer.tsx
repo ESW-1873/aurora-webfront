@@ -33,11 +33,15 @@ export const PostContainer: VFC<PostStaticProps> = ({
   const endTime = dayjs.unix(data.endTime || postStaticProps.endTime)
   const hasClosed = dayjs().isAfter(endTime)
   const isDonee = equals(data.donee, account)
+  // TODO: sample card の URL - postId よりサンプルカードgifのURLを計算する
+  const sampleCardUrl =
+    'https://pbblogassets.s3.amazonaws.com/uploads/2020/12/24154045/After-Effects-3D-Card-3D-Card-Rotating.gif'
   return (
     <Post
       postProps={{
         ...postStaticProps,
         totalDonation,
+        sampleCardUrl,
         refundRequests,
         hasClosed,
         endTime,
