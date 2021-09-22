@@ -11,7 +11,6 @@ import { Image } from 'src/components/Image'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
-  MAX_EXPIRATION_SECONDS,
 } from 'src/external/contract/hooks'
 import { useImageCropModalStore } from 'src/stores'
 import {
@@ -125,7 +124,8 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <ExpirationFormWrapper>
           <p>Period Datetime</p>
           <span>
-            Please set expiration date. Maximum is 7 days. Default is 3 days.
+            Please set expiration date. Default is 3 days. You can set the time
+            you want because of dev mode.
           </span>
           <ReactDatePicker
             selected={baseDate
@@ -133,23 +133,13 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
               .toDate()}
             onChange={(d: Date) => {
               const periodSeconds = dayjs(d).diff(baseDate, 'second')
-              if (periodSeconds > MAX_EXPIRATION_SECONDS) {
-                // 入力値が最大値を超えた場合には、最大値を設定する
-                setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
-              } else {
-                setValue('periodSeconds', periodSeconds)
-              }
+              setValue('periodSeconds', periodSeconds)
             }}
             onChangeRaw={(e: React.FocusEvent<HTMLInputElement>) => {
               const input = dayjs(e.target.value, 'YYYY/MM/DD HH:mm:ss', true)
               if (input.isValid()) {
                 const periodSeconds = input.diff(baseDate, 'second')
-                if (periodSeconds > MAX_EXPIRATION_SECONDS) {
-                  // 入力値が最大値を超えた場合には、最大値を設定する
-                  setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
-                } else {
-                  setValue('periodSeconds', periodSeconds)
-                }
+                setValue('periodSeconds', periodSeconds)
               } else {
                 // 入力形式が正しくない場合は、デフォルトに戻す
                 setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)
@@ -157,7 +147,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             }}
             allowSameDay={false}
             minDate={baseDate.clone().toDate()}
-            maxDate={baseDate.clone().second(MAX_EXPIRATION_SECONDS).toDate()}
             minTime={
               baseDate
                 .clone()
@@ -183,18 +172,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             timeIntervals={5}
             dateFormat="yyyy/MM/dd HH:mm:ss"
           />
-          <ProjectSettingsBtn
-            type="button"
-            onClick={() => setValue('periodSeconds', MAX_EXPIRATION_SECONDS)}
-          >
-            MAX
-          </ProjectSettingsBtn>
-          <ProjectSettingsBtn
-            type="button"
-            onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
-          >
-            RESET
-          </ProjectSettingsBtn>
         </ExpirationFormWrapper>
         {/** 人数設定 */}
         <CapacityDiv>
@@ -222,21 +199,13 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 }
 const SubmitButton = styled(({ className }) => {
   const { watch } = useFormContext<RaisingFormData>()
-  const {
-    image,
-    title = '',
-    description = '',
-    periodSeconds,
-    capacity,
-  } = watch()
+  const { image, title = '', description = '', capacity } = watch()
   const isSubmittable =
     image &&
     title.length > 0 &&
     title.length <= 30 &&
     description.length > 0 &&
     description.length <= 800 &&
-    (!periodSeconds ||
-      (periodSeconds >= 0 && periodSeconds <= MAX_EXPIRATION_SECONDS)) &&
     (!capacity || capacity >= 0)
   return (
     <PublishButton

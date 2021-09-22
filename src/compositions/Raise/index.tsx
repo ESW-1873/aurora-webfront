@@ -7,7 +7,8 @@ import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
 import { DEFAULT_PERIOD_SECONDS } from 'src/external/contract/hooks'
 import { useLoadingModalStore, useSpecificationModalStore } from 'src/stores'
-import { createGlobalStyle } from 'styled-components'
+import { fontWeightBold } from 'src/styles/font'
+import styled, { createGlobalStyle } from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 import { RaisingForm, RaisingFormData } from './RasingForm'
 
@@ -41,6 +42,9 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
         noFooter
       >
         <main>
+          <Heading>
+            This is for Posting to Polygon Network from Dev env.
+          </Heading>
           <FormProvider {...methods}>
             <RaisingForm
               submit={openSpecificationModal}
@@ -72,4 +76,10 @@ const RaiseStyles = createGlobalStyle`
   body {
    height: 100%;
   }
+`
+
+const Heading = styled.h3`
+  font-size: 48px;
+  font-weight: ${fontWeightBold};
+  color: red;
 `
