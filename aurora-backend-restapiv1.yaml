@@ -34,10 +34,16 @@ paths:
                   description: ''
                 image:
                   $ref: '#/components/schemas/Image'
+                titleImage:
+                  type: string
+                descriptionImage:
+                  type: string
               required:
                 - title
                 - description
                 - image
+                - titleImage
+                - descriptionImage
             examples: {}
       parameters: []
     parameters: []
@@ -56,6 +62,7 @@ paths:
                 example-1:
                   value:
                     metadata: unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0
+                    imageUrl: unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0
         '400':
           description: Missing Required Information
       requestBody:
@@ -90,6 +97,7 @@ paths:
                 example-1:
                   value:
                     metadata: unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0
+                    imageUrl: unyIhiKh3399qUszWer0fjy38ppVlujh35SRBAT7DL0
         '400':
           description: Missing Required Information
       requestBody:
@@ -115,7 +123,68 @@ paths:
                 value:
                   amount: '10000000000'
                   postId: '0xe6a8b2b83a40'
+                  address: '0xe6a8b2b83a40'
       parameters: []
+    parameters: []
+  /preview:
+    post:
+      summary: Receipt Preview Temporaly
+      operationId: preview-post
+      responses:
+        '200':
+          description: Preview Creted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewResponse'
+        '400':
+          description: Missing Required Information
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                  description: ''
+                image:
+                  $ref: '#/components/schemas/Image'
+              required:
+                - title
+                - description
+                - image
+            examples: {}
+      parameters: []
+    parameters: []
+  /sample:
+    post:
+      summary: Create Sample Card from preview Token and postId
+      operationId: sample-post
+      responses:
+        '200':
+          description: Sample Creted
+        '400':
+          description: Missing Required Information
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                postId:
+                  type: string
+                  description: ''
+              required:
+                - token
+                - postId
+            examples: {}
+      parameters: []
+      description: 'Create Sample Card from preview Token and postId. Caution: this method doesnt have idempotency. You cannot execute this method again with postId which you have already executed with.'
     parameters: []
 components:
   schemas:
@@ -136,15 +205,29 @@ components:
       description: ''
       type: object
       properties:
-        image:
+        imageUrl:
           type: string
           minLength: 1
-        metadata:
+        metadataUrl:
           type: string
           minLength: 1
       required:
-        - image
-        - metadata
+        - imageUrl
+        - metadataUrl
+    PreviewResponse:
+      description: ''
+      type: object
+      properties:
+        temporalyUrl:
+          type: string
+          minLength: 1
+          description: Temporaly url to download card preview. This will expire in several minutes.
+        token:
+          type: string
+          minLength: 1
+      required:
+        - temporalyUrl
+        - token
     Metadata:
       description: ''
       type: object
@@ -152,11 +235,11 @@ components:
         metadata:
           type: string
           minLength: 1
-        image:
+        imageUrl:
           type: string
       required:
         - metadata
-        - image
+        - imageUrl
   securitySchemes:
     APIKey:
       name: API Key
