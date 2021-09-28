@@ -80,18 +80,6 @@ export interface InlineObject {
    * @memberof InlineObject
    */
   image: Image
-  /**
-   *
-   * @type {string}
-   * @memberof InlineObject
-   */
-  titleImage: string
-  /**
-   *
-   * @type {string}
-   * @memberof InlineObject
-   */
-  descriptionImage: string
 }
 /**
  *
@@ -192,7 +180,7 @@ export interface Metadata {
    * @type {string}
    * @memberof Metadata
    */
-  imageUrl: string
+  image: string
 }
 /**
  *
@@ -205,13 +193,13 @@ export interface PostResponse {
    * @type {string}
    * @memberof PostResponse
    */
-  imageUrl: string
+  image: string
   /**
    *
    * @type {string}
    * @memberof PostResponse
    */
-  metadataUrl: string
+  metadata: string
 }
 /**
  *
