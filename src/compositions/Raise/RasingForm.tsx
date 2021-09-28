@@ -57,6 +57,10 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   submit,
 }) => {
   const [imgErrorMessage, setImgErrorMessage] = useState('')
+  const [previewResponse, setPreviewResponse] = useState<{
+    temporalyUrl: string
+    token: string
+  } | null>(null)
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
@@ -214,10 +218,17 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             RESET
           </ProjectSettingsBtn>
         </CapacityDiv>
+        {previewResponse && (
+          <PreviewWrapper>
+            <ImageDiv>
+              <Image src={previewResponse.temporalyUrl} alt="preview" />
+            </ImageDiv>
+          </PreviewWrapper>
+        )}
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
           <SubmitButton />
-          <PreviewButtonContainer />
+          <PreviewButtonContainer setPreviewResponse={setPreviewResponse} />
         </ButtonsLayout>
       </Form>
     </>
@@ -251,7 +262,14 @@ const SubmitButton = styled(({ className }) => {
   )
 })``
 
-const PreviewButtonContainer = styled(({ className }) => {
+const PreviewButtonContainer: VFC<{
+  setPreviewResponse: React.Dispatch<
+    React.SetStateAction<{
+      temporalyUrl: string
+      token: string
+    } | null>
+  >
+}> = ({ setPreviewResponse }) => {
   const { watch } = useFormContext<RaisingFormData>()
   const { image, title = '', description = '' } = watch()
   const isAvailable =
@@ -261,23 +279,29 @@ const PreviewButtonContainer = styled(({ className }) => {
     description.length > 0 &&
     description.length <= 800
 
+  const requestPreview = async () => {
+    const res = await postClient.previewPost({
+      title: title,
+      description: description,
+      image: {
+        data: image.dataUrl.replace(/data.*base64,/, ''),
+        contentType: image.contentType,
+      },
+    })
+    setPreviewResponse({
+      temporalyUrl: res.data.temporalyUrl,
+      token: res.data.token,
+    })
+  }
+
   return (
     <PreviewButton
-      className={className}
       type="button"
       disabled={!isAvailable}
-      onClick={() =>
-        alert(
-          JSON.stringify({
-            title: title,
-            description: description,
-            image: image,
-          }),
-        )
-      }
+      onClick={requestPreview}
     />
   )
-})``
+}
 
 type UploadCtaStyleProps = { $hasImage: boolean }
 const UploadCta: VFC<UploadCtaStyleProps> = ({ $hasImage }) => (
@@ -463,5 +487,20 @@ const CapacityDiv = styled.div`
   margin: 16px 0;
   input {
     border: 1px solid;
+  }
+`
+
+const PreviewWrapper = styled.div`
+  margin: 16px 0;
+`
+
+const ImageDiv = styled.div`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 66.7%;
+  @media ${breakpoint.m} {
+    ${noGuide}
+    width: 100vw;
   }
 `
