@@ -80,6 +80,18 @@ export interface InlineObject {
    * @memberof InlineObject
    */
   image: Image
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject
+   */
+  titleImage: string
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject
+   */
+  descriptionImage: string
 }
 /**
  *
@@ -122,6 +134,50 @@ export interface InlineObject2 {
 /**
  *
  * @export
+ * @interface InlineObject3
+ */
+export interface InlineObject3 {
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject3
+   */
+  title: string
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject3
+   */
+  description: string
+  /**
+   *
+   * @type {Image}
+   * @memberof InlineObject3
+   */
+  image: Image
+}
+/**
+ *
+ * @export
+ * @interface InlineObject4
+ */
+export interface InlineObject4 {
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject4
+   */
+  token: string
+  /**
+   *
+   * @type {string}
+   * @memberof InlineObject4
+   */
+  postId: string
+}
+/**
+ *
+ * @export
  * @interface Metadata
  */
 export interface Metadata {
@@ -136,7 +192,7 @@ export interface Metadata {
    * @type {string}
    * @memberof Metadata
    */
-  image: string
+  imageUrl: string
 }
 /**
  *
@@ -149,13 +205,32 @@ export interface PostResponse {
    * @type {string}
    * @memberof PostResponse
    */
-  image: string
+  imageUrl: string
   /**
    *
    * @type {string}
    * @memberof PostResponse
    */
-  metadata: string
+  metadataUrl: string
+}
+/**
+ *
+ * @export
+ * @interface PreviewResponse
+ */
+export interface PreviewResponse {
+  /**
+   * Temporaly url to download card preview. This will expire in several minutes.
+   * @type {string}
+   * @memberof PreviewResponse
+   */
+  temporalyUrl: string
+  /**
+   *
+   * @type {string}
+   * @memberof PreviewResponse
+   */
+  token: string
 }
 
 /**
@@ -310,6 +385,102 @@ export const DefaultApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       }
     },
+    /**
+     *
+     * @summary Receipt Preview Temporaly
+     * @param {InlineObject3} [inlineObject3]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    previewPost: async (
+      inlineObject3?: InlineObject3,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/preview`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        inlineObject3,
+        localVarRequestOptions,
+        configuration,
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * Create Sample Card from preview Token and postId. Caution: this method doesnt have idempotency. You cannot execute this method again with postId which you have already executed with.
+     * @summary Create Sample Card from preview Token and postId
+     * @param {InlineObject4} [inlineObject4]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    samplePost: async (
+      inlineObject4?: InlineObject4,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/sample`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      localVarHeaderParameter['Content-Type'] = 'application/json'
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        inlineObject4,
+        localVarRequestOptions,
+        configuration,
+      )
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
   }
 }
 
@@ -392,6 +563,57 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         configuration,
       )
     },
+    /**
+     *
+     * @summary Receipt Preview Temporaly
+     * @param {InlineObject3} [inlineObject3]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async previewPost(
+      inlineObject3?: InlineObject3,
+      options?: any,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<PreviewResponse>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.previewPost(
+        inlineObject3,
+        options,
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      )
+    },
+    /**
+     * Create Sample Card from preview Token and postId. Caution: this method doesnt have idempotency. You cannot execute this method again with postId which you have already executed with.
+     * @summary Create Sample Card from preview Token and postId
+     * @param {InlineObject4} [inlineObject4]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async samplePost(
+      inlineObject4?: InlineObject4,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.samplePost(
+        inlineObject4,
+        options,
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      )
+    },
   }
 }
 
@@ -451,6 +673,36 @@ export const DefaultApiFactory = function (
         .postRefund(inlineObject1, options)
         .then((request) => request(axios, basePath))
     },
+    /**
+     *
+     * @summary Receipt Preview Temporaly
+     * @param {InlineObject3} [inlineObject3]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    previewPost(
+      inlineObject3?: InlineObject3,
+      options?: any,
+    ): AxiosPromise<PreviewResponse> {
+      return localVarFp
+        .previewPost(inlineObject3, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * Create Sample Card from preview Token and postId. Caution: this method doesnt have idempotency. You cannot execute this method again with postId which you have already executed with.
+     * @summary Create Sample Card from preview Token and postId
+     * @param {InlineObject4} [inlineObject4]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    samplePost(
+      inlineObject4?: InlineObject4,
+      options?: any,
+    ): AxiosPromise<void> {
+      return localVarFp
+        .samplePost(inlineObject4, options)
+        .then((request) => request(axios, basePath))
+    },
   }
 }
 
@@ -500,6 +752,34 @@ export class DefaultApi extends BaseAPI {
   public postRefund(inlineObject1?: InlineObject1, options?: any) {
     return DefaultApiFp(this.configuration)
       .postRefund(inlineObject1, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary Receipt Preview Temporaly
+   * @param {InlineObject3} [inlineObject3]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public previewPost(inlineObject3?: InlineObject3, options?: any) {
+    return DefaultApiFp(this.configuration)
+      .previewPost(inlineObject3, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   * Create Sample Card from preview Token and postId. Caution: this method doesnt have idempotency. You cannot execute this method again with postId which you have already executed with.
+   * @summary Create Sample Card from preview Token and postId
+   * @param {InlineObject4} [inlineObject4]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public samplePost(inlineObject4?: InlineObject4, options?: any) {
+    return DefaultApiFp(this.configuration)
+      .samplePost(inlineObject4, options)
       .then((request) => request(this.axios, this.basePath))
   }
 }
