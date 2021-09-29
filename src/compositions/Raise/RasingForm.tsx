@@ -403,9 +403,9 @@ const InputRightDiv = styled.div`
 `
 
 const ProjectSettingsDiv = styled.div`
-  margin-top: 48px;
+  margin-top: 64px;
   @media ${breakpoint.m} {
-    margin-top: 32px;
+    margin-top: 54px;
     p,
     input {
       font-size: 16px;
