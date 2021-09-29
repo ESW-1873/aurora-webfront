@@ -135,7 +135,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                   }
                 }}
                 onChangeRaw={(e: React.FocusEvent<HTMLInputElement>) => {
-                  const input = dayjs(e.target.value, 'YYYY/MM/DD HH:mm', true)
+                  const input = dayjs(e.target.value, 'MMM d, yyyy HH:mm', true)
                   if (input.isValid()) {
                     const periodSeconds = input.diff(baseDate, 'second')
                     if (periodSeconds > MAX_EXPIRATION_SECONDS) {
