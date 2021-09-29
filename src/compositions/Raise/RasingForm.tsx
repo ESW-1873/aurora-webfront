@@ -14,13 +14,7 @@ import {
   MAX_EXPIRATION_SECONDS,
 } from 'src/external/contract/hooks'
 import { useImageCropModalStore } from 'src/stores'
-import {
-  defaultShadow,
-  errorColor,
-  gray,
-  purple,
-  white,
-} from 'src/styles/colors'
+import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
   fontWeightMedium,
@@ -121,95 +115,94 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
-        {/** Setting the end Date/Time */}
-        <ExpirationFormWrapper>
-          <p>End Date/Time</p>
-          <ReactDatePicker
-            selected={baseDate
-              .add(watch('periodSeconds') || 0, 'second')
-              .toDate()}
-            onChange={(d: Date) => {
-              const periodSeconds = dayjs(d).diff(baseDate, 'second')
-              if (periodSeconds > MAX_EXPIRATION_SECONDS) {
-                // 入力値が最大値を超えた場合には、最大値を設定する
-                setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
-              } else {
-                setValue('periodSeconds', periodSeconds)
-              }
-            }}
-            onChangeRaw={(e: React.FocusEvent<HTMLInputElement>) => {
-              const input = dayjs(e.target.value, 'YYYY/MM/DD HH:mm:ss', true)
-              if (input.isValid()) {
-                const periodSeconds = input.diff(baseDate, 'second')
-                if (periodSeconds > MAX_EXPIRATION_SECONDS) {
-                  // 入力値が最大値を超えた場合には、最大値を設定する
-                  setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
-                } else {
-                  setValue('periodSeconds', periodSeconds)
+        <ProjectSettingsDiv>
+          {/** Setting the end Date/Time */}
+          <EndDateTimeDiv>
+            <p>End Date/Time</p>
+            <InputRightDiv>
+              <ReactDatePicker
+                selected={baseDate
+                  .add(watch('periodSeconds') || 0, 'second')
+                  .toDate()}
+                onChange={(d: Date) => {
+                  const periodSeconds = dayjs(d).diff(baseDate, 'second')
+                  if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                    // 入力値が最大値を超えた場合には、最大値を設定する
+                    setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                  } else {
+                    setValue('periodSeconds', periodSeconds)
+                  }
+                }}
+                onChangeRaw={(e: React.FocusEvent<HTMLInputElement>) => {
+                  const input = dayjs(e.target.value, 'YYYY/MM/DD HH:mm', true)
+                  if (input.isValid()) {
+                    const periodSeconds = input.diff(baseDate, 'second')
+                    if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                      // 入力値が最大値を超えた場合には、最大値を設定する
+                      setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                    } else {
+                      setValue('periodSeconds', periodSeconds)
+                    }
+                  } else {
+                    // 入力形式が正しくない場合は、デフォルトに戻す
+                    setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)
+                  }
+                }}
+                allowSameDay={false}
+                minDate={baseDate.clone().toDate()}
+                maxDate={baseDate
+                  .clone()
+                  .second(MAX_EXPIRATION_SECONDS)
+                  .toDate()}
+                minTime={
+                  baseDate
+                    .clone()
+                    .add(watch('periodSeconds') || 0, 'second')
+                    .diff(
+                      baseDate
+                        .clone()
+                        .add(1, 'day')
+                        .hour(0)
+                        .minute(0)
+                        .second(0),
+                    ) < 0
+                    ? baseDate.clone().toDate()
+                    : baseDate.clone().hour(0).minute(0).second(0).toDate()
                 }
-              } else {
-                // 入力形式が正しくない場合は、デフォルトに戻す
-                setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)
-              }
-            }}
-            allowSameDay={false}
-            minDate={baseDate.clone().toDate()}
-            maxDate={baseDate.clone().second(MAX_EXPIRATION_SECONDS).toDate()}
-            minTime={
-              baseDate
-                .clone()
-                .add(watch('periodSeconds') || 0, 'second')
-                .diff(
-                  baseDate.clone().add(1, 'day').hour(0).minute(0).second(0),
-                ) < 0
-                ? baseDate.clone().toDate()
-                : baseDate.clone().hour(0).minute(0).second(0).toDate()
-            }
-            maxTime={
-              baseDate
-                .clone()
-                .add(watch('periodSeconds') || 0, 'second')
-                .diff(
-                  baseDate.clone().add(6, 'day').hour(0).minute(0).second(0),
-                ) > 0
-                ? baseDate.clone().toDate()
-                : baseDate.clone().hour(23).minute(59).second(59).toDate()
-            }
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={5}
-            dateFormat="yyyy/MM/dd HH:mm:ss"
-          />
-          <ProjectSettingsBtn
-            type="button"
-            onClick={() => setValue('periodSeconds', MAX_EXPIRATION_SECONDS)}
-          >
-            MAX
-          </ProjectSettingsBtn>
-          <ProjectSettingsBtn
-            type="button"
-            onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
-          >
-            DEFAULT
-          </ProjectSettingsBtn>
-        </ExpirationFormWrapper>
-        {/** Setting donation to limited quantity */}
-        <CapacityDiv>
-          <p>Donations limit</p>
-          <div>
-            <input
-              {...register('capacity')}
-              type="number"
-              defaultValue={DEFAULT_CAPACITY}
-            />
-          </div>
-          <ProjectSettingsBtn
-            type="button"
-            onClick={() => setValue('capacity', DEFAULT_CAPACITY)}
-          >
-            DEFAULT
-          </ProjectSettingsBtn>
-        </CapacityDiv>
+                maxTime={
+                  baseDate
+                    .clone()
+                    .add(watch('periodSeconds') || 0, 'second')
+                    .diff(
+                      baseDate
+                        .clone()
+                        .add(6, 'day')
+                        .hour(0)
+                        .minute(0)
+                        .second(0),
+                    ) > 0
+                    ? baseDate.clone().toDate()
+                    : baseDate.clone().hour(23).minute(59).second(59).toDate()
+                }
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={30}
+                dateFormat="MMM d, yyyy HH:mm"
+              />
+            </InputRightDiv>
+          </EndDateTimeDiv>
+          {/** Setting donation to limited quantity */}
+          <CapacityDiv>
+            <p>Donations limit</p>
+            <InputRightDiv>
+              <input
+                {...register('capacity')}
+                type="number"
+                defaultValue={DEFAULT_CAPACITY}
+              />
+            </InputRightDiv>
+          </CapacityDiv>
+        </ProjectSettingsDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <SubmitButton />
       </Form>
@@ -356,78 +349,61 @@ const Form = styled.form`
     font-size: 16px;
     ${TitleTextarea} {
       margin-top: 24px;
+      height: 120px;
     }
     ${DescriptionTextarea} {
-      margin-top: 32px;
+      margin-top: 24px;
     }
   }
+`
+
+const projectSettingDivStyled = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    font-size: 20px;
+    font-weight: ${fontWeightBold};
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+  input {
+    font-size: 20px;
+    font-weight: ${fontWeightMedium};
+    letter-spacing: 0.04em;
+    text-align: right;
+    width: 100%;
+  }
+  :first-child {
+    margin-bottom: 24px;
+  }
+`
+
+const EndDateTimeDiv = styled.div`
+  ${projectSettingDivStyled}
+`
+
+const CapacityDiv = styled.div`
+  ${projectSettingDivStyled}
+`
+
+const InputRightDiv = styled.div`
+  display: flex;
+  max-width: 200px;
+  border-bottom: 1px solid;
+  padding-right: 8px;
 `
 
 const ProjectSettingsDiv = styled.div`
-  border: 1px dotted;
-  padding: 5px 10px 15px;
-  input {
-    margin: 0 8px;
-    border: 1px solid;
-  }
-`
-
-const cardText = css`
-  font-family: ocr-a-std, monospace;
-  font-weight: 400;
-  font-style: normal;
-  color: #231815;
-`
-
-const CardTitle = styled.p`
-  ${cardText};
-  font-size: 141.1627655029297px;
-  width: 2472.62px;
-  height: 141.34px;
-`
-const CardDescription = styled.p`
-  ${cardText};
-  font-size: 74px;
-  width: 2592.38px;
-  height: 1244.11px;
-`
-
-const ExpirationFormWrapper = styled.div`
-  margin: 16px 0;
-  p {
-    font-size: 20px;
-    font-weight: ${fontWeightBold};
-    line-height: 1.5;
-  }
-  input {
-    border: 1px solid black;
-    width: 200;
-  }
-`
-
-const ProjectSettingsBtn = styled.button`
-  margin: 4px 4px;
-  width: 96px;
-  height: 32px;
-  border-radius: 16px;
-  text-align: center;
-  font-size: 12px;
-  font-weight: ${fontWeightMedium};
-  letter-spacing: 0.016em;
-  background: ${gray};
-  color: ${white};
-  :hover {
-    background: ${gray}7d;
-  }
-`
-const CapacityDiv = styled.div`
-  margin: 16px 0;
-  p {
-    font-size: 20px;
-    font-weight: ${fontWeightBold};
-    line-height: 1.5;
-  }
-  input {
-    border: 1px solid;
+  margin-top: 48px;
+  @media ${breakpoint.m} {
+    margin-top: 32px;
+    p,
+    input {
+      font-size: 16px;
+    }
+    ${InputRightDiv} {
+      max-width: 160px;
+    }
   }
 `
