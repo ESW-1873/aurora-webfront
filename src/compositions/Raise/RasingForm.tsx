@@ -42,8 +42,8 @@ export type RaisingFormData = Omit<
     dataUrl: string
     contentType: string
   }
-  capacity?: number // memo: optional の必要はない？
-  periodSeconds?: number // memo: optional の必要はない？
+  capacity: number
+  periodSeconds: number
 }
 
 export const RaisingForm: VFC<RaisingFormProps> = ({
@@ -55,6 +55,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
   const baseDate = dayjs()
+  const inputNumberRegex = RegExp(`^[1-9][0-9]{0,7}$`) // Natural number
   useEffect(() => {
     register('image')
     register('title')
@@ -196,8 +197,14 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             <p>Donations limit</p>
             <InputRightDiv>
               <input
-                {...register('capacity')}
-                type="number"
+                value={watch('capacity')}
+                pattern="^[1-9]*[0-9]*$"
+                minLength={1}
+                onChange={({ target: { value } }) => {
+                  if (inputNumberRegex.test(value)) {
+                    setValue(`capacity`, Number(value))
+                  }
+                }}
                 defaultValue={DEFAULT_CAPACITY}
               />
             </InputRightDiv>
@@ -225,8 +232,8 @@ const SubmitButton = styled(({ className }) => {
     description.length > 0 &&
     description.length <= 800 &&
     (!periodSeconds ||
-      (periodSeconds >= 0 && periodSeconds <= MAX_EXPIRATION_SECONDS)) &&
-    (!capacity || capacity >= 0)
+      (periodSeconds > 0 && periodSeconds <= MAX_EXPIRATION_SECONDS)) &&
+    (!capacity || capacity > 0)
   return (
     <PublishButton
       className={className}
