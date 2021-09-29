@@ -200,6 +200,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                 value={watch('capacity')}
                 pattern="^[1-9]*[0-9]*$"
                 minLength={1}
+                inputMode="numeric"
                 onChange={({ target: { value } }) => {
                   if (inputNumberRegex.test(value)) {
                     setValue(`capacity`, Number(value))
