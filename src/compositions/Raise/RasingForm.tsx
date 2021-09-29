@@ -13,7 +13,7 @@ import {
   DEFAULT_PERIOD_SECONDS,
   MAX_EXPIRATION_SECONDS,
 } from 'src/external/contract/hooks'
-import { useImageCropModalStore } from 'src/stores'
+import { useImageCropModalStore, useModelViewerModalStore } from 'src/stores'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -215,13 +215,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             </InputRightDiv>
           </CapacityDiv>
         </ProjectSettingsDiv>
-        {previewResponse && (
-          <PreviewWrapper>
-            <ImageDiv>
-              <Image src={previewResponse.temporalyUrl} alt="preview" />
-            </ImageDiv>
-          </PreviewWrapper>
-        )}
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
           <SubmitButton />
@@ -268,6 +261,7 @@ const PreviewButtonContainer: VFC<{
   >
 }> = ({ setPreviewResponse }) => {
   const { watch } = useFormContext<RaisingFormData>()
+  const { open: openModelViewerModal } = useModelViewerModalStore()
   const { image, title = '', description = '' } = watch()
   const isAvailable =
     image &&
@@ -288,6 +282,10 @@ const PreviewButtonContainer: VFC<{
     setPreviewResponse({
       temporalyUrl: res.data.temporalyUrl,
       token: res.data.token,
+    })
+    openModelViewerModal({
+      src: res.data.temporalyUrl,
+      alt: 'Preview Card',
     })
   }
 
