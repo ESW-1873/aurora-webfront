@@ -6,14 +6,15 @@ import { useFormContext } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
-import { PublishButton } from 'src/components/Buttons/CtaButton'
+import { PreviewButton, PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
+import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
   MAX_EXPIRATION_SECONDS,
 } from 'src/external/contract/hooks'
-import { useImageCropModalStore } from 'src/stores'
+import { useImageCropModalStore, useModelViewerModalStore } from 'src/stores'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -51,6 +52,10 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   submit,
 }) => {
   const [imgErrorMessage, setImgErrorMessage] = useState('')
+  const [previewResponse, setPreviewResponse] = useState<{
+    temporalyUrl: string
+    token: string
+  } | null>(null)
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
@@ -65,6 +70,8 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 
   return (
     <>
+      {/** カードのプレビューを表示する */}
+      <ModelViewerModal />
       <Form
         onSubmit={(e) => {
           e.preventDefault()
@@ -94,6 +101,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                     })
                   },
                 })
+                setPreviewResponse(null) // Preview用Cardの情報を破棄する
               }}
               accept="image/*"
             />
@@ -105,14 +113,18 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           </UploadImageLabel>
         </UploadImageDiv>
         <TitleTextarea
-          onChange={({ target: { value } }) =>
+          onChange={({ target: { value } }) => {
             setValue(`title`, value.replace(/\r?\n/g, ''))
-          }
+            setPreviewResponse(null) // Preview用Cardの情報を破棄する
+          }}
           placeholder="Project Title(Within 30 chars)…"
           maxLength={30}
         />
         <DescriptionTextarea
-          {...register('description')}
+          onChange={({ target: { value } }) => {
+            setValue(`description`, value)
+            setPreviewResponse(null) // Preview用Cardの情報を破棄する
+          }}
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
@@ -212,11 +224,18 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           </CapacityDiv>
         </ProjectSettingsDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
-        <SubmitButton />
+        <ButtonsLayout>
+          <SubmitButton />
+          <PreviewButtonContainer
+            previewResponse={previewResponse}
+            setPreviewResponse={setPreviewResponse}
+          />
+        </ButtonsLayout>
       </Form>
     </>
   )
 }
+
 const SubmitButton = styled(({ className }) => {
   const { watch } = useFormContext<RaisingFormData>()
   const {
@@ -243,6 +262,64 @@ const SubmitButton = styled(({ className }) => {
     />
   )
 })``
+
+const PreviewButtonContainer: VFC<{
+  previewResponse: {
+    temporalyUrl: string
+    token: string
+  } | null
+  setPreviewResponse: React.Dispatch<
+    React.SetStateAction<{
+      temporalyUrl: string
+      token: string
+    } | null>
+  >
+}> = ({ previewResponse, setPreviewResponse }) => {
+  const { watch } = useFormContext<RaisingFormData>()
+  const { open: openModelViewerModal } = useModelViewerModalStore()
+  const { image, title = '', description = '' } = watch()
+  const isAvailable =
+    image &&
+    title.length > 0 &&
+    title.length <= 30 &&
+    description.length > 0 &&
+    description.length <= 800
+
+  const requestPreview = async () => {
+    const alt = 'Preview Card'
+    if (previewResponse) {
+      openModelViewerModal({
+        src: previewResponse.temporalyUrl,
+        alt: alt,
+      })
+      return
+    }
+    const res = await postClient.previewPost({
+      title: title,
+      description: description,
+      image: {
+        data: image.dataUrl.replace(/data.*base64,/, ''),
+        contentType: image.contentType,
+      },
+    })
+    openModelViewerModal({
+      src: res.data.temporalyUrl,
+      alt: alt,
+    })
+    setPreviewResponse({
+      temporalyUrl: res.data.temporalyUrl,
+      token: res.data.token,
+    })
+  }
+
+  return (
+    <PreviewButton
+      type="button"
+      disabled={!isAvailable}
+      onClick={requestPreview}
+    />
+  )
+}
 
 type UploadCtaStyleProps = { $hasImage: boolean }
 const UploadCta: VFC<UploadCtaStyleProps> = ({ $hasImage }) => (
@@ -342,6 +419,17 @@ const ErrorMessage = styled.p<{ visible: boolean }>`
     font-size: 16px;
   }
 `
+
+const ButtonsLayout = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media ${breakpoint.s} {
+    flex-direction: column;
+    gap: 16px 0;
+  }
+`
+
 const Form = styled.form`
   padding-bottom: 64px;
   ${TitleTextarea} {
@@ -349,9 +437,6 @@ const Form = styled.form`
   }
   ${DescriptionTextarea} {
     margin-top: 56px;
-  }
-  ${SubmitButton} {
-    margin-top: 20px;
   }
   @media ${breakpoint.m} {
     font-size: 16px;
@@ -413,5 +498,20 @@ const ProjectSettingsDiv = styled.div`
     ${InputRightDiv} {
       max-width: 160px;
     }
+  }
+`
+
+const PreviewWrapper = styled.div`
+  margin: 16px 0;
+`
+
+const ImageDiv = styled.div`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 66.7%;
+  @media ${breakpoint.m} {
+    ${noGuide}
+    width: 100vw;
   }
 `

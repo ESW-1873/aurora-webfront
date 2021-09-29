@@ -67,6 +67,10 @@ export const PublishButton: VFC<ButtonProps> = asTxButton(
   ),
 )
 
+export const PreviewButton: VFC<Omit<ButtonProps, 'label'>> = (props) => (
+  <PreviewButtonElement {...props}>Preview</PreviewButtonElement>
+)
+
 export const BaseButtonElement = styled.button`
   height: 64px;
   width: 100%;
@@ -132,6 +136,23 @@ const PublishButtonElement = styled(BaseButtonElement)`
     :hover,
     :focus {
       background: ${purple}80;
+    }
+  }
+`
+
+// button for preview card
+// TODO: Design
+const PreviewButtonElement = styled(BaseButtonElement)`
+  display: block;
+  margin: 0 auto;
+  background: ${gray}80;
+  color: ${primaryColor}80;
+  :enabled {
+    background: ${gray};
+    color: ${white};
+    :hover,
+    :focus {
+      background: ${gray}80;
     }
   }
 `
