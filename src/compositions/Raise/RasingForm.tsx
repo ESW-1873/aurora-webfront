@@ -121,12 +121,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
-        {/** 有効期限設定 */}
+        {/** Setting the end Date/Time */}
         <ExpirationFormWrapper>
-          <p>Period Datetime</p>
-          <span>
-            Please set expiration date. Maximum is 7 days. Default is 3 days.
-          </span>
+          <p>End Date/Time</p>
           <ReactDatePicker
             selected={baseDate
               .add(watch('periodSeconds') || 0, 'second')
@@ -193,13 +190,12 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             type="button"
             onClick={() => setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)}
           >
-            RESET
+            DEFAULT
           </ProjectSettingsBtn>
         </ExpirationFormWrapper>
-        {/** 人数設定 */}
+        {/** Setting donation to limited quantity */}
         <CapacityDiv>
-          <p>Capacity</p>
-          <span>Please set capacity. Default is 100,000.</span>
+          <p>Donations limit</p>
           <div>
             <input
               {...register('capacity')}
@@ -211,7 +207,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             type="button"
             onClick={() => setValue('capacity', DEFAULT_CAPACITY)}
           >
-            RESET
+            DEFAULT
           </ProjectSettingsBtn>
         </CapacityDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
@@ -398,6 +394,11 @@ const CardDescription = styled.p`
 
 const ExpirationFormWrapper = styled.div`
   margin: 16px 0;
+  p {
+    font-size: 20px;
+    font-weight: ${fontWeightBold};
+    line-height: 1.5;
+  }
   input {
     border: 1px solid black;
     width: 200;
@@ -421,6 +422,11 @@ const ProjectSettingsBtn = styled.button`
 `
 const CapacityDiv = styled.div`
   margin: 16px 0;
+  p {
+    font-size: 20px;
+    font-weight: ${fontWeightBold};
+    line-height: 1.5;
+  }
   input {
     border: 1px solid;
   }
