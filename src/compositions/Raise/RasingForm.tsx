@@ -8,6 +8,7 @@ import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
 import { PreviewButton, PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
+import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
@@ -69,6 +70,8 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 
   return (
     <>
+      {/** カードのプレビューを表示する */}
+      <ModelViewerModal />
       <Form
         onSubmit={(e) => {
           e.preventDefault()
@@ -98,6 +101,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                     })
                   },
                 })
+                setPreviewResponse(null) // Preview用Cardの情報を破棄する
               }}
               accept="image/*"
             />
@@ -109,14 +113,18 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           </UploadImageLabel>
         </UploadImageDiv>
         <TitleTextarea
-          onChange={({ target: { value } }) =>
+          onChange={({ target: { value } }) => {
             setValue(`title`, value.replace(/\r?\n/g, ''))
-          }
+            setPreviewResponse(null) // Preview用Cardの情報を破棄する
+          }}
           placeholder="Project Title(Within 30 chars)…"
           maxLength={30}
         />
         <DescriptionTextarea
-          {...register('description')}
+          onChange={({ target: { value } }) => {
+            setValue(`description`, value)
+            setPreviewResponse(null) // Preview用Cardの情報を破棄する
+          }}
           placeholder="Project description(Within 800 chars)…"
           maxLength={800}
         />
@@ -218,7 +226,10 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
           <SubmitButton />
-          <PreviewButtonContainer setPreviewResponse={setPreviewResponse} />
+          <PreviewButtonContainer
+            previewResponse={previewResponse}
+            setPreviewResponse={setPreviewResponse}
+          />
         </ButtonsLayout>
       </Form>
     </>
@@ -253,13 +264,17 @@ const SubmitButton = styled(({ className }) => {
 })``
 
 const PreviewButtonContainer: VFC<{
+  previewResponse: {
+    temporalyUrl: string
+    token: string
+  } | null
   setPreviewResponse: React.Dispatch<
     React.SetStateAction<{
       temporalyUrl: string
       token: string
     } | null>
   >
-}> = ({ setPreviewResponse }) => {
+}> = ({ previewResponse, setPreviewResponse }) => {
   const { watch } = useFormContext<RaisingFormData>()
   const { open: openModelViewerModal } = useModelViewerModalStore()
   const { image, title = '', description = '' } = watch()
@@ -271,6 +286,14 @@ const PreviewButtonContainer: VFC<{
     description.length <= 800
 
   const requestPreview = async () => {
+    const alt = 'Preview Card'
+    if (previewResponse) {
+      openModelViewerModal({
+        src: previewResponse.temporalyUrl,
+        alt: alt,
+      })
+      return
+    }
     const res = await postClient.previewPost({
       title: title,
       description: description,
@@ -279,13 +302,13 @@ const PreviewButtonContainer: VFC<{
         contentType: image.contentType,
       },
     })
+    openModelViewerModal({
+      src: res.data.temporalyUrl,
+      alt: alt,
+    })
     setPreviewResponse({
       temporalyUrl: res.data.temporalyUrl,
       token: res.data.token,
-    })
-    openModelViewerModal({
-      src: res.data.temporalyUrl,
-      alt: 'Preview Card',
     })
   }
 
