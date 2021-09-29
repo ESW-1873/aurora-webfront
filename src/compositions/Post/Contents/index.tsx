@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import { ActionSection } from './ActionSection'
 import { DonationSection } from './DonationSection'
 import { PostSection } from './PostSection'
-import { SampleCardSection } from './SampleCardSection'
 
 export type ContentsProps = {
   id: string
@@ -16,7 +15,6 @@ export type ContentsProps = {
   donee: string
   hasClosed: boolean
   totalDonation: string
-  sampleCardUrl: string
   refundRequests: Donation[]
   doneeCredit?: string
   hasWithdrawn?: boolean
@@ -34,7 +32,6 @@ export const Contents: VFC<
   description,
   donee,
   totalDonation,
-  sampleCardUrl,
   refundRequests,
   doneeCredit,
   hasClosed,
@@ -56,9 +53,6 @@ export const Contents: VFC<
         title={title}
         description={description}
         totalDonation={totalDonation}
-      />
-      <SampleCardSection // TODO: use url from /sample
-        imageUrl={sampleCardUrl}
       />
       <ActionSection
         postTitle={title}
