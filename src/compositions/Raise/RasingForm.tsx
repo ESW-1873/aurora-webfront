@@ -12,7 +12,7 @@ import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_PERIOD_SECONDS,
-  MAX_EXPIRATION_SECONDS,
+  MAX_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
 import {
   useImageCropModalStore,
@@ -143,9 +143,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                   .toDate()}
                 onChange={(d: Date) => {
                   const periodSeconds = dayjs(d).diff(baseDate, 'second')
-                  if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                  if (periodSeconds > MAX_PERIOD_SECONDS) {
                     // 入力値が最大値を超えた場合には、最大値を設定する
-                    setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                    setValue('periodSeconds', MAX_PERIOD_SECONDS)
                   } else {
                     setValue('periodSeconds', periodSeconds)
                   }
@@ -154,9 +154,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                   const input = dayjs(e.target.value, 'MMM d, yyyy HH:mm', true)
                   if (input.isValid()) {
                     const periodSeconds = input.diff(baseDate, 'second')
-                    if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                    if (periodSeconds > MAX_PERIOD_SECONDS) {
                       // 入力値が最大値を超えた場合には、最大値を設定する
-                      setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                      setValue('periodSeconds', MAX_PERIOD_SECONDS)
                     } else {
                       setValue('periodSeconds', periodSeconds)
                     }
@@ -167,10 +167,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                 }}
                 allowSameDay={false}
                 minDate={baseDate.clone().toDate()}
-                maxDate={baseDate
-                  .clone()
-                  .second(MAX_EXPIRATION_SECONDS)
-                  .toDate()}
+                maxDate={baseDate.clone().second(MAX_PERIOD_SECONDS).toDate()}
                 minTime={
                   baseDate
                     .clone()
@@ -256,7 +253,7 @@ const SubmitButton = styled(({ className }) => {
     description.length > 0 &&
     description.length <= 800 &&
     (!periodSeconds ||
-      (periodSeconds > 0 && periodSeconds <= MAX_EXPIRATION_SECONDS)) &&
+      (periodSeconds > 0 && periodSeconds <= MAX_PERIOD_SECONDS)) &&
     (!capacity || capacity > 0)
   return (
     <PublishButton
