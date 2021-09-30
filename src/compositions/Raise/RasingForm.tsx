@@ -14,7 +14,11 @@ import {
   DEFAULT_PERIOD_SECONDS,
   MAX_EXPIRATION_SECONDS,
 } from 'src/external/contract/hooks'
-import { useImageCropModalStore, useModelViewerModalStore } from 'src/stores'
+import {
+  useImageCropModalStore,
+  useLoadingModalStore,
+  useModelViewerModalStore,
+} from 'src/stores'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -275,6 +279,8 @@ const PreviewButtonContainer: VFC<{
     } | null>
   >
 }> = ({ previewResponse, setPreviewResponse }) => {
+  const { close: closeLoadingModal, open: openLoadingModal } =
+    useLoadingModalStore()
   const { watch } = useFormContext<RaisingFormData>()
   const { open: openModelViewerModal } = useModelViewerModalStore()
   const { image, title = '', description = '' } = watch()
@@ -294,6 +300,10 @@ const PreviewButtonContainer: VFC<{
       })
       return
     }
+    openLoadingModal({
+      heading: 'Waiting for creating Preview Card',
+      subHeading: '',
+    })
     const res = await postClient.previewPost({
       title: title,
       description: description,
@@ -305,6 +315,7 @@ const PreviewButtonContainer: VFC<{
     openModelViewerModal({
       src: res.data.temporalyUrl,
       alt: alt,
+      onLoad: closeLoadingModal,
     })
     setPreviewResponse({
       temporalyUrl: res.data.temporalyUrl,
