@@ -20,6 +20,7 @@ import {
   useImageCropModalStore,
   useLoadingModalStore,
   useModelViewerModalStore,
+  usePreviewResponseStore,
 } from 'src/stores'
 import { defaultShadow, errorColor, purple, white } from 'src/styles/colors'
 import {
@@ -52,18 +53,13 @@ export type RaisingFormData = Omit<
   capacity: number
   periodSeconds: number
 }
-type PreviewResponseType = {
-  temporalyUrl: string
-  token: string
-}
 
 export const RaisingForm: VFC<RaisingFormProps> = ({
   errorMessage,
   submit,
 }) => {
   const [imgErrorMessage, setImgErrorMessage] = useState('')
-  const [previewResponse, setPreviewResponse] =
-    useState<PreviewResponseType | null>(null)
+  const { reset: resetPreviewResponse } = usePreviewResponseStore()
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
@@ -109,7 +105,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                     })
                   },
                 })
-                setPreviewResponse(null) // Preview用Cardの情報を破棄する
+                resetPreviewResponse() // Preview用Cardの情報を破棄する
               }}
               accept="image/*"
             />
@@ -123,7 +119,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <TitleTextarea
           onChange={({ target: { value } }) => {
             setValue(`title`, value.replace(/\r?\n/g, ''))
-            setPreviewResponse(null) // Preview用Cardの情報を破棄する
+            resetPreviewResponse() // Preview用Cardの情報を破棄する
           }}
           placeholder={`Project Title(Within ${DEFAULT_TITLE_LENGTH} chars)…`}
           maxLength={DEFAULT_TITLE_LENGTH}
@@ -131,7 +127,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <DescriptionTextarea
           onChange={({ target: { value } }) => {
             setValue(`description`, value)
-            setPreviewResponse(null) // Preview用Cardの情報を破棄する
+            resetPreviewResponse() // Preview用Cardの情報を破棄する
           }}
           placeholder={`Project description(Within ${DEFAULT_DESCRIPTION_LENGTH} chars)…`}
           maxLength={DEFAULT_DESCRIPTION_LENGTH}
@@ -231,10 +227,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
           <SubmitButton />
-          <PreviewButtonContainer
-            previewResponse={previewResponse}
-            setPreviewResponse={setPreviewResponse}
-          />
+          <PreviewButtonContainer />
         </ButtonsLayout>
       </Form>
     </>
@@ -268,16 +261,13 @@ const SubmitButton = styled(({ className }) => {
   )
 })``
 
-const PreviewButtonContainer: VFC<{
-  previewResponse: PreviewResponseType | null
-  setPreviewResponse: React.Dispatch<
-    React.SetStateAction<PreviewResponseType | null>
-  >
-}> = ({ previewResponse, setPreviewResponse }) => {
+const PreviewButtonContainer: VFC = () => {
   const { close: closeLoadingModal, open: openLoadingModal } =
     useLoadingModalStore()
   const { watch } = useFormContext<RaisingFormData>()
   const { open: openModelViewerModal } = useModelViewerModalStore()
+  const { state: previewResponse, set: setPreviewResponse } =
+    usePreviewResponseStore()
   const { image, title = '', description = '' } = watch()
   const isAvailable =
     image &&
