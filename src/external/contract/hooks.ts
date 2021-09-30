@@ -48,10 +48,19 @@ const waitConfirmations = async (
  */
 const DEFAULT_GAS_LIMIT = 10000000
 const DEFAULT_GAS_PRICE = 20000000000
+/**
+ * Consts for using Post
+ */
+// タイトル: 最大値
+export const DEFAULT_TITLE_LENGTH = 30
+// タイトル: 最大値
+export const DEFAULT_DESCRIPTION_LENGTH = 800
+// 人数: デフォルト値
 export const DEFAULT_CAPACITY = 100000
+// プロジェクト有効期間: デフォルト値
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3 // 3days
-// プロジェクト有効期間の最大値: 7日間
-export const MAX_EXPIRATION_SECONDS = 60 * 60 * 24 * 7 // 7days
+// プロジェクト有効期間: 最大値
+export const MAX_PERIOD_SECONDS = 60 * 60 * 24 * 7 // 7days
 
 /**
  * Contractを利用するためのhooks

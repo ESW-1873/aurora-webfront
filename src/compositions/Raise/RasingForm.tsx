@@ -11,8 +11,10 @@ import { Image } from 'src/components/Image'
 import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import {
   DEFAULT_CAPACITY,
+  DEFAULT_DESCRIPTION_LENGTH,
   DEFAULT_PERIOD_SECONDS,
-  MAX_EXPIRATION_SECONDS,
+  DEFAULT_TITLE_LENGTH,
+  MAX_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
 import {
   useImageCropModalStore,
@@ -121,16 +123,16 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
             setValue(`title`, value.replace(/\r?\n/g, ''))
             setPreviewResponse(null) // Preview用Cardの情報を破棄する
           }}
-          placeholder="Project Title(Within 30 chars)…"
-          maxLength={30}
+          placeholder={`Project Title(Within ${DEFAULT_TITLE_LENGTH} chars)…`}
+          maxLength={DEFAULT_TITLE_LENGTH}
         />
         <DescriptionTextarea
           onChange={({ target: { value } }) => {
             setValue(`description`, value)
             setPreviewResponse(null) // Preview用Cardの情報を破棄する
           }}
-          placeholder="Project description(Within 800 chars)…"
-          maxLength={800}
+          placeholder={`Project description(Within ${DEFAULT_DESCRIPTION_LENGTH} chars)…`}
+          maxLength={DEFAULT_DESCRIPTION_LENGTH}
         />
         <ProjectSettingsDiv>
           {/** Setting the end Date/Time */}
@@ -143,9 +145,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                   .toDate()}
                 onChange={(d: Date) => {
                   const periodSeconds = dayjs(d).diff(baseDate, 'second')
-                  if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                  if (periodSeconds > MAX_PERIOD_SECONDS) {
                     // 入力値が最大値を超えた場合には、最大値を設定する
-                    setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                    setValue('periodSeconds', MAX_PERIOD_SECONDS)
                   } else {
                     setValue('periodSeconds', periodSeconds)
                   }
@@ -154,9 +156,9 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                   const input = dayjs(e.target.value, 'MMM d, yyyy HH:mm', true)
                   if (input.isValid()) {
                     const periodSeconds = input.diff(baseDate, 'second')
-                    if (periodSeconds > MAX_EXPIRATION_SECONDS) {
+                    if (periodSeconds > MAX_PERIOD_SECONDS) {
                       // 入力値が最大値を超えた場合には、最大値を設定する
-                      setValue('periodSeconds', MAX_EXPIRATION_SECONDS)
+                      setValue('periodSeconds', MAX_PERIOD_SECONDS)
                     } else {
                       setValue('periodSeconds', periodSeconds)
                     }
@@ -167,10 +169,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                 }}
                 allowSameDay={false}
                 minDate={baseDate.clone().toDate()}
-                maxDate={baseDate
-                  .clone()
-                  .second(MAX_EXPIRATION_SECONDS)
-                  .toDate()}
+                maxDate={baseDate.clone().second(MAX_PERIOD_SECONDS).toDate()}
                 minTime={
                   baseDate
                     .clone()
@@ -252,11 +251,11 @@ const SubmitButton = styled(({ className }) => {
   const isSubmittable =
     image &&
     title.length > 0 &&
-    title.length <= 30 &&
+    title.length <= DEFAULT_TITLE_LENGTH &&
     description.length > 0 &&
-    description.length <= 800 &&
+    description.length <= DEFAULT_DESCRIPTION_LENGTH &&
     (!periodSeconds ||
-      (periodSeconds > 0 && periodSeconds <= MAX_EXPIRATION_SECONDS)) &&
+      (periodSeconds > 0 && periodSeconds <= MAX_PERIOD_SECONDS)) &&
     (!capacity || capacity > 0)
   return (
     <PublishButton
@@ -287,9 +286,9 @@ const PreviewButtonContainer: VFC<{
   const isAvailable =
     image &&
     title.length > 0 &&
-    title.length <= 30 &&
+    title.length <= DEFAULT_TITLE_LENGTH &&
     description.length > 0 &&
-    description.length <= 800
+    description.length <= DEFAULT_DESCRIPTION_LENGTH
 
   const requestPreview = async () => {
     const alt = 'Preview Card'
