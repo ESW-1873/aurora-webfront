@@ -278,6 +278,7 @@ const PreviewButtonContainer: VFC = () => {
 
   const requestPreview = async () => {
     const alt = 'Preview Card'
+    // response が残っていたら再利用
     if (previewResponse) {
       openModelViewerModal({
         src: previewResponse.temporalyUrl,
