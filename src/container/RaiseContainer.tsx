@@ -6,7 +6,11 @@ import { postClient } from 'src/api/postClient'
 import { SEOProps } from 'src/components/SEO'
 import { Raise, RaisingFormData } from 'src/compositions/Raise'
 import { useContract } from 'src/external/contract/hooks'
-import { useLoadingModalStore, useWalletStore } from 'src/stores'
+import {
+  useLoadingModalStore,
+  usePreviewResponseStore,
+  useWalletStore,
+} from 'src/stores'
 
 export type RaiseConainerProps = {
   seoProps?: SEOProps
@@ -15,6 +19,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
   const { account } = useWalletStore()
   const { raise } = useContract()
   const { open } = useLoadingModalStore()
+  const { state: previewResponse } = usePreviewResponseStore()
   const publish = async ({
     image,
     capacity,
@@ -46,6 +51,26 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       subHeading:
         'Redirect to your project page after your transaction confirmed',
     })
+    const setSampleFromPreview = async (postId: string) => {
+      if (previewResponse) {
+        postClient.samplePost({
+          postId: postId,
+          token: previewResponse.token,
+        })
+      }
+      const res = await postClient.previewPost({
+        title: data.title,
+        description: data.description,
+        image: {
+          data: image.dataUrl.replace(/data.*base64,/, ''),
+          contentType: image.contentType,
+        },
+      })
+      postClient.samplePost({
+        postId: postId,
+        token: res.data.token,
+      })
+    }
     const setPostIdIfExists = async () => {
       const data = await GetPostContents({ donee: account, metadata }).catch(
         () => undefined,
@@ -53,7 +78,9 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       if (!data?.postContents.length) {
         throw new Error()
       }
-      const path = `/${data.postContents[0].id}`
+      const postId = data.postContents[0].id
+      setSampleFromPreview(postId) // PreviewCard作成 & PostId紐付け
+      const path = `/${postId}`
       await router.prefetch(path)
       router.push(path)
     }
