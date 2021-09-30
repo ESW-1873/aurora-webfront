@@ -52,16 +52,18 @@ export type RaisingFormData = Omit<
   capacity: number
   periodSeconds: number
 }
+type PreviewResponseType = {
+  temporalyUrl: string
+  token: string
+}
 
 export const RaisingForm: VFC<RaisingFormProps> = ({
   errorMessage,
   submit,
 }) => {
   const [imgErrorMessage, setImgErrorMessage] = useState('')
-  const [previewResponse, setPreviewResponse] = useState<{
-    temporalyUrl: string
-    token: string
-  } | null>(null)
+  const [previewResponse, setPreviewResponse] =
+    useState<PreviewResponseType | null>(null)
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
@@ -267,15 +269,9 @@ const SubmitButton = styled(({ className }) => {
 })``
 
 const PreviewButtonContainer: VFC<{
-  previewResponse: {
-    temporalyUrl: string
-    token: string
-  } | null
+  previewResponse: PreviewResponseType | null
   setPreviewResponse: React.Dispatch<
-    React.SetStateAction<{
-      temporalyUrl: string
-      token: string
-    } | null>
+    React.SetStateAction<PreviewResponseType | null>
   >
 }> = ({ previewResponse, setPreviewResponse }) => {
   const { close: closeLoadingModal, open: openLoadingModal } =
@@ -300,7 +296,7 @@ const PreviewButtonContainer: VFC<{
       return
     }
     openLoadingModal({
-      heading: 'Waiting for creating Preview Card',
+      heading: 'Waiting for creation of Preview Card',
       subHeading: '',
     })
     const res = await postClient.previewPost({
