@@ -5,7 +5,7 @@ import { Logo } from 'src/components/Logo'
 import { Link } from 'src/elements/Link'
 import { useWalletModalStore, useWalletStore } from 'src/stores'
 import { shortenAddress } from 'src/utils/address'
-import { TOP } from 'src/utils/router'
+import { ABOUT } from 'src/utils/router'
 import styled from 'styled-components'
 
 export const Header: VFC = () => {
@@ -15,7 +15,7 @@ export const Header: VFC = () => {
   return (
     <>
       <HeaderLayout>
-        <Link href={TOP}>
+        <Link href={ABOUT}>
           <Logo />
         </Link>
         {isUnsupportedChainIdError ? (
