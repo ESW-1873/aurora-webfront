@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
       notFound: true,
     }
 
-  const { id, metadata, donee, endTime } = data.postContent || {}
+  const { id, metadata, donee, endTime, capacity } = data.postContent || {}
 
   const post =
     metadata && endTime > Math.floor(new Date().getTime() / 1000)
@@ -48,6 +48,7 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
       description: post.description,
       donee,
       endTime,
+      capacity,
     },
   }
 
