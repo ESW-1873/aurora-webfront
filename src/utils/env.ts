@@ -16,4 +16,8 @@ export const GRAPHQL_ENDPOINT =
 export const POST_API_ENDPOINT =
   process.env.NEXT_PUBLIC_POST_API_ENDPOINT || 'https://api.auroradao-dev.tk'
 
+export const PREVIEW_CARD_ASSETS_ENDPOINT =
+  process.env.NEXT_PUBLIC_PREVIEW_CARD_ASSETS_ENDPOINT ||
+  'https://perm.auroradao-dev.tk'
+
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || ''
