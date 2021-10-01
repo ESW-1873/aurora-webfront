@@ -15,6 +15,8 @@ export type ContentsProps = {
   donee: string
   hasClosed: boolean
   totalDonation: string
+  capacity: number
+  donatedCount: number
   refundRequests: Donation[]
   doneeCredit?: string
   hasWithdrawn?: boolean
@@ -32,6 +34,8 @@ export const Contents: VFC<
   description,
   donee,
   totalDonation,
+  capacity,
+  donatedCount,
   refundRequests,
   doneeCredit,
   hasClosed,
@@ -70,6 +74,8 @@ export const Contents: VFC<
         credit={doneeCredit}
         hasClosed={hasClosed}
         isDonee={isDonee}
+        capacity={capacity}
+        donatedCount={donatedCount}
       />
     </>
   </>

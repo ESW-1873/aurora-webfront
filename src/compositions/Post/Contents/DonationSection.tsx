@@ -9,6 +9,8 @@ import styled from 'styled-components'
 
 type DonationSectionProps = {
   donee: string
+  capacity: number
+  donatedCount: number
   credit?: string
   refundRequests: Donation[]
   hasClosed?: boolean
@@ -16,6 +18,8 @@ type DonationSectionProps = {
 }
 export const DonationSection: VFC<DonationSectionProps> = ({
   donee,
+  capacity,
+  donatedCount,
   credit,
   refundRequests,
   hasClosed,
@@ -25,6 +29,12 @@ export const DonationSection: VFC<DonationSectionProps> = ({
     <Section>
       <Wrapper title="Fundraiser Address">
         <AddressLabel address={donee} />
+      </Wrapper>
+      <Wrapper title="Donated">
+        <CapLabel>
+          <span>{donatedCount}/</span>
+          {capacity}
+        </CapLabel>
       </Wrapper>
       {credit && (
         <Wrapper title="Credit Score">
@@ -92,6 +102,17 @@ const AccountListDiv = styled.div`
   margin-left: 8px;
   > a:not(:last-child) {
     margin-bottom: 16px;
+  }
+`
+
+const CapLabel = styled.p`
+  font-size: 16px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-align: right;
+  span {
+    font-weight: ${fontWeightMedium};
+    font-size: 20px;
   }
 `
 

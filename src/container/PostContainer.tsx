@@ -11,7 +11,7 @@ export type PostStaticProps = {
   seoProps?: SEOProps
   postStaticProps: Pick<
     PostProps['postProps'],
-    'id' | 'keyVisual' | 'title' | 'description' | 'donee'
+    'id' | 'keyVisual' | 'title' | 'description' | 'donee' | 'capacity'
   > & {
     endTime: number
   }
@@ -25,6 +25,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
   const { data: result, refetch } = usePostContent(id)
   const data = result?.postContent || INITIAL_POST
   const totalDonation = data.donatedSum
+  const donatedCount = data.donatedCount
   const ownDonation =
     (account &&
       data.donations?.find(({ sender }) => equals(sender, account))) ||
@@ -42,6 +43,7 @@ export const PostContainer: VFC<PostStaticProps> = ({
         hasClosed,
         endTime,
         hasWithdrawn: data.withdrawn,
+        donatedCount,
       }}
       isDonee={isDonee}
       ownDonation={ownDonation}
