@@ -54,7 +54,7 @@ export const Post: VFC<PostProps> = memo(
                 {hasClosed
                   ? 'This project has already been closed.'
                   : `This project will end on ${endTime.format(
-                      'MMMM D, YYYY',
+                      'MMMM D, YYYY HH:mm',
                     )}`}
               </p>
             </FixedFooter>
