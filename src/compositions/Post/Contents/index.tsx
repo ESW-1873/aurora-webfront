@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { ActionSection } from './ActionSection'
 import { DonationSection } from './DonationSection'
 import { PostSection } from './PostSection'
+import { PreviewSection } from './PreviewSection'
 
 export type ContentsProps = {
   id: string
@@ -58,6 +59,7 @@ export const Contents: VFC<
         description={description}
         totalDonation={totalDonation}
       />
+      <PreviewSection />
       <ActionSection
         postTitle={title}
         postId={id}
