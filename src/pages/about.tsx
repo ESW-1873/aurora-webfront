@@ -1,8 +1,5 @@
-//TODO: 10/1になったら削除
-//--------------------------------
-import { Top } from 'src/compositions/Top'
+import { About } from 'src/compositions/About'
 
-const AboutPage = () => <Top />
+const AboutPage = () => <About />
 
 export default AboutPage
-//--------------------------------

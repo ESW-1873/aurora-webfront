@@ -25,7 +25,7 @@ import { DISCLAIMER, RAISE } from 'src/utils/router'
 import styled from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 
-export const Top: VFC = () => (
+export const About: VFC = () => (
   <>
     <StyledPageWrapper
       siteTitle="Aurora - Ultimately Fast And Easy Online Fundraising"

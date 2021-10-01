@@ -3,7 +3,7 @@ import { PrimaryButton } from 'src/components/Buttons/CtaButton'
 import { useSpecificationModalStore } from 'src/stores'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import { DISCLAIMER, TOP } from 'src/utils/router'
+import { ABOUT, DISCLAIMER } from 'src/utils/router'
 import styled from 'styled-components'
 import { Modal } from '..'
 import { Heading } from '../common'
@@ -18,7 +18,7 @@ export const SpecificationModal: VFC<{ publish: VoidFunction }> = ({
         <Heading>Attention</Heading>
         <p>
           {'You must understand\r\n'}
-          <a target="_blank" href={TOP} rel="noreferrer">
+          <a target="_blank" href={ABOUT} rel="noreferrer">
             Specification
           </a>
           {' and '}
