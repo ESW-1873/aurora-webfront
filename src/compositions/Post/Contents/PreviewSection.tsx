@@ -1,17 +1,9 @@
-import dynamic from 'next/dynamic'
 import React, { VFC } from 'react'
-import { ModelViewerProps } from 'src/components/ModelViewer'
+import { Model } from 'src/components/Modal/ModelViewerModal'
 import { fontWeightBold } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import { PREVIEW_CARD_ASSETS_ENDPOINT } from 'src/utils/env'
 import styled from 'styled-components'
-
-const Model = dynamic<ModelViewerProps>(
-  () => import('src/components/ModelViewer'),
-  {
-    ssr: false,
-  },
-)
 
 type Props = {
   postId: string
