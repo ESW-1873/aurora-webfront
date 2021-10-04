@@ -140,8 +140,6 @@ const PublishButtonElement = styled(BaseButtonElement)`
   }
 `
 
-// button for preview card
-// TODO: Design
 const PreviewButtonElement = styled(BaseButtonElement)`
   display: block;
   margin: 0 auto;
