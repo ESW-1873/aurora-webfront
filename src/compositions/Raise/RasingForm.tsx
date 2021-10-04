@@ -226,8 +226,8 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         </ProjectSettingsDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
-          <SubmitButton />
           <PreviewButtonContainer />
+          <SubmitButton />
         </ButtonsLayout>
       </Form>
     </>
