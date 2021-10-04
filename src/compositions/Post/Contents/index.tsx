@@ -59,7 +59,7 @@ export const Contents: VFC<
         description={description}
         totalDonation={totalDonation}
       />
-      <PreviewSection postId={id} />
+      {!hasClosed && <PreviewSection postId={id} />}
       <ActionSection
         postTitle={title}
         postId={id}

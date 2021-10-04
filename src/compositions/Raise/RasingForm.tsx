@@ -8,7 +8,6 @@ import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
 import { PreviewButton, PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
-import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_DESCRIPTION_LENGTH,
@@ -74,8 +73,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 
   return (
     <>
-      {/** カードのプレビューを表示する */}
-      <ModelViewerModal />
       <Form
         onSubmit={(e) => {
           e.preventDefault()
@@ -226,8 +223,8 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         </ProjectSettingsDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
         <ButtonsLayout>
-          <SubmitButton />
           <PreviewButtonContainer />
+          <SubmitButton />
         </ButtonsLayout>
       </Form>
     </>
@@ -287,8 +284,8 @@ const PreviewButtonContainer: VFC = () => {
       return
     }
     openLoadingModal({
-      heading: 'Waiting for creation of Preview Card',
-      subHeading: '',
+      heading: 'Creating a preview of an NFT...',
+      subHeading: "It may take a few minutes.\nDon't close this window.",
     })
     const res = await postClient.previewPost({
       title: title,
@@ -421,7 +418,7 @@ const ButtonsLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media ${breakpoint.s} {
+  @media ${breakpoint.m} {
     flex-direction: column;
     gap: 16px 0;
   }

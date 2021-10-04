@@ -10,7 +10,7 @@ type Props = {
 }
 export const PreviewSection: VFC<Props> = ({ postId }) => (
   <Section>
-    <Label>Preview</Label>
+    <Label>An NFT you can get by donating</Label>
     <Model
       src={`${PREVIEW_CARD_ASSETS_ENDPOINT}/sample/${postId}`}
       alt={`Preview Card`}
@@ -33,4 +33,5 @@ const Label = styled.p`
   font-weight: ${fontWeightBold};
   line-height: 1.2;
   letter-spacing: 0;
+  margin-bottom: 14px;
 `

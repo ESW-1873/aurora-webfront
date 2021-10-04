@@ -2,6 +2,7 @@ import React, { useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ImageCropModal } from 'src/components/Modal/ImageCropModal'
 import { LoadingModal } from 'src/components/Modal/LoadingModal'
+import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import { SpecificationModal } from 'src/components/Modal/SpecificationModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
@@ -60,6 +61,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
           })
         })}
       />
+      <ModelViewerModal />
       <LoadingModal />
     </>
   )

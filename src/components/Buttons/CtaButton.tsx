@@ -68,7 +68,7 @@ export const PublishButton: VFC<ButtonProps> = asTxButton(
 )
 
 export const PreviewButton: VFC<Omit<ButtonProps, 'label'>> = (props) => (
-  <PreviewButtonElement {...props}>Preview</PreviewButtonElement>
+  <PreviewButtonElement {...props}>An NFT Preview</PreviewButtonElement>
 )
 
 export const BaseButtonElement = styled.button`
@@ -140,8 +140,6 @@ const PublishButtonElement = styled(BaseButtonElement)`
   }
 `
 
-// button for preview card
-// TODO: Design
 const PreviewButtonElement = styled(BaseButtonElement)`
   display: block;
   margin: 0 auto;

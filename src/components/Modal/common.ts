@@ -13,6 +13,7 @@ export const SubHeading = styled.h3`
   font-size: 20px;
   text-align: center;
   letter-spacing: -0.04em;
+  white-space: pre-wrap;
 `
 
 export const Description = styled.p`
