@@ -8,7 +8,6 @@ import { postClient } from 'src/api/postClient'
 import { IconImage } from 'src/assets/svgs'
 import { PreviewButton, PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
-import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import {
   DEFAULT_CAPACITY,
   DEFAULT_DESCRIPTION_LENGTH,
@@ -74,8 +73,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
 
   return (
     <>
-      {/** カードのプレビューを表示する */}
-      <ModelViewerModal />
       <Form
         onSubmit={(e) => {
           e.preventDefault()
