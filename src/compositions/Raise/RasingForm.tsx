@@ -287,8 +287,8 @@ const PreviewButtonContainer: VFC = () => {
       return
     }
     openLoadingModal({
-      heading: 'Waiting for creation of Preview Card',
-      subHeading: '',
+      heading: 'Creating a preview of an NFT...',
+      subHeading: "It may take a few minutes.\nDon't close this window.",
     })
     const res = await postClient.previewPost({
       title: title,
