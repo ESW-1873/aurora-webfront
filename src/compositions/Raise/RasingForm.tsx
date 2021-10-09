@@ -1,6 +1,4 @@
-import dayjs from 'dayjs'
 import React, { useEffect, useState, VFC } from 'react'
-import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useFormContext } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -13,7 +11,6 @@ import {
   DEFAULT_DESCRIPTION_LENGTH,
   DEFAULT_PERIOD_SECONDS,
   DEFAULT_TITLE_LENGTH,
-  MAX_PERIOD_SECONDS,
 } from 'src/external/contract/hooks'
 import {
   useImageCropModalStore,
@@ -62,12 +59,10 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
   const { register, setValue, watch } = useFormContext<RaisingFormData>()
   const { open } = useImageCropModalStore()
   const imageUrl = watch('image.dataUrl')
-  const baseDate = dayjs()
   const inputNumberRegex = RegExp(`^[1-9][0-9]{0,7}$`) // Natural number
   useEffect(() => {
     register('image')
     register('title')
-    register('periodSeconds')
     register('capacity')
   }, [register])
 
@@ -130,78 +125,6 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           maxLength={DEFAULT_DESCRIPTION_LENGTH}
         />
         <ProjectSettingsDiv>
-          {/** Setting the end Date/Time */}
-          <EndDateTimeDiv>
-            <p>End Date/Time</p>
-            <InputRightDiv>
-              <ReactDatePicker
-                selected={baseDate
-                  .add(watch('periodSeconds') || 0, 'second')
-                  .toDate()}
-                onChange={(d: Date) => {
-                  const periodSeconds = dayjs(d).diff(baseDate, 'second')
-                  if (periodSeconds > MAX_PERIOD_SECONDS) {
-                    // 入力値が最大値を超えた場合には、最大値を設定する
-                    setValue('periodSeconds', MAX_PERIOD_SECONDS)
-                  } else {
-                    setValue('periodSeconds', periodSeconds)
-                  }
-                }}
-                onChangeRaw={(e: React.FocusEvent<HTMLInputElement>) => {
-                  const input = dayjs(e.target.value, 'MMM d, yyyy HH:mm', true)
-                  if (input.isValid()) {
-                    const periodSeconds = input.diff(baseDate, 'second')
-                    if (periodSeconds > MAX_PERIOD_SECONDS) {
-                      // 入力値が最大値を超えた場合には、最大値を設定する
-                      setValue('periodSeconds', MAX_PERIOD_SECONDS)
-                    } else {
-                      setValue('periodSeconds', periodSeconds)
-                    }
-                  } else {
-                    // 入力形式が正しくない場合は、デフォルトに戻す
-                    setValue('periodSeconds', DEFAULT_PERIOD_SECONDS)
-                  }
-                }}
-                allowSameDay={false}
-                minDate={baseDate.clone().toDate()}
-                maxDate={baseDate.clone().second(MAX_PERIOD_SECONDS).toDate()}
-                minTime={
-                  baseDate
-                    .clone()
-                    .add(watch('periodSeconds') || 0, 'second')
-                    .diff(
-                      baseDate
-                        .clone()
-                        .add(1, 'day')
-                        .hour(0)
-                        .minute(0)
-                        .second(0),
-                    ) < 0
-                    ? baseDate.clone().toDate()
-                    : baseDate.clone().hour(0).minute(0).second(0).toDate()
-                }
-                maxTime={
-                  baseDate
-                    .clone()
-                    .add(watch('periodSeconds') || 0, 'second')
-                    .diff(
-                      baseDate
-                        .clone()
-                        .add(6, 'day')
-                        .hour(0)
-                        .minute(0)
-                        .second(0),
-                    ) > 0
-                    ? baseDate.clone().toDate()
-                    : baseDate.clone().hour(23).minute(59).second(59).toDate()
-                }
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={30}
-                dateFormat="MMM d, yyyy HH:mm"
-              />
-            </InputRightDiv>
-          </EndDateTimeDiv>
           {/** Setting donation to limited quantity */}
           <CapacityDiv>
             <p>Donations limit</p>
@@ -237,7 +160,7 @@ const SubmitButton = styled(({ className }) => {
     image,
     title = '',
     description = '',
-    periodSeconds,
+    periodSeconds = DEFAULT_PERIOD_SECONDS,
     capacity,
   } = watch()
   const isSubmittable =
@@ -246,8 +169,7 @@ const SubmitButton = styled(({ className }) => {
     title.length <= DEFAULT_TITLE_LENGTH &&
     description.length > 0 &&
     description.length <= DEFAULT_DESCRIPTION_LENGTH &&
-    (!periodSeconds ||
-      (periodSeconds > 0 && periodSeconds <= MAX_PERIOD_SECONDS)) &&
+    (!periodSeconds || periodSeconds > 0) &&
     (!capacity || capacity > 0)
   return (
     <PublishButton
@@ -464,10 +386,6 @@ const projectSettingDivStyled = css`
   :first-child {
     margin-bottom: 24px;
   }
-`
-
-const EndDateTimeDiv = styled.div`
-  ${projectSettingDivStyled}
 `
 
 const CapacityDiv = styled.div`
