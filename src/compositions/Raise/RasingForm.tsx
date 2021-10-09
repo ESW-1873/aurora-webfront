@@ -12,6 +12,7 @@ import {
   DEFAULT_DESCRIPTION_LENGTH,
   DEFAULT_PERIOD_SECONDS,
   DEFAULT_TITLE_LENGTH,
+  MAX_AMOUNT_CAPACITY,
 } from 'src/external/contract/hooks'
 import {
   useImageCropModalStore,
@@ -159,6 +160,11 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                     setValue(`amountCapacity`, Number(value))
                   }
                 }}
+                onBlur={({ target: { value } }) => {
+                  const num = Number(value)
+                  if (num >= MAX_AMOUNT_CAPACITY)
+                    setValue(`amountCapacity`, MAX_AMOUNT_CAPACITY)
+                }}
                 defaultValue={DEFAULT_AMOUNT_CAPACITY}
               />
             </InputRightDiv>
@@ -192,7 +198,8 @@ const SubmitButton = styled(({ className }) => {
     description.length <= DEFAULT_DESCRIPTION_LENGTH &&
     (!periodSeconds || periodSeconds > 0) &&
     (!capacity || capacity > 0) &&
-    (!amountCapacity || amountCapacity > 0)
+    (!amountCapacity ||
+      (amountCapacity > 0 && amountCapacity <= MAX_AMOUNT_CAPACITY))
   return (
     <PublishButton
       className={className}

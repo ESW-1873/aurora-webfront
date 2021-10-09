@@ -59,6 +59,8 @@ export const DEFAULT_DESCRIPTION_LENGTH = 800
 export const DEFAULT_CAPACITY = 100000
 // 金額のCapacity: デフォルト値
 export const DEFAULT_AMOUNT_CAPACITY = 100000
+// 金額のCapacity: 最大値
+export const MAX_AMOUNT_CAPACITY = 100000
 // プロジェクト有効期間: 固定値 (実質無限な値を設定する)
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 365 * 9999 // 9999 years (virtually infinite)
 
