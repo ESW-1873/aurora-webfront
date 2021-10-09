@@ -7,6 +7,7 @@ import { IconImage } from 'src/assets/svgs'
 import { PreviewButton, PublishButton } from 'src/components/Buttons/CtaButton'
 import { Image } from 'src/components/Image'
 import {
+  DEFAULT_AMOUNT_CAPACITY,
   DEFAULT_CAPACITY,
   DEFAULT_DESCRIPTION_LENGTH,
   DEFAULT_PERIOD_SECONDS,
@@ -158,6 +159,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                     setValue(`amountCapacity`, Number(value))
                   }
                 }}
+                defaultValue={DEFAULT_AMOUNT_CAPACITY}
               />
             </InputRightDiv>
           </CapacityDiv>

@@ -57,6 +57,8 @@ export const DEFAULT_TITLE_LENGTH = 30
 export const DEFAULT_DESCRIPTION_LENGTH = 800
 // 人数: デフォルト値
 export const DEFAULT_CAPACITY = 100000
+// 金額のCapacity: デフォルト値
+export const DEFAULT_AMOUNT_CAPACITY = 100000
 // プロジェクト有効期間: 固定値 (実質無限な値を設定する)
 export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 365 * 9999 // 9999 years (virtually infinite)
 
@@ -149,7 +151,7 @@ export const useContract = () => {
         contract.newPost(
           metadataURI,
           BigNumber.from(capacity || DEFAULT_CAPACITY),
-          // BigNumber.from(amountCapacity || 0),
+          // BigNumber.from(amountCapacity || DEFAULT_AMOUNT_CAPACITY),
           BigNumber.from(periodSeconds || DEFAULT_PERIOD_SECONDS),
           {
             gasLimit: DEFAULT_GAS_LIMIT,
