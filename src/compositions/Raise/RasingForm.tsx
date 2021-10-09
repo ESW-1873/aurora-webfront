@@ -149,25 +149,28 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
           </CapacityDiv>
           <CapacityDiv>
             <p>Donations amount limit</p>
-            <InputRightDiv>
-              <input
-                value={watch('amountCapacity')}
-                pattern="^[1-9]*[0-9]*$"
-                minLength={1}
-                inputMode="numeric"
-                onChange={({ target: { value } }) => {
-                  if (inputNumberRegex.test(value)) {
-                    setValue(`amountCapacity`, Number(value))
-                  }
-                }}
-                onBlur={({ target: { value } }) => {
-                  const num = Number(value)
-                  if (num >= MAX_AMOUNT_CAPACITY)
-                    setValue(`amountCapacity`, MAX_AMOUNT_CAPACITY)
-                }}
-                defaultValue={DEFAULT_AMOUNT_CAPACITY}
-              />
-            </InputRightDiv>
+            <FlexEndDiv>
+              <InputRightDiv>
+                <input
+                  value={watch('amountCapacity')}
+                  pattern="^[1-9]*[0-9]*$"
+                  minLength={1}
+                  inputMode="numeric"
+                  onChange={({ target: { value } }) => {
+                    if (inputNumberRegex.test(value)) {
+                      setValue(`amountCapacity`, Number(value))
+                    }
+                  }}
+                  onBlur={({ target: { value } }) => {
+                    const num = Number(value)
+                    if (num >= MAX_AMOUNT_CAPACITY)
+                      setValue(`amountCapacity`, MAX_AMOUNT_CAPACITY)
+                  }}
+                  defaultValue={DEFAULT_AMOUNT_CAPACITY}
+                />
+              </InputRightDiv>
+              <span>MATIC</span>
+            </FlexEndDiv>
           </CapacityDiv>
         </ProjectSettingsDiv>
         <ErrorMessage visible={!!errorMessage}>{errorMessage}</ErrorMessage>
@@ -419,6 +422,11 @@ const projectSettingDivStyled = css`
 
 const CapacityDiv = styled.div`
   ${projectSettingDivStyled}
+`
+
+const FlexEndDiv = styled.div`
+  display: flex;
+  align-items: flex-end;
 `
 
 const InputRightDiv = styled.div`
