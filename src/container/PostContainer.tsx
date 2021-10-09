@@ -14,6 +14,7 @@ export type PostStaticProps = {
     'id' | 'keyVisual' | 'title' | 'description' | 'donee' | 'capacity'
   > & {
     endTime: number
+    amountCapacity: number
   }
 }
 export const PostContainer: VFC<PostStaticProps> = ({

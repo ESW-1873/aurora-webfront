@@ -3,7 +3,10 @@ import React from 'react'
 import { getPostContent } from 'src/api/arweaveClient'
 import { GetPostContent } from 'src/api/client'
 import { PostContainer, PostStaticProps } from 'src/container/PostContainer'
-import { DEFAULT_PERIOD_SECONDS } from 'src/external/contract/hooks'
+import {
+  DEFAULT_AMOUNT_CAPACITY,
+  DEFAULT_PERIOD_SECONDS,
+} from 'src/external/contract/hooks'
 import { isProd } from 'src/utils/env'
 import { isString } from 'src/utils/typeguard'
 
@@ -49,6 +52,7 @@ export const getStaticProps: GetStaticProps<PostPageContext> = async ({
       donee,
       endTime,
       capacity,
+      amountCapacity: DEFAULT_AMOUNT_CAPACITY, // dummy value
     },
   }
 

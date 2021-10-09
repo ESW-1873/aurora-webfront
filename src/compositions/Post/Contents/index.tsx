@@ -15,6 +15,7 @@ export type ContentsProps = {
   description: string
   donee: string
   hasClosed: boolean
+  amountCapacity: number
   totalDonation: string
   capacity: number
   donatedCount: number
@@ -34,6 +35,7 @@ export const Contents: VFC<
   title,
   description,
   donee,
+  amountCapacity,
   totalDonation,
   capacity,
   donatedCount,
@@ -57,6 +59,7 @@ export const Contents: VFC<
       <PostSection
         title={title}
         description={description}
+        amountCapacity={amountCapacity}
         totalDonation={totalDonation}
       />
       {!hasClosed && <PreviewSection postId={id} />}

@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, VFC } from 'react'
 import { useCountUp } from 'react-countup'
-import { fontWeightSemiBold } from 'src/styles/font'
+import { fontWeightRegular, fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 
-export const TotalDonationLabel: VFC<{ amountWei: string }> = ({
-  amountWei,
-}) => {
+export const TotalDonationLabel: VFC<{
+  amountWei: string
+  amountCapacity: number
+}> = ({ amountWei, amountCapacity }) => {
   const maticStr = weiToMatic(amountWei)
   const maticNum = Number.isNaN(+maticStr) ? -1 : +maticStr
   return (
@@ -17,6 +18,10 @@ export const TotalDonationLabel: VFC<{ amountWei: string }> = ({
         {maticNum >= 0 && <CountUp num={maticNum} />}
         {maticNum < 0 && maticStr}
         <span>MATIC</span>
+        <CapacityDiv>
+          <span>/</span>
+          <span>{amountCapacity}</span>
+        </CapacityDiv>
       </div>
     </Label>
   )
@@ -52,5 +57,13 @@ const Label = styled.label`
         margin-left: 8px;
       }
     }
+  }
+`
+
+const CapacityDiv = styled.span`
+  font-size: 18px;
+  font-weight: ${fontWeightRegular};
+  span: {
+    margin: 0 1px;
   }
 `
