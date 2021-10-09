@@ -23,6 +23,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
   const publish = async ({
     image,
     capacity,
+    amountCapacity,
     periodSeconds,
     ...data
   }: RaisingFormData) => {
@@ -45,7 +46,7 @@ export const RaiseConainer: VFC<RaiseConainerProps> = ({ seoProps }) => {
       heading: 'Waiting for confirmation',
       subHeading: 'Confirm this transaction in your wallet',
     })
-    await raise(metadata, capacity, periodSeconds)
+    await raise(metadata, capacity, periodSeconds) // + amountCapacity
     open({
       heading: 'Waiting for confirmation',
       subHeading:

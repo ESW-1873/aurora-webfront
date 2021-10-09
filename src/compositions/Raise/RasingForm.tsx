@@ -47,6 +47,7 @@ export type RaisingFormData = Omit<
     contentType: string
   }
   capacity: number
+  amountCapacity: number
   periodSeconds: number
 }
 
@@ -64,6 +65,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
     register('image')
     register('title')
     register('capacity')
+    register('amountCapacity')
   }, [register])
 
   return (
@@ -127,7 +129,7 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
         <ProjectSettingsDiv>
           {/** Setting donation to limited quantity */}
           <CapacityDiv>
-            <p>Donations limit</p>
+            <p>Donations count limit</p>
             <InputRightDiv>
               <input
                 value={watch('capacity')}
@@ -140,6 +142,22 @@ export const RaisingForm: VFC<RaisingFormProps> = ({
                   }
                 }}
                 defaultValue={DEFAULT_CAPACITY}
+              />
+            </InputRightDiv>
+          </CapacityDiv>
+          <CapacityDiv>
+            <p>Donations amount limit</p>
+            <InputRightDiv>
+              <input
+                value={watch('amountCapacity')}
+                pattern="^[1-9]*[0-9]*$"
+                minLength={1}
+                inputMode="numeric"
+                onChange={({ target: { value } }) => {
+                  if (inputNumberRegex.test(value)) {
+                    setValue(`amountCapacity`, Number(value))
+                  }
+                }}
               />
             </InputRightDiv>
           </CapacityDiv>
@@ -162,6 +180,7 @@ const SubmitButton = styled(({ className }) => {
     description = '',
     periodSeconds = DEFAULT_PERIOD_SECONDS,
     capacity,
+    amountCapacity,
   } = watch()
   const isSubmittable =
     image &&
@@ -170,7 +189,8 @@ const SubmitButton = styled(({ className }) => {
     description.length > 0 &&
     description.length <= DEFAULT_DESCRIPTION_LENGTH &&
     (!periodSeconds || periodSeconds > 0) &&
-    (!capacity || capacity > 0)
+    (!capacity || capacity > 0) &&
+    (!amountCapacity || amountCapacity > 0)
   return (
     <PublishButton
       className={className}

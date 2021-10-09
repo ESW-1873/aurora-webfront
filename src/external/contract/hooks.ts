@@ -141,6 +141,7 @@ export const useContract = () => {
     async (
       metadataURI: string,
       capacity?: number,
+      // amountCapacity?: number,
       periodSeconds?: number,
     ): Promise<ContractReceipt | ContractTransaction | null> => {
       if (contract === null) return handleNoContract()
@@ -148,6 +149,7 @@ export const useContract = () => {
         contract.newPost(
           metadataURI,
           BigNumber.from(capacity || DEFAULT_CAPACITY),
+          // BigNumber.from(amountCapacity || 0),
           BigNumber.from(periodSeconds || DEFAULT_PERIOD_SECONDS),
           {
             gasLimit: DEFAULT_GAS_LIMIT,
