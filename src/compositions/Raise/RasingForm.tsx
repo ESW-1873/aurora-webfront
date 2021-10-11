@@ -494,18 +494,3 @@ const ProjectSettingsDiv = styled.div`
     }
   }
 `
-
-const PreviewWrapper = styled.div`
-  margin: 16px 0;
-`
-
-const ImageDiv = styled.div`
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-top: 66.7%;
-  @media ${breakpoint.m} {
-    ${noGuide}
-    width: 100vw;
-  }
-`
