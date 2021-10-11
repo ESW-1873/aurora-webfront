@@ -7,7 +7,7 @@ import { Image } from 'src/components/Image'
 import { white } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import { breakpoint, flexCenter, noGuide, pageGuide } from 'src/styles/mixins'
-import { RAISE } from 'src/utils/router'
+import { START } from 'src/utils/router'
 import styled from 'styled-components'
 
 const HEADING_TEXT = 'Ultimately Fast And Easy Online Fundraising.'
@@ -21,7 +21,7 @@ export const Footer: VFC = () => {
         <FooterLogo />
         <SubHeadingBelowLogo>{SUBHEADING_TEXT}</SubHeadingBelowLogo>
         <Heading>{HEADING_TEXT}</Heading>
-        <GetStartedButton onClick={() => router.push(RAISE)} />
+        <GetStartedButton onClick={() => router.push(START)} />
       </FooterContainer>
     </FooterLayout>
   )
