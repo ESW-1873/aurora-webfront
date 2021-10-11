@@ -8,8 +8,6 @@ import {
   FUNDRAISERS_STEP1_TEXT_1,
   FUNDRAISERS_STEP1_TEXT_2,
   FUNDRAISERS_STEP2_TEXT,
-  REFUND_REQUEST_TEXT,
-  REFUND_TEXT,
   WHAT_IS_AURORA_TEXT,
   WITHDRAW_TEXT,
 } from 'src/data/top'
@@ -74,13 +72,8 @@ export const About: VFC = () => (
             <h2>3. After the project ends</h2>
             <p>{AFTER_PROJECT_ENDS_TEXT}</p>
             <h3>Fundraisers</h3>
-            <h4>Refund</h4>
-            <p>{REFUND_TEXT}</p>
             <h4>Withdraw</h4>
             <p>{WITHDRAW_TEXT}</p>
-            <h3>Donors</h3>
-            <h4>Request Refund</h4>
-            <p>{REFUND_REQUEST_TEXT}</p>
           </div>
           <div>
             <h2>4. Fee</h2>
