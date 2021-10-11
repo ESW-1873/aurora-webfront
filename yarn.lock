@@ -1329,10 +1329,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bridges-inc/next-seo@2.0.0":
-  version "2.0.0"
-  resolved "https://npm.pkg.github.com/download/@bridges-inc/next-seo/2.0.0/32d1f87bf1e67ee1218f9010608f07b37b02888a8b6652da3ae523d31a237203#b9f43da13554ae95d053364342ddbaec297a7a42"
-  integrity sha512-vIj8fuc74+tkwAOfygYf6ScNZuJcJ7yNpuuwpHKJ465XeML05mBgziU7iAcwwT5DBq8pJOVXNQmo+gt2OZcGVQ==
+"@bridges-inc/next-seo@2.0.2":
+  version "2.0.2"
+  resolved "https://npm.pkg.github.com/download/@bridges-inc/next-seo/2.0.2/9210b5043eecd10c63314ed53b064f0dabcb5a2aebb4fe6d003083dc1a36ac2c#75eccc635e983d27f1905757c876257c2e62cf5a"
+  integrity sha512-pZTqUpncaIhsOldvIKHZGRJ0wLA5MPNwgnzBXAgaWMyJS+KAx9ls+AsJXbv//t+Ey4JyRzGh7hOE63swkWyxJA==
 
 "@cspotcode/source-map-consumer@0.8.0":
   version "0.8.0"
