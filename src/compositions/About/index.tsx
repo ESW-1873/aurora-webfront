@@ -21,7 +21,7 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
-import { DISCLAIMER, RAISE } from 'src/utils/router'
+import { DISCLAIMER, START } from 'src/utils/router'
 import styled from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 
@@ -50,7 +50,7 @@ export const About: VFC = () => (
             <h3>Fundraisers</h3>
             <p>
               {FUNDRAISERS_STEP1_TEXT_1}
-              <Link href={RAISE}>
+              <Link href={START}>
                 <a>Get Started</a>
               </Link>
               {FUNDRAISERS_STEP1_TEXT_2}

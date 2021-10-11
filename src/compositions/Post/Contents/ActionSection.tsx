@@ -17,7 +17,7 @@ import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { HOSTNAME } from 'src/utils/env'
-import { RAISE } from 'src/utils/router'
+import { START } from 'src/utils/router'
 import styled from 'styled-components'
 
 type Status =
@@ -118,7 +118,7 @@ export const ActionSection: VFC<
         <SingleButtonLayout>
           <Label>oops! donation not found.</Label>
           <PrimaryTxButton
-            onClick={() => router.push(RAISE)}
+            onClick={() => router.push(START)}
             label="Never give up!"
           />
         </SingleButtonLayout>
