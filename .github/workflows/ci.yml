@@ -33,6 +33,8 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: yarn install with cache
         run: yarn --prefer-offline
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: workaround for detached HEAD
         run: |
           git checkout ${GITHUB_HEAD_REF} || git checkout -b ${GITHUB_HEAD_REF} && git pull
