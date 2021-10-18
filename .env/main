@@ -1,4 +1,4 @@
 NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://api.studio.thegraph.com/query/8417/auroradao/v1.0.0
 NEXT_PUBLIC_POST_API_ENDPOINT=https://api.auroradao.org
-
+NEXT_PUBLIC_PREVIEW_CARD_ASSETS_ENDPOINT=https://perm.auroradao.org
 NEXT_PUBLIC_GTM_ID=GTM-NVNWRLF
