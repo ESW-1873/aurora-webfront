@@ -11,13 +11,14 @@ import {
   useWalletStore,
 } from 'src/stores'
 import { equals } from 'src/utils/address'
-import { weiToMatic } from 'src/utils/amount'
 import styled from 'styled-components'
 import { DonationModalProps } from '.'
 import { DisclaimerCheckbox } from '../../Input/Checkbox'
 import { DonationInputPanel } from '../../Input/DonationInputPanel'
 import { Heading, SubHeading } from '../common'
 import { useWithTxModalContext } from '../WithTxModal'
+
+const MIMUM_AMOUNT = '0.01' // MATIC
 
 export const Donation: VFC<DonationModalProps> = ({
   postId,
@@ -37,7 +38,9 @@ export const Donation: VFC<DonationModalProps> = ({
   const canDonate = useMemo(() => {
     try {
       return (
-        isChecked && utils.parseEther(inputValueMatic).gt(0) && !isInsufficient
+        isChecked &&
+        utils.parseEther(inputValueMatic).gte(utils.parseEther(MIMUM_AMOUNT)) &&
+        !isInsufficient
       )
     } catch {
       return false
@@ -70,9 +73,7 @@ export const Donation: VFC<DonationModalProps> = ({
     <>
       <Layout>
         <Heading>Donation</Heading>
-        <SubHeading>
-          {`Total Donation ${weiToMatic(totalDonation)} MATIC`}
-        </SubHeading>
+        <SubHeading>{`Min: ${MIMUM_AMOUNT} MATIC`}</SubHeading>
         <DonationInputPanel value={inputValueMatic} onUserInput={onUserInput} />
         <DisclaimerCheckbox
           id="disclaimer-check"

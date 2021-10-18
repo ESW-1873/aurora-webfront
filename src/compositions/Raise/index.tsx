@@ -2,9 +2,11 @@ import React, { useState, VFC } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ImageCropModal } from 'src/components/Modal/ImageCropModal'
 import { LoadingModal } from 'src/components/Modal/LoadingModal'
+import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
 import { SpecificationModal } from 'src/components/Modal/SpecificationModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { SEOProps } from 'src/components/SEO'
+import { DEFAULT_PERIOD_SECONDS } from 'src/external/contract/hooks'
 import { useLoadingModalStore, useSpecificationModalStore } from 'src/stores'
 import { createGlobalStyle } from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
@@ -24,7 +26,11 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
   const { close: closeLoadingModal } = useLoadingModalStore()
   const { close: closeSpecificationModal, open: openSpecificationModal } =
     useSpecificationModalStore()
-  const methods = useForm<RaisingFormData>()
+  const methods = useForm<RaisingFormData>({
+    defaultValues: {
+      periodSeconds: DEFAULT_PERIOD_SECONDS,
+    },
+  })
   const { watch, handleSubmit } = methods
   return (
     <>
@@ -55,6 +61,7 @@ export const Raise: VFC<RaiseProps> = ({ seoProps, publish }) => {
           })
         })}
       />
+      <ModelViewerModal />
       <LoadingModal />
     </>
   )

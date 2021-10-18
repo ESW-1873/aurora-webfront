@@ -3,7 +3,9 @@ import { HOSTNAME } from './env'
 export const SERVICE_URL = `https://${HOSTNAME}`
 export const ABOUT = '/about'
 export const DISCLAIMER = '/disclaimer'
-export const RAISE = '/raise'
+export const START = '/start'
+
+export const DOCS = 'https://docs.auroradao.org/'
 
 export const METAMASK_URL = 'https://metamask.io/'
 export const ETHERSCAN_URL = 'https://etherscan.io/'

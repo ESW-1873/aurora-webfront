@@ -42,7 +42,7 @@ const Contents = styled.div`
   max-width: 400px;
   max-height: 85vh;
   width: 50vw;
-  padding: 40px 53px 48px 53px;
+  padding: 40px 50px 48px 50px;
   position: relative;
   border-radius: 32px;
   background-color: ${white}80;

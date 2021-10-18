@@ -1,13 +1,6 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
 import { useWalletModalStore, useWalletStore } from 'src/stores'
-import {
-  errorColor,
-  gray,
-  primaryColor,
-  purple,
-  turquoise,
-  white,
-} from 'src/styles/colors'
+import { gray, primaryColor, purple, turquoise, white } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -45,18 +38,6 @@ export const CancelButton: VFC<ButtonProps> = asTxButton(
   ),
 )
 
-export const RefundButton: VFC<ButtonProps> = asTxButton(
-  ({ label = 'Refund', ...props }) => (
-    <RefundButtonElement {...props}>{label}</RefundButtonElement>
-  ),
-)
-
-export const RefundRequestButton: VFC<ButtonProps> = asTxButton(
-  ({ label = 'Refund Request', ...props }) => (
-    <RefundButtonElement {...props}>{label}</RefundButtonElement>
-  ),
-)
-
 export const GetStartedButton: VFC<Omit<ButtonProps, 'label'>> = (props) => (
   <GetStartedButtonElement {...props}>Get Started</GetStartedButtonElement>
 )
@@ -65,6 +46,10 @@ export const PublishButton: VFC<ButtonProps> = asTxButton(
   ({ label = 'Publish', ...props }) => (
     <PublishButtonElement {...props}>{label}</PublishButtonElement>
   ),
+)
+
+export const PreviewButton: VFC<Omit<ButtonProps, 'label'>> = (props) => (
+  <PreviewButtonElement {...props}>Preview Aurora card</PreviewButtonElement>
 )
 
 export const BaseButtonElement = styled.button`
@@ -101,14 +86,6 @@ const CancelButtonElement = styled(BaseButtonElement)`
   }
 `
 
-const RefundButtonElement = styled(BaseButtonElement)`
-  background: ${errorColor};
-  :hover,
-  :focus {
-    background: ${errorColor}bf;
-  }
-`
-
 const GetStartedButtonElement = styled(BaseButtonElement)`
   max-width: 400px;
   box-shadow: unset;
@@ -132,6 +109,21 @@ const PublishButtonElement = styled(BaseButtonElement)`
     :hover,
     :focus {
       background: ${purple}80;
+    }
+  }
+`
+
+const PreviewButtonElement = styled(BaseButtonElement)`
+  display: block;
+  margin: 0 auto;
+  background: ${gray}80;
+  color: ${primaryColor}80;
+  :enabled {
+    background: ${gray};
+    color: ${white};
+    :hover,
+    :focus {
+      background: ${gray}80;
     }
   }
 `

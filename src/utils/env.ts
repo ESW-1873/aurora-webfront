@@ -11,9 +11,13 @@ export const ROOT_URL = `https://${HOSTNAME}`
 
 export const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-  'https://api.studio.thegraph.com/query/6984/auroradao/v1.0.0'
+  'https://api.studio.thegraph.com/query/8417/auroradao-rinkeby/v1.0.1'
 
 export const POST_API_ENDPOINT =
   process.env.NEXT_PUBLIC_POST_API_ENDPOINT || 'https://api.auroradao-dev.tk'
+
+export const PREVIEW_CARD_ASSETS_ENDPOINT =
+  process.env.NEXT_PUBLIC_PREVIEW_CARD_ASSETS_ENDPOINT ||
+  'https://perm.auroradao-dev.tk'
 
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || ''

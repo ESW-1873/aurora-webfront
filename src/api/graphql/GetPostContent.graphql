@@ -16,15 +16,5 @@ query GetPostContent($id: ID!) {
       sender
       amount
     }
-    refundRequested {
-      id
-      receiptId
-      sender
-      amount
-    }
-    refunded {
-      id
-      sender
-    }
   }
 }

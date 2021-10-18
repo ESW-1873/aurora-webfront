@@ -1,11 +1,11 @@
 import React, { VFC } from 'react'
-import { Donation } from 'src/api/types'
 import { Image } from 'src/components/Image'
 import { breakpoint, noGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { ActionSection } from './ActionSection'
 import { DonationSection } from './DonationSection'
 import { PostSection } from './PostSection'
+import { PreviewSection } from './PreviewSection'
 
 export type ContentsProps = {
   id: string
@@ -15,7 +15,8 @@ export type ContentsProps = {
   donee: string
   hasClosed: boolean
   totalDonation: string
-  refundRequests: Donation[]
+  capacity: number
+  donatedCount: number
   doneeCredit?: string
   hasWithdrawn?: boolean
 }
@@ -32,7 +33,8 @@ export const Contents: VFC<
   description,
   donee,
   totalDonation,
-  refundRequests,
+  capacity,
+  donatedCount,
   doneeCredit,
   hasClosed,
   hasDonated,
@@ -54,22 +56,23 @@ export const Contents: VFC<
         description={description}
         totalDonation={totalDonation}
       />
+      {!hasClosed && <PreviewSection postId={id} />}
       <ActionSection
         postTitle={title}
         postId={id}
         isDonee={isDonee}
         hasClosed={hasClosed}
         hasDonated={hasDonated}
-        hasRefundRequests={refundRequests.length > 0}
         hasWithdrawn={hasWithdrawn}
         hasNoDonations={hasNoDonations}
       />
       <DonationSection
         donee={donee}
-        refundRequests={refundRequests}
         credit={doneeCredit}
         hasClosed={hasClosed}
         isDonee={isDonee}
+        capacity={capacity}
+        donatedCount={donatedCount}
       />
     </>
   </>

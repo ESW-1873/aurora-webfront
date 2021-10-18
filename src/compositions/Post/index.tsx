@@ -4,8 +4,6 @@ import { Donation, PostContent } from 'src/api/types'
 import { CancelModal } from 'src/components/Modal/CancelModal'
 import { DonationModal } from 'src/components/Modal/DonationModal'
 import { ModelViewerModal } from 'src/components/Modal/ModelViewerModal'
-import { RefundModal } from 'src/components/Modal/RefundModal'
-import { RefundRequestModal } from 'src/components/Modal/RefundRequestModal'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import { WithdrawModal } from 'src/components/Modal/WithdrawModal'
 import { SEOProps } from 'src/components/SEO'
@@ -22,7 +20,6 @@ export type PostProps = {
     endTime: Dayjs
   }
   ownDonation?: Donation
-  refundRequest?: Donation
   isDonee?: boolean
   hasNoDonations?: boolean
   refetch: () => Promise<PostContent>
@@ -54,7 +51,7 @@ export const Post: VFC<PostProps> = memo(
                 {hasClosed
                   ? 'This project has already been closed.'
                   : `This project will end on ${endTime.format(
-                      'MMMM D, YYYY',
+                      'MMMM D, YYYY HH:mm',
                     )}`}
               </p>
             </FixedFooter>
@@ -67,18 +64,8 @@ export const Post: VFC<PostProps> = memo(
           refetch={refetch}
         />
         <ModelViewerModal />
-        {ownDonation &&
-          (hasClosed ? (
-            <RefundRequestModal postId={id} ownDonation={ownDonation} />
-          ) : (
-            <CancelModal ownDonation={ownDonation} />
-          ))}
-        {isDonee && hasClosed && (
-          <>
-            <WithdrawModal postId={id} amount={totalDonation} />
-            <RefundModal />
-          </>
-        )}
+        {ownDonation && <CancelModal ownDonation={ownDonation} />}
+        {isDonee && <WithdrawModal postId={id} amount={totalDonation} />}
       </>
     )
   },

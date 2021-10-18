@@ -115,7 +115,68 @@ paths:
                 value:
                   amount: '10000000000'
                   postId: '0xe6a8b2b83a40'
+                  address: '0xe6a8b2b83a40'
       parameters: []
+    parameters: []
+  /preview:
+    post:
+      summary: Receipt Preview Temporaly
+      operationId: preview-post
+      responses:
+        '200':
+          description: Preview Creted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewResponse'
+        '400':
+          description: Missing Required Information
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                  description: ''
+                image:
+                  $ref: '#/components/schemas/Image'
+              required:
+                - title
+                - description
+                - image
+            examples: {}
+      parameters: []
+    parameters: []
+  /sample:
+    post:
+      summary: Create Sample Card from preview Token and postId
+      operationId: sample-post
+      responses:
+        '200':
+          description: Sample Creted
+        '400':
+          description: Missing Required Information
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                postId:
+                  type: string
+                  description: ''
+              required:
+                - token
+                - postId
+            examples: {}
+      parameters: []
+      description: 'Create Sample Card from preview Token and postId. Caution: this method doesnt have idempotency. You cannot execute this method again with postId which you have already executed with.'
     parameters: []
 components:
   schemas:
@@ -145,6 +206,20 @@ components:
       required:
         - image
         - metadata
+    PreviewResponse:
+      description: ''
+      type: object
+      properties:
+        temporalyUrl:
+          type: string
+          minLength: 1
+          description: Temporaly url to download card preview. This will expire in several minutes.
+        token:
+          type: string
+          minLength: 1
+      required:
+        - temporalyUrl
+        - token
     Metadata:
       description: ''
       type: object

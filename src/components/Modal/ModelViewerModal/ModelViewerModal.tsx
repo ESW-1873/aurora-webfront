@@ -8,7 +8,7 @@ import { flexCenter } from 'src/styles/mixins'
 import styled, { keyframes } from 'styled-components'
 import { Modal } from '..'
 
-const Model = dynamic<ModelViewerProps>(
+export const Model = dynamic<ModelViewerProps>(
   () => import('src/components/ModelViewer'),
   {
     ssr: false,

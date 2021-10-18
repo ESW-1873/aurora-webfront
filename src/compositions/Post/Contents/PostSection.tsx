@@ -1,4 +1,5 @@
 import React, { VFC } from 'react'
+import { CustomLinkify } from 'src/components/CustomLinkify'
 import { TotalDonationLabel } from 'src/components/TotalDonationLabel'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -17,7 +18,7 @@ export const PostSection: VFC<Props> = ({
   <Section>
     <h2>{title}</h2>
     <TotalDonationLabel amountWei={totalDonation} />
-    <p>{description}</p>
+    <CustomLinkify text={description} />
   </Section>
 )
 
@@ -28,6 +29,9 @@ const Section = styled.section`
   h2,
   > label {
     margin-bottom: 32px;
+  }
+  a {
+    text-decoration: underline;
   }
   @media ${breakpoint.m} {
     padding-top: 24px;

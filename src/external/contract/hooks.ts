@@ -48,8 +48,19 @@ const waitConfirmations = async (
  */
 const DEFAULT_GAS_LIMIT = 10000000
 const DEFAULT_GAS_PRICE = 20000000000
+/**
+ * Consts for using Post
+ */
+// タイトル: 最大値
+export const DEFAULT_TITLE_LENGTH = 30
+// タイトル: 最大値
+export const DEFAULT_DESCRIPTION_LENGTH = 800
+// 人数: デフォルト値
 export const DEFAULT_CAPACITY = 100000
-export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3
+// プロジェクト有効期間: デフォルト値
+export const DEFAULT_PERIOD_SECONDS = 60 * 60 * 24 * 3 // 3days
+// プロジェクト有効期間: 最大値
+export const MAX_PERIOD_SECONDS = 60 * 60 * 24 * 7 // 7days
 
 /**
  * Contractを利用するためのhooks
@@ -80,37 +91,6 @@ export const useContract = () => {
       if (contract === null) return handleNoContract()
       return call(
         contract.cancel(receiptId, {
-          gasLimit: DEFAULT_GAS_LIMIT,
-        }),
-      )
-    },
-    [contract],
-  )
-
-  const requestRefund = useCallback(
-    async (
-      receiptId: string,
-      metadata: string,
-    ): Promise<ContractReceipt | ContractTransaction | null> => {
-      if (contract === null) return handleNoContract()
-      return call(
-        contract.requestRefund(receiptId, metadata, {
-          gasLimit: DEFAULT_GAS_LIMIT,
-        }),
-      )
-    },
-    [contract],
-  )
-
-  const refund = useCallback(
-    async (
-      receiptId: string,
-      amount: string,
-    ): Promise<ContractReceipt | ContractTransaction | null> => {
-      if (contract === null) return handleNoContract()
-      return call(
-        contract.refund(receiptId, {
-          value: amount,
           gasLimit: DEFAULT_GAS_LIMIT,
         }),
       )
@@ -152,8 +132,6 @@ export const useContract = () => {
   return {
     donate,
     cancel,
-    requestRefund,
-    refund,
     withdraw,
     raise,
   }
