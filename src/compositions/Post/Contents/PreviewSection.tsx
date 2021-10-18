@@ -10,7 +10,7 @@ type Props = {
 }
 export const PreviewSection: VFC<Props> = ({ postId }) => (
   <Section>
-    <Label>An NFT you can get by donating</Label>
+    <Label>An Aurora card you can get by donating</Label>
     <Model
       src={`${PREVIEW_CARD_ASSETS_ENDPOINT}/sample/${postId}`}
       alt={`Preview Card`}
