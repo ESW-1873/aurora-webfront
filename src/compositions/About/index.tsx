@@ -1,7 +1,6 @@
 import React, { VFC } from 'react'
 import { WalletModal } from 'src/components/Modal/WalletModal'
 import {
-  AFTER_PROJECT_ENDS_TEXT,
   CANCEL_TEXT,
   DONATE_TEXT,
   FEE_TEXT,
@@ -11,7 +10,6 @@ import {
   WHAT_IS_AURORA_TEXT,
   WITHDRAW_TEXT,
 } from 'src/data/top'
-import { Link } from 'src/elements/Link'
 import { primaryColor, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -19,7 +17,7 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
-import { DISCLAIMER, START } from 'src/utils/router'
+import { DISCLAIMER } from 'src/utils/router'
 import styled from 'styled-components'
 import { PageWrapper } from '../PageWrapper'
 
@@ -44,19 +42,13 @@ export const About: VFC = () => (
             </p>
           </div>
           <div>
-            <h2>1. Creating the project</h2>
-            <h3>Fundraisers</h3>
-            <p>
-              {FUNDRAISERS_STEP1_TEXT_1}
-              <Link href={START}>
-                <a>Get Started</a>
-              </Link>
-              {FUNDRAISERS_STEP1_TEXT_2}
-            </p>
+            <h2>1. Start a project</h2>
+            <p>{FUNDRAISERS_STEP1_TEXT_1}</p>
             <ul id="the-end-of-project-period">
-              <li>Passed 72 hours since published.</li>
-              <li>Got 100,000 donations.</li>
+              <li>Meet the maximum number of donations</li>
+              <li>Has passed the end date and time</li>
             </ul>
+            <p>{FUNDRAISERS_STEP1_TEXT_2}</p>
           </div>
           <div>
             <h2>2. During the project</h2>
@@ -70,7 +62,6 @@ export const About: VFC = () => (
           </div>
           <div>
             <h2>3. After the project ends</h2>
-            <p>{AFTER_PROJECT_ENDS_TEXT}</p>
             <h3>Fundraisers</h3>
             <h4>Withdraw</h4>
             <p>{WITHDRAW_TEXT}</p>
@@ -78,6 +69,17 @@ export const About: VFC = () => (
           <div>
             <h2>4. Fee</h2>
             <p>{FEE_TEXT}</p>
+          </div>
+          <div>
+            <p>
+              <a
+                href="https://docs.auroradao.org"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {'Learn more'}
+              </a>
+            </p>
           </div>
         </Section>
       </main>

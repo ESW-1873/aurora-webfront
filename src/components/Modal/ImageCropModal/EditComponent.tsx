@@ -137,7 +137,7 @@ export const ImageEditComponent: React.FC<ImageEditComponentProps> = ({
 
   return (
     <StyledImageEditComponent>
-      <Description>Set cropping area</Description>
+      <Description>Editing an image</Description>
       <ReactCrop
         src={editingImg}
         onImageLoaded={onLoad}
@@ -154,7 +154,7 @@ export const ImageEditComponent: React.FC<ImageEditComponentProps> = ({
       />
       <ButtonDiv>
         <PrimaryButton
-          label="Crop"
+          label="Done"
           onClick={async () => {
             if (!imgRef.current) return
             const objUrl = await resizeImage(imgRef.current, crop, displayWidth)
