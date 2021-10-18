@@ -49,7 +49,7 @@ export const PublishButton: VFC<ButtonProps> = asTxButton(
 )
 
 export const PreviewButton: VFC<Omit<ButtonProps, 'label'>> = (props) => (
-  <PreviewButtonElement {...props}>An NFT Preview</PreviewButtonElement>
+  <PreviewButtonElement {...props}>Preview Aurora card</PreviewButtonElement>
 )
 
 export const BaseButtonElement = styled.button`

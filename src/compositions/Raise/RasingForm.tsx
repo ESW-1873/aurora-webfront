@@ -274,7 +274,7 @@ const PreviewButtonContainer: VFC = () => {
     description.length <= DEFAULT_DESCRIPTION_LENGTH
 
   const requestPreview = async () => {
-    const alt = 'Preview Card'
+    const alt = 'Preview Aurora card'
     // response が残っていたら再利用
     if (previewResponse) {
       openModelViewerModal({
@@ -284,7 +284,7 @@ const PreviewButtonContainer: VFC = () => {
       return
     }
     openLoadingModal({
-      heading: 'Creating a preview of an NFT...',
+      heading: 'Creating a preview...',
       subHeading: "It may take a few minutes.\nDon't close this window.",
     })
     const res = await postClient.previewPost({
