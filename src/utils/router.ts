@@ -5,6 +5,8 @@ export const ABOUT = '/about'
 export const DISCLAIMER = '/disclaimer'
 export const START = '/start'
 
+export const DOCS = 'https://docs.auroradao.org/'
+
 export const METAMASK_URL = 'https://metamask.io/'
 export const ETHERSCAN_URL = 'https://etherscan.io/'
 export const POLYGONSCAN_URL = 'https://polygonscan.com/'
