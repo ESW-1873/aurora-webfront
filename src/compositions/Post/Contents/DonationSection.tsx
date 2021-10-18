@@ -1,8 +1,5 @@
 import React, { ReactNode, VFC } from 'react'
-import { Donation } from 'src/api/types'
-import { AddressButton, AddressLabel } from 'src/components/ExplorerLabel'
-import { HorizontalDashedLine } from 'src/components/HorizontalDashedLine'
-import { useRefundModalStore } from 'src/stores/Modal/refundModal'
+import { AddressLabel } from 'src/components/ExplorerLabel'
 import { errorColor, turquoise } from 'src/styles/colors'
 import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
 import styled from 'styled-components'
@@ -12,7 +9,6 @@ type DonationSectionProps = {
   capacity: number
   donatedCount: number
   credit?: string
-  refundRequests: Donation[]
   hasClosed?: boolean
   isDonee?: boolean
 }
@@ -21,9 +17,6 @@ export const DonationSection: VFC<DonationSectionProps> = ({
   capacity,
   donatedCount,
   credit,
-  refundRequests,
-  hasClosed,
-  isDonee,
 }) => (
   <>
     <Section>
@@ -41,14 +34,6 @@ export const DonationSection: VFC<DonationSectionProps> = ({
           <CreditLabel>{`${credit} CREDIT`}</CreditLabel>
         </Wrapper>
       )}
-      {hasClosed && (
-        <ReceiptsWrapper
-          title="Refund Requests"
-          receipts={refundRequests}
-          isDonee={isDonee}
-          hasClosed
-        />
-      )}
     </Section>
   </>
 )
@@ -65,45 +50,6 @@ const Wrapper: VFC<{
     </WrapperLayout>
   </>
 )
-
-const ReceiptsWrapper: VFC<{
-  title: string
-  receipts: Donation[]
-  isDonee?: boolean
-  hasClosed?: boolean
-}> = ({ title, receipts, hasClosed, isDonee }) => {
-  const { open } = useRefundModalStore()
-  if (receipts.length <= 0) return <></>
-  return (
-    <>
-      <HorizontalDashedLine />
-      <Wrapper title={title} hasClosed={hasClosed}>
-        <AccountListDiv>
-          {isDonee
-            ? receipts.map((receipt) => (
-                <AddressButton
-                  key={receipt.id}
-                  address={receipt.sender}
-                  onClick={() => open(receipt)}
-                />
-              ))
-            : receipts.map(({ id, sender }) => {
-                return <AddressLabel key={id} address={sender} />
-              })}
-        </AccountListDiv>
-      </Wrapper>
-    </>
-  )
-}
-
-const AccountListDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 8px;
-  > a:not(:last-child) {
-    margin-bottom: 16px;
-  }
-`
 
 const CapLabel = styled.p`
   font-size: 16px;

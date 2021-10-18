@@ -1,10 +1,6 @@
 import React from 'react'
 import { PostContent } from 'src/api/types'
-import {
-  MOCK_DONATION,
-  MOCK_POST,
-  MOCK_REFUND_REQUESTS,
-} from 'src/data/__mocks__'
+import { MOCK_DONATION, MOCK_POST } from 'src/data/__mocks__'
 import { Post } from '.'
 
 export default {
@@ -22,34 +18,9 @@ export const CancelablePage = () => (
   <Post postProps={MOCK_POST} ownDonation={MOCK_DONATION} refetch={refetch} />
 )
 
-export const RefundablePage = () => (
-  <Post
-    postProps={{
-      ...MOCK_POST,
-      hasClosed: true,
-      refundRequests: MOCK_REFUND_REQUESTS,
-    }}
-    ownDonation={MOCK_DONATION}
-    refetch={refetch}
-  />
-)
-
 export const DoneePage = () => (
   <Post
     postProps={MOCK_POST}
-    ownDonation={MOCK_DONATION}
-    isDonee
-    refetch={refetch}
-  />
-)
-
-export const RefundingPage = () => (
-  <Post
-    postProps={{
-      ...MOCK_POST,
-      hasClosed: true,
-      refundRequests: MOCK_REFUND_REQUESTS,
-    }}
     ownDonation={MOCK_DONATION}
     isDonee
     refetch={refetch}

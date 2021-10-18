@@ -98,37 +98,6 @@ export const useContract = () => {
     [contract],
   )
 
-  const requestRefund = useCallback(
-    async (
-      receiptId: string,
-      metadata: string,
-    ): Promise<ContractReceipt | ContractTransaction | null> => {
-      if (contract === null) return handleNoContract()
-      return call(
-        contract.requestRefund(receiptId, metadata, {
-          gasLimit: DEFAULT_GAS_LIMIT,
-        }),
-      )
-    },
-    [contract],
-  )
-
-  const refund = useCallback(
-    async (
-      receiptId: string,
-      amount: string,
-    ): Promise<ContractReceipt | ContractTransaction | null> => {
-      if (contract === null) return handleNoContract()
-      return call(
-        contract.refund(receiptId, {
-          value: amount,
-          gasLimit: DEFAULT_GAS_LIMIT,
-        }),
-      )
-    },
-    [contract],
-  )
-
   const withdraw = useCallback(
     async (
       postId: string,
@@ -163,8 +132,6 @@ export const useContract = () => {
   return {
     donate,
     cancel,
-    requestRefund,
-    refund,
     withdraw,
     raise,
   }

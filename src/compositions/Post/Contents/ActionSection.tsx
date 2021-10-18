@@ -4,16 +4,13 @@ import {
   CancelButton,
   PrimaryButton,
   PrimaryTxButton,
-  RefundRequestButton,
 } from 'src/components/Buttons/CtaButton'
 import { TwitterShareButton } from 'src/components/Buttons/TwitterShareButton'
 import {
   useCancelModalStore,
   useDonationModalStore,
-  useRefundRequestModalStore,
   useWithdrawModalStore,
 } from 'src/stores'
-import { errorColor } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { HOSTNAME } from 'src/utils/env'
@@ -23,7 +20,6 @@ import styled from 'styled-components'
 type Status =
   | 'DONATABLE'
   | 'CANCELABLE'
-  | 'REFUND_REQUESTABLE'
   | 'MINE'
   | 'MINE_CLOSED'
   | 'MINE_CLOSED_NO_DONATIONS'
@@ -33,7 +29,6 @@ type ComputeStatusParam = Partial<{
   isDonee: boolean
   hasClosed: boolean
   hasDonated: boolean
-  hasRefundRequests: boolean
   hasWithdrawn: boolean
   hasNoDonations: boolean
 }>
@@ -47,7 +42,7 @@ const computeStatus = ({
     if (!hasClosed) return 'MINE'
     return hasNoDonations ? 'MINE_CLOSED_NO_DONATIONS' : 'MINE_CLOSED'
   }
-  if (hasDonated) return hasClosed ? 'REFUND_REQUESTABLE' : 'CANCELABLE'
+  if (hasDonated) return hasClosed ? 'CLOSED' : 'CANCELABLE'
   return hasClosed ? 'CLOSED' : 'DONATABLE'
 }
 
@@ -59,7 +54,6 @@ export const ActionSection: VFC<
 > = ({ postTitle, postId, ...params }) => {
   const { open: openDonationModal } = useDonationModalStore()
   const { open: openCancelModal } = useCancelModalStore()
-  const { open: openRefundRequestModal } = useRefundRequestModalStore()
   const { open: openWithdrawModal } = useWithdrawModalStore()
 
   const status = useMemo(() => computeStatus(params), [params])
@@ -76,12 +70,6 @@ export const ActionSection: VFC<
         <SingleButtonLayout>
           <Label>{`You've already donated.`}</Label>
           <CancelButton onClick={openCancelModal} />
-        </SingleButtonLayout>
-      )}
-      {status === 'REFUND_REQUESTABLE' && (
-        <SingleButtonLayout>
-          <Label color={errorColor}>Do you have a problem?</Label>
-          <RefundRequestButton onClick={openRefundRequestModal} />
         </SingleButtonLayout>
       )}
       {status === 'CLOSED' && (
@@ -103,12 +91,7 @@ export const ActionSection: VFC<
       )}
       {status === 'MINE_CLOSED' && (
         <SingleButtonLayout>
-          {params.hasRefundRequests && (
-            <Label color={errorColor}>{`You've got refund requests.`}</Label>
-          )}
-          {params.hasWithdrawn && !params.hasRefundRequests && (
-            <Label>Withdrawn</Label>
-          )}
+          {params.hasWithdrawn && <Label>Withdrawn</Label>}
           {!params.hasWithdrawn && (
             <PrimaryTxButton onClick={openWithdrawModal} label="Withdraw" />
           )}

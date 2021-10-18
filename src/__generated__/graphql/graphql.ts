@@ -449,7 +449,7 @@ export type GetPostContentQueryVariables = Exact<{
 }>;
 
 
-export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: boolean, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refundRequested?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>>, refunded?: Maybe<Array<{ __typename?: 'Donation', id: string, sender: string }>> }> };
+export type GetPostContentQuery = { __typename?: 'Query', postContent?: Maybe<{ __typename?: 'PostContent', id: string, metadata: string, donee: string, capacity: number, periodHours: number, startTime: number, endTime: number, donatedCount: number, donatedSum: string, withdrawn: boolean, donations?: Maybe<Array<{ __typename?: 'Donation', id: string, receiptId: string, sender: string, amount: string }>> }> };
 
 export type GetPostContentsQueryVariables = Exact<{
   donee: Scalars['Bytes'];
@@ -478,16 +478,6 @@ export const GetPostContentDocument = gql`
       receiptId
       sender
       amount
-    }
-    refundRequested {
-      id
-      receiptId
-      sender
-      amount
-    }
-    refunded {
-      id
-      sender
     }
   }
 }

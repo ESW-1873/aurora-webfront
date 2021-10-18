@@ -1,5 +1,4 @@
 import React, { VFC } from 'react'
-import { Donation } from 'src/api/types'
 import { Image } from 'src/components/Image'
 import { breakpoint, noGuide } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -18,7 +17,6 @@ export type ContentsProps = {
   totalDonation: string
   capacity: number
   donatedCount: number
-  refundRequests: Donation[]
   doneeCredit?: string
   hasWithdrawn?: boolean
 }
@@ -37,7 +35,6 @@ export const Contents: VFC<
   totalDonation,
   capacity,
   donatedCount,
-  refundRequests,
   doneeCredit,
   hasClosed,
   hasDonated,
@@ -66,13 +63,11 @@ export const Contents: VFC<
         isDonee={isDonee}
         hasClosed={hasClosed}
         hasDonated={hasDonated}
-        hasRefundRequests={refundRequests.length > 0}
         hasWithdrawn={hasWithdrawn}
         hasNoDonations={hasNoDonations}
       />
       <DonationSection
         donee={donee}
-        refundRequests={refundRequests}
         credit={doneeCredit}
         hasClosed={hasClosed}
         isDonee={isDonee}

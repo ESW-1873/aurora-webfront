@@ -1,13 +1,6 @@
 import { ButtonHTMLAttributes, VFC } from 'react'
 import { useWalletModalStore, useWalletStore } from 'src/stores'
-import {
-  errorColor,
-  gray,
-  primaryColor,
-  purple,
-  turquoise,
-  white,
-} from 'src/styles/colors'
+import { gray, primaryColor, purple, turquoise, white } from 'src/styles/colors'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -42,18 +35,6 @@ export const PrimaryTxButton = styled(asTxButton(PrimaryButtonBase))``
 export const CancelButton: VFC<ButtonProps> = asTxButton(
   ({ label = 'Cancel', ...props }) => (
     <CancelButtonElement {...props}>{label}</CancelButtonElement>
-  ),
-)
-
-export const RefundButton: VFC<ButtonProps> = asTxButton(
-  ({ label = 'Refund', ...props }) => (
-    <RefundButtonElement {...props}>{label}</RefundButtonElement>
-  ),
-)
-
-export const RefundRequestButton: VFC<ButtonProps> = asTxButton(
-  ({ label = 'Refund Request', ...props }) => (
-    <RefundButtonElement {...props}>{label}</RefundButtonElement>
   ),
 )
 
@@ -102,14 +83,6 @@ const CancelButtonElement = styled(BaseButtonElement)`
   :focus {
     background: ${primaryColor};
     color: ${white} !important;
-  }
-`
-
-const RefundButtonElement = styled(BaseButtonElement)`
-  background: ${errorColor};
-  :hover,
-  :focus {
-    background: ${errorColor}bf;
   }
 `
 

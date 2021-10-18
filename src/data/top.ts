@@ -14,13 +14,7 @@ export const DONATE_TEXT =
   'Anyone who has MATIC can donate to the project you like, and get the receipt NFT. It is allowed you to donate only once per project.'
 
 export const CANCEL_TEXT =
-  'If you would like to cancel your donation, you would take back donated MATIC by burning your reciept NFT. If the project has already end, you should request refund, not cancel.'
-
-export const REFUND_REQUEST_TEXT =
-  'If you would like to request refund, you could request the fundraisers. You may or may not get the refund. It depends on the fundraisers. When you get refund, you lose the receipt NFT instead. \r\nNote: Once you request refund, it is not allowed you to cancel it.'
-
-export const REFUND_TEXT =
-  'You may receive requests of refund as NFT from donors. It is not always necessary to respond. When you refund a donated MATIC, you can do that from lists of refund request on the project page. After refund, the refund request NFT you have will be burned.'
+  'If you would like to cancel your donation, you would take back donated MATIC by burning your reciept NFT. If the project has already end, you cannot cancel.'
 
 export const WITHDRAW_TEXT =
   'You can withdraw donated MATIC only after the project ends.'
